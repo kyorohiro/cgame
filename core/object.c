@@ -8,6 +8,7 @@ CObject* newCObject(const char *name) {
   return initObject(ret, name);
 }
 
+
 CObject* initObject(CObject*obj, const char *name) {
   snprintf(obj->name, sizeof(obj->name), "%s", name);
   obj->reference = 1;
@@ -15,11 +16,10 @@ CObject* initObject(CObject*obj, const char *name) {
   return obj;
 }
 
-void* freeObject(void* obj) {
+void freeObject(void* obj) {
   if(obj != NULL) {
     free(obj);
   }
-  return NULL;
 }
 
 CObject* upCounter(CObject* obj) {

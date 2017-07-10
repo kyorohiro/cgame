@@ -2,7 +2,7 @@
 #define _H_OBJECT
 //typedef int (*free)(int n);
 
-typedef void* (*FuncFreeObj)(void *obj);
+typedef void (*FuncFreeObj)(void *obj);
 typedef struct {
   char name[12];
   int reference;
@@ -11,7 +11,7 @@ typedef struct {
 
 CObject* newObject(const char *name);
 CObject* initObject(CObject*obj, const char *name);
-void* freeObject(void* obj);
+void freeObject(void* obj);
 CObject* upCounter(CObject* obj);
 CObject* downCounter(CObject* obj);
 CObject* releaseObject(CObject* obj);

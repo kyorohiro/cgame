@@ -13,14 +13,17 @@ ArrayList* newArrayList(const char *name, int max) {
   return obj;
 }
 
-void* freeArrayList(void* obj) {
+void freeArrayList(void* obj) {
   if(obj == NULL) {
-    return NULL;
+    return;
   }
   ArrayList *arrayListObj = (ArrayList *)obj;
   if(arrayListObj->objects != NULL) {
     free(arrayListObj->objects);
   }
   freeObject(obj);
+}
+
+ArrayList* add(ArrayList* obj, CObject *item) {
   return NULL;
 }
