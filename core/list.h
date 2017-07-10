@@ -11,4 +11,5 @@ typedef struct {
 } ArrayList;
 
 ArrayList* newArrayList(const char *name, int max);
+void* freeArrayList(void* obj);
 #endif

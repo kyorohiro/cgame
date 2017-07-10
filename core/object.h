@@ -11,7 +11,7 @@ typedef struct {
 
 CObject* newObject(const char *name);
 CObject* initObject(CObject*obj, const char *name);
-CObject* freeObject(CObject* obj);
+void* freeObject(void* obj);
 CObject* upCounter(CObject* obj);
 CObject* downCounter(CObject* obj);
 CObject* releaseObject(CObject* obj);

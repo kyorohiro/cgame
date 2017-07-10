@@ -9,5 +9,18 @@ ArrayList* newArrayList(const char *name, int max) {
   obj->length = 0;
   obj->max = max;
   obj->objects = calloc(max, sizeof(CObject));
+  obj->parent.funcFreeObj = freeArrayList;
   return obj;
+}
+
+void* freeArrayList(void* obj) {
+  if(obj == NULL) {
+    return NULL;
+  }
+  ArrayList *arrayListObj = (ArrayList *)obj;
+  if(arrayListObj->objects != NULL) {
+    free(arrayListObj->objects);
+  }
+  freeObject(obj);
+  return NULL;
 }
