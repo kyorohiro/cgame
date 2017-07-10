@@ -1,5 +1,5 @@
 #ifndef _H_OBJECT
-
+#define _H_OBJECT
 //typedef int (*free)(int n);
 typedef struct {
   char name[12];
@@ -7,6 +7,7 @@ typedef struct {
 } CObject;
 
 CObject* newObject(const char *name);
+CObject* initObject(CObject*obj, const char *name);
 CObject* freeObject(CObject* obj);
 CObject* upCounter(CObject* obj);
 CObject* downCounter(CObject* obj);

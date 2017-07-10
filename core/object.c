@@ -4,9 +4,13 @@
 
 CObject* newCObject(const char *name) {
   CObject *ret = calloc(1,sizeof(CObject));
-  snprintf(ret->name, sizeof(ret->name), "%s", name);
-  ret->reference = 1;
-  return ret;
+  return initObject(ret, name);
+}
+
+CObject* initObject(CObject*obj, const char *name) {
+  snprintf(obj->name, sizeof(obj->name), "%s", name);
+  obj->reference = 1;
+  return obj;
 }
 
 CObject* freeObject(CObject* obj) {
