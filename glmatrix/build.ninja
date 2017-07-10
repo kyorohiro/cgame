@@ -1,0 +1,4 @@
+rule obj
+  command=emcc -c $in -o $out
+
+build glmatrix/glmatrix.o: obj glmatrix/glmatrix.c

@@ -1,0 +1,4 @@
+rule obj
+  command=emcc -c $in -o $out
+
+build core/object.o: obj core/object.c
