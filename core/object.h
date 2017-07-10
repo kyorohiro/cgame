@@ -1,9 +1,12 @@
 #ifndef _H_OBJECT
 #define _H_OBJECT
 //typedef int (*free)(int n);
+
+typedef void* (*FuncFreeObj)(void *obj);
 typedef struct {
   char name[12];
   int reference;
+  FuncFreeObj funcFreeObj;
 } CObject;
 
 CObject* newObject(const char *name);

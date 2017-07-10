@@ -2,8 +2,7 @@
 #define _H_LIST
 #include "object.h"
 
-//typedef int (*free)(int n);
-typedef CObject *pCObject;
+
 typedef struct {
   CObject parent;
   int max;
