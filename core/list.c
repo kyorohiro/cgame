@@ -3,9 +3,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-ArrayList* newArrayList(const char *name, int max) {
+ArrayList* newArrayList() {
   ArrayList *obj = calloc(1, sizeof(ArrayList));
-  initObject((CObject*)obj, name);
+  return obj;
+}
+
+ArrayList* initArrayList(ArrayList *obj, const char *name, int max) {
+  initCObject((CObject*)obj, name);
   obj->length = 0;
   obj->max = max;
   obj->objects = calloc(max, sizeof(CObject));
@@ -21,7 +25,7 @@ void freeArrayList(void* obj) {
   if(arrayListObj->objects != NULL) {
     free(arrayListObj->objects);
   }
-  freeObject(obj);
+  freeCObject(obj);
 }
 
 ArrayList* add(ArrayList* obj, CObject *item) {

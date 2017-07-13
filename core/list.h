@@ -10,7 +10,8 @@ typedef struct {
   CObject **objects;
 } ArrayList;
 
-ArrayList* newArrayList(const char *name, int max);
+ArrayList* newArrayList();
+ArrayList* initArrayList(ArrayList *obj, const char *name, int max);
 ArrayList* add(ArrayList* obj, CObject *item);
 void freeArrayList(void* obj);
 #endif

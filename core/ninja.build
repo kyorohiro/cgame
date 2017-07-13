@@ -1,5 +1,9 @@
 rule obj
   command=emcc -c $in -o $out
+rule test
+  command=emcc $in -o $out
 
 build core/object.o: obj core/object.c
 build core/list.o: obj core/list.c
+build core/test.o: obj core/test.c
+build core/test.js: test core/object.o core/list.o core/test.o
