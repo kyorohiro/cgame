@@ -50,6 +50,7 @@ int getMode(CObject* obj, int mode) {
   }
 }
 CObject* releaseCObject(CObject* obj) {
+  obj->reference--;
   if(!(obj->reference>0) && obj->mode == 2){
     FuncFreeObj func = obj->funcFreeObj;
     if(func != NULL) {
