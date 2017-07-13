@@ -49,6 +49,7 @@ int getMode(CObject* obj, int mode) {
     return 0;
   }
 }
+
 CObject* releaseCObject(CObject* obj) {
   obj->reference--;
   if(!(obj->reference>0) && obj->mode == 2){

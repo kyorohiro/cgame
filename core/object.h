@@ -9,6 +9,7 @@ typedef struct {
   int reference;
   FuncFreeObj funcFreeObj;
   int mode;
+  int index;
 } CObject;
 
 CObject* newCObject();

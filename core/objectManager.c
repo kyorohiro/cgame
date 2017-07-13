@@ -1,6 +1,7 @@
 #include "objectManager.h"
 #include <stdlib.h>
 #include <stdio.h>
+
 CObjectManager* newCObjectManager() {
   CObjectManager *ret = calloc(1,sizeof(CObjectManager));
   return ret;
