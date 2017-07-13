@@ -12,6 +12,9 @@ typedef struct {
 
 ArrayList* newArrayList();
 ArrayList* initArrayList(ArrayList *obj, const char *name, int max);
-ArrayList* add(ArrayList* obj, CObject *item);
+ArrayList* arrayList_addLast(ArrayList* obj, CObject *item);
+ArrayList* arrayList_removeLast(ArrayList* obj);
+CObject* arrayList_getLast(ArrayList* obj);
 void freeArrayList(void* obj);
+ArrayList* arrayList_grow(ArrayList* obj);
 #endif

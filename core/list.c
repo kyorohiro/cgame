@@ -28,6 +28,37 @@ void freeArrayList(void* obj) {
   freeCObject(obj);
 }
 
-ArrayList* add(ArrayList* obj, CObject *item) {
-  return NULL;
+ArrayList* arrayList_grow(ArrayList* obj) {
+  CObject**tmp = obj->objects;
+  int tmpMax = obj->max;
+  int max = tmpMax;
+  int i = 0;
+  obj->objects = calloc(max, sizeof(CObject));
+  for(i=0;i<obj->length;i++) {
+    obj->objects[i] = tmp[i];
+  }
+  return obj;
+}
+
+ArrayList* arrayList_addLast(ArrayList* obj, CObject *item) {
+  if(obj->length+1 >= obj->max) {
+    arrayList_grow(obj);
+  }
+  obj->objects[obj->length++] = item;
+  return obj;
+}
+
+ArrayList* arrayList_removeLast(ArrayList* obj) {
+  if(obj->length<=0) {
+    return obj;
+  }
+  obj->length--;
+  return obj;
+}
+
+CObject* arrayList_getLast(ArrayList* obj) {
+  if(obj->length<=0) {
+    return NULL;
+  }
+  return obj->objects[--obj->length];
 }
