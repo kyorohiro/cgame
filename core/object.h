@@ -7,9 +7,9 @@ typedef void (*FuncFreeObj)(void *obj);
 typedef struct {
   char name[12];
   int reference;
-  FuncFreeObj funcFreeObj;
   int mode;
   int index;
+  FuncFreeObj funcFreeObj;
 } CObject;
 
 CObject* newCObject();

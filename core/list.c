@@ -12,7 +12,7 @@ ArrayList* initArrayList(ArrayList *obj, const char *name, int max) {
   initCObject((CObject*)obj, name);
   obj->length = 0;
   obj->max = max;
-  obj->objects = calloc(max, sizeof(CObject));
+  obj->objects = (CObject**) calloc(max, sizeof(CObject*));
   obj->parent.funcFreeObj = freeArrayList;
   return obj;
 }
@@ -61,4 +61,28 @@ CObject* arrayList_getLast(ArrayList* obj) {
     return NULL;
   }
   return obj->objects[--obj->length];
+}
+
+CObject* arrayList_get(ArrayList* obj, int index) {
+  if(obj->length>=index) {
+    return NULL;
+  }
+  return obj->objects[index];
+}
+
+ArrayList* arrayList_set(ArrayList* obj, int index, CObject *item) {
+  if(obj->length>=index) {
+    return obj;
+  }
+
+  CObject *tmp = obj->objects[index];
+  if(tmp != NULL) {
+    obj->objects[index] = NULL;
+    tmp->reference--;
+  }
+  obj->objects[index] = item;
+  if(item != NULL) {
+    item->reference++;
+  }
+  return obj;
 }

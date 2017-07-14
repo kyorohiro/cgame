@@ -1,6 +1,7 @@
 #ifndef _H_LIST
 #define _H_LIST
 #include "object.h"
+#include "list.h"
 
 
 typedef struct {
@@ -15,6 +16,9 @@ ArrayList* initArrayList(ArrayList *obj, const char *name, int max);
 ArrayList* arrayList_addLast(ArrayList* obj, CObject *item);
 ArrayList* arrayList_removeLast(ArrayList* obj);
 CObject* arrayList_getLast(ArrayList* obj);
+CObject* arrayList_get(ArrayList* obj, int index);
+ArrayList* arrayList_set(ArrayList* obj, int index, CObject *item);
+
 void freeArrayList(void* obj);
 ArrayList* arrayList_grow(ArrayList* obj);
 #endif
