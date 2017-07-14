@@ -20,6 +20,21 @@ void freeCObjectManager(void* obj) {
 }
 
 CObjectManager* objectManager_addObject(CObjectManager *obj, CObject *item) {
-//  cA obj->objects
-  return NULL;
+  arrayList_addLast(obj->objects, item);
+  return obj;
+}
+
+CObjectManager* objectManager_releaseAll(CObjectManager *obj) {
+  int i = 0;
+  for(i=0;i<obj->objects->length;i++) {
+    CObject *tmp = obj->objects->objects[i];
+    if(tmp == NULL) {
+      continue;
+    }
+    if(tmp->reference <=0) {
+      releaseCObject(tmp);
+      arrayList_set(obj->objects, i, NULL);
+    }
+  }
+  return obj;
 }

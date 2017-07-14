@@ -11,6 +11,7 @@ typedef struct {
 CObjectManager* newCObjectManager();
 CObjectManager* initCObjectManager(CObjectManager *obj, const char *name);
 CObjectManager* objectManager_addObject(CObjectManager *obj, CObject *item);
+CObjectManager* objectManager_releaseAll(CObjectManager *obj);
 
 void freeCObjectManager(void* obj);
 #endif
