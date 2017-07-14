@@ -28,8 +28,15 @@ int test02() {
   arrayList_addLast(obj, initCObject(newCObject(), "obj00"));
   printf("#%d\n", obj->length);
   for(int i=0;i<obj->length;i++) {
-    printf("%d %s\n", i, obj->objects[i]->name);
+    printf("%d %s (%d)\n", i, obj->objects[i]->name,obj->objects[i]->reference);
   }
+  printf("#%d\n", obj->length);
+  for(int i=0;i<obj->length;i++) {
+    CObject *tmp = obj->objects[i];
+    arrayList_set(obj, i, NULL);
+    printf("%d %s (%d)\n", i, tmp->name, tmp->reference);
+  }
+
   printf("\n");
   return 0;
 }

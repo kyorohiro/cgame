@@ -72,7 +72,7 @@ CObject* arrayList_get(ArrayList* obj, int index) {
 }
 
 ArrayList* arrayList_set(ArrayList* obj, int index, CObject *item) {
-  if(obj->length>=index) {
+  if(obj->length <= index) {
     return obj;
   }
 
