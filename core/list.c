@@ -52,6 +52,7 @@ ArrayList* arrayList_removeLast(ArrayList* obj) {
   if(obj->length<=0) {
     return obj;
   }
+  arrayList_set(obj, obj->length, NULL);
   obj->length--;
   return obj;
 }
