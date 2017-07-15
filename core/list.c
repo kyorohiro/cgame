@@ -69,10 +69,15 @@ int linkedList_insert(LinkedList* obj, CObject *item, int index) {
   LinkedListItem *cur = linkedList_getItem(obj, index);
   LinkedListItem *newItem = calloc(1, sizeof(LinkedListItem));
   if(cur == NULL ) {
-    if(index != 0) {
+    if(index == 0) {
+      cur = obj->begin;
+    }
+    else if(index == obj->length) {
+      cur = obj->end->prev;
+    }
+    else {
       return -1;
     }
-    cur = obj->begin;
   }
   LinkedListItem *curNext = cur->next;
   cur->next = newItem;
@@ -95,6 +100,18 @@ int linkedList_remove(LinkedList* obj, int index) {
     item->value->reference--;
   }
   return 1;
+}
+
+CObject* linkedList_getLast(LinkedList* obj) {
+  return linkedList_get(obj, obj->length-1);
+}
+
+int linkedList_addLast(LinkedList* obj, CObject *item) {
+  return linkedList_insert(obj, item, obj->length);
+}
+
+int linkedList_removeLast(LinkedList* obj) {
+  return linkedList_remove(obj, obj->length-1);
 }
 //
 // ArrayList
