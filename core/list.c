@@ -3,9 +3,66 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-ArrayList* newArrayList() {
-  ArrayList *obj = calloc(1, sizeof(ArrayList));
+//
+// LinkedList
+//
+
+LinkedList* newLinkedList() {
+  return calloc(1, sizeof(LinkedList));
+}
+
+LinkedList* initLinkedList(LinkedList *obj, const char *name) {
+  initCObject((CObject*)obj, name);
+  obj->length = 0;
+  obj->parent.funcFreeObj = freeLinkedList;
+  obj->begin = (LinkedListItem*)calloc(1, sizeof(LinkedListItem));
+  obj->end = (LinkedListItem*)calloc(1, sizeof(LinkedListItem));
+  ((LinkedListItem*)obj->begin)->next = obj->end;
+  ((LinkedListItem*)obj->end)->prev = obj->begin->next;
   return obj;
+}
+
+void freeLinkedList(void* obj) {
+  if(obj == NULL) {
+    return;
+  }
+  LinkedList *linkedListObj = (LinkedList *)obj;
+//  if(arrayListObj->objects != NULL) {
+//    free(arrayListObj->objects);
+//  }
+  free(linkedListObj->begin);
+  free(linkedListObj->end);
+  linkedListObj->begin = NULL;
+  linkedListObj->end = NULL;
+  freeCObject(obj);
+}
+
+CObject* linkedList_get(LinkedList* obj, int index) {
+  int i=0;
+  if(!(0<=index && index<obj->length)){
+    return NULL;
+  }
+  LinkedListItem *cur = obj->begin;
+  for(i=0;i<=index;i++) {
+    cur = cur->next;
+  }
+  return cur->value;
+}
+
+LinkedList* linkedList_addLast(LinkedList* obj, CObject *item) {
+  LinkedListItem *newItem = calloc(1,sizeof(LinkedList));
+  newItem->value = item;
+  return obj;
+}
+
+LinkedList* linkedList_removeLast(LinkedList* obj) {
+  return NULL;
+}
+//
+// ArrayList
+//
+ArrayList* newArrayList() {
+  return calloc(1, sizeof(ArrayList));
 }
 
 ArrayList* initArrayList(ArrayList *obj, const char *name, int max) {

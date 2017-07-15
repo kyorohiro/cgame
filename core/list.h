@@ -4,6 +4,32 @@
 #include "list.h"
 
 
+//
+// LinkedList
+//
+typedef struct {
+  CObject* value;
+  void* next;
+  void* prev;
+} LinkedListItem;
+
+typedef struct {
+  CObject parent;
+  int length;
+  LinkedListItem *begin;
+  LinkedListItem *end;
+} LinkedList;
+
+LinkedList* newLinkedList();
+LinkedList* initLinkedList(LinkedList *obj, const char *name);
+void freeLinkedList(void* obj);
+
+CObject* linkedList_get(LinkedList* obj, int index);
+LinkedList* linkedList_addLast(LinkedList* obj, CObject *item);
+LinkedList* linkedList_removeLast(LinkedList* obj);
+//
+// ArrayList
+//
 typedef struct {
   CObject parent;
   int max;
