@@ -16,7 +16,9 @@ typedef struct {
 typedef struct {
   CObject parent;
   int length;
+  int currentIndex;
   LinkedListItem *begin;
+  LinkedListItem *current;
   LinkedListItem *end;
 } LinkedList;
 
@@ -25,8 +27,10 @@ LinkedList* initLinkedList(LinkedList *obj, const char *name);
 void freeLinkedList(void* obj);
 
 CObject* linkedList_get(LinkedList* obj, int index);
-LinkedList* linkedList_addLast(LinkedList* obj, CObject *item);
-LinkedList* linkedList_removeLast(LinkedList* obj);
+LinkedListItem* linkedList_getItem(LinkedList* obj, int index);
+int linkedList_insert(LinkedList* obj, CObject *item, int index);
+int linkedList_remove(LinkedList* obj, int index);
+
 //
 // ArrayList
 //

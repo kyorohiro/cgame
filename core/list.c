@@ -37,26 +37,64 @@ void freeLinkedList(void* obj) {
   freeCObject(obj);
 }
 
-CObject* linkedList_get(LinkedList* obj, int index) {
+LinkedListItem* linkedList_getItem(LinkedList* obj, int index) {
   int i=0;
+  LinkedListItem *cur =NULL;
   if(!(0<=index && index<obj->length)){
     return NULL;
   }
-  LinkedListItem *cur = obj->begin;
-  for(i=0;i<=index;i++) {
-    cur = cur->next;
+  if(index < obj->length/2) {
+    cur = obj->begin;
+    for(i=0;i<=index;i++) {
+      cur = cur->next;
+    }
+  } else {
+    cur = obj->end;
+    for(i=obj->length-1;i>=index;i--) {
+      cur = cur->prev;
+    }
+  }
+  return cur;
+}
+
+CObject* linkedList_get(LinkedList* obj, int index) {
+  LinkedListItem *cur = linkedList_getItem(obj, index);
+  if(cur == NULL) {
+    return NULL;
   }
   return cur->value;
 }
 
-LinkedList* linkedList_addLast(LinkedList* obj, CObject *item) {
-  LinkedListItem *newItem = calloc(1,sizeof(LinkedList));
-  newItem->value = item;
-  return obj;
+int linkedList_insert(LinkedList* obj, CObject *item, int index) {
+  LinkedListItem *cur = linkedList_getItem(obj, index);
+  LinkedListItem *newItem = calloc(1, sizeof(LinkedListItem));
+  if(cur == NULL ) {
+    if(index != 0) {
+      return -1;
+    }
+    cur = obj->begin;
+  }
+  LinkedListItem *curNext = cur->next;
+  cur->next = newItem;
+  newItem->prev = cur;
+  curNext->prev = newItem;
+  newItem->next = curNext;
+  return 1;
 }
 
-LinkedList* linkedList_removeLast(LinkedList* obj) {
-  return NULL;
+int linkedList_remove(LinkedList* obj, int index) {
+  LinkedListItem *item = linkedList_getItem(obj, index);
+  if(item == NULL) {
+    return -1;
+  }
+  LinkedListItem *cur = item->prev;
+  LinkedListItem *curNext = item->next;
+  cur->next = curNext;
+  curNext = cur->prev;
+  if(item->value != NULL) {
+    item->value->reference--;
+  }
+  return 1;
 }
 //
 // ArrayList
