@@ -24,10 +24,15 @@ ArrayList* initArrayList(ArrayList *obj, const char *name, int max) {
 }
 
 void freeArrayList(void* obj) {
+  int i=0;
   if(obj == NULL) {
     return;
   }
   ArrayList *arrayListObj = (ArrayList *)obj;
+
+  for(i=0; i<arrayListObj->length;i++) {
+    arrayList_set(arrayListObj, i, NULL);
+  }
   if(arrayListObj->objects != NULL) {
     cmemory_free(arrayListObj->parent.cmemory,arrayListObj->objects);
   }
@@ -85,7 +90,7 @@ ArrayList* arrayList_set(ArrayList* obj, int index, CObject *item) {
   CObject *tmp = obj->objects[index];
   if(tmp != NULL) {
     obj->objects[index] = NULL;
-    tmp->reference--;
+    releaseCObject(tmp);
   }
   obj->objects[index] = item;
   if(item != NULL) {
