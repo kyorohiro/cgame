@@ -29,11 +29,11 @@ void freeLinkedList(void* obj);
 
 CObject* linkedList_get(LinkedList* obj, int index);
 LinkedListItem* linkedList_getItem(LinkedList* obj, int index);
-int linkedList_insert(LinkedList* obj, CObject *item, int index);
+CObject* linkedList_insert(LinkedList* obj, CObject *item, int index);
 int linkedList_remove(LinkedList* obj, int index);
 
 CObject* linkedList_getLast(LinkedList* obj);
-int linkedList_addLast(LinkedList* obj, CObject *item);
+CObject* linkedList_addLast(LinkedList* obj, CObject *item);
 int linkedList_removeLast(LinkedList* obj);
 //
 // ArrayList

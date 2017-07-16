@@ -13,7 +13,7 @@ CObject* initCObject(CObject*obj, const char *name) {
   snprintf(obj->name, sizeof(obj->name), "%s", name);
   obj->reference = 1;
   obj->funcFreeObj = freeCObject;
-  obj->mode = (obj->mode & (~COBJECT_MODE_FREEABLE));
+  onMode(obj, COBJECT_MODE_FREEABLE);
   return obj;
 }
 
@@ -51,11 +51,10 @@ int getMode(CObject* obj, int mode) {
   }
 }
 
-CObject* releaseCObject(CObject* obj) {
+
+CObject* _releaseCObject(CObject* obj, int isForce) {
   obj->reference--;
-  printf("AA\n");
-  if(obj->reference<=0 && getMode(obj, COBJECT_MODE_FREEABLE) == 1){
-    printf("BB\n");
+  if(isForce != 0 || (obj->reference<=0 && getMode(obj, COBJECT_MODE_FREEABLE) == 1)){
     FuncFreeObj func = obj->funcFreeObj;
     if(func != NULL) {
       func(obj);
@@ -64,4 +63,12 @@ CObject* releaseCObject(CObject* obj) {
   } else {
     return obj;
   }
+}
+
+CObject* releaseForceCObject(CObject* obj) {
+  return  _releaseCObject(obj, 1);
+}
+
+CObject* releaseCObject(CObject* obj) {
+  return  _releaseCObject(obj, 0);
 }

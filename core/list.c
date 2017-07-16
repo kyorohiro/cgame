@@ -30,9 +30,11 @@ void freeLinkedList(void* obj) {
     return;
   }
   LinkedList *linkedListObj = (LinkedList *)obj;
-  while(linkedListObj->length > 0) {
-    linkedList_removeLast(linkedListObj);
+  while(linkedListObj->length > 0)
+  {
+      linkedList_removeLast(linkedListObj);
   }
+
   cmemory_free(linkedListObj->parent.cmemory, linkedListObj->begin);
   cmemory_free(linkedListObj->parent.cmemory, linkedListObj->end);
   linkedListObj->begin = NULL;
@@ -46,18 +48,18 @@ LinkedListItem* linkedList_getItem(LinkedList* obj, int index) {
   if(!(0<=index && index<obj->length)){
     return NULL;
   }
-//  if(index < obj->length/2) {
+  if(index < obj->length/2) {
     cur = obj->begin;
     for(i=0;i<=index;i++) {
       printf("_%d,",i);
       cur = cur->next;
     }
-/*  } else {
+  } else {
     cur = obj->end;
     for(i=obj->length-1;i>=index;i--) {
       cur = cur->prev;
     }
-  }*/
+  }
   return cur;
 }
 
@@ -69,8 +71,9 @@ CObject* linkedList_get(LinkedList* obj, int index) {
   return cur->value;
 }
 
-int linkedList_insert(LinkedList* obj, CObject *item, int index) {
+CObject* linkedList_insert(LinkedList* obj, CObject *item, int index) {
   LinkedListItem *cur = linkedList_getItem(obj, index);
+
   LinkedListItem *newItem;
   LinkedListItem *curNext;
 
@@ -82,10 +85,15 @@ int linkedList_insert(LinkedList* obj, CObject *item, int index) {
       cur = obj->end->prev;
     }
     else {
-      return -1;
+      return NULL;
     }
   }
   newItem = cmemory_calloc(obj->parent.cmemory,1, sizeof(LinkedListItem));
+  printf("#ZX3C %d %d %d\n",
+  obj->parent.cmemory->callocCounter,
+  obj->parent.cmemory->freeCounter,
+  item->reference);
+
   newItem->value = item;
   newItem->value->reference++;
 
@@ -95,7 +103,7 @@ int linkedList_insert(LinkedList* obj, CObject *item, int index) {
   curNext->prev = newItem;
   newItem->next = curNext;
   obj->length++;
-  return 1;
+  return item;
 }
 
 int linkedList_remove(LinkedList* obj, int index) {
@@ -106,11 +114,14 @@ int linkedList_remove(LinkedList* obj, int index) {
   LinkedListItem *cur = item->prev;
   LinkedListItem *curNext = item->next;
   cur->next = curNext;
-  curNext = cur->prev;
+  curNext->prev = cur;
   if(item->value != NULL) {
-    item->value->reference--;
+    releaseCObject((CObject*)item->value);
   }
   obj->length--;
+  cmemory_free(obj->parent.cmemory,item);
+  printf("FREE Z2 %d\n",item->value->reference);
+
   return 1;
 }
 
@@ -118,7 +129,7 @@ CObject* linkedList_getLast(LinkedList* obj) {
   return linkedList_get(obj, obj->length-1);
 }
 
-int linkedList_addLast(LinkedList* obj, CObject *item) {
+CObject* linkedList_addLast(LinkedList* obj, CObject *item) {
   return linkedList_insert(obj, item, obj->length);
 }
 
