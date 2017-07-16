@@ -1,0 +1,6 @@
+rule obj
+  command=emcc -c $in -o $out
+rule test
+  command=emcc $in -o $out
+
+build game/cgame.o: obj game/cgame.c
