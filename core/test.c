@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "object.h"
 #include "list.h"
+#include "arraylist.h"
 #include "cmemory.h"
 
 int test01();
