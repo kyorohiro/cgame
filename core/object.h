@@ -2,7 +2,10 @@
 #define _H_OBJECT
 //typedef int (*free)(int n);
 
+#include "cmemory.h"
+
 #define COBJECT_MODE_FREEABLE 0x01
+#define COBJECT_NAME "obj";
 
 typedef void (*FuncFreeObj)(void *obj);
 typedef struct {
@@ -11,9 +14,10 @@ typedef struct {
   int mode;
   int index;
   FuncFreeObj funcFreeObj;
+  CMemory* cmemory;
 } CObject;
 
-CObject* newCObject();
+CObject* newCObject(CMemory*);
 CObject* initCObject(CObject*obj, const char *name);
 void freeCObject(void* obj);
 CObject* upCounter(CObject* obj);

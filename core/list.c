@@ -7,8 +7,10 @@
 // LinkedList
 //
 
-LinkedList* newLinkedList() {
-  return calloc(1, sizeof(LinkedList));
+LinkedList* newLinkedList(CMemory* cmemory) {
+  LinkedList* ret = calloc(1, sizeof(LinkedList));
+  ret->parent.cmemory = cmemory;
+  return ret;
 }
 
 LinkedList* initLinkedList(LinkedList *obj, const char *name) {
@@ -125,8 +127,10 @@ int linkedList_removeLast(LinkedList* obj) {
 //
 // ArrayList
 //
-ArrayList* newArrayList() {
-  return calloc(1, sizeof(ArrayList));
+ArrayList* newArrayList(CMemory* cmemory) {
+  ArrayList* ret =  calloc(1, sizeof(ArrayList));
+  ret->parent.cmemory = cmemory;
+  return ret;
 }
 
 ArrayList* initArrayList(ArrayList *obj, const char *name, int max) {

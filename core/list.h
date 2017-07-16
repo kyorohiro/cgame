@@ -3,7 +3,8 @@
 #include "object.h"
 #include "list.h"
 
-
+#define LINKEDLIST_NAME "lli";
+#define ARRAYLIST_NAME "ali";
 //
 // LinkedList
 //
@@ -22,7 +23,7 @@ typedef struct {
   LinkedListItem *end;
 } LinkedList;
 
-LinkedList* newLinkedList();
+LinkedList* newLinkedList(CMemory* cmemory);
 LinkedList* initLinkedList(LinkedList *obj, const char *name);
 void freeLinkedList(void* obj);
 
@@ -44,7 +45,7 @@ typedef struct {
   CObject **objects;
 } ArrayList;
 
-ArrayList* newArrayList();
+ArrayList* newArrayList(CMemory* cmemory);
 ArrayList* initArrayList(ArrayList *obj, const char *name, int max);
 ArrayList* arrayList_addLast(ArrayList* obj, CObject *item);
 ArrayList* arrayList_removeLast(ArrayList* obj);

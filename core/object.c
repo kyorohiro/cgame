@@ -1,10 +1,11 @@
 #include "object.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "cmemory.h"
 
-
-CObject* newCObject() {
-  CObject *ret = calloc(1,sizeof(CObject));
+CObject* newCObject(CMemory* cmemory) {
+  CObject *ret = cmemory_calloc(cmemory, 1,sizeof(CObject));
+  ret->cmemory = cmemory;
   return ret;
 }
 
@@ -18,7 +19,7 @@ CObject* initCObject(CObject*obj, const char *name) {
 
 void freeCObject(void* obj) {
   if(obj != NULL) {
-    free(obj);
+    cmemory_free(((CObject*)obj)->cmemory, obj);
   }
 }
 
