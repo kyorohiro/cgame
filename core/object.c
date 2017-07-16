@@ -53,7 +53,9 @@ int getMode(CObject* obj, int mode) {
 
 CObject* releaseCObject(CObject* obj) {
   obj->reference--;
-  if(!(obj->reference>0) && obj->mode == 2){
+  printf("AA\n");
+  if(obj->reference<=0 && getMode(obj, COBJECT_MODE_FREEABLE) == 1){
+    printf("BB\n");
     FuncFreeObj func = obj->funcFreeObj;
     if(func != NULL) {
       func(obj);

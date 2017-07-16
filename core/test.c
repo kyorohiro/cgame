@@ -11,9 +11,9 @@ int test03a();
 int main(int argv, char** argc) {
   printf("hello world");
   test01();
-  test02();
-  test03a();
-  test03();
+  //test02();
+  //test03a();
+  //test03();
   return 0;
 }
 
@@ -23,8 +23,9 @@ int test01() {
   printf("%s", obj->name);
   printf("%d", obj->reference);
   releaseCObject(obj);
-  printf("%d", obj->reference);
+  //printf("%d", obj->reference);
   printf("\n");
+  printf("mem: %d %d \n",getCMemory()->callocCounter, getCMemory()->freeCounter);
   return 0;
 }
 
