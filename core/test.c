@@ -78,10 +78,11 @@ int test03b() {
   }
 
   linkedList_removeLast(obj);
-  printf("[C]%d", obj->length);
+  */
+  printf("[C12]%d\r\n", obj->length);
   for(int i=0;i<obj->length;i++) {
-    printf("%s %d \r\n", linkedList_get(obj, i)->name, linkedList_get(obj, i)->reference);
-  }*/
+    printf("## %s %d \r\n", linkedList_get(obj, i)->name, linkedList_get(obj, i)->reference);
+  }
   printf("[ZZZ]\n");
   releaseCObject((CObject*)obj);
   printf("mem: expect  %d == %d \n",getCMemory()->callocCounter, getCMemory()->freeCounter);

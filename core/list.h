@@ -4,7 +4,6 @@
 #include "list.h"
 
 #define LINKEDLIST_NAME "lli";
-#define ARRAYLIST_NAME "ali";
 //
 // LinkedList
 //
