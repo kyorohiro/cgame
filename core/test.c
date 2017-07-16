@@ -4,11 +4,15 @@
 
 int test01();
 int test02();
+int test03();
+int test03a();
 
 int main(int argv, char** argc) {
   printf("hello world");
   test01();
   test02();
+  test03a();
+  test03();
   return 0;
 }
 
@@ -38,5 +42,41 @@ int test02() {
   }
 
   printf("\n");
+  return 0;
+}
+
+int test03a() {
+  //
+  //
+  LinkedList *obj = initLinkedList(newLinkedList(), "test list");
+  releaseCObject((CObject*)obj);
+
+
+  return 0;
+}
+
+int test03() {
+  //
+  //
+  LinkedList *obj = initLinkedList(newLinkedList(), "test list");
+  printf("%d", obj->length);
+  linkedList_addLast(obj, downCounter(initCObject(newCObject(),"test00")));
+  printf("[A]%d", obj->length);
+  for(int i=0;i<obj->length;i++) {
+    printf("%s\r\n", linkedList_get(obj, i)->name);
+  }
+
+  linkedList_addLast(obj, downCounter(initCObject(newCObject(),"test01")));
+  printf("[B]%d", obj->length);
+  for(int i=0;i<obj->length;i++) {
+    printf("%s %d \r\n", linkedList_get(obj, i)->name, linkedList_get(obj, i)->reference);
+  }
+
+  linkedList_removeLast(obj);
+  printf("[C]%d", obj->length);
+  for(int i=0;i<obj->length;i++) {
+    printf("%s %d \r\n", linkedList_get(obj, i)->name, linkedList_get(obj, i)->reference);
+  }
+
   return 0;
 }

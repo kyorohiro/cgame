@@ -43,17 +43,18 @@ LinkedListItem* linkedList_getItem(LinkedList* obj, int index) {
   if(!(0<=index && index<obj->length)){
     return NULL;
   }
-  if(index < obj->length/2) {
+//  if(index < obj->length/2) {
     cur = obj->begin;
     for(i=0;i<=index;i++) {
+      printf("_%d,",i);
       cur = cur->next;
     }
-  } else {
+/*  } else {
     cur = obj->end;
     for(i=obj->length-1;i>=index;i--) {
       cur = cur->prev;
     }
-  }
+  }*/
   return cur;
 }
 
@@ -67,7 +68,9 @@ CObject* linkedList_get(LinkedList* obj, int index) {
 
 int linkedList_insert(LinkedList* obj, CObject *item, int index) {
   LinkedListItem *cur = linkedList_getItem(obj, index);
-  LinkedListItem *newItem = calloc(1, sizeof(LinkedListItem));
+  LinkedListItem *newItem;
+  LinkedListItem *curNext;
+
   if(cur == NULL ) {
     if(index == 0) {
       cur = obj->begin;
@@ -79,11 +82,16 @@ int linkedList_insert(LinkedList* obj, CObject *item, int index) {
       return -1;
     }
   }
-  LinkedListItem *curNext = cur->next;
+  newItem = calloc(1, sizeof(LinkedListItem));
+  newItem->value = item;
+  newItem->value->reference++;
+
+  curNext = cur->next;
   cur->next = newItem;
   newItem->prev = cur;
   curNext->prev = newItem;
   newItem->next = curNext;
+  obj->length++;
   return 1;
 }
 
@@ -99,6 +107,7 @@ int linkedList_remove(LinkedList* obj, int index) {
   if(item->value != NULL) {
     item->value->reference--;
   }
+  obj->length--;
   return 1;
 }
 
