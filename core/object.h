@@ -3,6 +3,7 @@
 //typedef int (*free)(int n);
 
 #define COBJECT_MODE_FREEABLE 0x01
+
 typedef void (*FuncFreeObj)(void *obj);
 typedef struct {
   char name[12];

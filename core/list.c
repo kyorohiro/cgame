@@ -27,9 +27,9 @@ void freeLinkedList(void* obj) {
     return;
   }
   LinkedList *linkedListObj = (LinkedList *)obj;
-//  if(arrayListObj->objects != NULL) {
-//    free(arrayListObj->objects);
-//  }
+  while(linkedListObj->length > 0) {
+    linkedList_removeLast(linkedListObj);
+  }
   free(linkedListObj->begin);
   free(linkedListObj->end);
   linkedListObj->begin = NULL;
