@@ -120,7 +120,6 @@ int linkedList_remove(LinkedList* obj, int index) {
   }
   obj->length--;
   cmemory_free(obj->parent.cmemory,item);
-  printf("FREE Z2 %d\n",item->value->reference);
 
   return 1;
 }
