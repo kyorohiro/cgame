@@ -2,13 +2,14 @@
 #include "list.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "cmemory.h"
 
 //
 // LinkedList
 //
 
 LinkedList* newLinkedList(CMemory* cmemory) {
-  LinkedList* ret = calloc(1, sizeof(LinkedList));
+  LinkedList* ret = cmemory_calloc(cmemory, 1, sizeof(LinkedList));
   ret->parent.cmemory = cmemory;
   return ret;
 }
@@ -17,8 +18,8 @@ LinkedList* initLinkedList(LinkedList *obj, const char *name) {
   initCObject((CObject*)obj, name);
   obj->length = 0;
   obj->parent.funcFreeObj = freeLinkedList;
-  obj->begin = (LinkedListItem*)calloc(1, sizeof(LinkedListItem));
-  obj->end = (LinkedListItem*)calloc(1, sizeof(LinkedListItem));
+  obj->begin = (LinkedListItem*)cmemory_calloc(obj->parent.cmemory, 1, sizeof(LinkedListItem));
+  obj->end = (LinkedListItem*)cmemory_calloc(obj->parent.cmemory, 1, sizeof(LinkedListItem));
   ((LinkedListItem*)obj->begin)->next = obj->end;
   ((LinkedListItem*)obj->end)->prev = obj->begin->next;
   return obj;
@@ -32,8 +33,8 @@ void freeLinkedList(void* obj) {
   while(linkedListObj->length > 0) {
     linkedList_removeLast(linkedListObj);
   }
-  free(linkedListObj->begin);
-  free(linkedListObj->end);
+  cmemory_free(linkedListObj->parent.cmemory, linkedListObj->begin);
+  cmemory_free(linkedListObj->parent.cmemory, linkedListObj->end);
   linkedListObj->begin = NULL;
   linkedListObj->end = NULL;
   freeCObject(obj);
@@ -84,7 +85,7 @@ int linkedList_insert(LinkedList* obj, CObject *item, int index) {
       return -1;
     }
   }
-  newItem = calloc(1, sizeof(LinkedListItem));
+  newItem = cmemory_calloc(obj->parent.cmemory,1, sizeof(LinkedListItem));
   newItem->value = item;
   newItem->value->reference++;
 
@@ -128,7 +129,7 @@ int linkedList_removeLast(LinkedList* obj) {
 // ArrayList
 //
 ArrayList* newArrayList(CMemory* cmemory) {
-  ArrayList* ret =  calloc(1, sizeof(ArrayList));
+  ArrayList* ret =  cmemory_calloc(cmemory,1, sizeof(ArrayList));
   ret->parent.cmemory = cmemory;
   return ret;
 }
@@ -137,7 +138,7 @@ ArrayList* initArrayList(ArrayList *obj, const char *name, int max) {
   initCObject((CObject*)obj, name);
   obj->length = 0;
   obj->max = max;
-  obj->objects = (CObject**) calloc(max, sizeof(CObject*));
+  obj->objects = (CObject**) cmemory_calloc(obj->parent.cmemory,max, sizeof(CObject*));
   obj->parent.funcFreeObj = freeArrayList;
   return obj;
 }
@@ -148,7 +149,7 @@ void freeArrayList(void* obj) {
   }
   ArrayList *arrayListObj = (ArrayList *)obj;
   if(arrayListObj->objects != NULL) {
-    free(arrayListObj->objects);
+    cmemory_free(arrayListObj->parent.cmemory,arrayListObj->objects);
   }
   freeCObject(obj);
 }
@@ -158,7 +159,7 @@ ArrayList* arrayList_grow(ArrayList* obj) {
   int tmpMax = obj->max;
   int max = tmpMax;
   int i = 0;
-  obj->objects = calloc(max, sizeof(CObject));
+  obj->objects = cmemory_calloc(obj->parent.cmemory,max, sizeof(CObject));
   for(i=0;i<obj->length;i++) {
     obj->objects[i] = tmp[i];
   }
