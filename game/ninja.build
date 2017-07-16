@@ -1,5 +1,5 @@
 rule obj
-  command=emcc -c $in -o $out
+  command=emcc -c $in -o $out -I. -I./game
 rule test
   command=emcc $in -o $out
 
