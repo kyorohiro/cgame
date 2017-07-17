@@ -2,6 +2,8 @@ rule obj
   command=emcc -c $in -o $out
 rule test
   command=emcc $in -o $out
+rule lib
+  command=emcc $in -o $out
 
 build core/object.o: obj core/object.c
 build core/objectManager.o: obj core/objectManager.c
@@ -10,4 +12,4 @@ build core/arraylist.o: obj core/arraylist.c
 build core/cmemory.o: obj core/cmemory.c
 build core/test.o: obj core/test.c
 build core/test.js: test core/object.o core/list.o core/arraylist.o core/test.o core/cmemory.o
-build core/test.a: test core/object.o core/list.o core/arraylist.o core/cmemory.o
+build core/core.o: lib core/object.o core/list.o core/arraylist.o core/cmemory.o

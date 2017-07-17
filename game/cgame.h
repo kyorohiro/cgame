@@ -16,5 +16,5 @@ typedef struct {
 
 CGame* newCGame(CMemory* mem);
 CGame* initCGame(CGame*, char* name,char* title, int width, int height);
-
+CGame* cgame_start(CGame*);
 #endif

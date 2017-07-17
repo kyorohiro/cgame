@@ -1,8 +1,9 @@
 rule obj
-  command=emcc -c $in -o $out
+  command=emcc -c $in -o $out -I. -I..
 rule app
   command=emcc -s FULL_ES2=1  $in -o $out
 
 subninja core/ninja.build
+subninja game/ninja.build
 build app2/main.o: obj app2/main.c
-build main.js: app app2/main.o
+build app2/main.html: app app2/main.o core/core.o game/game.o
