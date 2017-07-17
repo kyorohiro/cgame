@@ -1,4 +1,5 @@
 *.o
+*.a
 .ninja_deps
 .ninja_log
 .DS_Store
