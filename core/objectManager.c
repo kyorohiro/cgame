@@ -12,7 +12,7 @@ CObjectManager* newCObjectManager(CMemory *mem) {
 CObjectManager* initCObjectManager(CObjectManager *obj, const char *name) {
   obj->objects = initArrayList(newArrayList(obj->parent.cmemory), "", 15);
   snprintf(obj->parent.name, sizeof(obj->parent.name), "%s_objs",name);
-  obj->parent.funcFreeObj = freeCObjectManager;
+  obj->parent.funcFree = freeCObjectManager;
   return obj;
 }
 

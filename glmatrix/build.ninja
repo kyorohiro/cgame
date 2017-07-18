@@ -1,4 +1,4 @@
 rule obj
-  command=emcc -c $in -o $out
+  command=emcc -c $in -o $out -I. -I..
 
 build glmatrix/glmatrix.o: obj glmatrix/glmatrix.c

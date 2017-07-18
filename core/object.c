@@ -12,7 +12,7 @@ CObject* newCObject(CMemory* cmemory) {
 CObject* initCObject(CObject*obj, const char *name) {
   snprintf(obj->name, sizeof(obj->name), "%s", name);
   obj->reference = 1;
-  obj->funcFreeObj = freeCObject;
+  obj->funcFree = freeCObject;
   onMode(obj, COBJECT_MODE_FREEABLE);
   return obj;
 }
@@ -55,7 +55,7 @@ int getMode(CObject* obj, int mode) {
 CObject* _releaseCObject(CObject* obj, int isForce) {
   obj->reference--;
   if(isForce != 0 || (obj->reference<=0 && getMode(obj, COBJECT_MODE_FREEABLE) == 1)){
-    FuncFreeObj func = obj->funcFreeObj;
+    CObjectFuncFree func = obj->funcFree;
     if(func != NULL) {
       func(obj);
     }

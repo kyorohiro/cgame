@@ -1,16 +1,21 @@
 #include "glmatrix.h"
 #include <stdlib.h>
 
+void _freeMatrix(void* obj);
+
 KMatrix* newMatrix() {
-  KMatrix *ret = calloc(16, sizeof(KValue));
+  KMatrix *ret = (KMatrix*)calloc(1, sizeof(KMatrix));
+  ret->parent.funcFree = _freeMatrix;
   return ret;
 }
 
-KMatrix* freeMatrix(KMatrix* obj) {
-  if(obj != NULL) {
-    free(obj);
-  }
-  return NULL;
+KMatrix* initMatrix(KMatrix* obj) {
+  return obj;
+}
+
+void _freeMatrix(void* tmp) {
+  KMatrix* obj = tmp;
+  freeCObject(obj);
 }
 
 KMatrix* add(KMatrix* obj, KMatrix* arg, KMatrix* out) {
@@ -19,11 +24,11 @@ KMatrix* add(KMatrix* obj, KMatrix* arg, KMatrix* out) {
     out = newMatrix();
   }
   for(i=0;i<16;i++) {
-    *out[i] = *obj[i] + *arg[i];
+    out->value[i] = obj->value[i] + arg->value[i];
   }
   return out;
 }
-
+/*
 KMatrix* sub(KMatrix* obj, KMatrix* arg, KMatrix* out) {
   int i=0;
   if(out ==NULL) {
@@ -50,7 +55,7 @@ KMatrix* outer(KMatrix* obj, KMatrix* arg, KMatrix* out) {
 }
 
 KMatrix* setRotateX(KMatrix* obj, double angle) {
-  
+
 }
 KMatrix* setIdentity(KMatrix* obj) {
   *obj[0] = 1.0;
@@ -75,3 +80,4 @@ KMatrix* setIdentity(KMatrix* obj) {
 
   return obj;
 }
+*/

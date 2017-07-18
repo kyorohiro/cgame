@@ -14,22 +14,42 @@
 #include <GL/glut.h>
 #endif
 
+void cgame_draw(void);
+
 CGame* newCGame(CMemory* mem) {
   CGame * ret = cmemory_calloc(mem, 1, sizeof(CGame));
   ret->parent.cmemory = mem;
   return ret;
 }
 
-CGame* initCGame(CGame* obj, char* name, char *title, int width, int height) {
+CGame* initCGame(CGame* obj, char* name) {
   initCObject((CObject*)obj, name);
-  snprintf(obj->title, sizeof(obj->title), "%s", title);
-  obj->width = width;
-  obj->height = height;
+  snprintf(obj->title, sizeof(obj->title), "%s", "title");
+  obj->width = 400;
+  obj->height = 300;
   return obj;
 }
 
-void gears_draw(void) {
-    printf("draw\n");
+CGame* defaultCGame = NULL;
+CGame* getCGame() {
+  if(defaultCGame == NULL) {
+    defaultCGame = initCGame(newCGame(getCMemory()), "cgame_default");
+    FILE *fp = fopen("/game/assets/vs.glsl","r");
+    while(1)
+    {
+     int c = fgetc(fp);
+     if( feof(fp) )
+     {
+        break ;
+     }
+     printf("%c", c);
+    }
+    fclose(fp);
+  }
+  return defaultCGame;
+}
+
+void cgame_draw(void) {
   GLfloat vVertices[] = {0.0f, 0.5f, 0.0f,
   -0.5f, -0.5f, 0.0f, 0.5f, -0.5f, 0.0f};
   // Set the viewport
@@ -38,24 +58,26 @@ void gears_draw(void) {
   // Use the program object
   //glUseProgram(programObject);
   // Load the vertex data
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, vVertices);
-  glEnableVertexAttribArray(0);
-  glDrawArrays(GL_TRIANGLES, 0, 3);
+  //glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, vVertices);
+  //glEnableVertexAttribArray(0);
+  //glDrawArrays(GL_TRIANGLES, 0, 3);
   glutSwapBuffers();
 }
 
 CGame* cgame_start(CGame* obj) {
   printf("main\n");
+  CGame* gameObj = getCGame();
+
   char *argv = "test";
   glutInit(0, &argv);
-  glutInitWindowSize(300, 300);
+  glutInitWindowSize(gameObj->width, gameObj->height);
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 
   glutCreateWindow("es2gears");
-  glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+  glClearColor(0.9f, 1.0f, 0.9f, 1.0f);
   //glutIdleFunc (gears_idle);
   //glutReshapeFunc(gears_reshape);
-  glutDisplayFunc(gears_draw);
+  glutDisplayFunc(cgame_draw);
   //glutSpecialFunc(gears_special);
   //glutMouseFunc(mouseCB);
   glutMainLoop();

@@ -7,13 +7,13 @@
 #define COBJECT_MODE_FREEABLE 0x01
 #define COBJECT_NAME "obj";
 
-typedef void (*FuncFreeObj)(void *obj);
+typedef void (*CObjectFuncFree)(void *obj);
 typedef struct {
   char name[12];
   int reference;
   int mode;
   int index;
-  FuncFreeObj funcFreeObj;
+  CObjectFuncFree funcFree;
   CMemory* cmemory;
 } CObject;
 

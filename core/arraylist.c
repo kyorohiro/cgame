@@ -1,5 +1,5 @@
 #include "object.h"
-#include "list.h"
+#include "arraylist.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include "cmemory.h"
@@ -19,7 +19,7 @@ ArrayList* initArrayList(ArrayList *obj, const char *name, int max) {
   obj->length = 0;
   obj->max = max;
   obj->objects = (CObject**) cmemory_calloc(obj->parent.cmemory,max, sizeof(CObject*));
-  obj->parent.funcFreeObj = freeArrayList;
+  obj->parent.funcFree = freeArrayList;
   return obj;
 }
 
