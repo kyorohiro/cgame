@@ -16,15 +16,13 @@ typedef struct {
 KMatrix* newMatrix();
 KMatrix* initMatrix(KMatrix*);
 
-/*
+
 //KMatrix* freeMatrix(KMatrix* obj);
 KMatrix* setIdentity(KMatrix* obj);
-KMatrix* setRotateX(KMatrix* obj, double angle);
-*/
+//KMatrix* setRotateX(KMatrix* obj, double angle);
 
 KMatrix* add(KMatrix* obj, KMatrix* arg, KMatrix* out);
-/*
 KMatrix* sub(KMatrix* obj, KMatrix* arg, KMatrix* out);
 KMatrix* outer(KMatrix* obj, KMatrix* arg, KMatrix* out);
-*/
+
 #endif
