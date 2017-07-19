@@ -11,5 +11,7 @@ build core/list.o: obj core/list.c
 build core/arraylist.o: obj core/arraylist.c
 build core/cmemory.o: obj core/cmemory.c
 build core/test.o: obj core/test.c
+build core/cstring.o: obj core/cstring.c
+
 build core/test.js: test core/object.o core/list.o core/arraylist.o core/test.o core/cmemory.o
 build core/core.o: lib core/object.o core/list.o core/arraylist.o core/cmemory.o

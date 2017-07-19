@@ -41,11 +41,12 @@ KMatrix* sub(KMatrix* obj, KMatrix* arg, KMatrix* out) {
 }
 
 KMatrix* outer(KMatrix* obj, KMatrix* arg, KMatrix* out) {
+  int i=0;
+  int j=0;
   if(out ==NULL) {
     out = initMatrix(newMatrix());
   }
-  int i=0;
-  int j=0;
+
   for(j=0;j<4;j++){
     for(i=0;i<4;i++) {
         out->value[4*j+i] = obj->value[j] * arg->value[i];
