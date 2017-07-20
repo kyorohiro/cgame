@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "core/cmemory.h"
+#include "glmatrix.h"
 
 int test01();
 int main(int argv, char** argc) {
@@ -9,5 +10,6 @@ int main(int argv, char** argc) {
 }
 
 int test01() {
+  KMatrix *mat = initKMatrix(newKMatrix());
   return 0;
 }

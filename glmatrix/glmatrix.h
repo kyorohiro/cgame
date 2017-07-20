@@ -13,16 +13,19 @@ typedef struct {
   KValue value[16];
 } KMatrix;
 
-KMatrix* newMatrix();
-KMatrix* initMatrix(KMatrix*);
+KMatrix* newKMatrix();
+KMatrix* initKMatrix(KMatrix*);
 
 
 //KMatrix* freeMatrix(KMatrix* obj);
-KMatrix* setIdentity(KMatrix* obj);
+KMatrix* kmatrix_setIdentity(KMatrix* obj);
+KMatrix* kmatrix_setRotationX(KMatrix* obj, double radians);
+KMatrix* kmatrix_setRotationY(KMatrix* obj, double radians);
+KMatrix* kmatrix_setRotationZ(KMatrix* obj, double radians);
 //KMatrix* setRotateX(KMatrix* obj, double angle);
 
-KMatrix* add(KMatrix* obj, KMatrix* arg, KMatrix* out);
-KMatrix* sub(KMatrix* obj, KMatrix* arg, KMatrix* out);
-KMatrix* outer(KMatrix* obj, KMatrix* arg, KMatrix* out);
+KMatrix* kmatrix_add(KMatrix* obj, KMatrix* arg, KMatrix* out);
+KMatrix* kmatrix_sub(KMatrix* obj, KMatrix* arg, KMatrix* out);
+KMatrix* kmatrix_outer(KMatrix* obj, KMatrix* arg, KMatrix* out);
 
 #endif
