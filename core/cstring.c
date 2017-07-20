@@ -13,13 +13,13 @@ CString* calcLength(CString* obj, char *value) {
   int np =0;
   for(length=0;value[length] != 0;length++) {
     if(np == 0) {
-      if((0xF0 & value[length]) == 0xF0) {
+      if((0xE0 & value[length]) == 0xC0) {
         np=2;
       }
-      else if((0xE0 & value[length]) == 0xE0) {
+      else if((0xF0 & value[length]) == 0xE0) {
         np=3;
       }
-      else if((0xC0 & value[length]) == 0xC0) {
+      else if((0xF8 & value[length]) == 0xF0) {
         np=4;
       }
       np--;
