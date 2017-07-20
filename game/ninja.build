@@ -3,7 +3,8 @@ rule obj
 rule test
   command=emcc $in -o $out
 rule lib
-  command=emcc -s FULL_ES2=1 $in -o $out 
+  command=emcc -s FULL_ES2=1 $in -o $out
 
+build game/3dobject.o: obj game/3dobject.c
 build game/cgame.o: obj game/cgame.c
 build game/game.o: lib game/cgame.o
