@@ -3,7 +3,7 @@
 //typedef int (*free)(int n);
 
 #include "cmemory.h"
-#include
+#include "cobject.h"
 
 
 #define CBYTE_NAME "bys"

@@ -49,6 +49,7 @@ CString* initCString(CString* obj, char *value) {
   initCObject((CObject *)obj, CSTRING_NAME);
   calcLength(obj, value);
   obj->value = (char*)cmemory_calloc(obj->parent.cmemory, 1, sizeof(char)*obj->byteLength+1);
+  obj->parent.funcFree = _freeCString;
   memcpy(obj->value, value, obj->byteLength+1);
   return obj;
 }
