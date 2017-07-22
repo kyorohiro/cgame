@@ -5,7 +5,7 @@
 #include "core/object.h"
 #include "core/cmemory.h"
 
-#define CGAME_NAME "cga";
+#define CGAME_NAME "cga"
 
 typedef void (*CGameFuncDraw)(CObject* obj);
 typedef struct {

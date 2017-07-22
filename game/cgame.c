@@ -23,7 +23,7 @@ CGame* newCGame(CMemory* mem) {
 }
 
 CGame* initCGame(CGame* obj) {
-  initCObject((CObject*)obj, OBJECT3D_NAME);
+  initCObject((CObject*)obj, CGAME_NAME);
   snprintf(obj->title, sizeof(obj->title), "%s", "title");
   obj->width = 400;
   obj->height = 300;
@@ -33,7 +33,7 @@ CGame* initCGame(CGame* obj) {
 CGame* defaultCGame = NULL;
 CGame* getCGame() {
   if(defaultCGame == NULL) {
-    defaultCGame = initCGame(newCGame(getCMemory()), "cgame_default");
+    defaultCGame = initCGame(newCGame(getCMemory()));
     FILE *fp = fopen("/game/assets/vs.glsl","r");
     while(1)
     {
