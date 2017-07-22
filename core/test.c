@@ -4,6 +4,7 @@
 #include "arraylist.h"
 #include "cmemory.h"
 #include "objectManager.h"
+#include "cbytes_test.c"
 
 int test01();
 int test02();
@@ -16,6 +17,7 @@ int main(int argv, char** argc) {
     getCMemory()->callocCounter,
     getCMemory()->freeCounter);
 
+  cbytes_test();
   test01();
   test02();
   test03a();
