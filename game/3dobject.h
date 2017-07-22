@@ -4,18 +4,27 @@
 
 #include "core/object.h"
 #include "core/cmemory.h"
+#include "glmatrix/glmatrix.h"
 
-#define CGAME_NAME "cga";
+#define OBJECT3D_NAME "ob3";
 
 typedef struct {
   CObject parent;
+  double x;
+  double y;
+  double z;
+  double rx;
+  double ry;
+  double rz;
+  KMatrix *mat;
 } Object3D;
 
 //
 // unused CGame is singleton
 //
-Object3D* new3DObject(CMemory* mem);
+Object3D* newObject3D(CMemory* mem);
 //char* title, int width, int height
-Object3D* init3DObject(Object3D*, char* name);
+Object3D* initObject3D(Object3D*, char* name);
+Object3D* object3d_setRotate(Object3D*, double rx, double ry, double rz);
 
 #endif

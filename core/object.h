@@ -9,7 +9,7 @@
 
 typedef void (*CObjectFuncFree)(void *obj);
 typedef struct {
-  char name[12];
+  char name[24];
   int reference;
   int mode;
   int index;
@@ -19,6 +19,8 @@ typedef struct {
 
 CObject* newCObject(CMemory*);
 CObject* initCObject(CObject*obj, const char *name);
+CObject* cobject_updateName(CObject*obj, const char *name);
+
 void freeCObject(void* obj);
 CObject* upCounter(CObject* obj);
 CObject* downCounter(CObject* obj);

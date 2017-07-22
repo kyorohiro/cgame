@@ -10,6 +10,7 @@ typedef struct {
   int freeCounter;
   FuncCalloc calloc;
   FuncFree free;
+  long index;
 } CMemory;
 
 

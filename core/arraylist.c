@@ -24,6 +24,7 @@ ArrayList* initArrayList(ArrayList *obj, const char *name, int max) {
 }
 
 void freeArrayList(void* obj) {
+
   int i=0;
   if(obj == NULL) {
     return;
@@ -76,7 +77,7 @@ CObject* arrayList_getLast(ArrayList* obj) {
 }
 
 CObject* arrayList_get(ArrayList* obj, int index) {
-  if(obj->length>=index) {
+  if(obj->length<=index) {
     return NULL;
   }
   return obj->objects[index];

@@ -3,6 +3,7 @@
 #include "list.h"
 #include "arraylist.h"
 #include "cmemory.h"
+#include "objectManager.h"
 
 int test01();
 int test02();
@@ -12,36 +13,40 @@ int test03b();
 int main(int argv, char** argc) {
   printf("hello world");
   test01();
-  test02();
-  test03a();
-  test03b();
+  //test02();
+  /*test03a();
+  test03b();*/
   return 0;
 }
 
 int test01() {
+  CObjectManager *objMgr = getCObjectManager();
   CObject *obj = initCObject(newCObject(getCMemory()),"test object");
+  objectManager_addObject(objMgr, obj);
   onMode(obj, COBJECT_MODE_FREEABLE);
   printf("%s %d \r\n", obj->name, obj->reference);
   releaseCObject(obj);
   printf("mem: expect  %d == %d \n",getCMemory()->callocCounter, getCMemory()->freeCounter);
+  objectManager_showInfo(objMgr);
+
   return 0;
 }
 
 int test02() {
   ArrayList *obj = initArrayList(newArrayList(getCMemory()), "test list", 10);
+  printf("%d \n", obj->length);
   arrayList_addLast(obj, downCounter(initCObject(newCObject(getCMemory()), "obj00")));
   arrayList_addLast(obj, downCounter(initCObject(newCObject(getCMemory()), "obj01")));
-  printf("\n");
+  printf("%d \n", obj->length);
   for(int i=0;i<obj->length;i++) {
     printf("%d %s (%d)\n", i, obj->objects[i]->name,obj->objects[i]->reference);
   }
-  /*0
   printf("#%d\n", obj->length);
   for(int i=0;i<obj->length;i++) {
     CObject *tmp = obj->objects[i];
     arrayList_set(obj, i, NULL);
     printf("%d %s (%d)\n", i, tmp->name, tmp->reference);
-  }*/
+  }
   releaseCObject((CObject*)obj);
   printf("mem: expect  %d == %d \n",getCMemory()->callocCounter, getCMemory()->freeCounter);
   printf("\n");

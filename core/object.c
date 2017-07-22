@@ -18,6 +18,7 @@ CObject* initCObject(CObject*obj, const char *name) {
 }
 
 void freeCObject(void* obj) {
+
   if(obj != NULL) {
     cmemory_free(((CObject*)obj)->cmemory, obj);
   }

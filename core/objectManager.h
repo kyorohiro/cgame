@@ -13,6 +13,8 @@ CObjectManager* newCObjectManager(CMemory *mem);
 CObjectManager* initCObjectManager(CObjectManager *obj, const char *name);
 CObjectManager* objectManager_addObject(CObjectManager *obj, CObject *item);
 CObjectManager* objectManager_releaseAll(CObjectManager *obj);
+CObjectManager* getCObjectManager();
 
-void freeCObjectManager(void* obj);
+CObjectManager* objectManager_showInfo(CObjectManager *obj);
+
 #endif

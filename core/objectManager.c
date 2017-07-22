@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "arraylist.h"
 
+void freeCObjectManager(void* obj);
 CObjectManager* newCObjectManager(CMemory *mem) {
   CObjectManager *ret = calloc(1,sizeof(CObjectManager));
   ret->parent.cmemory = mem;
@@ -23,6 +24,7 @@ void freeCObjectManager(void* obj) {
 
 CObjectManager* objectManager_addObject(CObjectManager *obj, CObject *item) {
   arrayList_addLast(obj->objects, item);
+  CObject* item2 = arrayList_get(obj->objects, 0);
   return obj;
 }
 
@@ -39,4 +41,27 @@ CObjectManager* objectManager_releaseAll(CObjectManager *obj) {
     }
   }
   return obj;
+}
+
+CObjectManager* objectManager_showInfo(CObjectManager *obj) {
+  int i=0;
+  printf("length:%d \n", obj->objects->length);
+  for(i=0;i<obj->objects->length;i++) {
+    CObject* item = arrayList_get(obj->objects, i);
+    if(item != NULL) {
+      printf("[%d] %d:%s;r:%d; \n", i, item->index, item->name, item->reference);
+    } else {
+      printf("[%d] NULL; \n", i);
+    }
+  }
+  return obj;
+}
+
+CObjectManager* defaultCObjectManager = NULL;
+
+CObjectManager* getCObjectManager() {
+  if(defaultCObjectManager == NULL) {
+      defaultCObjectManager = initCObjectManager(newCObjectManager(getCMemory()), "defaultCObjectManager");
+  }
+  return defaultCObjectManager;
 }
