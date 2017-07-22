@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include "cmemory.h"
 
-
+void freeArrayList(void* obj);
 //
 // ArrayList
 //

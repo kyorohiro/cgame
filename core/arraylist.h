@@ -22,6 +22,5 @@ CObject* arrayList_getLast(ArrayList* obj);
 CObject* arrayList_get(ArrayList* obj, int index);
 ArrayList* arrayList_set(ArrayList* obj, int index, CObject *item);
 
-void freeArrayList(void* obj);
 ArrayList* arrayList_grow(ArrayList* obj);
 #endif
