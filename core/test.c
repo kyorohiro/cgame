@@ -4,8 +4,8 @@
 #include "arraylist.h"
 #include "cmemory.h"
 #include "objectManager.h"
-#include "cbytes_test.c"
 
+extern void cbytes_test();
 int test01();
 int test02();
 int test03a();
