@@ -11,9 +11,13 @@ int test03a();
 int test03b();
 
 int main(int argv, char** argc) {
-  printf("hello world");
+  CObjectManager *objMgr = getCObjectManager();
+  printf("Test Start System : %d == %d \n",
+    getCMemory()->callocCounter,
+    getCMemory()->freeCounter);
+
   test01();
-  //test02();
+  test02();
   /*test03a();
   test03b();*/
   return 0;
@@ -21,37 +25,37 @@ int main(int argv, char** argc) {
 
 int test01() {
   CObjectManager *objMgr = getCObjectManager();
-  printf("mem: expect  %d == %d \n",getCMemory()->callocCounter, getCMemory()->freeCounter);
-
   CObject *obj = initCObject(newCObject(getCMemory()),"test object");
   objectManager_addObject(objMgr, obj);
-  printf("%s %d \r\n", obj->name, obj->reference);
   releaseCObject(obj);
   objectManager_showInfo(objMgr);
   objectManager_releaseObject(objMgr, obj);
   objectManager_showInfo(objMgr);
-  printf("mem: expect  %d == %d \n",getCMemory()->callocCounter, getCMemory()->freeCounter);
+  printf("[TEST]\n");
+  printf("mem: expect  %d == %d \n\n",
+    getCMemory()->callocCounter,
+    getCMemory()->freeCounter);
 
   return 0;
 }
 
 int test02() {
-  ArrayList *obj = initArrayList(newArrayList(getCMemory()), "test list", 10);
-  printf("%d \n", obj->length);
-  arrayList_addLast(obj, downCounter(initCObject(newCObject(getCMemory()), "obj00")));
-  arrayList_addLast(obj, downCounter(initCObject(newCObject(getCMemory()), "obj01")));
-  printf("%d \n", obj->length);
-  for(int i=0;i<obj->length;i++) {
-    printf("%d %s (%d)\n", i, obj->objects[i]->name,obj->objects[i]->reference);
+  printf("[TEST02]\n");
+  ArrayList *objArray = initArrayList(newArrayList(getCMemory()), "test list", 10);
+  arrayList_addLast(objArray, downCounter(initCObject(newCObject(getCMemory()), "obj00")));
+  arrayList_addLast(objArray, downCounter(initCObject(newCObject(getCMemory()), "obj01")));
+  for(int i=0;i<objArray->length;i++) {
+    printf("a- %d %s (%d)\n", i, objArray->objects[i]->name,objArray->objects[i]->reference);
   }
-  printf("#%d\n", obj->length);
-  for(int i=0;i<obj->length;i++) {
-    CObject *tmp = obj->objects[i];
-    arrayList_set(obj, i, NULL);
-    printf("%d %s (%d)\n", i, tmp->name, tmp->reference);
+  for(int i=0;i<objArray->length;i++) {
+    CObject *tmp = objArray->objects[i];
+    printf("b- %d %s (%d)\n", i, tmp->name, tmp->reference);
+    arrayList_set(objArray, i, NULL);
   }
-  releaseCObject((CObject*)obj);
-  printf("mem: expect  %d == %d \n",getCMemory()->callocCounter, getCMemory()->freeCounter);
+  releaseCObject((CObject*)objArray);
+  printf("mem: expect  %d == %d \n",
+    getCMemory()->callocCounter,
+    getCMemory()->freeCounter);
   printf("\n");
   return 0;
 }
