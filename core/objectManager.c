@@ -10,9 +10,9 @@ CObjectManager* newCObjectManager(CMemory *mem) {
   return ret;
 }
 
-CObjectManager* initCObjectManager(CObjectManager *obj, const char *name) {
-  obj->objects = initArrayList(newArrayList(obj->parent.cmemory), "", 15);
-  snprintf(obj->parent.name, sizeof(obj->parent.name), "%s_objs",name);
+CObjectManager* initCObjectManager(CObjectManager *obj) {
+  initCObject((CObject *)obj, COBJECTMANAGER_NAME);
+  obj->objects = initArrayList(newArrayList(obj->parent.cmemory), 15);
   obj->parent.funcFree = freeCObjectManager;
   return obj;
 }
@@ -69,7 +69,7 @@ CObjectManager* defaultCObjectManager = NULL;
 
 CObjectManager* getCObjectManager() {
   if(defaultCObjectManager == NULL) {
-      defaultCObjectManager = initCObjectManager(newCObjectManager(getCMemory()), "defaultCObjectManager");
+      defaultCObjectManager = initCObjectManager(newCObjectManager(getCMemory()));
   }
   return defaultCObjectManager;
 }

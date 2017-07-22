@@ -6,8 +6,7 @@
 #include "object.h"
 
 
-#define COBJECT_MODE_FREEABLE 0x01
-#define COBJECT_NAME "obj";
+#define CSTRING_NAME "obj"
 
 // UTF8
 typedef struct {
@@ -18,6 +17,6 @@ typedef struct {
 } CString;
 
 CString* newCString(CMemory*);
-CString* initCString(CString* obj, const char *name, char *value);
+CString* initCString(CString* obj, char *value);
 
 #endif

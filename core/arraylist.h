@@ -2,7 +2,7 @@
 #define _H_ARRAYLIST
 #include "object.h"
 
-#define ARRAYLIST_NAME "ali";
+#define ARRAYLIST_NAME "ali"
 
 //
 // ArrayList
@@ -15,7 +15,7 @@ typedef struct {
 } ArrayList;
 
 ArrayList* newArrayList(CMemory* cmemory);
-ArrayList* initArrayList(ArrayList *obj, const char *name, int max);
+ArrayList* initArrayList(ArrayList *obj, int max);
 ArrayList* arrayList_addLast(ArrayList* obj, CObject *item);
 ArrayList* arrayList_removeLast(ArrayList* obj);
 CObject* arrayList_getLast(ArrayList* obj);

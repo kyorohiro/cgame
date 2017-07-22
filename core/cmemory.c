@@ -10,6 +10,7 @@ void __free(void* obj,void *ptr) {
 
 void* __calloc(void* obj,int num, int size) {
   ((CMemory*)obj)->callocCounter++;
+  ((CMemory*)obj)->counter++;
   return calloc(num, size);
 }
 
@@ -25,6 +26,10 @@ CMemory* initCMemory(CMemory* obj) {
 
 void freeCMemory(CMemory* obj) {
   free(obj);
+}
+
+long cmemory_getUId(CMemory* obj) {
+  return ((CMemory*)obj)->counter++;
 }
 
 void* cmemory_calloc(CMemory* obj, int num, int size) {

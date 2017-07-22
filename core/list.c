@@ -14,10 +14,8 @@ LinkedList* newLinkedList(CMemory* cmemory) {
   return ret;
 }
 
-LinkedList* initLinkedList(LinkedList *obj, const char *name) {
-//  printf("%d\n", ((CObject*)obj)->reference);
-  initCObject((CObject*)obj, name);
-//  printf("%d\n", ((CObject*)obj)->reference);
+LinkedList* initLinkedList(LinkedList *obj) {
+  initCObject((CObject*)obj, LINKEDLIST_NAME);
 
   obj->length = 0;
   obj->parent.funcFree = freeLinkedList;

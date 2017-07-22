@@ -1,5 +1,6 @@
 #include "cstring.h"
 #include <string.h>
+#include <stdio.h>
 
 CString* newCString(CMemory* cmemory) {
   CString* ret = cmemory_calloc(cmemory, 1, sizeof(CString));
@@ -33,7 +34,10 @@ CString* calcLength(CString* obj, char *value) {
   return obj;
 }
 
-CString* initCString(CString* obj, const char *name, char *value) {
+CString* initCString(CString* obj, char *value) {
+  char tmp[22];
+  snprintf ( tmp, 22, "%s%lx", CSTRING_NAME, cmemory_getUId(obj->parent.cmemory));
+  initCObject((CObject *)obj, tmp);
   calcLength(obj, value);
   obj->value = (char*)cmemory_calloc(obj->parent.cmemory, 1, sizeof(char)*obj->byteLength+1);
   memcpy(obj->value, value, obj->byteLength+1);

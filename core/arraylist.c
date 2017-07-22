@@ -14,8 +14,8 @@ ArrayList* newArrayList(CMemory* cmemory) {
   return ret;
 }
 
-ArrayList* initArrayList(ArrayList *obj, const char *name, int max) {
-  initCObject((CObject*)obj, name);
+ArrayList* initArrayList(ArrayList *obj, int max) {
+  initCObject((CObject*)obj, ARRAYLIST_NAME);
   obj->length = 0;
   obj->max = max;
   obj->objects = (CObject**) cmemory_calloc(obj->parent.cmemory,max, sizeof(CObject*));

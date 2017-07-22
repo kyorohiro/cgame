@@ -1,9 +1,9 @@
-#ifndef _H_LIST
-#define _H_LIST
+#ifndef _H_LINKEDLIST
+#define _H_LINKEDLIST
 #include "object.h"
 #include "list.h"
 
-#define LINKEDLIST_NAME "lli";
+#define LINKEDLIST_NAME "lli"
 //
 // LinkedList
 //
@@ -23,7 +23,7 @@ typedef struct {
 } LinkedList;
 
 LinkedList* newLinkedList(CMemory* cmemory);
-LinkedList* initLinkedList(LinkedList *obj, const char *name);
+LinkedList* initLinkedList(LinkedList *obj);
 void freeLinkedList(void* obj);
 
 CObject* linkedList_get(LinkedList* obj, int index);

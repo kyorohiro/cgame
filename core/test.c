@@ -41,7 +41,7 @@ int test01() {
 
 int test02() {
   printf("[TEST02]\n");
-  ArrayList *objArray = initArrayList(newArrayList(getCMemory()), "test list", 10);
+  ArrayList *objArray = initArrayList(newArrayList(getCMemory()), 10);
   arrayList_addLast(objArray, downCounter(initCObject(newCObject(getCMemory()), "obj00")));
   arrayList_addLast(objArray, downCounter(initCObject(newCObject(getCMemory()), "obj01")));
   for(int i=0;i<objArray->length;i++) {
@@ -61,7 +61,7 @@ int test02() {
 }
 
 int test03a() {
-  LinkedList *obj = initLinkedList(newLinkedList(getCMemory()), "test list");
+  LinkedList *obj = initLinkedList(newLinkedList(getCMemory()));
   printf("[TEST03] %d\n",obj->parent.reference );
 
 //  offMode((CObject*)obj, COBJECT_MODE_FREEABLE);
@@ -77,7 +77,7 @@ int test03a() {
 int test03b() {
   //
   //
-  LinkedList *obj = initLinkedList(newLinkedList(getCMemory()), "test list");
+  LinkedList *obj = initLinkedList(newLinkedList(getCMemory()));
   printf("%d", obj->length);
   linkedList_addLast(obj, downCounter(initCObject(newCObject(getCMemory()),"test00")));
   linkedList_addLast(obj, downCounter(initCObject(newCObject(getCMemory()),"test01")));

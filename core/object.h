@@ -5,7 +5,7 @@
 #include "cmemory.h"
 
 #define COBJECT_MODE_FREEABLE 0x01
-#define COBJECT_NAME "obj";
+#define COBJECT_NAME "obj"
 
 typedef void (*CObjectFuncFree)(void *obj);
 typedef struct {
