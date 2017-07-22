@@ -2,10 +2,21 @@
 #include <string.h>
 #include <stdio.h>
 
+void _freeCString(void* obj);
+
 CString* newCString(CMemory* cmemory) {
   CString* ret = cmemory_calloc(cmemory, 1, sizeof(CString));
   ret->parent.cmemory = cmemory;
   return ret;
+}
+
+void _freeCString(void* obj) {
+  CObject *objObj = (CObject*)obj;
+  CString *strObj = (CString*)obj;
+  if(strObj->value != NULL) {
+    cmemory_free(objObj->cmemory, strObj->value);
+  }
+  freeCObject(obj);
 }
 
 CString* calcLength(CString* obj, char *value) {

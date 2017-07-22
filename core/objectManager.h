@@ -1,6 +1,6 @@
 #ifndef _H_COBJECT_MANAGER
 #define _H_COBJECT_MANAGER
-#include 
+#include "cobject.h"
 #include "arraylist.h"
 #include "cmemory.h"
 

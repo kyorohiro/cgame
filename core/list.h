@@ -1,6 +1,6 @@
 #ifndef _H_LINKEDLIST
 #define _H_LINKEDLIST
-#include 
+#include "cobject.h"
 #include "list.h"
 
 #define LINKEDLIST_NAME "lli"

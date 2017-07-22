@@ -3,10 +3,10 @@
 //typedef int (*free)(int n);
 
 #include "cmemory.h"
-#include
+#include "cobject.h"
 
 
-#define CSTRING_NAME "obj"
+#define CSTRING_NAME "str"
 
 // UTF8
 typedef struct {

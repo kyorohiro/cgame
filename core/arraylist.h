@@ -1,6 +1,6 @@
 #ifndef _H_ARRAYLIST
 #define _H_ARRAYLIST
-#include
+#include "cobject.h"
 
 #define ARRAYLIST_NAME "ali"
 

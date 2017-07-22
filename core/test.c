@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include 
+#include "cobject.h"
 #include "list.h"
 #include "arraylist.h"
 #include "cmemory.h"
