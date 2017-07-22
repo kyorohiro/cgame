@@ -57,6 +57,7 @@ ArrayList* arrayList_addLast(ArrayList* obj, CObject *item) {
     arrayList_grow(obj);
   }
   obj->objects[obj->length++] = item;
+  item->reference++;
   return obj;
 }
 
@@ -64,8 +65,11 @@ ArrayList* arrayList_removeLast(ArrayList* obj) {
   if(obj->length<=0) {
     return obj;
   }
-  arrayList_set(obj, obj->length, NULL);
+  CObject *item = arrayList_get(obj, obj->length-1);
+  arrayList_set(obj, obj->length-1, NULL);
   obj->length--;
+  item->reference--;
+
   return obj;
 }
 
@@ -73,7 +77,7 @@ CObject* arrayList_getLast(ArrayList* obj) {
   if(obj->length<=0) {
     return NULL;
   }
-  return obj->objects[--obj->length];
+  return obj->objects[obj->length-1];
 }
 
 CObject* arrayList_get(ArrayList* obj, int index) {

@@ -21,13 +21,16 @@ int main(int argv, char** argc) {
 
 int test01() {
   CObjectManager *objMgr = getCObjectManager();
+  printf("mem: expect  %d == %d \n",getCMemory()->callocCounter, getCMemory()->freeCounter);
+
   CObject *obj = initCObject(newCObject(getCMemory()),"test object");
   objectManager_addObject(objMgr, obj);
-  onMode(obj, COBJECT_MODE_FREEABLE);
   printf("%s %d \r\n", obj->name, obj->reference);
   releaseCObject(obj);
-  printf("mem: expect  %d == %d \n",getCMemory()->callocCounter, getCMemory()->freeCounter);
   objectManager_showInfo(objMgr);
+  objectManager_releaseObject(objMgr, obj);
+  objectManager_showInfo(objMgr);
+  printf("mem: expect  %d == %d \n",getCMemory()->callocCounter, getCMemory()->freeCounter);
 
   return 0;
 }
