@@ -22,8 +22,8 @@ CGame* newCGame(CMemory* mem) {
   return ret;
 }
 
-CGame* initCGame(CGame* obj, char* name) {
-  initCObject((CObject*)obj, name);
+CGame* initCGame(CGame* obj) {
+  initCObject((CObject*)obj, OBJECT3D_NAME);
   snprintf(obj->title, sizeof(obj->title), "%s", "title");
   obj->width = 400;
   obj->height = 300;

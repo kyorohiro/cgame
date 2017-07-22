@@ -21,7 +21,7 @@ typedef struct {
 //
 CGame* newCGame(CMemory* mem);
 //char* title, int width, int height
-CGame* initCGame(CGame*, char* name);
+CGame* initCGame(CGame*);
 
 //
 CGame* getCGame();

@@ -9,7 +9,7 @@
 
 typedef void (*CObjectFuncFree)(void *obj);
 typedef struct {
-  char name[24];
+  char name[8];
   int reference;
   int mode;
   int index;

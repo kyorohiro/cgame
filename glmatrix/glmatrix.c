@@ -11,6 +11,7 @@ KMatrix* newKMatrix() {
 }
 
 KMatrix* initKMatrix(KMatrix* obj) {
+  initCObject((CObject*)obj, KMATRIX_NAME);
   return obj;
 }
 

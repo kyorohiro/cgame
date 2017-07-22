@@ -24,7 +24,7 @@ typedef struct {
 //
 Object3D* newObject3D(CMemory* mem);
 //char* title, int width, int height
-Object3D* initObject3D(Object3D*, char* name);
+Object3D* initObject3D(Object3D*);
 Object3D* object3d_setRotate(Object3D*, double rx, double ry, double rz);
 
 #endif

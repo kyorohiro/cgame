@@ -5,7 +5,7 @@
 #include "core/object.h"
 #include "core/cmemory.h"
 
-#define CGAME_NAME "cga";
+#define KMATRIX_NAME "kma"
 
 typedef float KValue;
 typedef struct {
