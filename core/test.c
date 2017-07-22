@@ -18,8 +18,8 @@ int main(int argv, char** argc) {
 
   test01();
   test02();
-  /*test03a();
-  test03b();*/
+  test03a();
+  //test03b();*/
   return 0;
 }
 
@@ -62,12 +62,14 @@ int test02() {
 
 int test03a() {
   LinkedList *obj = initLinkedList(newLinkedList(getCMemory()), "test list");
-  offMode((CObject*)obj, COBJECT_MODE_FREEABLE);
-  releaseCObject((CObject*)obj);
+  printf("[TEST03] %d\n",obj->parent.reference );
 
+//  offMode((CObject*)obj, COBJECT_MODE_FREEABLE);
+  releaseCObject((CObject*)obj);
+  /*
   if(obj->parent.reference <= 0) {
     releaseForceCObject((CObject*)obj);
-  }
+  }*/
   printf("mem: expect  %d == %d \n",getCMemory()->callocCounter, getCMemory()->freeCounter);
   return 0;
 }

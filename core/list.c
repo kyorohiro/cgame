@@ -15,7 +15,10 @@ LinkedList* newLinkedList(CMemory* cmemory) {
 }
 
 LinkedList* initLinkedList(LinkedList *obj, const char *name) {
+//  printf("%d\n", ((CObject*)obj)->reference);
   initCObject((CObject*)obj, name);
+//  printf("%d\n", ((CObject*)obj)->reference);
+
   obj->length = 0;
   obj->parent.funcFree = freeLinkedList;
   obj->begin = (LinkedListItem*)cmemory_calloc(obj->parent.cmemory, 1, sizeof(LinkedListItem));
