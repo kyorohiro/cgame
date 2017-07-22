@@ -18,6 +18,7 @@ typedef struct {
   double rz;
   int status;
   KMatrix *mat;
+  KMatrix *arg;
 } Object3D;
 
 //

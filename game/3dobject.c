@@ -14,6 +14,7 @@ Object3D* initObject3D(Object3D* obj) {
   initCObject((CObject*)obj, OBJECT3D_NAME);
   obj->parent.funcFree = _freeObject3D;
   obj->mat = kmatrix_setIdentity(initKMatrix(newKMatrix()));
+  obj->arg = kmatrix_setIdentity(initKMatrix(newKMatrix()));
   return obj;
 }
 
@@ -50,5 +51,10 @@ Object3D* object3d_setPosition(Object3D* obj , double x, double y, double z) {
 }
 
 KMatrix* object3d_getKMatrix(Object3D* obj) {
+  kmatrix_setIdentity(obj->mat);
+  kmatrix_outer(obj->mat, kmatrix_setRotationX(arg, obj->rx), obj->mat);
+  kmatrix_outer(obj->mat, kmatrix_setRotationY(arg, obj->ry), obj->mat);
+  kmatrix_outer(obj->mat, kmatrix_setRotationZ(arg, obj->rz), obj->mat);
+  kmatrix_outer(obj->mat, kmatrix_setTranslation(arg, obj->x, obj->y, obj->z);
   return obj->mat;
 }

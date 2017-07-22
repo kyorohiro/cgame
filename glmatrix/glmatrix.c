@@ -43,16 +43,23 @@ KMatrix* kmatrix_sub(KMatrix* obj, KMatrix* arg, KMatrix* out) {
 }
 
 KMatrix* kmatrix_outer(KMatrix* obj, KMatrix* arg, KMatrix* out) {
-  int i=0;
-  int j=0;
   if(out ==NULL) {
     out = initKMatrix(newKMatrix());
   }
-
-  for(j=0;j<4;j++){
-    for(i=0;i<4;i++) {
-        out->value[4*j+i] = obj->value[j] * arg->value[i];
+  int i=0;
+  int j=0;
+  double o[16];
+  for(i=0;i<4;i++) {
+    for(j=0;j<4;j++) {
+      o[4*i+j] = arg->value[4*i]*arg->value[4+j];
+      o[4*i+j] += arg->value[4*i+1]*arg->value[8+j];
+      o[4*i+j] += arg->value[4*i+2]*arg->value[12+j];
+      o[4*i+j] += arg->value[4*i*3]*arg->value[16+j];
     }
+  }
+
+  for(i=0;i<16;i++) {
+    out->value[i] = o[i];
   }
   return out;
 }
