@@ -22,6 +22,8 @@ KMatrix* kmatrix_setIdentity(KMatrix* obj);
 KMatrix* kmatrix_setRotationX(KMatrix* obj, double radians);
 KMatrix* kmatrix_setRotationY(KMatrix* obj, double radians);
 KMatrix* kmatrix_setRotationZ(KMatrix* obj, double radians);
+KMatrix* kmatrix_setTranslation(KMatrix* obj, double x, double y, double z);
+KMatrix* kmatrix_setScale(KMatrix* obj, double x, double y, double z);
 //KMatrix* setRotateX(KMatrix* obj, double angle);
 
 KMatrix* kmatrix_add(KMatrix* obj, KMatrix* arg, KMatrix* out);

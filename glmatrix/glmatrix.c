@@ -169,3 +169,49 @@ KMatrix* kmatrix_setRotationZ(KMatrix* obj, double radians){
   obj->value[15] = 1.0;
   return obj;
 }
+
+KMatrix* kmatrix_setTranslation(KMatrix* obj, double x, double y, double z) {
+  obj->value[0] = 1.0;
+  obj->value[1] = 0.0;
+  obj->value[2] = 0.0;
+  obj->value[3] = x;
+
+  obj->value[4] = 0.0;
+  obj->value[5] = 1.0;
+  obj->value[6] = 0.0;
+  obj->value[7] = y;
+
+  obj->value[8] = 0.0;
+  obj->value[9] = 0.0;
+  obj->value[10] = 1.0;
+  obj->value[11] = z;
+
+  obj->value[12] = 0.0;
+  obj->value[13] = 0.0;
+  obj->value[14] = 0.0;
+  obj->value[15] = 1.0;
+  return obj;
+}
+
+KMatrix* kmatrix_setScale(KMatrix* obj, double x, double y, double z) {
+  obj->value[0] = x;
+  obj->value[1] = 0.0;
+  obj->value[2] = 0.0;
+  obj->value[3] = 0.0;
+
+  obj->value[4] = y;
+  obj->value[5] = 1.0;
+  obj->value[6] = 0.0;
+  obj->value[7] = 0.0;
+
+  obj->value[8] = 0.0;
+  obj->value[9] = 0.0;
+  obj->value[10] = z;
+  obj->value[11] = 0.0;
+
+  obj->value[12] = 0.0;
+  obj->value[13] = 0.0;
+  obj->value[14] = 0.0;
+  obj->value[15] = 1.0;
+  return obj;
+}
