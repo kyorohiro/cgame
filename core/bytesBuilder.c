@@ -1,4 +1,6 @@
+#include<stdio.h>
 #include "bytesBuilder.h"
+
 
 void freeBytesBuilder(void* obj) {
   int i=0;
@@ -6,7 +8,7 @@ void freeBytesBuilder(void* obj) {
     return;
   }
   BytesBuilder *bytesBuilderObj = (BytesBuilder *)obj;
-  releaseCObject(bytesBuilderObj->values);
+  releaseCObject((CObject*)bytesBuilderObj->values);
   freeCObject(obj);
 }
 
@@ -20,5 +22,9 @@ BytesBuilder* initBytesBuilder(BytesBuilder* obj){
   initCObject((CObject *)obj, BYTESBUILDER_NAME);
   obj->parent.funcFree = freeBytesBuilder;
   obj->values = initLinkedList(newLinkedList(obj->parent.cmemory));
+  return obj;
+}
+
+BytesBuilder* bytesBuilder_addChars(BytesBuilder* obj, char* v, int length) {
   return obj;
 }

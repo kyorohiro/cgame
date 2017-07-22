@@ -15,5 +15,5 @@ typedef struct {
 
 BytesBuilder* newBytesBuilder(CMemory*);
 BytesBuilder* initBytesBuilder(BytesBuilder* obj);
-
+BytesBuilder* bytesBuilder_addChars(BytesBuilder* obj, char* v, int length);
 #endif
