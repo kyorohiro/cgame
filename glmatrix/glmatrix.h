@@ -2,7 +2,7 @@
 #ifndef __H_GL_MATRIX_
 #define __H_GL_MATRIX_
 
-#include "core/object.h"
+#include "core/cobject.h"
 #include "core/cmemory.h"
 
 #define KMATRIX_NAME "kma"

@@ -3,7 +3,7 @@
 //typedef int (*free)(int n);
 
 #include "cmemory.h"
-#include "object.h"
+#include
 
 
 #define CSTRING_NAME "obj"

@@ -2,7 +2,7 @@
 #define _H_BYTESBUILDER
 
 #include "cmemory.h"
-#include "object.h"
+#include
 #include "list.h"
 
 #define BYTESBUILDER_NAME "obj"

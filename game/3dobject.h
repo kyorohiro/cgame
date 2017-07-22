@@ -2,7 +2,7 @@
 #define _H_3DOBJECT
 //typedef int (*free)(int n);
 
-#include "core/object.h"
+#include "core/cobject.h"
 #include "core/cmemory.h"
 #include "glmatrix/glmatrix.h"
 

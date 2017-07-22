@@ -5,7 +5,7 @@ rule test
 rule lib
   command=emcc $in -o $out
 
-build core/object.o: obj core/object.c
+build core/object.o: obj core/cobject.c
 build core/objectManager.o: obj core/objectManager.c
 build core/list.o: obj core/list.c
 build core/arraylist.o: obj core/arraylist.c

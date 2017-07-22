@@ -2,7 +2,7 @@
 #define _H_CGAME
 //typedef int (*free)(int n);
 
-#include "core/object.h"
+#include "core/cobject.h"
 #include "core/cmemory.h"
 
 #define CGAME_NAME "cga"
