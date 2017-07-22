@@ -52,9 +52,9 @@ Object3D* object3d_setPosition(Object3D* obj , double x, double y, double z) {
 
 KMatrix* object3d_getKMatrix(Object3D* obj) {
   kmatrix_setIdentity(obj->mat);
-  kmatrix_outer(obj->mat, kmatrix_setRotationX(arg, obj->rx), obj->mat);
-  kmatrix_outer(obj->mat, kmatrix_setRotationY(arg, obj->ry), obj->mat);
-  kmatrix_outer(obj->mat, kmatrix_setRotationZ(arg, obj->rz), obj->mat);
-  kmatrix_outer(obj->mat, kmatrix_setTranslation(arg, obj->x, obj->y, obj->z);
+  kmatrix_outer(obj->mat, kmatrix_setRotationX(obj->arg, obj->rx), obj->mat);
+  kmatrix_outer(obj->mat, kmatrix_setRotationY(obj->arg, obj->ry), obj->mat);
+  kmatrix_outer(obj->mat, kmatrix_setRotationZ(obj->arg, obj->rz), obj->mat);
+  kmatrix_outer(obj->mat, kmatrix_setTranslation(obj->arg, obj->x, obj->y, obj->z), obj->mat);
   return obj->mat;
 }
