@@ -21,7 +21,7 @@ BytesBuilder* newBytesBuilder(CMemory* cmemory) {
 BytesBuilder* initBytesBuilder(BytesBuilder* obj){
   initCObject((CObject *)obj, BYTESBUILDER_NAME);
   obj->parent.funcFree = freeBytesBuilder;
-  obj->values = initLinkedList(newLinkedList(obj->parent.cmemory));
+  obj->values = initCLinkedList(newCLinkedList(obj->parent.cmemory));
   return obj;
 }
 

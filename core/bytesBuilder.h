@@ -10,7 +10,7 @@
 // UTF8
 typedef struct {
   CObject parent;
-  LinkedList* values;
+  CLinkedList* values;
 } BytesBuilder;
 
 BytesBuilder* newBytesBuilder(CMemory*);

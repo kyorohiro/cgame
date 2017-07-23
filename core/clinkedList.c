@@ -8,13 +8,13 @@
 // LinkedList
 //
 
-CLinkedList* newLinkedList(CMemory* cmemory) {
+CLinkedList* newCLinkedList(CMemory* cmemory) {
   CLinkedList* ret = cmemory_calloc(cmemory, 1, sizeof(CLinkedList));
   ret->parent.cmemory = cmemory;
   return ret;
 }
 
-CLinkedList* initLinkedList(CLinkedList *obj) {
+CLinkedList* initCLinkedList(CLinkedList *obj) {
   initCObject((CObject*)obj, CLINKEDLIST_NAME);
 
   obj->length = 0;

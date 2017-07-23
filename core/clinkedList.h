@@ -22,8 +22,8 @@ typedef struct {
   CLinkedListItem *end;
 } CLinkedList;
 
-CLinkedList* newLinkedList(CMemory* cmemory);
-CLinkedList* initLinkedList(CLinkedList *obj);
+CLinkedList* newCLinkedList(CMemory* cmemory);
+CLinkedList* initCLinkedList(CLinkedList *obj);
 void freeLinkedList(void* obj);
 
 CObject* clinkedList_get(CLinkedList* obj, int index);

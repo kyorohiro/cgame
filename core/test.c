@@ -65,7 +65,7 @@ int test02() {
 }
 
 int test03a() {
-  CLinkedList *obj = initLinkedList(newLinkedList(getCMemory()));
+  CLinkedList *obj = initCLinkedList(newCLinkedList(getCMemory()));
   printf("[TEST03] %d\n",obj->parent.reference );
 
 //  offMode((CObject*)obj, COBJECT_MODE_FREEABLE);
@@ -81,7 +81,7 @@ int test03a() {
 int test03b() {
   //
   //
-  CLinkedList *obj = initLinkedList(newLinkedList(getCMemory()));
+  CLinkedList *obj = initCLinkedList(newCLinkedList(getCMemory()));
   printf("%d", obj->length);
   clinkedList_addLast(obj, cobject_downCounter(initCObject(newCObject(getCMemory()),"test00")));
   clinkedList_addLast(obj, cobject_downCounter(initCObject(newCObject(getCMemory()),"test01")));
