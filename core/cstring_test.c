@@ -13,7 +13,7 @@ void cstring_test(){
     passed = 0;
   }
 
-  if(cstring_getByteLength(bye) != 4) {
+  if(cstring_getByteLength(bye) != 3) {
     printf("  NG : byteLength = %d\r\n", cstring_getByteLength(bye));
     passed = 0;
   }
