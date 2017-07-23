@@ -6,6 +6,7 @@
 #include "objectManager.h"
 
 extern void cbytes_test();
+extern void cstring_test();
 int test01();
 int test02();
 int test03a();
@@ -18,6 +19,7 @@ int main(int argv, char** argc) {
     getCMemory()->freeCounter);
 
   cbytes_test();
+  cstring_test();
   test01();
   test02();
   test03a();

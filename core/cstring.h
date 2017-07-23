@@ -18,5 +18,7 @@ typedef struct {
 
 CString* newCString(CMemory*);
 CString* initCString(CString* obj, char *value);
-
+int cstring_getLength(CString* obj);
+int cstring_getByteLength(CString* obj);
+char* cstring_getBytes(CString* obj);
 #endif
