@@ -20,7 +20,7 @@ CObject* initCObject(CObject*obj, const char *name) {
   obj->funcHashCode = _hashCode;
   obj->funcCompareTo = _compareTo;
   obj->funcEquals = _equals;
-  onMode(obj, COBJECT_MODE_FREEABLE);
+  cobject_onMode(obj, COBJECT_MODE_FREEABLE);
   return obj;
 }
 
@@ -62,17 +62,17 @@ CObject* cobject_downCounter(CObject* obj) {
   return obj;
 }
 
-CObject* onMode(CObject* obj, int mode) {
+CObject* cobject_onMode(CObject* obj, int mode) {
   obj->mode = (obj->mode & (~mode)) | mode;
   return obj;
 }
 
-CObject* offMode(CObject* obj, int mode) {
+CObject* cobject_offMode(CObject* obj, int mode) {
   obj->mode = (obj->mode & (~mode));
   return obj;
 }
 
-int getMode(CObject* obj, int mode) {
+int cobject_getMode(CObject* obj, int mode) {
   if((obj->mode & mode) != 0) {
     return 1;
   } else {
@@ -104,7 +104,7 @@ int cobject_equals(CObject* obj, CObject* src) {
 }
 CObject* _releaseCObject(CObject* obj, int isForce) {
   obj->reference--;
-  if(isForce != 0 || (obj->reference<=0 && getMode(obj, COBJECT_MODE_FREEABLE) == 1)){
+  if(isForce != 0 || (obj->reference<=0 && cobject_getMode(obj, COBJECT_MODE_FREEABLE) == 1)){
     CObjectFuncFree func = obj->funcFree;
     if(func != NULL) {
       func(obj);

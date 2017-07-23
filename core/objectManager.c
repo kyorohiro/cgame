@@ -24,7 +24,7 @@ void freeCObjectManager(void* obj) {
 
 CObjectManager* objectManager_addObject(CObjectManager *obj, CObject *item) {
   arrayList_addLast(obj->objects, item);
-  offMode(item, COBJECT_MODE_FREEABLE);
+  cobject_offMode(item, COBJECT_MODE_FREEABLE);
   item->index = obj->objects->length;
   return obj;
 }
@@ -46,7 +46,7 @@ CObjectManager* objectManager_releaseAll(CObjectManager *obj) {
 
 CObjectManager* objectManager_releaseObject(CObjectManager *obj, CObject *item) {
   int index = item->index-1;
-  onMode(item, COBJECT_MODE_FREEABLE);
+  cobject_onMode(item, COBJECT_MODE_FREEABLE);
   arrayList_set(obj->objects, index, NULL);
   return obj;
 }

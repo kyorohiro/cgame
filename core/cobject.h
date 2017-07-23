@@ -33,12 +33,12 @@ void freeCObject(void* obj);
 
 CObject* cobject_upCounter(CObject* obj);
 CObject* cobject_downCounter(CObject* obj);
-CObject* onMode(CObject* obj, int mode);
-CObject* offMode(CObject* obj, int mode);
+CObject* cobject_onMode(CObject* obj, int mode);
+CObject* cobject_offMode(CObject* obj, int mode);
 int cobject_hashCode(CObject* obj);
 int cobject_compareTo(CObject* obj, CObject* src);
 int cobject_equals(CObject* obj, CObject* src);
 
 
-int getMode(CObject* obj, int mode);
+int cobject_getMode(CObject* obj, int mode);
 #endif
