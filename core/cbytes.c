@@ -26,3 +26,11 @@ void _freeCBytes(void* obj) {
   }
   freeCObject(obj);
 }
+
+int cbyte_getLength(CBytes* obj) {
+  return obj->length;
+}
+
+char* cbyte_getBytes(CBytes* obj) {
+  return obj->value;
+}
