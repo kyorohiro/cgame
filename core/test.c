@@ -7,6 +7,8 @@
 
 extern void cbytes_test();
 extern void cstring_test();
+extern void clinkedList_test();
+
 int test01();
 int test02();
 int test03a();
@@ -20,9 +22,10 @@ int main(int argv, char** argc) {
 
   cbytes_test();
   cstring_test();
-  test01();
-  test02();
-  test03a();
+  clinkedList_test();
+//  test01();
+//  test02();
+//  test03a();
   //test03b();*/
   return 0;
 }
