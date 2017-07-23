@@ -33,7 +33,7 @@ void freeLinkedList(void* obj) {
   CLinkedList *linkedListObj = (CLinkedList *)obj;
   while(linkedListObj->length > 0)
   {
-      linkedList_removeLast(linkedListObj);
+      clinkedList_removeLast(linkedListObj);
   }
 
   cmemory_free(linkedListObj->parent.cmemory, linkedListObj->begin);
@@ -43,7 +43,7 @@ void freeLinkedList(void* obj) {
   freeCObject(obj);
 }
 
-CLinkedListItem* linkedList_getItem(CLinkedList* obj, int index) {
+CLinkedListItem* clinkedList_getItem(CLinkedList* obj, int index) {
   int i=0;
   CLinkedListItem *cur =NULL;
   if(!(0<=index && index<obj->length)){
@@ -63,16 +63,16 @@ CLinkedListItem* linkedList_getItem(CLinkedList* obj, int index) {
   return cur;
 }
 
-CObject* linkedList_get(CLinkedList* obj, int index) {
-  CLinkedListItem *cur = linkedList_getItem(obj, index);
+CObject* clinkedList_get(CLinkedList* obj, int index) {
+  CLinkedListItem *cur = clinkedList_getItem(obj, index);
   if(cur == NULL) {
     return NULL;
   }
   return cur->value;
 }
 
-CObject* linkedList_insert(CLinkedList* obj, CObject *item, int index) {
-  CLinkedListItem *cur = linkedList_getItem(obj, index);
+CObject* clinkedList_insert(CLinkedList* obj, CObject *item, int index) {
+  CLinkedListItem *cur = clinkedList_getItem(obj, index);
 
   CLinkedListItem *newItem;
   CLinkedListItem *curNext;
@@ -102,8 +102,8 @@ CObject* linkedList_insert(CLinkedList* obj, CObject *item, int index) {
   return item;
 }
 
-int linkedList_remove(CLinkedList* obj, int index) {
-  CLinkedListItem *item = linkedList_getItem(obj, index);
+int clinkedList_remove(CLinkedList* obj, int index) {
+  CLinkedListItem *item = clinkedList_getItem(obj, index);
   if(item == NULL) {
     return -1;
   }
@@ -120,14 +120,14 @@ int linkedList_remove(CLinkedList* obj, int index) {
   return 1;
 }
 
-CObject* linkedList_getLast(CLinkedList* obj) {
-  return linkedList_get(obj, obj->length-1);
+CObject* clinkedList_getLast(CLinkedList* obj) {
+  return clinkedList_get(obj, obj->length-1);
 }
 
-CObject* linkedList_addLast(CLinkedList* obj, CObject *item) {
-  return linkedList_insert(obj, item, obj->length);
+CObject* clinkedList_addLast(CLinkedList* obj, CObject *item) {
+  return clinkedList_insert(obj, item, obj->length);
 }
 
-int linkedList_removeLast(CLinkedList* obj) {
-  return linkedList_remove(obj, obj->length-1);
+int clinkedList_removeLast(CLinkedList* obj) {
+  return clinkedList_remove(obj, obj->length-1);
 }

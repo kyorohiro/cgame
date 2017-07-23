@@ -65,7 +65,7 @@ int test02() {
 }
 
 int test03a() {
-  LinkedList *obj = initLinkedList(newLinkedList(getCMemory()));
+  CLinkedList *obj = initLinkedList(newLinkedList(getCMemory()));
   printf("[TEST03] %d\n",obj->parent.reference );
 
 //  offMode((CObject*)obj, COBJECT_MODE_FREEABLE);
@@ -81,10 +81,10 @@ int test03a() {
 int test03b() {
   //
   //
-  LinkedList *obj = initLinkedList(newLinkedList(getCMemory()));
+  CLinkedList *obj = initLinkedList(newLinkedList(getCMemory()));
   printf("%d", obj->length);
-  linkedList_addLast(obj, cobject_downCounter(initCObject(newCObject(getCMemory()),"test00")));
-  linkedList_addLast(obj, cobject_downCounter(initCObject(newCObject(getCMemory()),"test01")));
+  clinkedList_addLast(obj, cobject_downCounter(initCObject(newCObject(getCMemory()),"test00")));
+  clinkedList_addLast(obj, cobject_downCounter(initCObject(newCObject(getCMemory()),"test01")));
 //  downCounter(o);
 //  printf("===%d\n", o->reference);
 /*
@@ -103,7 +103,7 @@ int test03b() {
   */
   printf("[C12]%d\r\n", obj->length);
   for(int i=0;i<obj->length;i++) {
-    printf("## %s %d \r\n", linkedList_get(obj, i)->name, linkedList_get(obj, i)->reference);
+    printf("## %s %d \r\n", clinkedList_get(obj, i)->name, clinkedList_get(obj, i)->reference);
   }
   printf("[ZZZ]\n");
   releaseCObject((CObject*)obj);

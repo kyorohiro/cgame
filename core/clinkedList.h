@@ -26,13 +26,13 @@ CLinkedList* newLinkedList(CMemory* cmemory);
 CLinkedList* initLinkedList(CLinkedList *obj);
 void freeLinkedList(void* obj);
 
-CObject* linkedList_get(CLinkedList* obj, int index);
-CLinkedListItem* linkedList_getItem(CLinkedList* obj, int index);
-CObject* linkedList_insert(CLinkedList* obj, CObject *item, int index);
-int linkedList_remove(CLinkedList* obj, int index);
+CObject* clinkedList_get(CLinkedList* obj, int index);
+CLinkedListItem* clinkedList_getItem(CLinkedList* obj, int index);
+CObject* clinkedList_insert(CLinkedList* obj, CObject *item, int index);
+int clinkedList_remove(CLinkedList* obj, int index);
 
-CObject* linkedList_getLast(CLinkedList* obj);
-CObject* linkedList_addLast(CLinkedList* obj, CObject *item);
-int linkedList_removeLast(CLinkedList* obj);
+CObject* clinkedList_getLast(CLinkedList* obj);
+CObject* clinkedList_addLast(CLinkedList* obj, CObject *item);
+int clinkedList_removeLast(CLinkedList* obj);
 
 #endif
