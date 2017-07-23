@@ -10,6 +10,7 @@
 typedef void (*CObjectFuncFree)(void *obj);
 typedef int (*CObjectFuncHashCode)(void *obj);
 typedef int (*CObjectFuncCompareTo)(void *obj, void *src);
+typedef int (*CObjectFuncEquals)(void *obj, void *src);
 
 typedef struct {
   char name[8];
@@ -19,6 +20,7 @@ typedef struct {
   CObjectFuncFree funcFree;
   CObjectFuncHashCode funcHashCode;
   CObjectFuncCompareTo funcCompareTo;
+  CObjectFuncEquals funcEquals;
   CMemory* cmemory;
 } CObject;
 
@@ -35,5 +37,8 @@ CObject* onMode(CObject* obj, int mode);
 CObject* offMode(CObject* obj, int mode);
 int cobject_hashCode(CObject* obj);
 int cobject_compareTo(CObject* obj, CObject* src);
+int cobject_equals(CObject* obj, CObject* src);
+
+
 int getMode(CObject* obj, int mode);
 #endif
