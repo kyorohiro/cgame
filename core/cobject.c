@@ -52,12 +52,12 @@ int _equals(void *obj, void *src) {
   return 0;
 }
 
-CObject* upCounter(CObject* obj) {
+CObject* cobject_upCounter(CObject* obj) {
   obj->reference++;
   return obj;
 }
 
-CObject* downCounter(CObject* obj) {
+CObject* cobject_downCounter(CObject* obj) {
   obj->reference--;
   return obj;
 }

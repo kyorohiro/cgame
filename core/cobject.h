@@ -27,12 +27,12 @@ typedef struct {
 CObject* newCObject(CMemory*);
 CObject* initCObject(CObject*obj, const char *name);
 CObject* cobject_updateName(CObject*obj, const char *name);
-
-void freeCObject(void* obj);
-CObject* upCounter(CObject* obj);
-CObject* downCounter(CObject* obj);
 CObject* releaseCObject(CObject* obj);
 CObject* releaseForceCObject(CObject* obj);
+void freeCObject(void* obj);
+
+CObject* cobject_upCounter(CObject* obj);
+CObject* cobject_downCounter(CObject* obj);
 CObject* onMode(CObject* obj, int mode);
 CObject* offMode(CObject* obj, int mode);
 int cobject_hashCode(CObject* obj);
