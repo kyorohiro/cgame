@@ -7,7 +7,7 @@
 //
 // LinkedList
 //
-
+void freeCLinkedList(void* obj);
 CLinkedList* newCLinkedList(CMemory* cmemory) {
   CLinkedList* ret = cmemory_calloc(cmemory, 1, sizeof(CLinkedList));
   ret->parent.cmemory = cmemory;
@@ -18,7 +18,7 @@ CLinkedList* initCLinkedList(CLinkedList *obj) {
   initCObject((CObject*)obj, CLINKEDLIST_NAME);
 
   obj->length = 0;
-  obj->parent.funcFree = freeLinkedList;
+  obj->parent.funcFree = freeCLinkedList;
   obj->begin = (CLinkedListItem*)cmemory_calloc(obj->parent.cmemory, 1, sizeof(CLinkedListItem));
   obj->end = (CLinkedListItem*)cmemory_calloc(obj->parent.cmemory, 1, sizeof(CLinkedListItem));
   ((CLinkedListItem*)obj->begin)->next = obj->end;
@@ -26,7 +26,7 @@ CLinkedList* initCLinkedList(CLinkedList *obj) {
   return obj;
 }
 
-void freeLinkedList(void* obj) {
+void freeCLinkedList(void* obj) {
   if(obj == NULL) {
     return;
   }
