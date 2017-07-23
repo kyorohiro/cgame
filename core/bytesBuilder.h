@@ -3,7 +3,7 @@
 
 #include "cmemory.h"
 #include "cobject.h"
-#include "list.h"
+#include "clinkedList.h"
 
 #define BYTESBUILDER_NAME "obj"
 

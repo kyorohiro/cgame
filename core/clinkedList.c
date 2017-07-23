@@ -1,5 +1,5 @@
 #include "cobject.h"
-#include "list.h"
+#include "clinkedList.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include "cmemory.h"
@@ -8,21 +8,21 @@
 // LinkedList
 //
 
-LinkedList* newLinkedList(CMemory* cmemory) {
-  LinkedList* ret = cmemory_calloc(cmemory, 1, sizeof(LinkedList));
+CLinkedList* newLinkedList(CMemory* cmemory) {
+  CLinkedList* ret = cmemory_calloc(cmemory, 1, sizeof(CLinkedList));
   ret->parent.cmemory = cmemory;
   return ret;
 }
 
-LinkedList* initLinkedList(LinkedList *obj) {
-  initCObject((CObject*)obj, LINKEDLIST_NAME);
+CLinkedList* initLinkedList(CLinkedList *obj) {
+  initCObject((CObject*)obj, CLINKEDLIST_NAME);
 
   obj->length = 0;
   obj->parent.funcFree = freeLinkedList;
-  obj->begin = (LinkedListItem*)cmemory_calloc(obj->parent.cmemory, 1, sizeof(LinkedListItem));
-  obj->end = (LinkedListItem*)cmemory_calloc(obj->parent.cmemory, 1, sizeof(LinkedListItem));
-  ((LinkedListItem*)obj->begin)->next = obj->end;
-  ((LinkedListItem*)obj->end)->prev = obj->begin->next;
+  obj->begin = (CLinkedListItem*)cmemory_calloc(obj->parent.cmemory, 1, sizeof(CLinkedListItem));
+  obj->end = (CLinkedListItem*)cmemory_calloc(obj->parent.cmemory, 1, sizeof(CLinkedListItem));
+  ((CLinkedListItem*)obj->begin)->next = obj->end;
+  ((CLinkedListItem*)obj->end)->prev = obj->begin->next;
   return obj;
 }
 
@@ -30,7 +30,7 @@ void freeLinkedList(void* obj) {
   if(obj == NULL) {
     return;
   }
-  LinkedList *linkedListObj = (LinkedList *)obj;
+  CLinkedList *linkedListObj = (CLinkedList *)obj;
   while(linkedListObj->length > 0)
   {
       linkedList_removeLast(linkedListObj);
@@ -43,9 +43,9 @@ void freeLinkedList(void* obj) {
   freeCObject(obj);
 }
 
-LinkedListItem* linkedList_getItem(LinkedList* obj, int index) {
+CLinkedListItem* linkedList_getItem(CLinkedList* obj, int index) {
   int i=0;
-  LinkedListItem *cur =NULL;
+  CLinkedListItem *cur =NULL;
   if(!(0<=index && index<obj->length)){
     return NULL;
   }
@@ -63,19 +63,19 @@ LinkedListItem* linkedList_getItem(LinkedList* obj, int index) {
   return cur;
 }
 
-CObject* linkedList_get(LinkedList* obj, int index) {
-  LinkedListItem *cur = linkedList_getItem(obj, index);
+CObject* linkedList_get(CLinkedList* obj, int index) {
+  CLinkedListItem *cur = linkedList_getItem(obj, index);
   if(cur == NULL) {
     return NULL;
   }
   return cur->value;
 }
 
-CObject* linkedList_insert(LinkedList* obj, CObject *item, int index) {
-  LinkedListItem *cur = linkedList_getItem(obj, index);
+CObject* linkedList_insert(CLinkedList* obj, CObject *item, int index) {
+  CLinkedListItem *cur = linkedList_getItem(obj, index);
 
-  LinkedListItem *newItem;
-  LinkedListItem *curNext;
+  CLinkedListItem *newItem;
+  CLinkedListItem *curNext;
 
   if(cur == NULL ) {
     if(index == 0) {
@@ -88,7 +88,7 @@ CObject* linkedList_insert(LinkedList* obj, CObject *item, int index) {
       return NULL;
     }
   }
-  newItem = cmemory_calloc(obj->parent.cmemory,1, sizeof(LinkedListItem));
+  newItem = cmemory_calloc(obj->parent.cmemory,1, sizeof(CLinkedListItem));
 
   newItem->value = item;
   newItem->value->reference++;
@@ -102,13 +102,13 @@ CObject* linkedList_insert(LinkedList* obj, CObject *item, int index) {
   return item;
 }
 
-int linkedList_remove(LinkedList* obj, int index) {
-  LinkedListItem *item = linkedList_getItem(obj, index);
+int linkedList_remove(CLinkedList* obj, int index) {
+  CLinkedListItem *item = linkedList_getItem(obj, index);
   if(item == NULL) {
     return -1;
   }
-  LinkedListItem *cur = item->prev;
-  LinkedListItem *curNext = item->next;
+  CLinkedListItem *cur = item->prev;
+  CLinkedListItem *curNext = item->next;
   cur->next = curNext;
   curNext->prev = cur;
   if(item->value != NULL) {
@@ -120,14 +120,14 @@ int linkedList_remove(LinkedList* obj, int index) {
   return 1;
 }
 
-CObject* linkedList_getLast(LinkedList* obj) {
+CObject* linkedList_getLast(CLinkedList* obj) {
   return linkedList_get(obj, obj->length-1);
 }
 
-CObject* linkedList_addLast(LinkedList* obj, CObject *item) {
+CObject* linkedList_addLast(CLinkedList* obj, CObject *item) {
   return linkedList_insert(obj, item, obj->length);
 }
 
-int linkedList_removeLast(LinkedList* obj) {
+int linkedList_removeLast(CLinkedList* obj) {
   return linkedList_remove(obj, obj->length-1);
 }

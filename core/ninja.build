@@ -7,7 +7,7 @@ rule lib
 
 build core/object.o: obj core/cobject.c
 build core/objectManager.o: obj core/objectManager.c
-build core/list.o: obj core/list.c
+build core/clinkedList.o: obj core/clinkedList.c
 build core/arraylist.o: obj core/arraylist.c
 build core/cmemory.o: obj core/cmemory.c
 build core/test.o: obj core/test.c
@@ -18,5 +18,5 @@ build core/bytesBuilder.o: obj core/bytesBuilder.c
 build core/cbytes_test.o: obj core/cbytes_test.c
 build core/cstring_test.o: obj core/cstring_test.c
 
-build core/core.o: lib core/object.o core/list.o core/arraylist.o core/cmemory.o core/objectManager.o core/bytesBuilder.o core/cbytes.o core/cstring.o
+build core/core.o: lib core/object.o core/clinkedList.o core/arraylist.o core/cmemory.o core/objectManager.o core/bytesBuilder.o core/cbytes.o core/cstring.o
 build core/test.js: test core/core.o core/test.o core/cbytes_test.o core/cstring_test.o
