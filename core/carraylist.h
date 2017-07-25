@@ -2,7 +2,7 @@
 #define _H_ARRAYLIST
 #include "cobject.h"
 
-#define ARRAYLIST_NAME "ali"
+#define CARRAYLIST_NAME "ali"
 
 //
 // ArrayList

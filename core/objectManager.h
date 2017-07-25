@@ -1,7 +1,7 @@
 #ifndef _H_COBJECT_MANAGER
 #define _H_COBJECT_MANAGER
 #include "cobject.h"
-#include "arraylist.h"
+#include "carraylist.h"
 #include "cmemory.h"
 
 #define COBJECTMANAGER_NAME "omg"

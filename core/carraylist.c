@@ -1,5 +1,5 @@
 #include "cobject.h"
-#include "arraylist.h"
+#include "carraylist.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include "cmemory.h"
@@ -15,7 +15,7 @@ ArrayList* newArrayList(CMemory* cmemory) {
 }
 
 ArrayList* initArrayList(ArrayList *obj, int max) {
-  initCObject((CObject*)obj, ARRAYLIST_NAME);
+  initCObject((CObject*)obj, CARRAYLIST_NAME);
   obj->length = 0;
   obj->max = max;
   obj->objects = (CObject**) cmemory_calloc(obj->parent.cmemory,max, sizeof(CObject*));
