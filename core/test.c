@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "cobject.h"
 #include "clinkedList.h"
-#include "carraylist.h"
+#include "carrayList.h"
 #include "cmemory.h"
 #include "objectManager.h"
 
@@ -48,16 +48,16 @@ int test01() {
 
 int test02() {
   printf("[TEST02]\n");
-  ArrayList *objArray = initArrayList(newArrayList(getCMemory()), 10);
-  arrayList_addLast(objArray, cobject_downCounter(initCObject(newCObject(getCMemory()), "obj00")));
-  arrayList_addLast(objArray, cobject_downCounter(initCObject(newCObject(getCMemory()), "obj01")));
+  CArrayList *objArray = initCArrayList(newCArrayList(getCMemory()), 10);
+  CArrayList_addLast(objArray, cobject_downCounter(initCObject(newCObject(getCMemory()), "obj00")));
+  CArrayList_addLast(objArray, cobject_downCounter(initCObject(newCObject(getCMemory()), "obj01")));
   for(int i=0;i<objArray->length;i++) {
     printf("a- %d %s (%d)\n", i, objArray->objects[i]->name,objArray->objects[i]->reference);
   }
   for(int i=0;i<objArray->length;i++) {
     CObject *tmp = objArray->objects[i];
     printf("b- %d %s (%d)\n", i, tmp->name, tmp->reference);
-    arrayList_set(objArray, i, NULL);
+    CArrayList_set(objArray, i, NULL);
   }
   releaseCObject((CObject*)objArray);
   printf("mem: expect  %d == %d \n",

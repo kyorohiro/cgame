@@ -1,26 +1,26 @@
-#ifndef _H_ARRAYLIST
-#define _H_ARRAYLIST
+#ifndef _H_CArrayList
+#define _H_CArrayList
 #include "cobject.h"
 
-#define CARRAYLIST_NAME "ali"
+#define CCArrayList_NAME "ali"
 
 //
-// ArrayList
+// CArrayList
 //
 typedef struct {
   CObject parent;
   int max;
   int length;
   CObject **objects;
-} ArrayList;
+} CArrayList;
 
-ArrayList* newArrayList(CMemory* cmemory);
-ArrayList* initArrayList(ArrayList *obj, int max);
-ArrayList* arrayList_addLast(ArrayList* obj, CObject *item);
-ArrayList* arrayList_removeLast(ArrayList* obj);
-CObject* arrayList_getLast(ArrayList* obj);
-CObject* arrayList_get(ArrayList* obj, int index);
-ArrayList* arrayList_set(ArrayList* obj, int index, CObject *item);
+CArrayList* newCArrayList(CMemory* cmemory);
+CArrayList* initCArrayList(CArrayList *obj, int max);
+CArrayList* CArrayList_addLast(CArrayList* obj, CObject *item);
+CArrayList* CArrayList_removeLast(CArrayList* obj);
+CObject* CArrayList_getLast(CArrayList* obj);
+CObject* CArrayList_get(CArrayList* obj, int index);
+CArrayList* CArrayList_set(CArrayList* obj, int index, CObject *item);
 
-ArrayList* arrayList_grow(ArrayList* obj);
+CArrayList* CArrayList_grow(CArrayList* obj);
 #endif

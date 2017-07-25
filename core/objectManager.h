@@ -1,14 +1,14 @@
 #ifndef _H_COBJECT_MANAGER
 #define _H_COBJECT_MANAGER
 #include "cobject.h"
-#include "carraylist.h"
+#include "carrayList.h"
 #include "cmemory.h"
 
 #define COBJECTMANAGER_NAME "omg"
 
 typedef struct {
   CObject parent;
-  ArrayList *objects;
+  CArrayList *objects;
 } CObjectManager;
 
 CObjectManager* newCObjectManager(CMemory *mem);
