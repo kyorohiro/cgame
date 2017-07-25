@@ -38,13 +38,13 @@ void clinkedList_test(){
     printf("  NG4 : \r\n");
     passed = 0;
   }
-
+printf("\n==\n");
   clinkedList_remove(lin, 0);
   if(clinkedList_getLength(lin) != 2) {
     printf("  NG5 : length = %d\r\n", clinkedList_getLength(lin));
     passed = 0;
   }
-
+printf("\n==\n");
   if(strcmp(clinkedList_get(lin,0)->name, "test") != 0) {
     printf("  NG6_1 %s: \r\n", clinkedList_get(lin,1)->name);
     printf("  NG6_0 %s: \r\n", clinkedList_get(lin,0)->name);

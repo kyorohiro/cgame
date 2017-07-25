@@ -44,22 +44,44 @@ void freeCLinkedList(void* obj) {
 }
 
 CLinkedListItem* clinkedList_getItem(CLinkedList* obj, int index) {
-  int i=0;
-  CLinkedListItem *cur =NULL;
   if(!(0<=index && index<obj->length)){
     return NULL;
   }
+
+  CLinkedListItem *cur =NULL;
+  //
+  if(obj->current != NULL) {
+    if(obj->currentIndex == index) {
+      return obj->current;
+    }
+    else if(obj->currentIndex+1 == index) {
+      cur = obj->current->next;
+      obj->current = cur;
+      obj->currentIndex = index;
+      return cur;
+    }
+    else if(obj->currentIndex-1 == index) {
+      cur = obj->current->prev;
+      obj->current = cur;
+      obj->currentIndex = index;
+      return cur;
+    }
+  }
+  //
+  //
   if(index < obj->length/2) {
     cur = obj->begin;
-    for(i=0;i<=index;i++) {
+    for(int i=0;i<=index;i++) {
       cur = cur->next;
     }
   } else {
     cur = obj->end;
-    for(i=obj->length-1;i>=index;i--) {
+    for(int i=obj->length-1;i>=index;i--) {
       cur = cur->prev;
     }
   }
+  obj->current = cur;
+  obj->currentIndex = index;
   return cur;
 }
 
@@ -73,7 +95,6 @@ CObject* clinkedList_get(CLinkedList* obj, int index) {
 
 CObject* clinkedList_insert(CLinkedList* obj, CObject *item, int index) {
   CLinkedListItem *cur = clinkedList_getItem(obj, index-1);
-
   CLinkedListItem *newItem;
   CLinkedListItem *curNext;
 
@@ -98,14 +119,11 @@ CObject* clinkedList_insert(CLinkedList* obj, CObject *item, int index) {
   curNext->prev = newItem;
   newItem->next = curNext;
   obj->length++;
-/*
-  curNext = cur->next;
-  cur->next = newItem;
-  newItem->prev = cur;
-  curNext->prev = newItem;
-  newItem->next = curNext;
-  obj->length++;
-*/
+
+  //
+  if(obj->currentIndex >= index) {
+    obj->currentIndex++;
+  }
   return item;
 }
 
@@ -123,7 +141,13 @@ int clinkedList_remove(CLinkedList* obj, int index) {
   }
   obj->length--;
   cmemory_free(obj->parent.cmemory,item);
-
+  //
+  //
+  if(obj->currentIndex == index) {
+    obj->current = NULL;
+  } else if(obj->currentIndex > index) {
+    obj->currentIndex--;
+  }
   return 1;
 }
 
