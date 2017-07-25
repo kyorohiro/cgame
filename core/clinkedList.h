@@ -33,5 +33,5 @@ int clinkedList_remove(CLinkedList* obj, int index);
 CObject* clinkedList_getLast(CLinkedList* obj);
 CObject* clinkedList_addLast(CLinkedList* obj, CObject *item);
 int clinkedList_removeLast(CLinkedList* obj);
-
+int clinkedList_getLength(CLinkedList* obj);
 #endif

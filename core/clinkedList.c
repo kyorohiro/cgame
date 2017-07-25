@@ -72,7 +72,7 @@ CObject* clinkedList_get(CLinkedList* obj, int index) {
 }
 
 CObject* clinkedList_insert(CLinkedList* obj, CObject *item, int index) {
-  CLinkedListItem *cur = clinkedList_getItem(obj, index);
+  CLinkedListItem *cur = clinkedList_getItem(obj, index-1);
 
   CLinkedListItem *newItem;
   CLinkedListItem *curNext;
@@ -92,13 +92,20 @@ CObject* clinkedList_insert(CLinkedList* obj, CObject *item, int index) {
 
   newItem->value = item;
   newItem->value->reference++;
-
   curNext = cur->next;
   cur->next = newItem;
   newItem->prev = cur;
   curNext->prev = newItem;
   newItem->next = curNext;
   obj->length++;
+/*
+  curNext = cur->next;
+  cur->next = newItem;
+  newItem->prev = cur;
+  curNext->prev = newItem;
+  newItem->next = curNext;
+  obj->length++;
+*/
   return item;
 }
 
@@ -130,4 +137,8 @@ CObject* clinkedList_addLast(CLinkedList* obj, CObject *item) {
 
 int clinkedList_removeLast(CLinkedList* obj) {
   return clinkedList_remove(obj, obj->length-1);
+}
+
+int clinkedList_getLength(CLinkedList* obj) {
+  return obj->length;
 }
