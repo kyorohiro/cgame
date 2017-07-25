@@ -49,6 +49,7 @@ CArrayList* carrayList_grow(CArrayList* obj) {
   for(i=0;i<obj->length;i++) {
     obj->objects[i] = tmp[i];
   }
+  cmemory_free(((CObject*)obj)->cmemory, tmp);
   return obj;
 }
 

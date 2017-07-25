@@ -13,10 +13,10 @@ void carrayList_test(){
     printf("  NG : length = %d\r\n", carrayList_getLength(lin));
     passed = 0;
   }
-/*
-  clinkedList_addLast(lin, cobject_downCounter(initCObject(newCObject(mem), "test1")));
-  clinkedList_addLast(lin, cobject_downCounter(initCObject(newCObject(mem), "test2")));
-  clinkedList_insert(lin, cobject_downCounter(initCObject(newCObject(mem), "test")),1);
+
+  carrayList_addLast(lin, cobject_downCounter(initCObject(newCObject(mem), "test1")));
+  carrayList_addLast(lin, cobject_downCounter(initCObject(newCObject(mem), "test2")));
+/*  clinkedList_insert(lin, cobject_downCounter(initCObject(newCObject(mem), "test")),1);
 
   if(clinkedList_getLength(lin) != 3) {
     printf("  NG1 : length = %d\r\n", clinkedList_getLength(lin));
