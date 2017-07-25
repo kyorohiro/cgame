@@ -23,7 +23,7 @@ void freeCObjectManager(void* obj) {
 }
 
 CObjectManager* objectManager_addObject(CObjectManager *obj, CObject *item) {
-  CArrayList_addLast(obj->objects, item);
+  carrayList_addLast(obj->objects, item);
   cobject_offMode(item, COBJECT_MODE_FREEABLE);
   item->index = obj->objects->length;
   return obj;
@@ -38,7 +38,7 @@ CObjectManager* objectManager_releaseAll(CObjectManager *obj) {
     }
     if(tmp->reference <=0) {
       releaseCObject(tmp);
-      CArrayList_set(obj->objects, i, NULL);
+      carrayList_set(obj->objects, i, NULL);
     }
   }
   return obj;
@@ -47,7 +47,7 @@ CObjectManager* objectManager_releaseAll(CObjectManager *obj) {
 CObjectManager* objectManager_releaseObject(CObjectManager *obj, CObject *item) {
   int index = item->index-1;
   cobject_onMode(item, COBJECT_MODE_FREEABLE);
-  CArrayList_set(obj->objects, index, NULL);
+  carrayList_set(obj->objects, index, NULL);
   return obj;
 }
 
@@ -55,7 +55,7 @@ CObjectManager* objectManager_showInfo(CObjectManager *obj) {
   int i=0;
   printf("length:%d \n", obj->objects->length);
   for(i=0;i<obj->objects->length;i++) {
-    CObject* item = CArrayList_get(obj->objects, i);
+    CObject* item = carrayList_get(obj->objects, i);
     if(item != NULL) {
       printf("[%d] %d:%s;r:%d; \n", i, item->index, item->name, item->reference);
     } else {

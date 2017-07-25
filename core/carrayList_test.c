@@ -1,18 +1,19 @@
 #include <stdio.h>
 #include <string.h>
 #include "cmemory.h"
-#include "clinkedList.h"
+#include "carrayList.h"
 
 void carrayList_test(){
-  printf("# clinkedList_test\n");
+  printf("# arrayList_test\n");
   int passed = 1;
   CMemory *mem = initCMemory(newCMemory());
-  CLinkedList *lin = initCLinkedList(newCLinkedList(mem));
+  CArrayList *lin = initCArrayList(newCArrayList(mem),2);
 
-  if(clinkedList_getLength(lin) != 0) {
-    printf("  NG : length = %d\r\n", clinkedList_getLength(lin));
+  if(carrayList_getLength(lin) != 0) {
+    printf("  NG : length = %d\r\n", carrayList_getLength(lin));
     passed = 0;
   }
+/*
   clinkedList_addLast(lin, cobject_downCounter(initCObject(newCObject(mem), "test1")));
   clinkedList_addLast(lin, cobject_downCounter(initCObject(newCObject(mem), "test2")));
   clinkedList_insert(lin, cobject_downCounter(initCObject(newCObject(mem), "test")),1);
@@ -51,7 +52,7 @@ void carrayList_test(){
     passed = 0;
   }
 
-
+*/
   releaseCObject((CObject*)lin);
   if(mem->callocCounter != mem->freeCounter) {
     printf("  NG : %d == %d\r\n", mem->callocCounter, mem->freeCounter);

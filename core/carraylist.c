@@ -15,7 +15,7 @@ CArrayList* newCArrayList(CMemory* cmemory) {
 }
 
 CArrayList* initCArrayList(CArrayList *obj, int max) {
-  initCObject((CObject*)obj, CCArrayList_NAME);
+  initCObject((CObject*)obj, CcarrayList_NAME);
   obj->length = 0;
   obj->max = max;
   obj->objects = (CObject**) cmemory_calloc(obj->parent.cmemory,max, sizeof(CObject*));
@@ -32,7 +32,7 @@ void freeCArrayList(void* obj) {
   CArrayList *CArrayListObj = (CArrayList *)obj;
 
   for(i=0; i<CArrayListObj->length;i++) {
-    CArrayList_set(CArrayListObj, i, NULL);
+    carrayList_set(CArrayListObj, i, NULL);
   }
   if(CArrayListObj->objects != NULL) {
     cmemory_free(CArrayListObj->parent.cmemory,CArrayListObj->objects);
@@ -40,7 +40,7 @@ void freeCArrayList(void* obj) {
   freeCObject(obj);
 }
 
-CArrayList* CArrayList_grow(CArrayList* obj) {
+CArrayList* carrayList_grow(CArrayList* obj) {
   CObject**tmp = obj->objects;
   int tmpMax = obj->max;
   int max = tmpMax;
@@ -52,42 +52,42 @@ CArrayList* CArrayList_grow(CArrayList* obj) {
   return obj;
 }
 
-CArrayList* CArrayList_addLast(CArrayList* obj, CObject *item) {
+CArrayList* carrayList_addLast(CArrayList* obj, CObject *item) {
   if(obj->length+1 >= obj->max) {
-    CArrayList_grow(obj);
+    carrayList_grow(obj);
   }
   obj->objects[obj->length++] = item;
   item->reference++;
   return obj;
 }
 
-CArrayList* CArrayList_removeLast(CArrayList* obj) {
+CArrayList* carrayList_removeLast(CArrayList* obj) {
   if(obj->length<=0) {
     return obj;
   }
-  CObject *item = CArrayList_get(obj, obj->length-1);
-  CArrayList_set(obj, obj->length-1, NULL);
+  CObject *item = carrayList_get(obj, obj->length-1);
+  carrayList_set(obj, obj->length-1, NULL);
   obj->length--;
   item->reference--;
 
   return obj;
 }
 
-CObject* CArrayList_getLast(CArrayList* obj) {
+CObject* carrayList_getLast(CArrayList* obj) {
   if(obj->length<=0) {
     return NULL;
   }
   return obj->objects[obj->length-1];
 }
 
-CObject* CArrayList_get(CArrayList* obj, int index) {
+CObject* carrayList_get(CArrayList* obj, int index) {
   if(obj->length<=index) {
     return NULL;
   }
   return obj->objects[index];
 }
 
-CArrayList* CArrayList_set(CArrayList* obj, int index, CObject *item) {
+CArrayList* carrayList_set(CArrayList* obj, int index, CObject *item) {
   if(obj->length <= index) {
     return obj;
   }
@@ -102,4 +102,8 @@ CArrayList* CArrayList_set(CArrayList* obj, int index, CObject *item) {
     item->reference++;
   }
   return obj;
+}
+
+int carrayList_getLength(CArrayList* obj) {
+  return obj->length;
 }

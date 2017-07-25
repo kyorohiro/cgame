@@ -2,7 +2,7 @@
 #define _H_CArrayList
 #include "cobject.h"
 
-#define CCArrayList_NAME "ali"
+#define CcarrayList_NAME "ali"
 
 //
 // CArrayList
@@ -16,11 +16,11 @@ typedef struct {
 
 CArrayList* newCArrayList(CMemory* cmemory);
 CArrayList* initCArrayList(CArrayList *obj, int max);
-CArrayList* CArrayList_addLast(CArrayList* obj, CObject *item);
-CArrayList* CArrayList_removeLast(CArrayList* obj);
-CObject* CArrayList_getLast(CArrayList* obj);
-CObject* CArrayList_get(CArrayList* obj, int index);
-CArrayList* CArrayList_set(CArrayList* obj, int index, CObject *item);
-
-CArrayList* CArrayList_grow(CArrayList* obj);
+CArrayList* carrayList_addLast(CArrayList* obj, CObject *item);
+CArrayList* carrayList_removeLast(CArrayList* obj);
+CObject* carrayList_getLast(CArrayList* obj);
+CObject* carrayList_get(CArrayList* obj, int index);
+CArrayList* carrayList_set(CArrayList* obj, int index, CObject *item);
+CArrayList* carrayList_grow(CArrayList* obj);
+int carrayList_getLength(CArrayList* obj);
 #endif
