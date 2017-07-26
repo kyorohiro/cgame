@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include "cbytesBuilder.h"
-
+#include "cbytes.h"
+#include <string.h>
 
 void freeCBytesBuilder(void* obj) {
   int i=0;
@@ -26,5 +27,29 @@ CBytesBuilder* initCBytesBuilder(CBytesBuilder* obj){
 }
 
 CBytesBuilder* cbytesBuilder_addChars(CBytesBuilder* obj, char* v, int length) {
+  clinkedList_addLast(
+    obj->values,
+    cobject_downCounter(
+      (CObject*)initCBytes(
+      newCBytes(obj->parent.cmemory),
+      v, length))
+    );
+    obj->length += length;
   return obj;
+}
+
+int cbytesBuilder_getLength(CBytesBuilder* obj) {
+  return obj->length;
+}
+
+CBytes* cbytesBuilder_newBytes(CBytesBuilder* obj) {
+  int length = obj->length;
+  CBytes *ret = initCBytes(newCBytes(obj->parent.cmemory), NULL, length);
+  int index = 0;
+  for(int i=0;i<length;i++) {
+    CBytes* tmp = (CBytes*)clinkedList_get(obj->values, i);
+    memcpy((void*)(ret->value+index), (void*)tmp->value, tmp->length);
+    index += tmp->length;
+  }
+  return ret;
 }

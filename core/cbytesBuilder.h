@@ -3,6 +3,7 @@
 
 #include "cmemory.h"
 #include "cobject.h"
+#include "cbytes.h"
 #include "clinkedList.h"
 
 #define CBYTESBUILDER_NAME "obj"
@@ -11,9 +12,12 @@
 typedef struct {
   CObject parent;
   CLinkedList* values;
+  int length;
 } CBytesBuilder;
 
 CBytesBuilder* newCBytesBuilder(CMemory*);
 CBytesBuilder* initCBytesBuilder(CBytesBuilder* obj);
 CBytesBuilder* cbytesBuilder_addChars(CBytesBuilder* obj, char* v, int length);
+int cbytesBuilder_getLength(CBytesBuilder* obj);
+CBytes* cbytesBuilder_newBytes(CBytesBuilder* obj);
 #endif

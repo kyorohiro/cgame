@@ -14,7 +14,9 @@ CBytes* initCBytes(CBytes* obj, char *value, int length) {
   obj->length = length;
   obj->value = (char*)cmemory_calloc(obj->parent.cmemory, 1, sizeof(char)*obj->length);
   obj->parent.funcFree = _freeCBytes;
-  memcpy(obj->value, value, obj->length);
+  if(value != NULL) {
+    memcpy(obj->value, value, obj->length);
+  }
   return obj;
 }
 
