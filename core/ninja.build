@@ -19,7 +19,8 @@ build core/cbytes_test.o: obj core/cbytes_test.c
 build core/cstring_test.o: obj core/cstring_test.c
 build core/clinkedList_test.o: obj core/clinkedList_test.c
 build core/carrayList_test.o: obj core/carrayList_test.c
+build core/cbytesBuilder_test.o: obj core/cbytesBuilder_test.c
 
 
 build core/core.o: lib core/cobject.o core/clinkedList.o core/carrayList.o core/cmemory.o core/cobjectManager.o core/cbytesBuilder.o core/cbytes.o core/cstring.o
-build core/test.js: test core/core.o core/test.o core/cbytes_test.o core/cstring_test.o core/clinkedList_test.o core/carrayList_test.o
+build core/test.js: test core/core.o core/test.o core/cbytes_test.o core/cstring_test.o core/clinkedList_test.o core/carrayList_test.o core/cbytesBuilder_test.o
