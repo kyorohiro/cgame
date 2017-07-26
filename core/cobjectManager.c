@@ -1,4 +1,4 @@
-#include "objectManager.h"
+#include "cobjectManager.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include "carrayList.h"
@@ -22,14 +22,14 @@ void freeCObjectManager(void* obj) {
   freeCObject((CObject*)obj);
 }
 
-CObjectManager* objectManager_addObject(CObjectManager *obj, CObject *item) {
+CObjectManager* cobjectManager_addObject(CObjectManager *obj, CObject *item) {
   carrayList_addLast(obj->objects, item);
   cobject_offMode(item, COBJECT_MODE_FREEABLE);
   item->index = obj->objects->length;
   return obj;
 }
 
-CObjectManager* objectManager_releaseAll(CObjectManager *obj) {
+CObjectManager* cobjectManager_releaseAll(CObjectManager *obj) {
   int i = 0;
   for(i=0;i<obj->objects->length;i++) {
     CObject *tmp = obj->objects->objects[i];
@@ -44,14 +44,14 @@ CObjectManager* objectManager_releaseAll(CObjectManager *obj) {
   return obj;
 }
 
-CObjectManager* objectManager_releaseObject(CObjectManager *obj, CObject *item) {
+CObjectManager* cobjectManager_releaseObject(CObjectManager *obj, CObject *item) {
   int index = item->index-1;
   cobject_onMode(item, COBJECT_MODE_FREEABLE);
   carrayList_set(obj->objects, index, NULL);
   return obj;
 }
 
-CObjectManager* objectManager_showInfo(CObjectManager *obj) {
+CObjectManager* cobjectManager_showInfo(CObjectManager *obj) {
   int i=0;
   printf("length:%d \n", obj->objects->length);
   for(i=0;i<obj->objects->length;i++) {

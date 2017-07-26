@@ -13,11 +13,11 @@ typedef struct {
 
 CObjectManager* newCObjectManager(CMemory *mem);
 CObjectManager* initCObjectManager(CObjectManager *obj);
-CObjectManager* objectManager_addObject(CObjectManager *obj, CObject *item);
-CObjectManager* objectManager_releaseAll(CObjectManager *obj);
-CObjectManager* objectManager_releaseObject(CObjectManager *obj, CObject *item);
+CObjectManager* cobjectManager_addObject(CObjectManager *obj, CObject *item);
+CObjectManager* cobjectManager_releaseAll(CObjectManager *obj);
+CObjectManager* cobjectManager_releaseObject(CObjectManager *obj, CObject *item);
 CObjectManager* getCObjectManager();
 
-CObjectManager* objectManager_showInfo(CObjectManager *obj);
+CObjectManager* cobjectManager_showInfo(CObjectManager *obj);
 
 #endif

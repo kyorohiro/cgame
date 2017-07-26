@@ -3,7 +3,7 @@
 #include "clinkedList.h"
 #include "carrayList.h"
 #include "cmemory.h"
-#include "objectManager.h"
+#include "cobjectManager.h"
 
 extern void cbytes_test();
 extern void cstring_test();
