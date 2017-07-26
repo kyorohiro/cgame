@@ -5,6 +5,7 @@
 #include "cmemory.h"
 
 void freeCArrayList(void* obj);
+
 //
 // CArrayList
 //

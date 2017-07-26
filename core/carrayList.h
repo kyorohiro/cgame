@@ -7,6 +7,7 @@
 //
 // CArrayList
 //
+
 typedef struct {
   CObject parent;
   int max;
