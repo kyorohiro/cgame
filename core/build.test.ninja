@@ -1,1 +1,0 @@
-build core/test.js: test core/libcore.a core/test.o core/cbytes_test.o core/cstring_test.o core/clinkedList_test.o core/carrayList_test.o core/cbytesBuilder_test.o
