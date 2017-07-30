@@ -15,7 +15,7 @@ void* __calloc(void* obj,int num, int size) {
 }
 
 CMemory* newCMemory() {
-  return malloc(sizeof(CMemory));
+  return calloc(1, sizeof(CMemory));
 }
 
 CMemory* initCMemory(CMemory* obj) {
