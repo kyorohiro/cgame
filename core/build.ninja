@@ -7,22 +7,26 @@
 #
 
 
-build core/cobject.o: obj core/cobject.c
-build core/cobjectManager.o: obj core/cobjectManager.c
-build core/clinkedList.o: obj core/clinkedList.c
-build core/carrayList.o: obj core/carrayList.c
-build core/cmemory.o: obj core/cmemory.c
-build core/test.o: obj core/test.c
-build core/cstring.o: obj core/cstring.c
-build core/cbytes.o: obj core/cbytes.c
-build core/cbytesBuilder.o: obj core/cbytesBuilder.c
+build core${sep}cobject.bc: obj core${sep}cobject.c
+build core${sep}cobjectManager.${objExt}: obj core${sep}cobjectManager.c
+build core${sep}clinkedList.${objExt}: obj core${sep}clinkedList.c
+build core${sep}carrayList.${objExt}: obj core${sep}carrayList.c
+build core${sep}cmemory.${objExt}: obj core${sep}cmemory.c
+build core${sep}test.${objExt}: obj core${sep}test.c
+build core${sep}cstring.${objExt}: obj core${sep}cstring.c
+build core${sep}cbytes.${objExt}: obj core${sep}cbytes.c
+build core${sep}cbytesBuilder.${objExt}: obj core${sep}cbytesBuilder.c
 
-build core/cbytes_test.o: obj core/cbytes_test.c
-build core/cstring_test.o: obj core/cstring_test.c
-build core/clinkedList_test.o: obj core/clinkedList_test.c
-build core/carrayList_test.o: obj core/carrayList_test.c
-build core/cbytesBuilder_test.o: obj core/cbytesBuilder_test.c
+build core${sep}cbytes_test.${objExt}: obj core${sep}cbytes_test.c
+build core${sep}cstring_test.${objExt}: obj core${sep}cstring_test.c
+build core${sep}clinkedList_test.${objExt}: obj core${sep}clinkedList_test.c
+build core${sep}carrayList_test.${objExt}: obj core${sep}carrayList_test.c
+build core${sep}cbytesBuilder_test.${objExt}: obj core${sep}cbytesBuilder_test.c
+#
+
+#build core/libcore2.o: lib core/cobject.o core/clinkedList.o 
+
+build core/libcore.${objExt}: lib core/cobject.${objExt} core/clinkedList.${objExt} core/carrayList.${objExt} core/cmemory.${objExt} core/cobjectManager.${objExt} core/cbytesBuilder.${objExt} core/cbytes.${objExt} core/cstring.${objExt}
+build core/test.${appExt}: test core/libcore.${objExt} core/test.${objExt} core/cbytes_test.${objExt} core/cstring_test.${objExt} core/clinkedList_test.${objExt} core/carrayList_test.${objExt} core/cbytesBuilder_test.${objExt}
 
 
-build core/libcore.o: lib core/cobject.o core/clinkedList.o core/carrayList.o core/cmemory.o core/cobjectManager.o core/cbytesBuilder.o core/cbytes.o core/cstring.o
-build core/test.js: test core/libcore.o core/test.o core/cbytes_test.o core/cstring_test.o core/clinkedList_test.o core/carrayList_test.o core/cbytesBuilder_test.o

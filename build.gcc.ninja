@@ -1,9 +1,16 @@
+sep = /
+cmd = cmd /c 
+objExt= o
+appExt= exe
+cc = clang
+ar = ar
 rule obj
-  command=cc -c $in -o $out -I.. -I.
+  command=${cmd} ${cc} -c $in -o $out -I.. -I.
 rule test
-  command=cc $in -o $out
+  command=${cmd} ${cc} $in -o $out
 rule lib
-  command=ar rcs $out $in
+  command=${cmd} ${ar} rcs $out $in
   description = "cc ${in} -o ${out}"
 
-subninja core/build.ninja
+sep = "\"
+subninja core${sep}build.ninja

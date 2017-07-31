@@ -1,8 +1,13 @@
+sep = /
+cmd = cmd /c 
+objExt= bc
+appExt= js
 rule obj
-  command=emcc -c $in -o $out -I.. -I.
+  command=${cmd} emcc -c $in -o $out -I.. -I.
 rule test
-  command=emcc $in -o $out
+  command=${cmd} emcc $in -o $out
 rule lib
-  command=emcc $in -o $out
+  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out
 
-subninja core/build.ninja
+
+subninja core${sep}build.ninja
