@@ -1,5 +1,12 @@
 sep = /
-cmd = cmd /c 
+
+#
+# Wins
+# cmd = cmd /c
+
+# Mac
+# cmd =
+cmd =
 objExt= bc
 appExt= js
 rule obj
