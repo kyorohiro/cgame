@@ -19,3 +19,4 @@ rule lib
 
 subninja core${sep}build.ninja
 subninja game${sep}build.ninja
+subninja app2${sep}build.ninja

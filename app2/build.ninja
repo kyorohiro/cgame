@@ -1,9 +1,8 @@
-rule obj
-  command=emcc -c $in -o $out -I. -I..
 rule app
   command=emcc -s FULL_ES2=1  $in -o $out --preload-file game/assets/vs.glsl  --preload-file game/assets/fs.glsl
 
-subninja core/ninja.build
-subninja game/ninja.build
+
+#subninja core/build.ninja
+#subninja game/build.ninja
 build app2/main.o: obj app2/main.c
-build app2/main.html: app app2/main.o core/core.o game/game.o
+build app2/main.html: app app2/main.o core/libcore.bc game/libgame.bc
