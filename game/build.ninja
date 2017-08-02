@@ -7,5 +7,5 @@
 
 build game/cobject3d.${objExt}: obj game/cobject3d.c
 build game/cgame.${objExt}: obj game/cgame.c
-#build game/game.${objExt}: lib game/cgame.o
-build game/libgame.${objExt}: lib game/cgame.${objExt} game/cobject3d.${objExt}
+build game/cglutil.${objExt}: obj game/cglutil.c
+build game/libgame.${objExt}: lib game/cgame.${objExt} game/cobject3d.${objExt} game/cglutil.${objExt}

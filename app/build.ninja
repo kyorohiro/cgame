@@ -1,9 +1,13 @@
 rule obj
   command=emcc -c $in -o $out
 rule app
-  command=emcc -s FULL_ES2=1  $in -o $out --preload-file assets/vs.glsl --preload-file assets/fs.glsl
-  description=emcc -s FULL_ES2=1  $in -o $out --preload-file assets/vs.glsl --preload-file assets/fs.glsl
+  command=emcc -s FULL_ES2=1  $in -o $out
+# --preload-file assets/vs.glsl --preload-file assets/fs.glsl
+  description=emcc -s FULL_ES2=1  $in -o $out
+# --preload-file assets/vs.glsl --preload-file assets/fs.glsl
 
-subninja glmatrix/build.ninja
-build main.o: obj main.c
-build main.html: app main.o glmatrix/glmatrix.o
+#subninja glmatrix/build.ninja
+
+build app/main.o: obj app/main.c
+build app/main.html: app app/main.o
+# glmatrix/glmatrix.o
