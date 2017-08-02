@@ -19,16 +19,16 @@ typedef struct {
   int status;
   KMatrix *mat;
   KMatrix *arg;
-} Object3D;
+} CObject3D;
 
 //
 // unused CGame is singleton
 //
-Object3D* newObject3D(CMemory* mem);
+CObject3D* newCObject3D(CMemory* mem);
 //char* title, int width, int height
-Object3D* initObject3D(Object3D*);
-Object3D* object3d_setRotate(Object3D*, double rx, double ry, double rz);
-Object3D* object3d_setPosition(Object3D*, double x, double y, double z);
-KMatrix* object3d_getKMatrix(Object3D*);
+CObject3D* initCObject3D(CObject3D*);
+CObject3D* cobject3d_setRotate(CObject3D*, double rx, double ry, double rz);
+CObject3D* cobject3d_setPosition(CObject3D*, double x, double y, double z);
+KMatrix* cobject3d_getKMatrix(CObject3D*);
 
 #endif

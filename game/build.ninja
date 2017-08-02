@@ -1,0 +1,11 @@
+#rule obj
+#  command=emcc -c $in -o $out -I. -I..
+#rule test
+#  command=emcc $in -o $out
+#rule lib
+#  command=emcc -s FULL_ES2=1 $in -o $out
+
+build game/cobject3d.${objExt}: obj game/cobject3d.c
+build game/cgame.${objExt}: obj game/cgame.c
+#build game/game.${objExt}: lib game/cgame.o
+build game/libgame.${objExt}: lib game/cgame.${objExt} game/cobject3d.${objExt}
