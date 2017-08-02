@@ -10,6 +10,7 @@ extern void cstring_test();
 extern void clinkedList_test();
 extern void carrayList_test();
 extern void cbytesBuilder_test();
+extern void cbytesBuilder_test2();
 
 int main(int argv, char** argc) {
   CObjectManager *objMgr = getCObjectManager();
@@ -22,9 +23,7 @@ int main(int argv, char** argc) {
   clinkedList_test();
   carrayList_test();
   cbytesBuilder_test();
-//  test01();
-//  test02();
-//  test03a();
-  //test03b();*/
+  cbytesBuilder_test2();
+
   return 0;
 }

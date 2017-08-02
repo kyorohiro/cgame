@@ -2,6 +2,11 @@
 #include <string.h>
 #include <stdio.h>
 
+
+// for util
+//#include "cbytes.h"
+//#include "cbytesBuilder.h"
+
 void _freeCString(void* obj);
 
 CString* newCString(CMemory* cmemory) {
@@ -19,24 +24,30 @@ void _freeCString(void* obj) {
   freeCObject(obj);
 }
 
-CString* calcLength(CString* obj, char *value) {
+CString* calcLength(CString* obj, char *value, int byteLengthSrc) {
   int byteLength = 0;
   int length = 0;
   int np =0;
-  for(length=0;value[length] != 0;length++) {
+  for(byteLength=0;;byteLength++) {
+    if(byteLengthSrc < 0 && value[byteLength] == 0) {
+      break;
+    } else if(byteLengthSrc > 0 && byteLength >= byteLengthSrc) {
+      break;
+    }
     if(np == 0) {
-      if((0xE0 & value[length]) == 0xC0) {
+      if((0xE0 & value[byteLength]) == 0xC0) {
         np=2-1;
       }
-      else if((0xF0 & value[length]) == 0xE0) {
+      else if((0xF0 & value[byteLength]) == 0xE0) {
         np=3-1;
       }
-      else if((0xF8 & value[length]) == 0xF0) {
+      else if((0xF8 & value[byteLength]) == 0xF0) {
         np=4-1;
       }
-      byteLength++;
+      length++;
     } else {
       np--;
+      byteLength++;
     }
   }
   obj->byteLength = byteLength;
@@ -46,13 +57,21 @@ CString* calcLength(CString* obj, char *value) {
 
 CString* initCString(CString* obj, char *value) {
   initCObject((CObject *)obj, CSTRING_NAME);
-  calcLength(obj, value);
+  calcLength(obj, value, -1);
   obj->value = (char*)cmemory_calloc(obj->parent.cmemory, 1, sizeof(char)*obj->byteLength+1);
   obj->parent.funcFree = _freeCString;
   memcpy(obj->value, value, obj->byteLength+1);
   return obj;
 }
 
+CString* initCStringWithLength(CString* obj, char *value, int byteLength) {
+  initCObject((CObject *)obj, CSTRING_NAME);
+  calcLength(obj, value, byteLength);
+  obj->value = (char*)cmemory_calloc(obj->parent.cmemory, 1, sizeof(char)*obj->byteLength+1);
+  obj->parent.funcFree = _freeCString;
+  memcpy(obj->value, value, obj->byteLength+1);
+  return obj;
+}
 int cstring_getLength(CString* obj) {
   return obj->length;
 }

@@ -12,11 +12,11 @@ appExt= js
 rule obj
   command=${cmd} emcc -c $in -o $out -I.. -I.
 rule test
-  command=${cmd} emcc $in -o $out
+  command=${cmd} emcc $in -o $out --embed-file core/assets/test.dat
 rule lib
   command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out
 
-
+#   command=${cmd} emcc $in -o $out --embed-file core/test.dat --preload-file core/assets/test.dat
 subninja core${sep}build.ninja
 subninja game${sep}build.ninja
 subninja app2${sep}build.ninja

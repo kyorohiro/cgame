@@ -1,5 +1,5 @@
 sep = /
-cmd = cmd /c 
+cmd = cmd /c
 objExt= o
 appExt= exe
 cc = clang

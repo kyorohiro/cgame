@@ -20,4 +20,8 @@ CBytesBuilder* initCBytesBuilder(CBytesBuilder* obj);
 CBytesBuilder* cbytesBuilder_addChars(CBytesBuilder* obj, char* v, int length);
 int cbytesBuilder_getLength(CBytesBuilder* obj);
 CBytes* cbytesBuilder_newBytes(CBytesBuilder* obj);
+//CString* cbytesBuilder_newString(CBytesBuilder* obj);
+// utill
+CBytesBuilder* initCBytesBuilderFromPath(CBytesBuilder* obj, char *path);
+
 #endif

@@ -36,3 +36,30 @@ void cbytesBuilder_test(){
   }
   printf("\r\n\r\n");
 }
+
+void cbytesBuilder_test2(){
+  printf("# cbytesBuilder_test2\n");
+  int passed = 1;
+  CMemory *mem = initCMemory(newCMemory());
+  CBytesBuilder *bye = initCBytesBuilderFromPath(newCBytesBuilder(mem),"/core/assets/test.dat");
+
+  CBytes *v = cbytesBuilder_newBytes(bye);
+  if(
+    v->value[0] != 'a' || v->value[1] != 'b' || v->value[2] != 'c' ||
+    v->value[3] != 'd' || v->value[4] != 'e' || v->value[5] != 'f' ) {
+    printf("  NG : value = %s\r\n", cbyte_getBytes(v));
+    passed = 0;
+  }
+  releaseCObject((CObject*)v);
+  releaseCObject((CObject*)bye);
+  if(mem->callocCounter != mem->freeCounter) {
+    printf("  NG : %d == %d\r\n", mem->callocCounter, mem->freeCounter);
+    passed = 0;
+  }
+
+  freeCMemory(mem);
+  if(passed) {
+    printf("  OK : \r\n");
+  }
+  printf("\r\n\r\n");
+}

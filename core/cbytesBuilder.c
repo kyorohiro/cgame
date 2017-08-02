@@ -53,3 +53,28 @@ CBytes* cbytesBuilder_newBytes(CBytesBuilder* obj) {
   }
   return ret;
 }
+
+// util
+CBytesBuilder* initCBytesBuilderFromPath(CBytesBuilder* obj, char *path) {
+  CBytesBuilder *builder = initCBytesBuilder(obj);
+  //
+  //
+
+  FILE *fp = fopen(path, "r");
+  char buffer[1024];
+  int size = 0;
+  if(fp==NULL){
+    printf("#1# %s", path);
+    return obj;
+  }
+
+  do {
+    size_t size = fread(buffer, 1, 1024, fp);
+    if(size > 0) {
+      cbytesBuilder_addChars(builder, buffer, size);
+    }
+  } while(size > 0);
+
+  fclose(fp);
+  return obj;
+}
