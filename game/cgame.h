@@ -4,6 +4,7 @@
 
 #include "core/cobject.h"
 #include "core/cmemory.h"
+#include "core/cstring.h"
 
 #define CGAME_NAME "cga"
 
@@ -14,6 +15,8 @@ typedef struct {
   int width;
   int height;
   CGameFuncDraw funcFraw;
+  CString* fShaderSrc;
+  CString* vShaderSrc;
 } CGame;
 
 //

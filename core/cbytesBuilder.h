@@ -25,4 +25,5 @@ CString* cbytesBuilder_newString(CBytesBuilder* obj);
 // utill
 CBytesBuilder* initCBytesBuilderFromPath(CBytesBuilder* obj, char *path);
 
+CString* cutil_newCStringFromPath(CMemory*, char* path);
 #endif

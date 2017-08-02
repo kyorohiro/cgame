@@ -89,3 +89,11 @@ CBytesBuilder* initCBytesBuilderFromPath(CBytesBuilder* obj, char *path) {
   fclose(fp);
   return obj;
 }
+
+CString* cutil_newCStringFromPath(CMemory* cmemory, char* path) {
+  CBytesBuilder *builder = newCBytesBuilder(cmemory);
+  builder = initCBytesBuilderFromPath(builder, path);
+  CString *ret = cbytesBuilder_newString(builder);
+  releaseCObject((CObject*)builder);
+  return ret;
+}

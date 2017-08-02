@@ -1,5 +1,7 @@
 #include "cgame.h"
 #include "core/cmemory.h"
+#include "core/cstring.h"
+#include "core/cbytesBuilder.h"
 
 #define GL_GLEXT_PROTOTYPES
 #define EGL_EGLEXT_PROTOTYPES
@@ -27,6 +29,8 @@ CGame* initCGame(CGame* obj) {
   snprintf(obj->title, sizeof(obj->title), "%s", "title");
   obj->width = 400;
   obj->height = 300;
+  obj->fShaderSrc = cutil_newCStringFromPath(obj->parent.cmemory, "/game/assets/fs.glsl");
+  obj->vShaderSrc = cutil_newCStringFromPath(obj->parent.cmemory, "/game/assets/vs.glsl");
   return obj;
 }
 
@@ -34,17 +38,6 @@ CGame* defaultCGame = NULL;
 CGame* getCGame() {
   if(defaultCGame == NULL) {
     defaultCGame = initCGame(newCGame(getCMemory()));
-    FILE *fp = fopen("/game/assets/vs.glsl","r");
-    while(1)
-    {
-     int c = fgetc(fp);
-     if( feof(fp) )
-     {
-        break ;
-     }
-     printf("%c", c);
-    }
-    fclose(fp);
   }
   return defaultCGame;
 }
