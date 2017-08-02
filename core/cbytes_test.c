@@ -8,14 +8,14 @@ void cbytes_test(){
   CMemory *mem = initCMemory(newCMemory());
   CBytes *bye = initCBytes(newCBytes(mem), "abc", 4);
 
-  if(cbyte_getLength(bye) != 4) {
-    printf("  NG : length = %d\r\n", cbyte_getLength(bye));
+  if(cbytes_getLength(bye) != 4) {
+    printf("  NG : length = %d\r\n", cbytes_getLength(bye));
     passed = 0;
   }
 
-  char *v = cbyte_getBytes(bye);
+  char *v = cbytes_getBytes(bye);
   if(v[0] != 'a' || v[1] != 'b' || v[2] != 'c' || v[3] != '\0') {
-    printf("  NG : value = %s\r\n", cbyte_getBytes(bye));
+    printf("  NG : value = %s\r\n", cbytes_getBytes(bye));
     passed = 0;
   }
 

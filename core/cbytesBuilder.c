@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include "cbytesBuilder.h"
 #include "cbytes.h"
+#include "cstring.h"
 #include <string.h>
 
 void freeCBytesBuilder(void* obj) {
@@ -51,6 +52,16 @@ CBytes* cbytesBuilder_newBytes(CBytesBuilder* obj) {
     memcpy((void*)(ret->value+index), (void*)tmp->value, tmp->length);
     index += tmp->length;
   }
+  return ret;
+}
+
+CString* cbytesBuilder_newString(CBytesBuilder* obj) {
+  CBytes *bytes = cbytesBuilder_newBytes(obj);
+  CString *ret = initCStringWithLength(
+    newCString(obj->parent.cmemory),
+    cbytes_getBytes(bytes),
+    cbytes_getLength(bytes));
+  releaseCObject((CObject*)bytes);
   return ret;
 }
 

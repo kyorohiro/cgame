@@ -17,6 +17,6 @@ typedef struct {
 
 CBytes* newCBytes(CMemory*);
 CBytes* initCBytes(CBytes* obj, char *value, int length);
-int cbyte_getLength(CBytes* obj);
-char* cbyte_getBytes(CBytes* obj);
+int cbytes_getLength(CBytes* obj);
+char* cbytes_getBytes(CBytes* obj);
 #endif
