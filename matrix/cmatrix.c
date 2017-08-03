@@ -1,4 +1,4 @@
-#include "glmatrix.h"
+#include "cmatrix.h"
 #include <stdlib.h>
 #include <math.h>
 

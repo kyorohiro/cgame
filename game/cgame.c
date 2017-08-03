@@ -51,9 +51,6 @@ void cgame_draw(void) {
   glEnableVertexAttribArray(0);
   glDrawArrays(GL_TRIANGLES, 0, 3);
   // Load the vertex data
-  //glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, vVertices);
-  //glEnableVertexAttribArray(0);
-  //glDrawArrays(GL_TRIANGLES, 0, 3);
   glutSwapBuffers();
 }
 

@@ -1,0 +1,3 @@
+build matrix/cmatrix.${objExt}: obj matrix/cmatrix.c
+build matrix/test.${objExt}: obj matrix/test.c
+build matrix/test.${appExt}: test core/libcore.${objExt} matrix/cmatrix.${objExt} matrix/test.${objExt}

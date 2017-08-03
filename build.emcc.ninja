@@ -19,4 +19,5 @@ rule lib
 #   command=${cmd} emcc $in -o $out --embed-file core/test.dat --preload-file core/assets/test.dat
 subninja core${sep}build.ninja
 subninja game${sep}build.ninja
+subninja matrix${sep}build.ninja
 subninja app2${sep}build.ninja

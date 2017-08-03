@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "core/cmemory.h"
-#include "glmatrix.h"
+#include "cmatrix.h"
 
 int test01();
 int main(int argv, char** argc) {
