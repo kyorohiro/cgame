@@ -4,7 +4,7 @@
 #include "core/cbytesBuilder.h"
 
 #include "cglutil.h"
-
+//
 void cgame_draw(void);
 
 CGame* newCGame(CMemory* mem) {
@@ -18,8 +18,13 @@ CGame* initCGame(CGame* obj) {
   snprintf(obj->title, sizeof(obj->title), "%s", "title");
   obj->width = 400;
   obj->height = 300;
+  //
   obj->fShaderSrc = cutil_newCStringFromPath(obj->parent.cmemory, "/game/assets/fs.glsl");
   obj->vShaderSrc = cutil_newCStringFromPath(obj->parent.cmemory, "/game/assets/vs.glsl");
+//  obj->fShaderLocation = cglutil_LoadShader(GL_VERTEX_SHADER, cstring_getBytes(obj->fShaderSrc));
+//  obj->vShaderLocation = cglutil_LoadShader(GL_VERTEX_SHADER, cstring_getBytes(obj->vShaderSrc));
+  //
+
   return obj;
 }
 
@@ -57,6 +62,16 @@ CGame* cgame_start(CGame* obj) {
 
   glutCreateWindow("es2gears");
   glClearColor(0.9f, 1.0f, 0.9f, 1.0f);
+  glEnable(GL_CULL_FACE);
+  glEnable(GL_DEPTH_TEST);
+  //
+  //
+  obj->fShaderLocation = cglutil_LoadShader(GL_FRAGMENT_SHADER, cstring_getBytes(obj->fShaderSrc));
+  obj->vShaderLocation = cglutil_LoadShader(GL_VERTEX_SHADER, cstring_getBytes(obj->vShaderSrc));
+  obj->program = glCreateProgram();
+  glAttachShader(obj->program, obj->fShaderLocation);
+  glAttachShader(obj->program, obj->vShaderLocation);
+  glLinkProgram(obj->program);
   //glutIdleFunc (gears_idle);
   //glutReshapeFunc(gears_reshape);
   glutDisplayFunc(cgame_draw);

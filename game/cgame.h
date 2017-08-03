@@ -17,6 +17,9 @@ typedef struct {
   CGameFuncDraw funcFraw;
   CString* fShaderSrc;
   CString* vShaderSrc;
+  int fShaderLocation;
+  int vShaderLocation;
+  int program;
 } CGame;
 
 //
