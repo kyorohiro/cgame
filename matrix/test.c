@@ -10,6 +10,6 @@ int main(int argv, char** argc) {
 }
 
 int test01() {
-  KMatrix *mat = initKMatrix(newKMatrix());
+  CMatrix *mat = initCMatrix(newCMatrix());
   return 0;
 }

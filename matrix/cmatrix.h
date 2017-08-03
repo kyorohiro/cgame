@@ -11,23 +11,23 @@ typedef float KValue;
 typedef struct {
   CObject parent;
   KValue value[16];
-} KMatrix;
+} CMatrix;
 
-KMatrix* newKMatrix();
-KMatrix* initKMatrix(KMatrix*);
+CMatrix* newCMatrix();
+CMatrix* initCMatrix(CMatrix*);
 
 
-//KMatrix* freeMatrix(KMatrix* obj);
-KMatrix* kmatrix_setIdentity(KMatrix* obj);
-KMatrix* kmatrix_setRotationX(KMatrix* obj, double radians);
-KMatrix* kmatrix_setRotationY(KMatrix* obj, double radians);
-KMatrix* kmatrix_setRotationZ(KMatrix* obj, double radians);
-KMatrix* kmatrix_setTranslation(KMatrix* obj, double x, double y, double z);
-KMatrix* kmatrix_setScale(KMatrix* obj, double x, double y, double z);
-//KMatrix* setRotateX(KMatrix* obj, double angle);
+//CMatrix* freeMatrix(CMatrix* obj);
+CMatrix* cmatrix_setIdentity(CMatrix* obj);
+CMatrix* cmatrix_setRotationX(CMatrix* obj, double radians);
+CMatrix* cmatrix_setRotationY(CMatrix* obj, double radians);
+CMatrix* cmatrix_setRotationZ(CMatrix* obj, double radians);
+CMatrix* cmatrix_setTranslation(CMatrix* obj, double x, double y, double z);
+CMatrix* cmatrix_setScale(CMatrix* obj, double x, double y, double z);
+//CMatrix* setRotateX(CMatrix* obj, double angle);
 
-KMatrix* kmatrix_add(KMatrix* obj, KMatrix* arg, KMatrix* out);
-KMatrix* kmatrix_sub(KMatrix* obj, KMatrix* arg, KMatrix* out);
-KMatrix* kmatrix_outer(KMatrix* obj, KMatrix* arg, KMatrix* out);
+CMatrix* cmatrix_add(CMatrix* obj, CMatrix* arg, CMatrix* out);
+CMatrix* cmatrix_sub(CMatrix* obj, CMatrix* arg, CMatrix* out);
+CMatrix* cmatrix_outer(CMatrix* obj, CMatrix* arg, CMatrix* out);
 
 #endif

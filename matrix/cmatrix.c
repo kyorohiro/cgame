@@ -4,26 +4,26 @@
 
 void _freeMatrix(void* obj);
 
-KMatrix* newKMatrix() {
-  KMatrix *ret = (KMatrix*)calloc(1, sizeof(KMatrix));
+CMatrix* newCMatrix() {
+  CMatrix *ret = (CMatrix*)calloc(1, sizeof(CMatrix));
   ret->parent.funcFree = _freeMatrix;
   return ret;
 }
 
-KMatrix* initKMatrix(KMatrix* obj) {
+CMatrix* initCMatrix(CMatrix* obj) {
   initCObject((CObject*)obj, KMATRIX_NAME);
   return obj;
 }
 
 void _freeMatrix(void* tmp) {
-  KMatrix* obj = tmp;
+  CMatrix* obj = tmp;
   freeCObject(obj);
 }
 
-KMatrix* kmatrix_add(KMatrix* obj, KMatrix* arg, KMatrix* out) {
+CMatrix* cmatrix_add(CMatrix* obj, CMatrix* arg, CMatrix* out) {
   int i=0;
   if(out ==NULL) {
-    out = initKMatrix(newKMatrix());
+    out = initCMatrix(newCMatrix());
   }
   for(i=0;i<16;i++) {
     out->value[i] = obj->value[i] + arg->value[i];
@@ -31,10 +31,10 @@ KMatrix* kmatrix_add(KMatrix* obj, KMatrix* arg, KMatrix* out) {
   return out;
 }
 
-KMatrix* kmatrix_sub(KMatrix* obj, KMatrix* arg, KMatrix* out) {
+CMatrix* cmatrix_sub(CMatrix* obj, CMatrix* arg, CMatrix* out) {
   int i=0;
   if(out ==NULL) {
-    out = initKMatrix(newKMatrix());
+    out = initCMatrix(newCMatrix());
   }
   for(i=0;i<16;i++) {
     out->value[i] = obj->value[i] - arg->value[i];
@@ -42,9 +42,9 @@ KMatrix* kmatrix_sub(KMatrix* obj, KMatrix* arg, KMatrix* out) {
   return out;
 }
 
-KMatrix* kmatrix_outer(KMatrix* obj, KMatrix* arg, KMatrix* out) {
+CMatrix* cmatrix_outer(CMatrix* obj, CMatrix* arg, CMatrix* out) {
   if(out ==NULL) {
-    out = initKMatrix(newKMatrix());
+    out = initCMatrix(newCMatrix());
   }
   int i=0;
   int j=0;
@@ -65,11 +65,11 @@ KMatrix* kmatrix_outer(KMatrix* obj, KMatrix* arg, KMatrix* out) {
 }
 
 //
-//KMatrix* setRotateX(KMatrix* obj, double angle) {
+//CMatrix* setRotateX(CMatrix* obj, double angle) {
 //
 //}
 //
-KMatrix* kmatrix_setIdentity(KMatrix* obj) {
+CMatrix* cmatrix_setIdentity(CMatrix* obj) {
   obj->value[0] = 1.0;
   obj->value[1] = 0.0;
   obj->value[2] = 0.0;
@@ -96,7 +96,7 @@ KMatrix* kmatrix_setIdentity(KMatrix* obj) {
 // c 0 s
 // 0 1 0
 //-s 0 c
-KMatrix* kmatrix_setRotationY(KMatrix* obj, double radians){
+CMatrix* cmatrix_setRotationY(CMatrix* obj, double radians){
   double c = cos(radians);
   double s = sin(radians);
   obj->value[0] = c;
@@ -124,7 +124,7 @@ KMatrix* kmatrix_setRotationY(KMatrix* obj, double radians){
 // 1 0 0
 // 0 c -s
 // 0 s c
-KMatrix* kmatrix_setRotationX(KMatrix* obj, double radians){
+CMatrix* cmatrix_setRotationX(CMatrix* obj, double radians){
   double c = cos(radians);
   double s = sin(radians);
   obj->value[0] = 1;
@@ -152,7 +152,7 @@ KMatrix* kmatrix_setRotationX(KMatrix* obj, double radians){
 // 1 0 0
 // 0 c -s
 // 0 s c
-KMatrix* kmatrix_setRotationZ(KMatrix* obj, double radians){
+CMatrix* cmatrix_setRotationZ(CMatrix* obj, double radians){
   double c = cos(radians);
   double s = sin(radians);
   obj->value[0] = c;
@@ -177,7 +177,7 @@ KMatrix* kmatrix_setRotationZ(KMatrix* obj, double radians){
   return obj;
 }
 
-KMatrix* kmatrix_setTranslation(KMatrix* obj, double x, double y, double z) {
+CMatrix* cmatrix_setTranslation(CMatrix* obj, double x, double y, double z) {
   obj->value[0] = 1.0;
   obj->value[1] = 0.0;
   obj->value[2] = 0.0;
@@ -200,7 +200,7 @@ KMatrix* kmatrix_setTranslation(KMatrix* obj, double x, double y, double z) {
   return obj;
 }
 
-KMatrix* kmatrix_setScale(KMatrix* obj, double x, double y, double z) {
+CMatrix* cmatrix_setScale(CMatrix* obj, double x, double y, double z) {
   obj->value[0] = x;
   obj->value[1] = 0.0;
   obj->value[2] = 0.0;
