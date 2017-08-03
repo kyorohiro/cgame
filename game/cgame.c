@@ -37,13 +37,19 @@ CGame* getCGame() {
 }
 
 void cgame_draw(void) {
-  GLfloat vVertices[] = {0.0f, 0.5f, 0.0f,
-  -0.5f, -0.5f, 0.0f, 0.5f, -0.5f, 0.0f};
+  CGame *game = getCGame();
+  GLfloat vVertices[] = {
+    0.0f, 0.5f, 0.0f,
+   -0.5f, -0.5f, 0.0f,
+   0.5f, -0.5f, 0.0f};
   // Set the viewport
   // Clear the color buffer
   glClear(GL_COLOR_BUFFER_BIT);
   // Use the program object
-  //glUseProgram(programObject);
+  glUseProgram(game->program);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, vVertices);
+  glEnableVertexAttribArray(0);
+  glDrawArrays(GL_TRIANGLES, 0, 3);
   // Load the vertex data
   //glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, vVertices);
   //glEnableVertexAttribArray(0);
@@ -71,12 +77,19 @@ CGame* cgame_start(CGame* obj) {
   obj->program = glCreateProgram();
   glAttachShader(obj->program, obj->fShaderLocation);
   glAttachShader(obj->program, obj->vShaderLocation);
+  glBindAttribLocation(obj->program, 0, "vPosition");
   glLinkProgram(obj->program);
+  int vPositionLocation = glGetAttribLocation(obj->program, "vPosition");
+
   //glutIdleFunc (gears_idle);
   //glutReshapeFunc(gears_reshape);
   glutDisplayFunc(cgame_draw);
   //glutSpecialFunc(gears_special);
   //glutMouseFunc(mouseCB);
+
+  glUseProgram(obj->program);
+  //
+  //
   glutMainLoop();
   return obj;
 }
