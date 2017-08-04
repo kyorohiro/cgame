@@ -97,10 +97,10 @@ CMatrix4* cmatrix4_setIdentity(CMatrix4* obj) {
 }
 
 CMatrix4* cmatrix4_setValues(CMatrix4* obj,
-              KValue a11, KValue a12, KValue a13, KValue a14,
-              KValue a21, KValue a22, KValue a23, KValue a24,
-              KValue a31, KValue a32, KValue a33, KValue a34,
-              KValue a41, KValue a42, KValue a43, KValue a44
+              CMatrixValue a11, CMatrixValue a12, CMatrixValue a13, CMatrixValue a14,
+              CMatrixValue a21, CMatrixValue a22, CMatrixValue a23, CMatrixValue a24,
+              CMatrixValue a31, CMatrixValue a32, CMatrixValue a33, CMatrixValue a34,
+              CMatrixValue a41, CMatrixValue a42, CMatrixValue a43, CMatrixValue a44
             ) {
   obj->value[0] = a11;
   obj->value[1] = a12;
@@ -254,7 +254,7 @@ CMatrix4* cmatrix4_setScale(CMatrix4* obj, double x, double y, double z) {
   return obj;
 }
 
-KValue cmatrix4_getValue(CMatrix4* obj, int i, int j) {
+CMatrixValue cmatrix4_getValue(CMatrix4* obj, int i, int j) {
   return obj->value[4*i+j];
 }
 
