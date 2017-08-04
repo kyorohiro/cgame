@@ -1,5 +1,6 @@
 #include "cmatrix4.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include <math.h>
 
 void _freeMatrix(void* obj);
@@ -52,10 +53,11 @@ CMatrix4* cmatrix4_outer(CMatrix4* obj, CMatrix4* arg, CMatrix4* out) {
   double o[16];
   for(i=0;i<4;i++) {
     for(j=0;j<4;j++) {
-      o[4*i+j] = arg->value[4*i]*arg->value[4+j];
-      o[4*i+j] += arg->value[4*i+1]*arg->value[8+j];
-      o[4*i+j] += arg->value[4*i+2]*arg->value[12+j];
-      o[4*i+j] += arg->value[4*i*3]*arg->value[16+j];
+      o[4*i+j]  = obj->value[4*i+0] * arg->value[j];
+      o[4*i+j] += obj->value[4*i+1] * arg->value[4+j];
+      o[4*i+j] += obj->value[4*i+2] * arg->value[8+j];
+      o[4*i+j] += obj->value[4*i+3] * arg->value[12+j];
+//      printf("%f %f %f %f \r\n", obj->value[4*i+0], obj->value[4*i+1], obj->value[4*i+2],  obj->value[4*i+3]);
     }
   }
 
@@ -254,4 +256,14 @@ CMatrix4* cmatrix4_setScale(CMatrix4* obj, double x, double y, double z) {
 
 KValue cmatrix4_getValue(CMatrix4* obj, int i, int j) {
   return obj->value[4*i+j];
+}
+
+void cmatrix4_show(CMatrix4* obj){
+  for(int i=0;i<4;i++) {
+    printf("%f %f %f %f \r\n",
+      cmatrix4_getValue(obj, i, 0),
+      cmatrix4_getValue(obj, i, 1),
+      cmatrix4_getValue(obj, i, 2),
+      cmatrix4_getValue(obj, i, 3));
+  }
 }
