@@ -13,8 +13,8 @@ CObject3D* newCObject3D(CMemory* mem) {
 CObject3D* initCObject3D(CObject3D* obj) {
   initCObject((CObject*)obj, OBJECT3D_NAME);
   obj->parent.funcFree = _freeCObject3D;
-  obj->mat = cmatrix_setIdentity(initCMatrix(newCMatrix()));
-  obj->arg = cmatrix_setIdentity(initCMatrix(newCMatrix()));
+  obj->mat = cmatrix4_setIdentity(initCMatrix4(newCMatrix4()));
+  obj->arg = cmatrix4_setIdentity(initCMatrix4(newCMatrix4()));
   return obj;
 }
 
@@ -50,11 +50,11 @@ CObject3D* cobject3d_setPosition(CObject3D* obj , double x, double y, double z) 
   return obj;
 }
 
-CMatrix* cobject3d_getCMatrix(CObject3D* obj) {
-  cmatrix_setIdentity(obj->mat);
-  cmatrix_outer(obj->mat, cmatrix_setRotationX(obj->arg, obj->rx), obj->mat);
-  cmatrix_outer(obj->mat, cmatrix_setRotationY(obj->arg, obj->ry), obj->mat);
-  cmatrix_outer(obj->mat, cmatrix_setRotationZ(obj->arg, obj->rz), obj->mat);
-  cmatrix_outer(obj->mat, cmatrix_setTranslation(obj->arg, obj->x, obj->y, obj->z), obj->mat);
+CMatrix4* cobject3d_getCMatrix4(CObject3D* obj) {
+  cmatrix4_setIdentity(obj->mat);
+  cmatrix4_outer(obj->mat, cmatrix4_setRotationX(obj->arg, obj->rx), obj->mat);
+  cmatrix4_outer(obj->mat, cmatrix4_setRotationY(obj->arg, obj->ry), obj->mat);
+  cmatrix4_outer(obj->mat, cmatrix4_setRotationZ(obj->arg, obj->rz), obj->mat);
+  cmatrix4_outer(obj->mat, cmatrix4_setTranslation(obj->arg, obj->x, obj->y, obj->z), obj->mat);
   return obj->mat;
 }

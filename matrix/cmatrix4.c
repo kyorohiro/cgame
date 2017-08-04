@@ -1,29 +1,29 @@
-#include "cmatrix.h"
+#include "cmatrix4.h"
 #include <stdlib.h>
 #include <math.h>
 
 void _freeMatrix(void* obj);
 
-CMatrix* newCMatrix() {
-  CMatrix *ret = (CMatrix*)calloc(1, sizeof(CMatrix));
+CMatrix4* newCMatrix4() {
+  CMatrix4 *ret = (CMatrix4*)calloc(1, sizeof(CMatrix4));
   ret->parent.funcFree = _freeMatrix;
   return ret;
 }
 
-CMatrix* initCMatrix(CMatrix* obj) {
+CMatrix4* initCMatrix4(CMatrix4* obj) {
   initCObject((CObject*)obj, KMATRIX_NAME);
   return obj;
 }
 
 void _freeMatrix(void* tmp) {
-  CMatrix* obj = tmp;
+  CMatrix4* obj = tmp;
   freeCObject(obj);
 }
 
-CMatrix* cmatrix_add(CMatrix* obj, CMatrix* arg, CMatrix* out) {
+CMatrix4* cmatrix4_add(CMatrix4* obj, CMatrix4* arg, CMatrix4* out) {
   int i=0;
   if(out ==NULL) {
-    out = initCMatrix(newCMatrix());
+    out = initCMatrix4(newCMatrix4());
   }
   for(i=0;i<16;i++) {
     out->value[i] = obj->value[i] + arg->value[i];
@@ -31,10 +31,10 @@ CMatrix* cmatrix_add(CMatrix* obj, CMatrix* arg, CMatrix* out) {
   return out;
 }
 
-CMatrix* cmatrix_sub(CMatrix* obj, CMatrix* arg, CMatrix* out) {
+CMatrix4* cmatrix4_sub(CMatrix4* obj, CMatrix4* arg, CMatrix4* out) {
   int i=0;
   if(out ==NULL) {
-    out = initCMatrix(newCMatrix());
+    out = initCMatrix4(newCMatrix4());
   }
   for(i=0;i<16;i++) {
     out->value[i] = obj->value[i] - arg->value[i];
@@ -42,9 +42,9 @@ CMatrix* cmatrix_sub(CMatrix* obj, CMatrix* arg, CMatrix* out) {
   return out;
 }
 
-CMatrix* cmatrix_outer(CMatrix* obj, CMatrix* arg, CMatrix* out) {
+CMatrix4* cmatrix4_outer(CMatrix4* obj, CMatrix4* arg, CMatrix4* out) {
   if(out ==NULL) {
-    out = initCMatrix(newCMatrix());
+    out = initCMatrix4(newCMatrix4());
   }
   int i=0;
   int j=0;
@@ -65,11 +65,11 @@ CMatrix* cmatrix_outer(CMatrix* obj, CMatrix* arg, CMatrix* out) {
 }
 
 //
-//CMatrix* setRotateX(CMatrix* obj, double angle) {
+//CMatrix4* setRotateX(CMatrix4* obj, double angle) {
 //
 //}
 //
-CMatrix* cmatrix_setIdentity(CMatrix* obj) {
+CMatrix4* cmatrix4_setIdentity(CMatrix4* obj) {
   obj->value[0] = 1.0;
   obj->value[1] = 0.0;
   obj->value[2] = 0.0;
@@ -96,7 +96,7 @@ CMatrix* cmatrix_setIdentity(CMatrix* obj) {
 // c 0 s
 // 0 1 0
 //-s 0 c
-CMatrix* cmatrix_setRotationY(CMatrix* obj, double radians){
+CMatrix4* cmatrix4_setRotationY(CMatrix4* obj, double radians){
   double c = cos(radians);
   double s = sin(radians);
   obj->value[0] = c;
@@ -124,7 +124,7 @@ CMatrix* cmatrix_setRotationY(CMatrix* obj, double radians){
 // 1 0 0
 // 0 c -s
 // 0 s c
-CMatrix* cmatrix_setRotationX(CMatrix* obj, double radians){
+CMatrix4* cmatrix4_setRotationX(CMatrix4* obj, double radians){
   double c = cos(radians);
   double s = sin(radians);
   obj->value[0] = 1;
@@ -152,7 +152,7 @@ CMatrix* cmatrix_setRotationX(CMatrix* obj, double radians){
 // 1 0 0
 // 0 c -s
 // 0 s c
-CMatrix* cmatrix_setRotationZ(CMatrix* obj, double radians){
+CMatrix4* cmatrix4_setRotationZ(CMatrix4* obj, double radians){
   double c = cos(radians);
   double s = sin(radians);
   obj->value[0] = c;
@@ -177,7 +177,7 @@ CMatrix* cmatrix_setRotationZ(CMatrix* obj, double radians){
   return obj;
 }
 
-CMatrix* cmatrix_setTranslation(CMatrix* obj, double x, double y, double z) {
+CMatrix4* cmatrix4_setTranslation(CMatrix4* obj, double x, double y, double z) {
   obj->value[0] = 1.0;
   obj->value[1] = 0.0;
   obj->value[2] = 0.0;
@@ -200,7 +200,7 @@ CMatrix* cmatrix_setTranslation(CMatrix* obj, double x, double y, double z) {
   return obj;
 }
 
-CMatrix* cmatrix_setScale(CMatrix* obj, double x, double y, double z) {
+CMatrix4* cmatrix4_setScale(CMatrix4* obj, double x, double y, double z) {
   obj->value[0] = x;
   obj->value[1] = 0.0;
   obj->value[2] = 0.0;

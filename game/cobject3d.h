@@ -4,7 +4,7 @@
 
 #include "core/cobject.h"
 #include "core/cmemory.h"
-#include "matrix/cmatrix.h"
+#include "matrix/cmatrix4.h"
 
 #define OBJECT3D_NAME "ob3"
 
@@ -17,8 +17,8 @@ typedef struct {
   double ry;
   double rz;
   int status;
-  CMatrix *mat;
-  CMatrix *arg;
+  CMatrix4 *mat;
+  CMatrix4 *arg;
 } CObject3D;
 
 //
@@ -29,6 +29,6 @@ CObject3D* newCObject3D(CMemory* mem);
 CObject3D* initCObject3D(CObject3D*);
 CObject3D* cobject3d_setRotate(CObject3D*, double rx, double ry, double rz);
 CObject3D* cobject3d_setPosition(CObject3D*, double x, double y, double z);
-CMatrix* cobject3d_getCMatrix(CObject3D*);
+CMatrix4* cobject3d_getCMatrix4(CObject3D*);
 
 #endif

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "core/cmemory.h"
-#include "cmatrix.h"
+#include "cmatrix4.h"
 
 int test01();
 int main(int argv, char** argc) {
@@ -10,6 +10,6 @@ int main(int argv, char** argc) {
 }
 
 int test01() {
-  CMatrix *mat = initCMatrix(newCMatrix());
+  CMatrix4 *mat = initCMatrix4(newCMatrix4());
   return 0;
 }
