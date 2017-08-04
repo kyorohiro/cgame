@@ -4,9 +4,10 @@
 
 void _freeMatrix(void* obj);
 
-CMatrix4* newCMatrix4() {
-  CMatrix4 *ret = (CMatrix4*)calloc(1, sizeof(CMatrix4));
+CMatrix4* newCMatrix4(CMemory* cmemory) {
+  CMatrix4 *ret = (CMatrix4*)cmemory_calloc(cmemory, 1, sizeof(CMatrix4));
   ret->parent.funcFree = _freeMatrix;
+  ret->parent.cmemory = cmemory;
   return ret;
 }
 
@@ -23,7 +24,7 @@ void _freeMatrix(void* tmp) {
 CMatrix4* cmatrix4_add(CMatrix4* obj, CMatrix4* arg, CMatrix4* out) {
   int i=0;
   if(out ==NULL) {
-    out = initCMatrix4(newCMatrix4());
+    out = initCMatrix4(newCMatrix4(obj->parent.cmemory));
   }
   for(i=0;i<16;i++) {
     out->value[i] = obj->value[i] + arg->value[i];
@@ -34,7 +35,7 @@ CMatrix4* cmatrix4_add(CMatrix4* obj, CMatrix4* arg, CMatrix4* out) {
 CMatrix4* cmatrix4_sub(CMatrix4* obj, CMatrix4* arg, CMatrix4* out) {
   int i=0;
   if(out ==NULL) {
-    out = initCMatrix4(newCMatrix4());
+    out = initCMatrix4(newCMatrix4(obj->parent.cmemory));
   }
   for(i=0;i<16;i++) {
     out->value[i] = obj->value[i] - arg->value[i];
@@ -44,7 +45,7 @@ CMatrix4* cmatrix4_sub(CMatrix4* obj, CMatrix4* arg, CMatrix4* out) {
 
 CMatrix4* cmatrix4_outer(CMatrix4* obj, CMatrix4* arg, CMatrix4* out) {
   if(out ==NULL) {
-    out = initCMatrix4(newCMatrix4());
+    out = initCMatrix4(newCMatrix4(obj->parent.cmemory));
   }
   int i=0;
   int j=0;

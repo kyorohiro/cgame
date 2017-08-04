@@ -2,14 +2,10 @@
 #include "core/cmemory.h"
 #include "cmatrix4.h"
 
+extern void cmatrix4_test();
 int test01();
 int main(int argv, char** argc) {
   printf("hello world");
-  test01();
-  return 0;
-}
-
-int test01() {
-  CMatrix4 *mat = initCMatrix4(newCMatrix4());
+  cmatrix4_test();
   return 0;
 }

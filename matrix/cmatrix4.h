@@ -13,7 +13,7 @@ typedef struct {
   KValue value[16];
 } CMatrix4;
 
-CMatrix4* newCMatrix4();
+CMatrix4* newCMatrix4(CMemory*);
 CMatrix4* initCMatrix4(CMatrix4*);
 
 
