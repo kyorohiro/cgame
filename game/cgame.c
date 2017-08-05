@@ -55,7 +55,7 @@ void cgame_draw(void) {
 
     glUseProgram(game->program);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, vVertices);
-    glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(glGetAttribLocation(game->program, "vPosition"));
     glDrawArrays(GL_TRIANGLES, 0, 3);
   }
   glutSwapBuffers();
