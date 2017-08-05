@@ -1,4 +1,6 @@
 build matrix/cmatrix4.${objExt}: obj matrix/cmatrix4.c
 build matrix/test.${objExt}: obj matrix/test.c
 build matrix/cmatrix4_test.${objExt}: obj matrix/cmatrix4_test.c
-build matrix/test.${appExt}: test core/libcore.${objExt} matrix/cmatrix4.${objExt} matrix/test.${objExt} matrix/cmatrix4_test.${objExt}
+
+build matrix/libmatrix.${objExt}: lib matrix/cmatrix4.${objExt}
+build matrix/test.${appExt}: test core/libcore.${objExt} matrix/libmatrix.${objExt} matrix/test.${objExt} matrix/cmatrix4_test.${objExt}
