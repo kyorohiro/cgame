@@ -50,7 +50,6 @@ void cgame_draw(void) {
   glClear(GL_COLOR_BUFFER_BIT);
 
   for(int i=0;i<clinkedList_getLength(nodes);i++) {
-//    cobject3d_
     CObject3D *node = (CObject3D*)clinkedList_get(nodes, i);
     GLfloat *vVertices = (GLfloat *)cobject3d_getVertexBinary(node);
 
@@ -59,16 +58,6 @@ void cgame_draw(void) {
     glEnableVertexAttribArray(0);
     glDrawArrays(GL_TRIANGLES, 0, 3);
   }
-  //GLfloat vVertices[] = {
-  //  0.0f, 0.5f, 0.0f,
-  // -0.5f, -0.5f, 0.0f,
-  // 0.5f, -0.5f, 0.0f};
-  // Set the viewport
-  // Clear the color buffer
-
-  // Use the program object
-
-  // Load the vertex data
   glutSwapBuffers();
 }
 

@@ -26,7 +26,7 @@ CObject3D* initCObject3DAsCube(CObject3D* obj) {
     0.0f, 0.5f, 0.0f,
    -0.5f, -0.5f, 0.0f,
    0.5f, -0.5f, 0.0f};
-  obj->vertexs = initCBytes(newCBytes(obj->parent.cmemory), (char*)vVertices, 2*9);
+  obj->vertexs = initCBytes(newCBytes(obj->parent.cmemory), (char*)vVertices, sizeof(CMatrixValue)*9);
   return obj;
 }
 
