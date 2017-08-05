@@ -5,6 +5,7 @@
 #include "core/cobject.h"
 #include "core/cmemory.h"
 #include "matrix/cmatrix4.h"
+#include "core/cbytes.h"
 
 #define OBJECT3D_NAME "ob3"
 
@@ -17,18 +18,18 @@ typedef struct {
   double ry;
   double rz;
   int status;
+  CBytes *vertexs;
   CMatrix4 *mat;
   CMatrix4 *arg;
 } CObject3D;
 
-//
-// unused CGame is singleton
-//
 CObject3D* newCObject3D(CMemory* mem);
-//char* title, int width, int height
 CObject3D* initCObject3D(CObject3D*);
+void freeCObject3D(void* obj);
 CObject3D* cobject3d_setRotate(CObject3D*, double rx, double ry, double rz);
 CObject3D* cobject3d_setPosition(CObject3D*, double x, double y, double z);
 CMatrix4* cobject3d_getCMatrix4(CObject3D*);
+
+CObject3D* initCObject3DAsCube(CObject3D*);
 
 #endif
