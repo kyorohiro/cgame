@@ -7,4 +7,4 @@ build game/libgame.${objExt}: lib game/cgame.${objExt} game/cobject3d.${objExt} 
 build game/test.${objExt}: obj game/test.c
 build game/cobject3d_test.${objExt}: obj game/cobject3d_test.c
 
-#build game/test.${appExt}: test core/libcore.${objExt} matrix/libmatrix.${objExt} game/libgame.${objExt} game/test.${objExt} game/cobject3d_test.${objExt}
+build game/test.${appExt}: test core/libcore.${objExt} matrix/libmatrix.${objExt} game/libgame.${objExt} game/test.${objExt} game/cobject3d_test.${objExt}

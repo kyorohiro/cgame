@@ -72,5 +72,9 @@ CMatrix4* cobject3d_getCMatrix4(CObject3D* obj) {
 }
 
 void freeCObject3D(void* obj) {
-
+  printf("--test");
+  CObject3D *objTmp = obj;
+  releaseCObject((CObject*)objTmp->arg);
+  releaseCObject((CObject*)objTmp->mat);
+  freeCObject(obj);
 }
