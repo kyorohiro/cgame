@@ -6,6 +6,7 @@
 #include "core/cmemory.h"
 #include "matrix/cmatrix4.h"
 #include "core/cbytes.h"
+#include "core/clinkedList.h"
 
 #define OBJECT3D_NAME "ob3"
 
@@ -18,9 +19,12 @@ typedef struct {
   double ry;
   double rz;
   int status;
-  CBytes *vertexs;
   CMatrix4 *mat;
   CMatrix4 *arg;
+  //
+  CBytes *vertexs;
+  //
+  CLinkedList *nodes;
 } CObject3D;
 
 CObject3D* newCObject3D(CMemory* mem);

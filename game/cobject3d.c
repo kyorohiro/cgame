@@ -76,5 +76,14 @@ void freeCObject3D(void* obj) {
   CObject3D *objTmp = obj;
   releaseCObject((CObject*)objTmp->arg);
   releaseCObject((CObject*)objTmp->mat);
+
+  if(objTmp->vertexs != NULL) {
+    releaseCObject((CObject*)objTmp->vertexs);
+  }
+
+  if(objTmp->nodes != NULL) {
+    releaseCObject((CObject*)objTmp->nodes);
+  }
+
   freeCObject(obj);
 }
