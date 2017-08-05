@@ -21,11 +21,17 @@ CGame* initCGame(CGame* obj) {
   //
   obj->fShaderSrc = cutil_newCStringFromPath(obj->parent.cmemory, "/game/assets/fs.glsl");
   obj->vShaderSrc = cutil_newCStringFromPath(obj->parent.cmemory, "/game/assets/vs.glsl");
+  //
+  obj->root = initCObject3D(newCObject3D(obj->parent.cmemory));
 //  obj->fShaderLocation = cglutil_LoadShader(GL_VERTEX_SHADER, cstring_getBytes(obj->fShaderSrc));
 //  obj->vShaderLocation = cglutil_LoadShader(GL_VERTEX_SHADER, cstring_getBytes(obj->vShaderSrc));
   //
 
   return obj;
+}
+
+CObject3D* cgame_getRoot(CGame* obj) {
+  return obj->root;
 }
 
 CGame* defaultCGame = NULL;
@@ -38,18 +44,30 @@ CGame* getCGame() {
 
 void cgame_draw(void) {
   CGame *game = getCGame();
-  GLfloat vVertices[] = {
-    0.0f, 0.5f, 0.0f,
-   -0.5f, -0.5f, 0.0f,
-   0.5f, -0.5f, 0.0f};
+  CObject3D *root = (CObject3D*)cgame_getRoot(game);
+  CLinkedList *nodes = cobject3d_getNodes(root);
+
+  glClear(GL_COLOR_BUFFER_BIT);
+
+  for(int i=0;i<clinkedList_getLength(nodes);i++) {
+//    cobject3d_
+    CObject3D *node = (CObject3D*)clinkedList_get(nodes, i);
+    GLfloat *vVertices = (GLfloat *)cobject3d_getVertexBinary(node);
+
+    glUseProgram(game->program);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, vVertices);
+    glEnableVertexAttribArray(0);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+  }
+  //GLfloat vVertices[] = {
+  //  0.0f, 0.5f, 0.0f,
+  // -0.5f, -0.5f, 0.0f,
+  // 0.5f, -0.5f, 0.0f};
   // Set the viewport
   // Clear the color buffer
-  glClear(GL_COLOR_BUFFER_BIT);
+
   // Use the program object
-  glUseProgram(game->program);
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, vVertices);
-  glEnableVertexAttribArray(0);
-  glDrawArrays(GL_TRIANGLES, 0, 3);
+
   // Load the vertex data
   glutSwapBuffers();
 }

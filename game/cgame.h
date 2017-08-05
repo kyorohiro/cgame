@@ -5,6 +5,7 @@
 #include "core/cobject.h"
 #include "core/cmemory.h"
 #include "core/cstring.h"
+#include "cobject3d.h"
 
 #define CGAME_NAME "cga"
 
@@ -20,6 +21,7 @@ typedef struct {
   int fShaderLocation;
   int vShaderLocation;
   int program;
+  CObject3D *root;
 } CGame;
 
 //
@@ -32,4 +34,5 @@ CGame* initCGame(CGame*);
 //
 CGame* getCGame();
 CGame* cgame_start(CGame*);
+CObject3D* cgame_getRoot(CGame*);
 #endif

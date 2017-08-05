@@ -94,3 +94,23 @@ void freeCObject3D(void* obj) {
 
   freeCObject(obj);
 }
+
+char* cobject3d_getVertexBinary(CObject3D* obj) {
+  if(obj->vertexs == NULL) {
+    return NULL;
+  } else {
+    return obj->vertexs->value;
+  }
+}
+
+int cobject3d_getVertexBinaryLength(CObject3D* obj) {
+  if(obj->vertexs == NULL) {
+    return 0;
+  } else {
+    return obj->vertexs->length/2;
+  }
+}
+
+CLinkedList* cobject3d_getNodes(CObject3D* obj) {
+  return obj->nodes;
+}

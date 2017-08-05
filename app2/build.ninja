@@ -5,4 +5,4 @@ rule app
 #subninja core/build.ninja
 #subninja game/build.ninja
 build app2/main.o: obj app2/main.c
-build app2/main.html: app app2/main.o core/libcore.bc game/libgame.bc
+build app2/main.html: app app2/main.o core/libcore.bc matrix/libmatrix.bc game/libgame.bc

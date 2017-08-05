@@ -34,7 +34,8 @@ CObject3D* cobject3d_setRotate(CObject3D*, double rx, double ry, double rz);
 CObject3D* cobject3d_setPosition(CObject3D*, double x, double y, double z);
 CObject3D* cobject3d_addNode(CObject3D*, CObject3D* node);
 CMatrix4* cobject3d_getCMatrix4(CObject3D*);
-
 CObject3D* initCObject3DAsCube(CObject3D*);
-
+char* cobject3d_getVertexBinary(CObject3D*);
+int cobject3d_getVertexBinaryLength(CObject3D*);
+CLinkedList* cobject3d_getNodes(CObject3D*);
 #endif
