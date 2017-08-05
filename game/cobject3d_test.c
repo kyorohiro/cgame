@@ -11,8 +11,11 @@ void cobject3d_test(){
   CMemory *mem = initCMemory(newCMemory());
   CObject3D *bye = initCObject3D(newCObject3D(mem));
 
+  {
+    CObject *o = cobject_downCounter((CObject*)initCObject3D(newCObject3D(mem)));
+    cobject3d_addNode(bye, (CObject3D*)o);
+  }
   releaseCObject((CObject*)bye);
-  printf("#%d\r\n",((CObject*)bye)->reference);
   if(mem->callocCounter != mem->freeCounter) {
     printf("  NG : %d == %d\r\n", mem->callocCounter, mem->freeCounter);
     passed = 0;

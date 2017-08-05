@@ -32,6 +32,7 @@ CObject3D* initCObject3D(CObject3D*);
 void freeCObject3D(void* obj);
 CObject3D* cobject3d_setRotate(CObject3D*, double rx, double ry, double rz);
 CObject3D* cobject3d_setPosition(CObject3D*, double x, double y, double z);
+CObject3D* cobject3d_addNode(CObject3D*, CObject3D* node);
 CMatrix4* cobject3d_getCMatrix4(CObject3D*);
 
 CObject3D* initCObject3DAsCube(CObject3D*);

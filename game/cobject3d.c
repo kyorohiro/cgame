@@ -71,8 +71,15 @@ CMatrix4* cobject3d_getCMatrix4(CObject3D* obj) {
   return obj->mat;
 }
 
+CObject3D* cobject3d_addNode(CObject3D* obj, CObject3D* node) {
+  if(obj->nodes == NULL) {
+    obj->nodes = initCLinkedList(newCLinkedList(obj->parent.cmemory));
+  }
+  clinkedList_addLast(obj->nodes, (CObject*)node);
+  return obj;
+}
+
 void freeCObject3D(void* obj) {
-  printf("--test");
   CObject3D *objTmp = obj;
   releaseCObject((CObject*)objTmp->arg);
   releaseCObject((CObject*)objTmp->mat);
