@@ -49,13 +49,23 @@ void cgame_draw(void) {
 
   glClear(GL_COLOR_BUFFER_BIT);
 
+
+  int vPositionLoc = glGetAttribLocation(game->program, "vPosition");
+  int vColorLoc = glGetAttribLocation(game->program, "color");
+
+
   for(int i=0;i<clinkedList_getLength(nodes);i++) {
     CObject3D *node = (CObject3D*)clinkedList_get(nodes, i);
     GLfloat *vVertices = (GLfloat *)cobject3d_getVertexBinary(node);
-
+    GLuint vertexBuffer;
+    glGenBuffers(1, &vertexBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(CMatrixValue)*7*3, vVertices, GL_STATIC_DRAW);
     glUseProgram(game->program);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, vVertices);
-    glEnableVertexAttribArray(glGetAttribLocation(game->program, "vPosition"));
+    glEnableVertexAttribArray(vPositionLoc);
+    glEnableVertexAttribArray(vColorLoc);
+    glVertexAttribPointer(vPositionLoc, 3, GL_FLOAT, GL_FALSE, 7*sizeof(CMatrixValue), (void*)0);
+    glVertexAttribPointer(vColorLoc, 4, GL_FLOAT, GL_FALSE, 7*sizeof(CMatrixValue), (void*)(3*sizeof(CMatrixValue)));
     glDrawArrays(GL_TRIANGLES, 0, 3);
   }
   glutSwapBuffers();
