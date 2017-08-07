@@ -56,6 +56,7 @@ void cgame_draw(void) {
   int vViewLoc = glGetUniformLocation(game->program, "view");
   int vModelLoc = glGetUniformLocation(game->program, "model");
 
+
   //
   //
   CMatrix4 mat;
