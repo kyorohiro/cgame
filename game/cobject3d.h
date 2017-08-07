@@ -10,6 +10,7 @@
 #include "matrix/cmatrix4.h"
 #define OBJECT3D_NAME "ob3"
 
+typedef void (*CObject3DFuncOnEnterFrame)(CObject*  obj, CObject* cgame);
 typedef struct {
   CObject parent;
   double x;
@@ -25,9 +26,16 @@ typedef struct {
   CBytes *vertexs;
   //
   CLinkedList *nodes;
+  CObject3DFuncOnEnterFrame onEnterFrameFunc;
+  int isLeaf;
+  //
 } CObject3D;
 
-
+/*
+typedef struct {
+  CObject3D parent;
+} CPrimitive;
+*/
 CObject3D* newCObject3D(CMemory* mem);
 CObject3D* initCObject3D(CObject3D*);
 void freeCObject3D(void* obj);
@@ -39,4 +47,6 @@ CObject3D* initCObject3DAsCube(CObject3D*);
 char* cobject3d_getVertexBinary(CObject3D*);
 int cobject3d_getVertexBinaryLength(CObject3D*);
 CLinkedList* cobject3d_getNodes(CObject3D*);
+void cobject3d_enterFrame(CObject3D* obj, CObject* cgame);
+
 #endif

@@ -32,16 +32,28 @@ CObject3D* initCObject3DAsCube(CObject3D* obj) {
 }
 
 CObject3D* cobject3d_setRotate(CObject3D* obj, double rx, double ry, double rz) {
+  float* fVertexs = (float*)obj->vertexs->value;
   if(obj->rx != rx) {
     obj->rx = rx;
+    fVertexs[7] = rx;
+    fVertexs[17] = rx;
+    fVertexs[27] = rx;
+
     obj->status = 1;
   }
   if(obj->ry != ry) {
     obj->ry = ry;
+    fVertexs[8] = ry;
+    fVertexs[18] = ry;
+    fVertexs[28] = ry;
     obj->status = 1;
   }
   if(obj->rz != rz) {
     obj->rz = rz;
+    fVertexs[9] = rz;
+    fVertexs[19] = rz;
+    fVertexs[29] = rz;
+
     obj->status = 1;
   }
   return obj;
@@ -114,4 +126,17 @@ int cobject3d_getVertexBinaryLength(CObject3D* obj) {
 
 CLinkedList* cobject3d_getNodes(CObject3D* obj) {
   return obj->nodes;
+}
+
+void cobject3d_enterFrame(CObject3D* obj, CObject* cgame) {
+  //  printf("cobject3d_enterFrame\r\n");
+  if(obj->onEnterFrameFunc != NULL) {
+    obj->onEnterFrameFunc((CObject*)obj, cgame);
+  }
+  if(obj->isLeaf == 1) {
+    return;
+  }
+  for(int i=0;i<clinkedList_getLength(obj->nodes);i++) {
+    cobject3d_enterFrame((CObject3D *)clinkedList_get(obj->nodes, i) , cgame);
+  }
 }

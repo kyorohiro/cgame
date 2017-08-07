@@ -44,13 +44,14 @@ CGame* getCGame() {
 void cgame_draw(void) {
   CGame *game = getCGame();
   CObject3D *root = (CObject3D*)cgame_getRoot(game);
+  cobject3d_enterFrame(root, (CObject*)game);
+  //
   CLinkedList *nodes = cobject3d_getNodes(root);
 
   glClear(GL_COLOR_BUFFER_BIT);
 
-  int vPositionLoc = glGetAttribLocation(game->program, "position");
-  int vColorLoc = glGetAttribLocation(game->program, "color");
-  int vRotLoc = glGetAttribLocation(game->program, "rot");
+
+
 
   int vProjectionLoc = glGetUniformLocation(game->program, "projection");
   int vViewLoc = glGetUniformLocation(game->program, "view");
@@ -63,31 +64,41 @@ void cgame_draw(void) {
   glUniformMatrix4fv(vProjectionLoc, 1, GL_FALSE, mat.value);
   glUniformMatrix4fv(vViewLoc, 1, GL_FALSE, mat.value);
   glUniformMatrix4fv(vModelLoc, 1, GL_FALSE, mat.value);
+
   for(int i=0;i<clinkedList_getLength(nodes);i++) {
     CObject3D *node = (CObject3D*)clinkedList_get(nodes, i);
     GLfloat *vVertices = (GLfloat *)cobject3d_getVertexBinary(node);
+
+
     GLuint vertexBuffer;
     glGenBuffers(1, &vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(CMatrixValue)*10*3, vVertices, GL_STATIC_DRAW);
     glUseProgram(game->program);
+    int vPositionLoc = glGetAttribLocation(game->program, "position");
+    int vRotLoc      = glGetAttribLocation(game->program, "rot");
+    int vColorLoc    = glGetAttribLocation(game->program, "color");
     glEnableVertexAttribArray(vPositionLoc);
     glEnableVertexAttribArray(vColorLoc);
+    glEnableVertexAttribArray(vRotLoc);
     glVertexAttribPointer(vPositionLoc, 3, GL_FLOAT, GL_FALSE, 10*sizeof(CMatrixValue), (void*)0);
     glVertexAttribPointer(vColorLoc, 4, GL_FLOAT, GL_FALSE, 10*sizeof(CMatrixValue), (void*)(3*sizeof(CMatrixValue)));
     glVertexAttribPointer(vRotLoc, 3, GL_FLOAT, GL_FALSE, 10*sizeof(CMatrixValue), (void*)(7*sizeof(CMatrixValue)));
-
-    cmatrix4_show(node->mat);
+  //  printf("# %d %d %f %f %f\r\n", vRotLoc, vColorLoc, vVertices[7],vVertices[8],vVertices[9]);
+    //cmatrix4_show(node->mat);
     //
     glUniformMatrix4fv(vModelLoc, 1, GL_FALSE, (GLfloat*)node->mat->value);
     //glUniformMatrix4fv(vModelLoc, 1, GL_FALSE, mat->value);
     //
+
     glDrawArrays(GL_TRIANGLES, 0, 3);
   }
 
   glutSwapBuffers();
+  glutPostRedisplay();
 //releaseCObject((CObject*)mat);
 }
+
 
 CGame* cgame_start(CGame* obj) {
   printf("main\n");
