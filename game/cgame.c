@@ -50,10 +50,19 @@ void cgame_draw(void) {
   glClear(GL_COLOR_BUFFER_BIT);
 
 
-  int vPositionLoc = glGetAttribLocation(game->program, "vPosition");
+  int vPositionLoc = glGetAttribLocation(game->program, "position");
   int vColorLoc = glGetAttribLocation(game->program, "color");
+  int vProjectionLoc = glGetUniformLocation(game->program, "projection");
+  int vViewLoc = glGetUniformLocation(game->program, "view");
+  int vModelLoc = glGetUniformLocation(game->program, "model");
 
-
+  //
+  //
+  CMatrix4 mat;
+  cmatrix4_setIdentity(initCMatrix4(&mat));
+  glUniformMatrix4fv(vProjectionLoc, 1, GL_FALSE, mat.value);
+  glUniformMatrix4fv(vViewLoc, 1, GL_FALSE, mat.value);
+  glUniformMatrix4fv(vModelLoc, 1, GL_FALSE, mat.value);
   for(int i=0;i<clinkedList_getLength(nodes);i++) {
     CObject3D *node = (CObject3D*)clinkedList_get(nodes, i);
     GLfloat *vVertices = (GLfloat *)cobject3d_getVertexBinary(node);
@@ -66,9 +75,16 @@ void cgame_draw(void) {
     glEnableVertexAttribArray(vColorLoc);
     glVertexAttribPointer(vPositionLoc, 3, GL_FLOAT, GL_FALSE, 7*sizeof(CMatrixValue), (void*)0);
     glVertexAttribPointer(vColorLoc, 4, GL_FLOAT, GL_FALSE, 7*sizeof(CMatrixValue), (void*)(3*sizeof(CMatrixValue)));
+    cmatrix4_show(node->mat);
+    //
+    glUniformMatrix4fv(vModelLoc, 1, GL_FALSE, (GLfloat*)node->mat->value);
+    //glUniformMatrix4fv(vModelLoc, 1, GL_FALSE, mat->value);
+    //
     glDrawArrays(GL_TRIANGLES, 0, 3);
   }
+
   glutSwapBuffers();
+//releaseCObject((CObject*)mat);
 }
 
 CGame* cgame_start(CGame* obj) {
@@ -91,9 +107,9 @@ CGame* cgame_start(CGame* obj) {
   obj->program = glCreateProgram();
   glAttachShader(obj->program, obj->fShaderLocation);
   glAttachShader(obj->program, obj->vShaderLocation);
-  glBindAttribLocation(obj->program, 0, "vPosition");
+//  glBindAttribLocation(obj->program, 0, "vPosition");
   glLinkProgram(obj->program);
-  int vPositionLocation = glGetAttribLocation(obj->program, "vPosition");
+//  int vPositionLocation = glGetAttribLocation(obj->program, "vPosition");
 
   //glutIdleFunc (gears_idle);
   //glutReshapeFunc(gears_reshape);
