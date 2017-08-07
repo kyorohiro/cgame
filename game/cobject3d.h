@@ -27,6 +27,7 @@ typedef struct {
   CLinkedList *nodes;
 } CObject3D;
 
+
 CObject3D* newCObject3D(CMemory* mem);
 CObject3D* initCObject3D(CObject3D*);
 void freeCObject3D(void* obj);

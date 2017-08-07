@@ -26,7 +26,6 @@ CGame* initCGame(CGame* obj) {
 //  obj->fShaderLocation = cglutil_LoadShader(GL_VERTEX_SHADER, cstring_getBytes(obj->fShaderSrc));
 //  obj->vShaderLocation = cglutil_LoadShader(GL_VERTEX_SHADER, cstring_getBytes(obj->vShaderSrc));
   //
-
   return obj;
 }
 
@@ -49,13 +48,13 @@ void cgame_draw(void) {
 
   glClear(GL_COLOR_BUFFER_BIT);
 
-
   int vPositionLoc = glGetAttribLocation(game->program, "position");
   int vColorLoc = glGetAttribLocation(game->program, "color");
+  int vRotLoc = glGetAttribLocation(game->program, "rot");
+
   int vProjectionLoc = glGetUniformLocation(game->program, "projection");
   int vViewLoc = glGetUniformLocation(game->program, "view");
   int vModelLoc = glGetUniformLocation(game->program, "model");
-
 
   //
   //
@@ -70,12 +69,14 @@ void cgame_draw(void) {
     GLuint vertexBuffer;
     glGenBuffers(1, &vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(CMatrixValue)*7*3, vVertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(CMatrixValue)*10*3, vVertices, GL_STATIC_DRAW);
     glUseProgram(game->program);
     glEnableVertexAttribArray(vPositionLoc);
     glEnableVertexAttribArray(vColorLoc);
-    glVertexAttribPointer(vPositionLoc, 3, GL_FLOAT, GL_FALSE, 7*sizeof(CMatrixValue), (void*)0);
-    glVertexAttribPointer(vColorLoc, 4, GL_FLOAT, GL_FALSE, 7*sizeof(CMatrixValue), (void*)(3*sizeof(CMatrixValue)));
+    glVertexAttribPointer(vPositionLoc, 3, GL_FLOAT, GL_FALSE, 10*sizeof(CMatrixValue), (void*)0);
+    glVertexAttribPointer(vColorLoc, 4, GL_FLOAT, GL_FALSE, 10*sizeof(CMatrixValue), (void*)(3*sizeof(CMatrixValue)));
+    glVertexAttribPointer(vRotLoc, 3, GL_FLOAT, GL_FALSE, 10*sizeof(CMatrixValue), (void*)(7*sizeof(CMatrixValue)));
+
     cmatrix4_show(node->mat);
     //
     glUniformMatrix4fv(vModelLoc, 1, GL_FALSE, (GLfloat*)node->mat->value);

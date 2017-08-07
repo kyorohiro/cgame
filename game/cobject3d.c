@@ -23,11 +23,11 @@ CObject3D* initCObject3D(CObject3D* obj) {
 CObject3D* initCObject3DAsCube(CObject3D* obj) {
   initCObject3D(obj);
   float vVertices[] = {
-    0.0f, 0.5f, 0.0f,    0.0, 0.0, 1.0, 1.0,
-   -0.5f, -0.5f, 0.0f,   0.0, 1.0, 0.0, 1.0,
-   0.5f, -0.5f, 0.0f,    1.0, 0.0, 0.0, 1.0
+    0.0f, 0.5f, 0.0f,    0.0, 0.0, 1.0, 1.0,  0.0, 0.0, 0.0,
+   -0.5f, -0.5f, 0.0f,   0.0, 1.0, 0.0, 1.0,  0.0, 0.0, 0.0,
+   0.5f, -0.5f, 0.0f,    1.0, 0.0, 0.0, 1.0,  0.0, 0.0, 0.0
   };
-  obj->vertexs = initCBytes(newCBytes(obj->parent.cmemory), (char*)vVertices, sizeof(CMatrixValue)*7*3);
+  obj->vertexs = initCBytes(newCBytes(obj->parent.cmemory), (char*)vVertices, sizeof(CMatrixValue)*10*3);
   return obj;
 }
 
