@@ -10,9 +10,35 @@
 #include "matrix/cmatrix4.h"
 #define OBJECT3D_NAME "ob3"
 
+#define CObject3DTypeObject 0
+#define CObject3DTypePrimitive 1
+
 typedef void (*CObject3DFuncOnEnterFrame)(CObject*  obj, CObject* cgame);
 typedef struct {
   CObject parent;
+  CMatrix4 *mat;
+  CMatrix4 *arg;
+  //
+  CLinkedList *nodes;
+  CObject3DFuncOnEnterFrame onEnterFrameFunc;
+  int isLeaf;
+  int type;
+  //
+} CObject3D;
+
+
+CObject3D* newCObject3D(CMemory* mem);
+CObject3D* initCObject3D(CObject3D*);
+void freeCObject3D(void* obj);
+CObject3D* cobject3d_addNode(CObject3D*, CObject3D* node);
+CMatrix4* cobject3d_getCMatrix4(CObject3D*);
+CLinkedList* cobject3d_getNodes(CObject3D*);
+void cobject3d_enterFrame(CObject3D* obj, CObject* cgame);
+
+//
+//
+typedef struct {
+  CObject3D parent;
   double x;
   double y;
   double z;
@@ -20,33 +46,17 @@ typedef struct {
   double ry;
   double rz;
   int status;
-  CMatrix4 *mat;
-  CMatrix4 *arg;
-  //
   CBytes *vertexs;
-  //
-  CLinkedList *nodes;
-  CObject3DFuncOnEnterFrame onEnterFrameFunc;
-  int isLeaf;
-  //
-} CObject3D;
 
-/*
-typedef struct {
-  CObject3D parent;
-} CPrimitive;
-*/
-CObject3D* newCObject3D(CMemory* mem);
-CObject3D* initCObject3D(CObject3D*);
-void freeCObject3D(void* obj);
-CObject3D* cobject3d_setRotate(CObject3D*, double rx, double ry, double rz);
-CObject3D* cobject3d_setPosition(CObject3D*, double x, double y, double z);
-CObject3D* cobject3d_addNode(CObject3D*, CObject3D* node);
-CMatrix4* cobject3d_getCMatrix4(CObject3D*);
-CObject3D* initCObject3DAsCube(CObject3D*);
-char* cobject3d_getVertexBinary(CObject3D*);
-int cobject3d_getVertexBinaryLength(CObject3D*);
-CLinkedList* cobject3d_getNodes(CObject3D*);
-void cobject3d_enterFrame(CObject3D* obj, CObject* cgame);
+} CPrimitive3D;
+
+CPrimitive3D* newCPrimitive3D(CMemory* mem);
+CPrimitive3D* initCPrimitive3D(CPrimitive3D*);
+CPrimitive3D* initCPrimitive3DAsCube(CPrimitive3D*);
+void freeCPrimitive3D(void* obj);
+CPrimitive3D* cprimitive3d_setRotate(CPrimitive3D*, double rx, double ry, double rz);
+CPrimitive3D* cprimitive3d_setPosition(CPrimitive3D*, double x, double y, double z);
+char* cprimitive3d_getVertexBinary(CPrimitive3D*);
+int cprimitive3d_getVertexBinaryLength(CPrimitive3D*);
 
 #endif

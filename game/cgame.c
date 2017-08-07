@@ -67,7 +67,10 @@ void cgame_draw(void) {
 
   for(int i=0;i<clinkedList_getLength(nodes);i++) {
     CObject3D *node = (CObject3D*)clinkedList_get(nodes, i);
-    GLfloat *vVertices = (GLfloat *)cobject3d_getVertexBinary(node);
+    if(node->type != CObject3DTypePrimitive) {
+      continue;
+    }
+    GLfloat *vVertices = (GLfloat *)cprimitive3d_getVertexBinary((CPrimitive3D *)node);
 
 
     GLuint vertexBuffer;

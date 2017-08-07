@@ -14,13 +14,17 @@ varying vec4 vColor;
 void main() {
 //  vColor = colorr * color;
   vColor = color;
-
-  float rz = rot[2];
+  mat4 rotY = mat4(
+    cos(rot[1]), 0.0, -sin(rot[1]), 0.0,
+    0.0        , 1.0, 0.0         , 0.0,
+    sin(rot[1]), 0.0, cos(rot[1]) , 0.0,
+    0.0        , 0.0, 0.0         , 1.0
+  );
   mat4 rotZ = mat4(
-     cos(rz) , sin(rz), 0.0         , 0.0,
-     -sin(rz), cos(rz), 0.0         , 0.0,
+     cos(rot[2]) , sin(rot[2]), 0.0         , 0.0,
+     -sin(rot[2]), cos(rot[2]), 0.0         , 0.0,
      0.0         , 0.0        , 1.0         , 0.0,
     0.0         , 0.0        , 0.0         , 1.0
   );
-  gl_Position = rotZ*vec4(position, 1.0);
+  gl_Position = rotY*rotZ*vec4(position, 1.0);
 }
