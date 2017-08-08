@@ -35,28 +35,5 @@ CMatrix4* cobject3d_getCMatrix4(CObject3D*);
 CLinkedList* cobject3d_getNodes(CObject3D*);
 void cobject3d_enterFrame(CObject3D* obj, CObject* cgame);
 
-//
-//
-typedef struct {
-  CObject3D parent;
-  double x;
-  double y;
-  double z;
-  double rx;
-  double ry;
-  double rz;
-  int status;
-  CBytes *vertexs;
-
-} CPrimitive3D;
-
-CPrimitive3D* newCPrimitive3D(CMemory* mem);
-CPrimitive3D* initCPrimitive3D(CPrimitive3D*);
-CPrimitive3D* initCPrimitive3DAsCube(CPrimitive3D*);
-void freeCPrimitive3D(void* obj);
-CPrimitive3D* cprimitive3d_setRotate(CPrimitive3D*, double rx, double ry, double rz);
-CPrimitive3D* cprimitive3d_setPosition(CPrimitive3D*, double x, double y, double z);
-char* cprimitive3d_getVertexBinary(CPrimitive3D*);
-int cprimitive3d_getVertexBinaryLength(CPrimitive3D*);
 
 #endif

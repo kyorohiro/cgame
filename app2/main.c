@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "game/cgame.h"
 #include "game/cobject3d.h"
-
+#include "game/cprimitive3d.h"
 int i =0;
 
 void _onEnterFrame(CObject*  obj, CObject* cgame) {

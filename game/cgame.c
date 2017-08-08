@@ -4,6 +4,7 @@
 #include "core/cbytesBuilder.h"
 
 #include "cglutil.h"
+#include "cprimitive3d.h"
 //
 void cgame_draw(void);
 
