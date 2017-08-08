@@ -1,18 +1,18 @@
-#ifndef __H_GL_VECTOR4_
-#define __H_GL_VECTOR4_
+#ifndef __H_GL_VECTOR3_
+#define __H_GL_VECTOR3_
 
 #include "core/cobject.h"
 #include "core/cmemory.h"
 #include "matrix/cmatrix4.h"
-#define KVECTOR4_NAME "ve4"
+#define KVECTOR3_NAME "ve4"
 
 typedef struct {
   CObject parent;
-  CMatrixValue value[4];
-} CVector4;
+  CMatrixValue value[3];
+} CVector3;
 
-CVector4* newCVector4(CMemory*);
-CVector4* initCVector4(CVector4*, CMatrixValue v0, CMatrixValue v1, CMatrixValue v2, CMatrixValue v3);
+CVector3* newCVector3(CMemory*);
+CVector3* initCVector3(CVector3*, CMatrixValue v0, CMatrixValue v1, CMatrixValue v2);
 
 /*
 CMatrix4* cmatrix4_add(CMatrix4* obj, CMatrix4* arg, CMatrix4* out);

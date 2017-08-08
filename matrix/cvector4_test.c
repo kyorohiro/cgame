@@ -8,7 +8,7 @@ void cvector4_test_add() {
   printf("# cvector4_test_add\n");
   int passed = 1;
   CMemory *mem = initCMemory(newCMemory());
-  CVector4 *vec = initCVector4(newCVector4(mem),0.0,0.0,0.0);
+  CVector4 *vec = initCVector4(newCVector4(mem),0.0,0.0,0.0,0.0);
   releaseCObject((CObject*)vec);
   if(mem->callocCounter != mem->freeCounter) {
     printf("  NG : %d == %d\r\n", mem->callocCounter, mem->freeCounter);
