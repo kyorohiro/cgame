@@ -26,5 +26,6 @@ void main() {
      0.0         , 0.0        , 1.0         , 0.0,
     0.0         , 0.0        , 0.0         , 1.0
   );
-  gl_Position = rotY * rotZ * vec4(position, 1.0);
+  mat4 mm = rotY * rotZ;
+  gl_Position = mm * vec4(position, 1.0);
 }
