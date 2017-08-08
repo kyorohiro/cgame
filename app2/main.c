@@ -6,7 +6,9 @@ int i =0;
 
 void _onEnterFrame(CObject*  obj, CObject* cgame) {
   i = (i+2)%360;
-  cprimitive3d_setRotate((CPrimitive3D*)obj, 3.14*i/180.0, 3.14*i/180.0, 3.14*i/180.0);
+  CMatrix4 *mat = cobject3d_getCMatrix4((CObject3D*)obj);
+  cmatrix4_setRotationZ(mat, 3.14*i/180.0);
+//  cprimitive3d_setRotate((CPrimitive3D*)obj, 3.14*i/180.0, 3.14*i/180.0, 3.14*i/180.0);
 //  cprimitive3d_setRotate((CPrimitive3D*)obj, 3.14*i/180.0, 0.0, 0.0);
 //  cprimitive3d_setRotate((CPrimitive3D*)obj, 0.0, 3.14*i/180.0, 0.0);
 //  cprimitive3d_setRotate((CPrimitive3D*)obj, 0.0, 0.0, 3.14*i/180.0);

@@ -44,15 +44,29 @@ CPrimitive3D* initCPrimitive3DAsTriangle(CPrimitive3D* obj) {
 CPrimitive3D* initCPrimitive3DAsCube(CPrimitive3D* obj) {
   initCPrimitive3D(obj);
   CMatrixValue vVertices[] = {
-    0.0f, 0.5f, 0.0f,    0.0, 0.0, 1.0, 1.0,  0.0, 0.0, 0.0,
-   -0.5f, -0.5f, 0.0f,   0.0, 1.0, 0.0, 1.0,  0.0, 0.0, 0.0,
-   0.5f, -0.5f, 0.0f,    1.0, 0.0, 0.0, 1.0,  0.0, 0.0, 0.0
+   -0.5, 0.5, 0.5,    1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,
+   -0.5, -0.5, 0.5,   0.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,
+   0.5, -0.5, 0.5,    0.0, 0.0, 1.0, 1.0,  0.0, 0.0, 0.0,
+   0.5, 0.5, 0.5,     0.0, 0.0, 1.0, 1.0,  0.0, 0.0, 0.0,
+
+   -0.5, 0.5, -0.5,    1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,
+   -0.5, -0.5, -0.5,   1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,
+   0.5, -0.5, -0.5,    1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,
+   0.5, 0.5, -0.5,     1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0
   };
   CIndexValue indexes[] = {
-    0, 1, 2
+    0, 1, 2, 0, 2, 3, // A1 A2
+    4, 0, 3, 4, 3, 7,  // D1 D2
+//    4, 5, 6, 4, 6, 7, // C1 C2
+    7, 6, 5, 7, 5, 4, // C1 C2
+    2, 1, 5, 6, 2, 5,
+
+
+    4, 5, 1, 4, 1, 0, // B1 B2
+    3, 2, 6, 3, 6, 7  // D1 D2
   };
-  obj->vertexes = initCBytes(newCBytes(obj->parent.parent.cmemory), (char*)vVertices, sizeof(CMatrixValue)*10*3);
-  obj->indexes = initCBytes(newCBytes(obj->parent.parent.cmemory), (char*)indexes, sizeof(CIndexValue)*3);
+  obj->vertexes = initCBytes(newCBytes(obj->parent.parent.cmemory), (char*)vVertices, sizeof(CMatrixValue)*10*8);
+  obj->indexes = initCBytes(newCBytes(obj->parent.parent.cmemory), (char*)indexes, sizeof(CIndexValue)*36);
   return obj;
 }
 
@@ -117,7 +131,7 @@ int cprimitive3d_getVertexBinaryLength(CPrimitive3D* obj) {
 }
 
 char* cprimitive3d_getIndexBinary(CPrimitive3D* obj) {
-  if(obj->vertexes == NULL) {
+  if(obj->indexes == NULL) {
     return 0;
   } else {
     return obj->indexes->value;
@@ -125,7 +139,7 @@ char* cprimitive3d_getIndexBinary(CPrimitive3D* obj) {
 }
 
 int cprimitive3d_getIndexBinaryLength(CPrimitive3D* obj) {
-  if(obj->vertexes == NULL) {
+  if(obj->indexes == NULL) {
     return 0;
   } else {
     return obj->indexes->length/sizeof(CIndexValue);
