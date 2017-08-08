@@ -21,8 +21,8 @@ typedef struct {
   double ry;
   double rz;
   int status;
-  CBytes *vertexs;
-
+  CBytes *vertexes;
+  CBytes *indexes;
 } CPrimitive3D;
 
 CPrimitive3D* newCPrimitive3D(CMemory* mem);

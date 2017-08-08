@@ -8,6 +8,7 @@
 #define KMATRIX_NAME "kma"
 
 typedef float CMatrixValue;
+typedef short CIndexValue;
 typedef struct {
   CObject parent;
   CMatrixValue value[16];

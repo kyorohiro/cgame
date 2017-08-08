@@ -7,8 +7,8 @@
 //
 void freeCPrimitive3D(void* obj) {
   CPrimitive3D *objTmp = obj;
-  if(objTmp->vertexs != NULL) {
-    releaseCObject((CObject*)objTmp->vertexs);
+  if(objTmp->vertexes != NULL) {
+    releaseCObject((CObject*)objTmp->vertexes);
   }
   freeCObject3D(obj);
 }
@@ -28,12 +28,16 @@ CPrimitive3D* initCPrimitive3D(CPrimitive3D* obj) {
 
 CPrimitive3D* initCPrimitive3DAsTriangle(CPrimitive3D* obj) {
   initCPrimitive3D(obj);
-  float vVertices[] = {
+  CMatrixValue vVertices[] = {
     0.0f, 0.5f, 0.0f,    0.0, 0.0, 1.0, 1.0,  0.0, 0.0, 0.0,
    -0.5f, -0.5f, 0.0f,   0.0, 1.0, 0.0, 1.0,  0.0, 0.0, 0.0,
    0.5f, -0.5f, 0.0f,    1.0, 0.0, 0.0, 1.0,  0.0, 0.0, 0.0
   };
-  obj->vertexs = initCBytes(newCBytes(obj->parent.parent.cmemory), (char*)vVertices, sizeof(CMatrixValue)*10*3);
+  CIndexValue indexes[] = {
+    0, 1, 2
+  };
+  obj->vertexes = initCBytes(newCBytes(obj->parent.parent.cmemory), (char*)vVertices, sizeof(CMatrixValue)*10*3);
+  obj->indexes = initCBytes(newCBytes(obj->parent.parent.cmemory), (char*)indexes, sizeof(CIndexValue)*3);
   return obj;
 }
 
@@ -44,12 +48,12 @@ CPrimitive3D* initCPrimitive3DAsCube(CPrimitive3D* obj) {
    -0.5f, -0.5f, 0.0f,   0.0, 1.0, 0.0, 1.0,  0.0, 0.0, 0.0,
    0.5f, -0.5f, 0.0f,    1.0, 0.0, 0.0, 1.0,  0.0, 0.0, 0.0
   };
-  obj->vertexs = initCBytes(newCBytes(obj->parent.parent.cmemory), (char*)vVertices, sizeof(CMatrixValue)*10*3);
+  obj->vertexes = initCBytes(newCBytes(obj->parent.parent.cmemory), (char*)vVertices, sizeof(CMatrixValue)*10*3);
   return obj;
 }
 
 CPrimitive3D* cprimitive3d_setRotate(CPrimitive3D* obj, double rx, double ry, double rz) {
-  float* fVertexs = (float*)obj->vertexs->value;
+  float* fVertexs = (float*)obj->vertexes->value;
   if(obj->rx != rx) {
     obj->rx = rx;
     obj->status = 1;
@@ -83,27 +87,27 @@ CPrimitive3D* cprimitive3d_setPosition(CPrimitive3D* obj , double x, double y, d
 
 
 char* cprimitive3d_getVertexBinary(CPrimitive3D* obj) {
-  if(obj->vertexs == NULL) {
+  if(obj->vertexes == NULL) {
     return NULL;
   }
   if(obj->status == 1) {
     //obj
     int length = cprimitive3d_getVertexBinaryLength(obj)/10;
-    float *vVertices = (float*)obj->vertexs->value;
+    float *vVertices = (float*)obj->vertexes->value;
     for(int i=0;i<length;i++) {
       vVertices[i*10+7] = obj->rx;
       vVertices[i*10+8] = obj->ry;
       vVertices[i*10+9] = obj->rz;
     }
   }
-  return obj->vertexs->value;
+  return obj->vertexes->value;
 
 }
 
 int cprimitive3d_getVertexBinaryLength(CPrimitive3D* obj) {
-  if(obj->vertexs == NULL) {
+  if(obj->vertexes == NULL) {
     return 0;
   } else {
-    return obj->vertexs->length/sizeof(CMatrixValue);
+    return obj->vertexes->length/sizeof(CMatrixValue);
   }
 }
