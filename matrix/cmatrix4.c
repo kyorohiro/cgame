@@ -96,6 +96,12 @@ CMatrix4* cmatrix4_setIdentity(CMatrix4* obj) {
   return obj;
 }
 
+//     col 0 1 2 3
+// row
+//   0    a11 a12 a13 a14
+//   1    a21 a22 a23 a24
+//   2
+//   3
 CMatrix4* cmatrix4_setValues(CMatrix4* obj,
               CMatrixValue a11, CMatrixValue a12, CMatrixValue a13, CMatrixValue a14,
               CMatrixValue a21, CMatrixValue a22, CMatrixValue a23, CMatrixValue a24,
