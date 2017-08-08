@@ -9,10 +9,10 @@
 typedef struct {
   CObject parent;
   CMatrixValue value[3];
-} CVector3;
+} CVector4;
 
-CVector3* newCVector3(CMemory*);
-CVector3* initCVector3(CMatrix4*, v1, v2, v3);
+CVector4* newCVector4(CMemory*);
+CVector4* initCVector4(CVector4*, CMatrixValue v1, CMatrixValue v2, CMatrixValue v3);
 
 /*
 CMatrix4* cmatrix4_add(CMatrix4* obj, CMatrix4* arg, CMatrix4* out);
