@@ -79,8 +79,6 @@ void cgame_draw(void) {
     }
     GLfloat *vVertices = (GLfloat *)cprimitive3d_getVertexBinary((CPrimitive3D *)node);
 
-
-
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(CMatrixValue)*10*3, vVertices, GL_STATIC_DRAW);
     glUseProgram(game->program);
