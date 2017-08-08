@@ -33,3 +33,10 @@ CVector3* cvector3_crossProduct(CVector3* obj, CVector3* arg, CVector3* out) {
   out->value[2] = v2;
   return out;
 }
+
+CMatrixValue cvector3_normalize(CVector3* obj) {
+  double v = (obj->value[0]*obj->value[0]) +
+         (obj->value[1]*obj->value[1]) +
+         (obj->value[2]*obj->value[2]);
+  return sqrt(v);
+}
