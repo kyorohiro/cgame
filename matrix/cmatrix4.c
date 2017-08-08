@@ -255,6 +255,13 @@ CMatrix4* cmatrix4_setScale(CMatrix4* obj, double x, double y, double z) {
   return obj;
 }
 
+
+//     col 0 1 2 3
+// row
+//   0
+//   1
+//   2
+//   3
 CMatrixValue cmatrix4_getValue(CMatrix4* obj, int row, int col) {
   return obj->value[row+4*col];
 }
