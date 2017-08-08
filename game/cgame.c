@@ -66,6 +66,12 @@ void cgame_draw(void) {
   glUniformMatrix4fv(vViewLoc, 1, GL_FALSE, mat.value);
   glUniformMatrix4fv(vModelLoc, 1, GL_FALSE, mat.value);
 
+  GLuint vertexBuffer;
+  glGenBuffers(1, &vertexBuffer);
+
+  GLuint indexBuffer;
+  glGenBuffers(1, &indexBuffer);
+
   for(int i=0;i<clinkedList_getLength(nodes);i++) {
     CObject3D *node = (CObject3D*)clinkedList_get(nodes, i);
     if(node->type != CObject3DTypePrimitive) {
@@ -74,8 +80,7 @@ void cgame_draw(void) {
     GLfloat *vVertices = (GLfloat *)cprimitive3d_getVertexBinary((CPrimitive3D *)node);
 
 
-    GLuint vertexBuffer;
-    glGenBuffers(1, &vertexBuffer);
+
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(CMatrixValue)*10*3, vVertices, GL_STATIC_DRAW);
     glUseProgram(game->program);
@@ -90,14 +95,15 @@ void cgame_draw(void) {
     glVertexAttribPointer(vRotLoc, 3, GL_FLOAT, GL_FALSE, 10*sizeof(CMatrixValue), (void*)(7*sizeof(CMatrixValue)));
     glUniformMatrix4fv(vModelLoc, 1, GL_FALSE, (GLfloat*)node->mat->value);
 
-    GLuint indexBuffer;
     short* indices = (short*)cprimitive3d_getIndexBinary((CPrimitive3D*)node);
-    glGenBuffers(1, &indexBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(CIndexValue)*cprimitive3d_getIndexBinaryLength((CPrimitive3D*)node), indices, GL_STATIC_DRAW);
     glDrawElements(GL_TRIANGLES, cprimitive3d_getIndexBinaryLength((CPrimitive3D*)node), GL_UNSIGNED_SHORT, 0);
     //glDrawArrays(GL_TRIANGLES, 0, 3);
   }
+
+  glDeleteBuffers(1, &vertexBuffer);
+  glDeleteBuffers(1, &indexBuffer);
 
   glutSwapBuffers();
   glutPostRedisplay();
