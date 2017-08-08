@@ -261,6 +261,52 @@ CMatrix4* cmatrix4_setScale(CMatrix4* obj, double x, double y, double z) {
   return obj;
 }
 
+CMatrix4* cmatrix4_setOrthogonalProjection(CMatrix4* obj, double right, double left, double top, double bottom, double far, double near) {
+  obj->value[0] = 2.0/(right-left);
+  obj->value[4] = 0.0;
+  obj->value[8] = 0.0;
+  obj->value[12] = -1*(right+left)/(right-left);
+
+  obj->value[1] = 0.0;
+  obj->value[5] = 2.0/(top-bottom);
+  obj->value[9] = 0.0;
+  obj->value[13] = -1*(top+bottom)/(top-bottom);
+
+  obj->value[2] = 0.0;
+  obj->value[6] = 0.0;
+  obj->value[10] = -2/(far-near);
+  obj->value[14] = -1*(far+near)/(far-near);
+
+  obj->value[3] = 0.0;
+  obj->value[7] = 0.0;
+  obj->value[11] = 0.0;
+  obj->value[15] = 1.0;
+  return obj;
+}
+
+CMatrix4* cmatrix4_setPerspectiveProjection(CMatrix4* obj, double right, double left, double top, double bottom, double far, double near) {
+  obj->value[0] = 2.0*near/(right-left);
+  obj->value[4] = 0.0;
+  obj->value[8] = (right+left)/(right-left);
+  obj->value[12] = 0.0;
+
+  obj->value[1] = 0.0;
+  obj->value[5] = 2.0*near/(top-bottom);
+  obj->value[9] = (top+bottom)/(top-bottom);
+  obj->value[13] = 0.0;
+
+  obj->value[2] = 0.0;
+  obj->value[6] = 0.0;
+  obj->value[10] = -1*(far+near)/(far-near);
+  obj->value[14] = -2*(far*near)/(far-near);
+
+  obj->value[3] = 0.0;
+  obj->value[7] = 0.0;
+  obj->value[11] = -1.0;
+  obj->value[15] = 0.0;
+  return obj;
+}
+
 
 //     col 0 1 2 3
 // row

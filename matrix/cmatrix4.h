@@ -31,6 +31,8 @@ CMatrix4* cmatrix4_setValues(CMatrix4* obj,
               CMatrixValue a31, CMatrixValue a32, CMatrixValue a33, CMatrixValue a34,
               CMatrixValue a41, CMatrixValue a42, CMatrixValue a43, CMatrixValue a44
             );
+CMatrix4* cmatrix4_setOrthogonalProjection(CMatrix4* obj, double right, double left, double top, double bottom, double far, double near);
+CMatrix4* cmatrix4_setPerspectiveProjection(CMatrix4* obj, double right, double left, double top, double bottom, double far, double near);
 
 //CMatrix4* setRotateX(CMatrix4* obj, double angle);
 
