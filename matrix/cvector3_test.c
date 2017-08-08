@@ -15,7 +15,6 @@ void cvector3_test_add() {
     passed = 0;
   }
 
-
   releaseCObject((CObject*)vec);
   if(mem->callocCounter != mem->freeCounter) {
     printf("  NG : %d == %d\r\n", mem->callocCounter, mem->freeCounter);

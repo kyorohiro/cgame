@@ -23,3 +23,7 @@ CVector3* initCVector3(CVector3* obj, CMatrixValue v0, CMatrixValue v1, CMatrixV
   obj->value[2] = v2;
   return obj;
 }
+
+CVector3* cvector3_crossProduct(CVector3* obj, CVector3* arg, CVector3* out) {
+  return out;
+}
