@@ -26,6 +26,17 @@ CPrimitive3D* initCPrimitive3D(CPrimitive3D* obj) {
   return obj;
 }
 
+CPrimitive3D* initCPrimitive3DAsTriangle(CPrimitive3D* obj) {
+  initCPrimitive3D(obj);
+  float vVertices[] = {
+    0.0f, 0.5f, 0.0f,    0.0, 0.0, 1.0, 1.0,  0.0, 0.0, 0.0,
+   -0.5f, -0.5f, 0.0f,   0.0, 1.0, 0.0, 1.0,  0.0, 0.0, 0.0,
+   0.5f, -0.5f, 0.0f,    1.0, 0.0, 0.0, 1.0,  0.0, 0.0, 0.0
+  };
+  obj->vertexs = initCBytes(newCBytes(obj->parent.parent.cmemory), (char*)vVertices, sizeof(CMatrixValue)*10*3);
+  return obj;
+}
+
 CPrimitive3D* initCPrimitive3DAsCube(CPrimitive3D* obj) {
   initCPrimitive3D(obj);
   float vVertices[] = {

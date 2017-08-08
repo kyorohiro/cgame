@@ -28,6 +28,7 @@ typedef struct {
 CPrimitive3D* newCPrimitive3D(CMemory* mem);
 CPrimitive3D* initCPrimitive3D(CPrimitive3D*);
 CPrimitive3D* initCPrimitive3DAsCube(CPrimitive3D*);
+CPrimitive3D* initCPrimitive3DAsTriangle(CPrimitive3D* obj);
 void freeCPrimitive3D(void* obj);
 CPrimitive3D* cprimitive3d_setRotate(CPrimitive3D*, double rx, double ry, double rz);
 CPrimitive3D* cprimitive3d_setPosition(CPrimitive3D*, double x, double y, double z);
