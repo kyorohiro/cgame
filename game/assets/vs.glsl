@@ -15,10 +15,10 @@ void main() {
   vColor = color;
 
   mat4 rotX = mat4(
-    cos(rot[1]), 0.0, -sin(rot[1]), 0.0,
-    0.0        , 1.0, 0.0         , 0.0,
-    sin(rot[1]), 0.0, cos(rot[1]) , 0.0,
-    0.0        , 0.0, 0.0         , 1.0
+    1.0        , 0.0         , 0.0         , 0.0,
+    0.0        , cos(rot[1]) , sin(rot[1]) , 0.0,
+    0.0        , -sin(rot[1]), cos(rot[1]) , 0.0,
+    0.0        , 0.0         , 0.0         , 1.0
   );
   mat4 rotY = mat4(
     cos(rot[1]), 0.0, -sin(rot[1]), 0.0,
