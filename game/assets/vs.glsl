@@ -14,6 +14,12 @@ varying vec4 vColor;
 void main() {
   vColor = color;
 
+  mat4 rotX = mat4(
+    cos(rot[1]), 0.0, -sin(rot[1]), 0.0,
+    0.0        , 1.0, 0.0         , 0.0,
+    sin(rot[1]), 0.0, cos(rot[1]) , 0.0,
+    0.0        , 0.0, 0.0         , 1.0
+  );
   mat4 rotY = mat4(
     cos(rot[1]), 0.0, -sin(rot[1]), 0.0,
     0.0        , 1.0, 0.0         , 0.0,
@@ -27,5 +33,7 @@ void main() {
     0.0         , 0.0        , 0.0         , 1.0
   );
   mat4 mm = rotY * rotZ;
+  mm = rotX * mm;
+  mm = projection * view * model * mm;
   gl_Position = mm * vec4(position, 1.0);
 }
