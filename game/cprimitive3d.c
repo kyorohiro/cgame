@@ -43,12 +43,16 @@ CPrimitive3D* initCPrimitive3DAsTriangle(CPrimitive3D* obj) {
 
 CPrimitive3D* initCPrimitive3DAsCube(CPrimitive3D* obj) {
   initCPrimitive3D(obj);
-  float vVertices[] = {
+  CMatrixValue vVertices[] = {
     0.0f, 0.5f, 0.0f,    0.0, 0.0, 1.0, 1.0,  0.0, 0.0, 0.0,
    -0.5f, -0.5f, 0.0f,   0.0, 1.0, 0.0, 1.0,  0.0, 0.0, 0.0,
    0.5f, -0.5f, 0.0f,    1.0, 0.0, 0.0, 1.0,  0.0, 0.0, 0.0
   };
+  CIndexValue indexes[] = {
+    0, 1, 2
+  };
   obj->vertexes = initCBytes(newCBytes(obj->parent.parent.cmemory), (char*)vVertices, sizeof(CMatrixValue)*10*3);
+  obj->indexes = initCBytes(newCBytes(obj->parent.parent.cmemory), (char*)indexes, sizeof(CIndexValue)*3);
   return obj;
 }
 
@@ -109,5 +113,21 @@ int cprimitive3d_getVertexBinaryLength(CPrimitive3D* obj) {
     return 0;
   } else {
     return obj->vertexes->length/sizeof(CMatrixValue);
+  }
+}
+
+char* cprimitive3d_getIndexBinary(CPrimitive3D* obj) {
+  if(obj->vertexes == NULL) {
+    return 0;
+  } else {
+    return obj->indexes->value;
+  }
+}
+
+int cprimitive3d_getIndexBinaryLength(CPrimitive3D* obj) {
+  if(obj->vertexes == NULL) {
+    return 0;
+  } else {
+    return obj->indexes->length/sizeof(CIndexValue);
   }
 }

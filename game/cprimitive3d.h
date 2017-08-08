@@ -34,5 +34,6 @@ CPrimitive3D* cprimitive3d_setRotate(CPrimitive3D*, double rx, double ry, double
 CPrimitive3D* cprimitive3d_setPosition(CPrimitive3D*, double x, double y, double z);
 char* cprimitive3d_getVertexBinary(CPrimitive3D*);
 int cprimitive3d_getVertexBinaryLength(CPrimitive3D*);
-
+char* cprimitive3d_getIndexBinary(CPrimitive3D*);
+int cprimitive3d_getIndexBinaryLength(CPrimitive3D*);
 #endif

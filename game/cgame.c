@@ -88,14 +88,15 @@ void cgame_draw(void) {
     glVertexAttribPointer(vPositionLoc, 3, GL_FLOAT, GL_FALSE, 10*sizeof(CMatrixValue), (void*)0);
     glVertexAttribPointer(vColorLoc, 4, GL_FLOAT, GL_FALSE, 10*sizeof(CMatrixValue), (void*)(3*sizeof(CMatrixValue)));
     glVertexAttribPointer(vRotLoc, 3, GL_FLOAT, GL_FALSE, 10*sizeof(CMatrixValue), (void*)(7*sizeof(CMatrixValue)));
-  //  printf("# %d %d %f %f %f\r\n", vRotLoc, vColorLoc, vVertices[7],vVertices[8],vVertices[9]);
-    //cmatrix4_show(node->mat);
-    //
     glUniformMatrix4fv(vModelLoc, 1, GL_FALSE, (GLfloat*)node->mat->value);
-    //glUniformMatrix4fv(vModelLoc, 1, GL_FALSE, mat->value);
-    //
 
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    GLuint indexBuffer;
+    short* indices = (short*)cprimitive3d_getIndexBinary((CPrimitive3D*)node);
+    glGenBuffers(1, &indexBuffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(CIndexValue)*cprimitive3d_getIndexBinaryLength((CPrimitive3D*)node), indices, GL_STATIC_DRAW);
+    glDrawElements(GL_TRIANGLES, cprimitive3d_getIndexBinaryLength((CPrimitive3D*)node), GL_UNSIGNED_SHORT, 0);
+    //glDrawArrays(GL_TRIANGLES, 0, 3);
   }
 
   glutSwapBuffers();
