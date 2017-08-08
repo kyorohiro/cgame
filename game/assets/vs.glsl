@@ -12,8 +12,8 @@ uniform mat4 projection;
 varying vec4 vColor;
 
 void main() {
-//  vColor = colorr * color;
   vColor = color;
+
   mat4 rotY = mat4(
     cos(rot[1]), 0.0, -sin(rot[1]), 0.0,
     0.0        , 1.0, 0.0         , 0.0,
@@ -26,5 +26,5 @@ void main() {
      0.0         , 0.0        , 1.0         , 0.0,
     0.0         , 0.0        , 0.0         , 1.0
   );
-  gl_Position = rotY*rotZ*vec4(position, 1.0);
+  gl_Position = rotY * rotZ * vec4(position, 1.0);
 }
