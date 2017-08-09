@@ -76,3 +76,34 @@ void cvector3_test_normalize() {
   }
   printf("\r\n\r\n");
 }
+
+void cvector3_test_dotProduct() {
+  printf("# cvector3_test_dotProduct\n");
+  int passed = 1;
+  CMemory *mem = initCMemory(newCMemory());
+  CVector3 *vec1 = initCVector3(newCVector3(mem), 0.417267069084370, 0.049654430325742, 0.902716109915281);
+  CVector3 *vec2 = initCVector3(newCVector3(mem), 0.944787189721646, 0.490864092468080, 0.489252638400019);
+
+
+  CMatrixValue v = cvector3_dotProduct(vec1, vec2);
+
+  if(  floor(v*1000)/1000 != 0.860 )
+  {
+    printf("  NG : failed to normalize %f \r\n", floor(v*1000)/1000);
+    passed = 0;
+  }
+
+  releaseCObject((CObject*)vec1);
+  releaseCObject((CObject*)vec2);
+
+  if(mem->callocCounter != mem->freeCounter) {
+    printf("  NG : %d == %d\r\n", mem->callocCounter, mem->freeCounter);
+    passed = 0;
+  }
+
+  freeCMemory(mem);
+  if(passed) {
+    printf("  OK : \r\n");
+  }
+  printf("\r\n\r\n");
+}

@@ -37,6 +37,14 @@ CVector3* cvector3_crossProduct(CVector3* obj, CVector3* arg, CVector3* out) {
   return out;
 }
 
+CMatrixValue cvector3_dotProduct(CVector3* obj, CVector3* arg) {
+  double sum;
+  sum  = obj->value[0] * arg->value[0];
+  sum += obj->value[1] * arg->value[1];
+  sum += obj->value[2] * arg->value[2];
+  return sum;
+}
+
 CMatrixValue cvector3_normalize(CVector3* obj) {
   double v =
          (obj->value[0]*obj->value[0]) +
