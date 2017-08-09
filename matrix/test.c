@@ -8,7 +8,7 @@ extern void cvector4_test_add();
 extern void cvector3_test_add();
 extern void cvector3_test_normalize();
 extern void cvector3_test_dotProduct();
-
+extern void cmatrix4_test_ortho();
 int test01();
 int main(int argv, char** argc) {
   printf("hello world");
@@ -18,5 +18,6 @@ int main(int argv, char** argc) {
   cvector3_test_add();
   cvector3_test_normalize();
   cvector3_test_dotProduct();
+  cmatrix4_test_ortho();
   return 0;
 }

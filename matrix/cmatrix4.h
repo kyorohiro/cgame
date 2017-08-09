@@ -44,6 +44,12 @@ CMatrix4* cmatrix4_setLookAt(CMatrix4* obj,
 CMatrix4* cmatrix4_add(CMatrix4* obj, CMatrix4* arg, CMatrix4* out);
 CMatrix4* cmatrix4_sub(CMatrix4* obj, CMatrix4* arg, CMatrix4* out);
 CMatrix4* cmatrix4_outer(CMatrix4* obj, CMatrix4* arg, CMatrix4* out);
-CMatrixValue cmatrix4_getValue(CMatrix4* obj, int i, int j);
+//     col 0 1 2 3
+// row
+//   0
+//   1
+//   2
+//   3
+CMatrixValue cmatrix4_getValue(CMatrix4* obj, int row, int col);
 void cmatrix4_show(CMatrix4* obj);
 #endif

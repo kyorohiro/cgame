@@ -353,7 +353,7 @@ CMatrixValue cmatrix4_getValue(CMatrix4* obj, int row, int col) {
 
 void cmatrix4_show(CMatrix4* obj){
   for(int i=0;i<4;i++) {
-    printf("%f %f %f %f \r\n",
+    printf("%f %f %f %lf \r\n",
       cmatrix4_getValue(obj, i, 0),
       cmatrix4_getValue(obj, i, 1),
       cmatrix4_getValue(obj, i, 2),
