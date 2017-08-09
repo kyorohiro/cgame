@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 #include "core/cbytes.h"
 #include "core/cmemory.h"
 #include "cmatrix4.h"
@@ -33,6 +34,37 @@ void cvector3_test_add() {
   releaseCObject((CObject*)vec2);
   releaseCObject((CObject*)vec3);
   releaseCObject((CObject*)vec4);
+  if(mem->callocCounter != mem->freeCounter) {
+    printf("  NG : %d == %d\r\n", mem->callocCounter, mem->freeCounter);
+    passed = 0;
+  }
+
+  freeCMemory(mem);
+  if(passed) {
+    printf("  OK : \r\n");
+  }
+  printf("\r\n\r\n");
+}
+
+void cvector3_test_normalize() {
+  printf("# cvector3_test_normalize\n");
+  int passed = 1;
+  CMemory *mem = initCMemory(newCMemory());
+  CVector3 *vec1 = initCVector3(newCVector3(mem), 5.0, 7.0, 3.0);
+
+  if(vec1->value[0] != 5.0 || vec1->value[1] != 7.0 || vec1->value[2] != 3.0 ) {
+    printf("  NG : failed to init value \r\n");
+    passed = 0;
+  }
+
+  CMatrixValue v = cvector3_normalize(vec1);
+  if(  floor(v*10000)/10000 != 9.1104 ) {
+    printf("  NG : failed to normalize %f \r\n", floor(v*1000)/1000);
+    passed = 0;
+  }
+
+  releaseCObject((CObject*)vec1);
+
   if(mem->callocCounter != mem->freeCounter) {
     printf("  NG : %d == %d\r\n", mem->callocCounter, mem->freeCounter);
     passed = 0;
