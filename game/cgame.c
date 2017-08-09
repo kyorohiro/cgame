@@ -70,12 +70,12 @@ void cgame_draw(void) {
 //    0.0, 0.0, 0.0,
 //    0.0, 0.0, 0.0);
 //cmatrix4_setRotationX(&mat2, 3.14*20.0/180.0);
-  //cmatrix4_setPerspectiveProjection(&mat2, 40.0, -40.0, 40.0, -40.0, -40.0,150.0);
-  cmatrix4_setOrthogonalProjection(&mat, 2.0, -2.0, 2.0, -2.0, -10.0,150.0);
+  //cmatrix4_setPerspectiveProjection(&mat, 2.0, -2.0, 2.0, -2.0, -2.0,10.0);
+  cmatrix4_setOrthogonalProjection(&mat2, 2.0, -2.0, 2.0, -2.0, 0.1 , 1000.0);
   glUniformMatrix4fv(vProjectionLoc, 1, GL_FALSE, mat.value);
   glUniformMatrix4fv(vViewLoc, 1, GL_FALSE, mat.value);
   glUniformMatrix4fv(vModelLoc, 1, GL_FALSE, mat.value);
-
+  glUniformMatrix4fv(vViewLoc, 1, GL_FALSE, (GLfloat*)mat.value);
   GLuint vertexBuffer;
   glGenBuffers(1, &vertexBuffer);
 
