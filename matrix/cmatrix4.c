@@ -1,4 +1,5 @@
 #include "cmatrix4.h"
+#include "cvector3.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -307,7 +308,39 @@ CMatrix4* cmatrix4_setPerspectiveProjection(CMatrix4* obj, double right, double 
   return obj;
 }
 
-
+CMatrix4* cmatrix4_setLookAt(CMatrix4* obj,
+  double posX, double posY, double posZ,
+  double focusX, double focusY, double focusZ,
+  double upDirectionX, double upDirectionY, double upDirectionZ
+) {
+  CVector3 pos;
+  CVector3 focus;
+  CVector3 upDirection;
+  CVector3 z;
+  CVector3 x;
+  CVector3 y;
+  initCVector3(&pos, posX, posY, posZ);
+  initCVector3(&focus, focusX, focusY, focusZ);
+  initCVector3(&upDirection, upDirectionX, upDirectionY, upDirectionZ);
+  initCVector3(&z, 0.0, 0.0, 0.0);
+  initCVector3(&x, 0.0, 0.0, 0.0);
+  initCVector3(&y, 0.0, 0.0, 0.0);
+  cvector3_sub(&pos, &focus, &z);
+  cvector3_crossProduct(&upDirection, &z, &x);
+  cvector3_crossProduct(&z, &x, &y);
+  cvector3_normalize(&x);
+  cvector3_normalize(&y);
+  cvector3_normalize(&z);
+  double rotatedEyeX = -1 * cvector3_dotProduct(&x, &pos);
+  double rotatedEyeY = -1 * cvector3_dotProduct(&y, &pos);
+  double rotatedEyeZ = -1 * cvector3_dotProduct(&z, &pos);
+  cmatrix4_setValues(obj,
+    x.value[0], x.value[1], x.value[2], rotatedEyeX,
+    y.value[0], y.value[1], y.value[2], rotatedEyeY,
+    z.value[0], z.value[1], z.value[2], rotatedEyeZ,
+    0.0       , 0.0       , 0.0       , 1.0);
+  return obj;
+}
 //     col 0 1 2 3
 // row
 //   0
