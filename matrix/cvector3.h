@@ -16,6 +16,8 @@ CVector3* initCVector3(CVector3*, CMatrixValue v0, CMatrixValue v1, CMatrixValue
 
 CVector3* cvector3_crossProduct(CVector3* obj, CVector3* arg, CVector3* out);
 CMatrixValue cvector3_normalize(CVector3* obj);
+CVector3* cvector3_add(CVector3* obj, CVector3* arg, CVector3* out);
+CVector3* cvector3_sub(CVector3* obj, CVector3* arg, CVector3* out);
 /*
 CMatrix4* cmatrix4_add(CMatrix4* obj, CMatrix4* arg, CMatrix4* out);
 CMatrix4* cmatrix4_sub(CMatrix4* obj, CMatrix4* arg, CMatrix4* out);
