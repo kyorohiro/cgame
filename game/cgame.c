@@ -70,7 +70,10 @@ void cgame_draw(void) {
 
   //
   CMatrix4 calc;
-  cmatrix4_setRotationY(cmatrix4_setIdentity(initCMatrix4(&mat3)), 3.14*10.0/180.0 );
+  CVector4 calv;
+  cmatrix4_setRotationX(cmatrix4_setIdentity(initCMatrix4(&calc)), 3.14*30.0/180.0 );
+  initCVector4(&calv, 0.0, 1.0, 0.0, 0.0);
+  cmatrix4_multiplyCVector4(&calc, &calv, &calv);
 
 //  cmatrix4_setLookAt(&mat2,
 //    0.0, -1.0, -1.0,
@@ -82,7 +85,10 @@ void cgame_draw(void) {
   cmatrix4_setLookAt(&mat3,
     0.0, 0.0, 0.0,
     0.0, 0.0, -1.0,
-    0.0, 1.0, 0.0);
+//    0.0, 1.0, 0.0
+    0.0, 1.0, 0.0
+  //  calv.value[0],calv.value[1],calv.value[2]
+  );
 
   //cmatrix4_setOrthogonalProjection(&mat2, 2.0, -2.0, 2.0, -2.0, 0.1 , 1000.0);
   glUniformMatrix4fv(vProjectionLoc, 1, GL_FALSE, mat.value);
@@ -115,8 +121,8 @@ void cgame_draw(void) {
     glVertexAttribPointer(vColorLoc, 4, GL_FLOAT, GL_FALSE, 10*sizeof(CMatrixValue), (void*)(3*sizeof(CMatrixValue)));
     glVertexAttribPointer(vRotLoc, 3, GL_FLOAT, GL_FALSE, 10*sizeof(CMatrixValue), (void*)(7*sizeof(CMatrixValue)));
     glUniformMatrix4fv(vModelLoc, 1, GL_FALSE, (GLfloat*)node->mat->value);
-    glUniformMatrix4fv(vViewLoc, 1, GL_FALSE, (GLfloat*)mat2.value);
-    glUniformMatrix4fv(vProjectionLoc, 1, GL_FALSE, mat3.value);
+    glUniformMatrix4fv(vProjectionLoc, 1, GL_FALSE, (GLfloat*)mat2.value);
+    glUniformMatrix4fv(vViewLoc, 1, GL_FALSE, (GLfloat*)mat3.value);
     short* indices = (short*)cprimitive3d_getIndexBinary((CPrimitive3D*)node);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(CIndexValue)*cprimitive3d_getIndexBinaryLength((CPrimitive3D*)node), indices, GL_STATIC_DRAW);
