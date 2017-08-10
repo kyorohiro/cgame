@@ -3,7 +3,7 @@
 
 #include "core/cobject.h"
 #include "core/cmemory.h"
-#include "matrix/cmatrix4.h"
+#include "cmatrix_inner.h"
 #define KVECTOR4_NAME "ve4"
 
 typedef struct {

@@ -68,6 +68,32 @@ CMatrix4* cmatrix4_multiply(CMatrix4* obj, CMatrix4* arg, CMatrix4* out) {
   return out;
 }
 
+CVector4* cmatrix4_multiplyCVector4(CMatrix4* obj, CVector4* arg, CVector4* out) {
+  if(out == NULL) {
+    out = initCVector4(newCVector4(obj->parent.cmemory), 0.0, 0.0, 0.0, 0.0);
+  }
+  CMatrixValue v0 = obj->value[0]*arg->value[0] +
+                    obj->value[4]*arg->value[1] +
+                    obj->value[8]*arg->value[2] +
+                    obj->value[12]*arg->value[3];
+  CMatrixValue v1 = obj->value[1]*arg->value[0] +
+                    obj->value[5]*arg->value[1] +
+                    obj->value[9]*arg->value[2] +
+                    obj->value[13]*arg->value[3];
+  CMatrixValue v2 = obj->value[2]*arg->value[0] +
+                    obj->value[6]*arg->value[1] +
+                    obj->value[10]*arg->value[2] +
+                    obj->value[14]*arg->value[3];
+  CMatrixValue v3 = obj->value[3]*arg->value[0] +
+                    obj->value[7]*arg->value[1] +
+                    obj->value[11]*arg->value[2] +
+                    obj->value[15]*arg->value[3];
+  out->value[0] = v0;
+  out->value[1] = v1;
+  out->value[2] = v2;
+  out->value[3] = v3;
+  return out;
+}
 //
 //CMatrix4* setRotateX(CMatrix4* obj, double angle) {
 //
