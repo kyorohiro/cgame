@@ -71,9 +71,10 @@ void cgame_draw(void) {
   //
   CMatrix4 calc;
   CVector4 calv;
-  cmatrix4_setRotationX(cmatrix4_setIdentity(initCMatrix4(&calc)), 3.14*30.0/180.0 );
-  initCVector4(&calv, 0.0, 1.0, 0.0, 0.0);
+  cmatrix4_setRotationZ(cmatrix4_setIdentity(initCMatrix4(&calc)), 3.14*30.0/180.0 );
+  initCVector4(&calv, 0.0, 1.0, 0.0, 1.0);
   cmatrix4_multiplyCVector4(&calc, &calv, &calv);
+  printf("%f %f %f\r\n", calv.value[0],calv.value[1],calv.value[2]);
 
 //  cmatrix4_setLookAt(&mat2,
 //    0.0, -1.0, -1.0,
@@ -86,10 +87,9 @@ void cgame_draw(void) {
     0.0, 0.0, 0.0,
     0.0, 0.0, -1.0,
 //    0.0, 1.0, 0.0
-    0.0, 1.0, 0.0
-  //  calv.value[0],calv.value[1],calv.value[2]
+//    0.0, 1.0, 0.0
+    calv.value[0],calv.value[1],calv.value[2]
   );
-
   //cmatrix4_setOrthogonalProjection(&mat2, 2.0, -2.0, 2.0, -2.0, 0.1 , 1000.0);
   glUniformMatrix4fv(vProjectionLoc, 1, GL_FALSE, mat.value);
   glUniformMatrix4fv(vModelLoc, 1, GL_FALSE, mat.value);
