@@ -228,11 +228,11 @@ CMatrix4* cmatrix4_setLookAt(CMatrix4* obj,
   initCVector3(&x, 0.0, 0.0, 0.0);
   initCVector3(&y, 0.0, 0.0, 0.0);
   cvector3_sub(&pos, &focus, &z);
-  cvector3_crossProduct(&upDirection, &z, &x);
-  cvector3_crossProduct(&z, &x, &y);
-  cvector3_normalize(&x);
-  cvector3_normalize(&y);
   cvector3_normalize(&z);
+  cvector3_crossProduct(&upDirection, &z, &x);
+  cvector3_normalize(&x);
+  cvector3_crossProduct(&z, &x, &y);
+  cvector3_normalize(&y);
   double rotatedEyeX = -1 * cvector3_dotProduct(&x, &pos);
   double rotatedEyeY = -1 * cvector3_dotProduct(&y, &pos);
   double rotatedEyeZ = -1 * cvector3_dotProduct(&z, &pos);
