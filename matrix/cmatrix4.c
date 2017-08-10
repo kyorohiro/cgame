@@ -45,7 +45,7 @@ CMatrix4* cmatrix4_sub(CMatrix4* obj, CMatrix4* arg, CMatrix4* out) {
   return out;
 }
 
-CMatrix4* cmatrix4_outer(CMatrix4* obj, CMatrix4* arg, CMatrix4* out) {
+CMatrix4* cmatrix4_multiply(CMatrix4* obj, CMatrix4* arg, CMatrix4* out) {
   if(out ==NULL) {
     out = initCMatrix4(newCMatrix4(obj->parent.cmemory));
   }

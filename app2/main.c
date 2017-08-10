@@ -16,10 +16,10 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
   //cmatrix4_setTranslation(initCMatrix4(&transMat), 0.5, 0.5, 0.5);
   CMatrix4 *mat = cobject3d_getCMatrix4((CObject3D*)obj);
 //  cmatrix4_setRotationZ(mat, 3.14*i/180.0);
-//  cmatrix4_outer(&transMat, mat, mat);
+//  cmatrix4_multiply(&transMat, mat, mat);
   cmatrix4_setTranslation(initCMatrix4(mat), 0.0, 0.0, -3.6);
-  cmatrix4_outer(&rotYMat, mat, mat);
-  cmatrix4_outer(mat, &rotYMat, mat);
+  cmatrix4_multiply(&rotYMat, mat, mat);
+  cmatrix4_multiply(mat, &rotYMat, mat);
 //  cprimitive3d_setRotate((CPrimitive3D*)obj, 3.14*i/180.0, 3.14*i/180.0, 3.14*i/180.0);
 //  cprimitive3d_setRotate((CPrimitive3D*)obj, 3.14*i/180.0, 0.0, 0.0);
 //  cprimitive3d_setRotate((CPrimitive3D*)obj, 0.0, 3.14*i/180.0, 0.0);

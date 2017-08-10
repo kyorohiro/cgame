@@ -69,10 +69,10 @@ void cobject3d_enterFrame(CObject3D* obj, CObject* cgame) {
 /*
 CMatrix4* cobject3d_getCMatrix4(CObject3D* obj) {
   cmatrix4_setIdentity(obj->mat);
-  cmatrix4_outer(obj->mat, cmatrix4_setRotationX(obj->arg, obj->rx), obj->mat);
-  cmatrix4_outer(obj->mat, cmatrix4_setRotationY(obj->arg, obj->ry), obj->mat);
-  cmatrix4_outer(obj->mat, cmatrix4_setRotationZ(obj->arg, obj->rz), obj->mat);
-  cmatrix4_outer(obj->mat, cmatrix4_setTranslation(obj->arg, obj->x, obj->y, obj->z), obj->mat);
+  cmatrix4_multiply(obj->mat, cmatrix4_setRotationX(obj->arg, obj->rx), obj->mat);
+  cmatrix4_multiply(obj->mat, cmatrix4_setRotationY(obj->arg, obj->ry), obj->mat);
+  cmatrix4_multiply(obj->mat, cmatrix4_setRotationZ(obj->arg, obj->rz), obj->mat);
+  cmatrix4_multiply(obj->mat, cmatrix4_setTranslation(obj->arg, obj->x, obj->y, obj->z), obj->mat);
   return obj->mat;
 }
 */

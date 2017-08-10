@@ -43,7 +43,7 @@ void cmatrix4_test_add() {
   printf("\r\n\r\n");
 }
 
-void cmatrix4_test_outer() {
+void cmatrix4_test_multiply() {
   printf("# cmatrix4_test_outer\n");
   int passed = 1;
   CMemory *mem = initCMemory(newCMemory());
@@ -62,7 +62,7 @@ void cmatrix4_test_outer() {
       444, 316, 188, 60,
       502, 358, 214, 70,
       560, 400, 240, 80);
-  mat1 = cmatrix4_outer(mat1, mat2, mat1);
+  mat1 = cmatrix4_multiply(mat1, mat2, mat1);
   cmatrix4_show(mat1);
 
   for(int i=0;i<4;i++) {
