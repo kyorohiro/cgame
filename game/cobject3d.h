@@ -8,6 +8,7 @@
 #include "core/cbytes.h"
 #include "core/clinkedList.h"
 #include "matrix/cmatrix4.h"
+#include "matrix/cglmatrix.h"
 #define OBJECT3D_NAME "ob3"
 
 #define CObject3DTypeObject 0

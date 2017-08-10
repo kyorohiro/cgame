@@ -5,6 +5,7 @@
 
 #include "cglutil.h"
 #include "cprimitive3d.h"
+
 //
 void cgame_draw(void);
 
