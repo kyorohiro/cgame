@@ -13,6 +13,7 @@
 
 #define CObject3DTypeObject 0
 #define CObject3DTypePrimitive 1
+#define CObject3DTypeCamera 2
 
 typedef void (*CObject3DFuncOnEnterFrame)(CObject*  obj, CObject* cgame);
 typedef struct {
