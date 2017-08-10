@@ -74,7 +74,7 @@ void cgame_draw(void) {
   cmatrix4_setRotationZ(cmatrix4_setIdentity(initCMatrix4(&calc)), 3.14*30.0/180.0 );
   initCVector4(&calv, 0.0, 1.0, 0.0, 1.0);
   cmatrix4_multiplyCVector4(&calc, &calv, &calv);
-  printf("%f %f %f\r\n", calv.value[0],calv.value[1],calv.value[2]);
+  //printf("%f %f %f\r\n", calv.value[0],calv.value[1],calv.value[2]);
 
 //  cmatrix4_setLookAt(&mat2,
 //    0.0, -1.0, -1.0,
