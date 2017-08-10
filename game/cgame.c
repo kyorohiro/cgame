@@ -28,6 +28,11 @@ CGame* initCGame(CGame* obj) {
 //  obj->fShaderLocation = cglutil_LoadShader(GL_VERTEX_SHADER, cstring_getBytes(obj->fShaderSrc));
 //  obj->vShaderLocation = cglutil_LoadShader(GL_VERTEX_SHADER, cstring_getBytes(obj->vShaderSrc));
   //
+  obj->funcFraw = NULL;
+  obj->fShaderLocation = 0;
+  obj->vShaderLocation = 0;
+  obj->program = 0;
+  obj->camera = NULL;
   return obj;
 }
 

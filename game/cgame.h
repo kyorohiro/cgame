@@ -22,6 +22,7 @@ typedef struct {
   int vShaderLocation;
   int program;
   CObject3D *root;
+  CObject3D *camera;
 } CGame;
 
 //
