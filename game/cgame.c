@@ -71,7 +71,8 @@ void cgame_draw(void) {
 //    0.0, 0.0, 0.0,
 //    0.0, 0.0, 0.0);
 //cmatrix4_setRotationX(&mat2, 3.14*20.0/180.0);
-  cmatrix4_setPerspectiveProjection(&mat, 2.0, -2.0, 2.0, -2.0, 0.0 , 1000.0);
+//cmatrix4_setPerspectiveProjection(&mat, 2.0, -2.0, 2.0, -2.0, 0.0 , 1000.0);
+  cmatrix4_setPerspectiveProjection(&mat, 3.14/2.0, 1.0, 1.0, 1000.0);
   //cmatrix4_setOrthogonalProjection(&mat2, 2.0, -2.0, 2.0, -2.0, 0.1 , 1000.0);
   glUniformMatrix4fv(vProjectionLoc, 1, GL_FALSE, mat.value);
   glUniformMatrix4fv(vViewLoc, 1, GL_FALSE, mat.value);

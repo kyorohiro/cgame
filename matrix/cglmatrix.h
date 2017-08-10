@@ -7,7 +7,9 @@
 #include "cmatrix4.h"
 
 CMatrix4* cmatrix4_setOrthogonalProjection(CMatrix4* obj, double right, double left, double top, double bottom, double far, double near);
-CMatrix4* cmatrix4_setPerspectiveProjection(CMatrix4* obj, double right, double left, double top, double bottom, double far, double near);
+
+CMatrix4* cmatrix4_setPerspectiveProjection(CMatrix4* obj,  double fovYRadians, double aspectRatio, double far, double near);
+
 CMatrix4* cmatrix4_setLookAt(CMatrix4* obj,
   double posX, double posY, double posZ,
   double focusX, double focusY, double focusZ,

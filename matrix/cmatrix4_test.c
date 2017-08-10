@@ -150,7 +150,7 @@ void cmatrix4_test_perspective() {
   //double top, double bottom,
   //double far, double near)Values(
   CMatrix4 *mat1 = cmatrix4_setPerspectiveProjection(initCMatrix4(newCMatrix4(mem)),
-     1.0, -1.0, 1.0, -1.0,
+     1.0, -1.0,
      0.1, 1000.0);
   /*
   if(
