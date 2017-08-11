@@ -8,7 +8,9 @@ attribute vec3 rot;
 uniform mat4 model;
 uniform mat4 camera;
 varying vec4 vColor;
-
+//
+varying vec3 Normal;
+varying vec3 FragPos;
 void main() {
   vColor = color;
   mat4 rotX = mat4(
@@ -32,13 +34,9 @@ void main() {
   mat4 mm = rotY * rotZ;
   mm = rotX * mm;
   mm = camera * model * mm;
-  //
 
-  vec3 ambientLight = vec3(0.6, 0.6, 0.6);
-  vec3 directionalLightColor = vec3(0.5, 0.5, 0.75);
-  vec3 directionalVector = vec3(0.85, 0.8, 0.75);
-
-  //vec4 transformedNormal = model * vec4(position, 1.0);
-  //float directional = max(dot(transformedNormal.xyz, directionalVector), 0.0);
   gl_Position = mm * vec4(position, 1.0);
+
+  FragPos = vec3(model * vec4(position, 1.0));
+  Normal = position;
 }

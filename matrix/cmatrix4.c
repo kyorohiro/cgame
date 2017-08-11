@@ -158,7 +158,6 @@ CMatrix4* cmatrix4_setValues(CMatrix4* obj,
   return obj;
 }
 
-
 CMatrixValue cmatrix4_determinant(CMatrix4* obj) {
   CMatrixValue *raw = obj->value;
   double detA1 = raw[0] * raw[5] - raw[1] * raw[4];
