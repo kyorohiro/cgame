@@ -5,7 +5,6 @@
 #include "game/ccamera3d.h"
 int i =0;
 
-
 void _onEnterFrame(CObject*  obj, CObject* cgame) {
   CGame* game = (CGame*)cgame;
   i = (i+2)%360;

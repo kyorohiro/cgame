@@ -33,8 +33,12 @@ void main() {
   mm = rotX * mm;
   mm = camera * model * mm;
   //
+
   vec3 ambientLight = vec3(0.6, 0.6, 0.6);
   vec3 directionalLightColor = vec3(0.5, 0.5, 0.75);
   vec3 directionalVector = vec3(0.85, 0.8, 0.75);
+
+  //vec4 transformedNormal = model * vec4(position, 1.0);
+  //float directional = max(dot(transformedNormal.xyz, directionalVector), 0.0);
   gl_Position = mm * vec4(position, 1.0);
 }
