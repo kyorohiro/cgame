@@ -7,8 +7,6 @@
 #include "cglutil.h"
 #include "cprimitive3d.h"
 
-
-
 //
 void cgame_draw(void);
 
@@ -95,13 +93,15 @@ void cgame_draw(void) {
 
     glUniformMatrix4fv(vModelLoc, 1, GL_FALSE, (GLfloat*)node->mat->value);
     glUniformMatrix4fv(vCameraLoc, 1, GL_FALSE, (GLfloat*)game->camera->mat->value);
-
+//    printf("#\r\n");
+//    cmatrix4_show(node->mat);
     short* indices = (short*)cprimitive3d_getIndexBinary((CPrimitive3D*)node);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(CIndexValue)*cprimitive3d_getIndexBinaryLength((CPrimitive3D*)node), indices, GL_STATIC_DRAW);
     glDrawElements(GL_TRIANGLES, cprimitive3d_getIndexBinaryLength((CPrimitive3D*)node), GL_UNSIGNED_SHORT, 0);
     //glDrawArrays(GL_TRIANGLES, 0, 3);
   }
+
 
   glDeleteBuffers(1, &vertexBuffer);
   glDeleteBuffers(1, &indexBuffer);
@@ -110,6 +110,7 @@ void cgame_draw(void) {
   glutPostRedisplay();
 //releaseCObject((CObject*)mat);
 }
+
 
 
 CGame* cgame_start(CGame* obj) {
