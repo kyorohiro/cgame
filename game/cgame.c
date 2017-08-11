@@ -7,6 +7,8 @@
 #include "cglutil.h"
 #include "cprimitive3d.h"
 
+
+
 //
 void cgame_draw(void);
 
@@ -79,15 +81,18 @@ void cgame_draw(void) {
     int vPositionLoc = glGetAttribLocation(game->program, "position");
     int vRotLoc      = glGetAttribLocation(game->program, "rot");
     int vColorLoc    = glGetAttribLocation(game->program, "color");
+    int vNormalLoc    = glGetAttribLocation(game->program, "normal");
     int vCameraLoc = glGetUniformLocation(game->program, "camera");
     int vModelLoc = glGetUniformLocation(game->program, "model");
     glEnableVertexAttribArray(vPositionLoc);
     glEnableVertexAttribArray(vColorLoc);
     glEnableVertexAttribArray(vRotLoc);
-
+    glEnableVertexAttribArray(vNormalLoc);
     glVertexAttribPointer(vPositionLoc, 3, GL_FLOAT, GL_FALSE, PRIMITIVE3D_BUFFER_SIZE * sizeof(CMatrixValue), (void*)0);
     glVertexAttribPointer(vColorLoc, 4, GL_FLOAT, GL_FALSE, PRIMITIVE3D_BUFFER_SIZE * sizeof(CMatrixValue), (void*)(3*sizeof(CMatrixValue)));
     glVertexAttribPointer(vRotLoc, 3, GL_FLOAT, GL_FALSE, PRIMITIVE3D_BUFFER_SIZE * sizeof(CMatrixValue), (void*)(7*sizeof(CMatrixValue)));
+    glVertexAttribPointer(vNormalLoc, 3, GL_FLOAT, GL_FALSE, PRIMITIVE3D_BUFFER_SIZE * sizeof(CMatrixValue), (void*)(10*sizeof(CMatrixValue)));
+
     glUniformMatrix4fv(vModelLoc, 1, GL_FALSE, (GLfloat*)node->mat->value);
     glUniformMatrix4fv(vCameraLoc, 1, GL_FALSE, (GLfloat*)game->camera->mat->value);
 

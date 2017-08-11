@@ -5,6 +5,7 @@ precision mediump float;
 attribute vec3 position;
 attribute vec4 color;
 attribute vec3 rot;
+attribute vec3 normal;
 uniform mat4 model;
 uniform mat4 camera;
 varying vec4 vColor;
@@ -38,5 +39,5 @@ void main() {
   gl_Position = mm * vec4(position, 1.0);
 
   FragPos = vec3(model * vec4(position, 1.0));
-  Normal = position;
+  Normal = normal;
 }
