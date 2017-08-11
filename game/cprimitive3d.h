@@ -10,7 +10,7 @@
 #include "matrix/cmatrix4.h"
 
 #define PRIMITIVE3D_NAME "pr3"
-#define PRIMITIVE3D_BUFFER_SIZE 14
+#define PRIMITIVE3D_BUFFER_SIZE 13
 //
 //
 typedef struct {
