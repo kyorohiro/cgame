@@ -85,9 +85,9 @@ void cgame_draw(void) {
     glEnableVertexAttribArray(vColorLoc);
     glEnableVertexAttribArray(vRotLoc);
 
-    glVertexAttribPointer(vPositionLoc, 3, GL_FLOAT, GL_FALSE, 10*sizeof(CMatrixValue), (void*)0);
-    glVertexAttribPointer(vColorLoc, 4, GL_FLOAT, GL_FALSE, 10*sizeof(CMatrixValue), (void*)(3*sizeof(CMatrixValue)));
-    glVertexAttribPointer(vRotLoc, 3, GL_FLOAT, GL_FALSE, 10*sizeof(CMatrixValue), (void*)(7*sizeof(CMatrixValue)));
+    glVertexAttribPointer(vPositionLoc, 3, GL_FLOAT, GL_FALSE, PRIMITIVE3D_BUFFER_SIZE * sizeof(CMatrixValue), (void*)0);
+    glVertexAttribPointer(vColorLoc, 4, GL_FLOAT, GL_FALSE, PRIMITIVE3D_BUFFER_SIZE * sizeof(CMatrixValue), (void*)(3*sizeof(CMatrixValue)));
+    glVertexAttribPointer(vRotLoc, 3, GL_FLOAT, GL_FALSE, PRIMITIVE3D_BUFFER_SIZE * sizeof(CMatrixValue), (void*)(7*sizeof(CMatrixValue)));
     glUniformMatrix4fv(vModelLoc, 1, GL_FALSE, (GLfloat*)node->mat->value);
     glUniformMatrix4fv(vCameraLoc, 1, GL_FALSE, (GLfloat*)game->camera->mat->value);
 

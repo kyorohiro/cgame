@@ -29,14 +29,14 @@ CPrimitive3D* initCPrimitive3D(CPrimitive3D* obj) {
 CPrimitive3D* initCPrimitive3DAsTriangle(CPrimitive3D* obj) {
   initCPrimitive3D(obj);
   CMatrixValue vVertices[] = {
-    0.0f, 0.5f, 0.0f,    0.0, 0.0, 1.0, 1.0,  0.0, 0.0, 0.0,
-   -0.5f, -0.5f, 0.0f,   0.0, 1.0, 0.0, 1.0,  0.0, 0.0, 0.0,
-   0.5f, -0.5f, 0.0f,    1.0, 0.0, 0.0, 1.0,  0.0, 0.0, 0.0
+    0.0f, 0.5f, 0.0f,    0.0, 0.0, 1.0, 1.0,  0.0, 0.0, 0.0,  0.0, 0.0, 0.0 ,0.0,
+   -0.5f, -0.5f, 0.0f,   0.0, 1.0, 0.0, 1.0,  0.0, 0.0, 0.0,  0.0, 0.0, 0.0, 0.0,
+   0.5f, -0.5f, 0.0f,    1.0, 0.0, 0.0, 1.0,  0.0, 0.0, 0.0,  0.0, 0.0, 0.0, 0.0
   };
   CIndexValue indexes[] = {
     0, 1, 2
   };
-  obj->vertexes = initCBytes(newCBytes(obj->parent.parent.cmemory), (char*)vVertices, sizeof(CMatrixValue)*10*3);
+  obj->vertexes = initCBytes(newCBytes(obj->parent.parent.cmemory), (char*)vVertices, sizeof(CMatrixValue)*PRIMITIVE3D_BUFFER_SIZE*3);
   obj->indexes = initCBytes(newCBytes(obj->parent.parent.cmemory), (char*)indexes, sizeof(CIndexValue)*3);
   return obj;
 }
@@ -44,15 +44,15 @@ CPrimitive3D* initCPrimitive3DAsTriangle(CPrimitive3D* obj) {
 CPrimitive3D* initCPrimitive3DAsCube(CPrimitive3D* obj) {
   initCPrimitive3D(obj);
   CMatrixValue vVertices[] = {
-   -0.5, 0.5, 0.5,    1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,
-   -0.5, -0.5, 0.5,   0.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,
-   0.5, -0.5, 0.5,    0.0, 0.0, 1.0, 1.0,  0.0, 0.0, 0.0,
-   0.5, 0.5, 0.5,     0.0, 0.0, 1.0, 1.0,  0.0, 0.0, 0.0,
+   -0.5, 0.5, 0.5,    1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,   0.0, 0.0, 0.0 ,0.0,
+   -0.5, -0.5, 0.5,   0.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,   0.0, 0.0, 0.0 ,0.0,
+   0.5, -0.5, 0.5,    0.0, 0.0, 1.0, 1.0,  0.0, 0.0, 0.0,   0.0, 0.0, 0.0 ,0.0,
+   0.5, 0.5, 0.5,     0.0, 0.0, 1.0, 1.0,  0.0, 0.0, 0.0,   0.0, 0.0, 0.0 ,0.0,
 
-   -0.5, 0.5, -0.5,    1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,
-   -0.5, -0.5, -0.5,   1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,
-   0.5, -0.5, -0.5,    1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,
-   0.5, 0.5, -0.5,     1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0
+   -0.5, 0.5, -0.5,    1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,   0.0, 0.0, 0.0 ,0.0,
+   -0.5, -0.5, -0.5,   1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,   0.0, 0.0, 0.0 ,0.0,
+   0.5, -0.5, -0.5,    1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,   0.0, 0.0, 0.0 ,0.0,
+   0.5, 0.5, -0.5,     1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,   0.0, 0.0, 0.0 ,0.0
   };
   CIndexValue indexes[] = {
     0, 1, 2, 0, 2, 3, // A1 A2
@@ -65,7 +65,7 @@ CPrimitive3D* initCPrimitive3DAsCube(CPrimitive3D* obj) {
     4, 5, 1, 4, 1, 0, // B1 B2
     3, 2, 6, 3, 6, 7  // D1 D2
   };
-  obj->vertexes = initCBytes(newCBytes(obj->parent.parent.cmemory), (char*)vVertices, sizeof(CMatrixValue)*10*8);
+  obj->vertexes = initCBytes(newCBytes(obj->parent.parent.cmemory), (char*)vVertices, sizeof(CMatrixValue)*PRIMITIVE3D_BUFFER_SIZE*8);
   obj->indexes = initCBytes(newCBytes(obj->parent.parent.cmemory), (char*)indexes, sizeof(CIndexValue)*36);
   return obj;
 }

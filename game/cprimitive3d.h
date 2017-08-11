@@ -8,8 +8,9 @@
 #include "core/cbytes.h"
 #include "core/clinkedList.h"
 #include "matrix/cmatrix4.h"
-#define PRIMITIVE3D_NAME "pr3"
 
+#define PRIMITIVE3D_NAME "pr3"
+#define PRIMITIVE3D_BUFFER_SIZE 14
 //
 //
 typedef struct {
