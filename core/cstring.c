@@ -47,7 +47,6 @@ CString* calcLength(CString* obj, char *value, int byteLengthSrc) {
       length++;
     } else {
       np--;
-      byteLength++;
     }
   }
   obj->byteLength = byteLength;
@@ -60,7 +59,9 @@ CString* initCString(CString* obj, char *value) {
   calcLength(obj, value, -1);
   obj->value = (char*)cmemory_calloc(obj->parent.cmemory, 1, sizeof(char)*obj->byteLength+1);
   obj->parent.funcFree = _freeCString;
-  memcpy(obj->value, value, obj->byteLength+1);
+  memcpy(obj->value, value, obj->byteLength);
+//  obj->value[obj->byteLength] = '\0';
+//  printf("###%s####\n",value);
   return obj;
 }
 
@@ -69,7 +70,7 @@ CString* initCStringWithLength(CString* obj, char *value, int byteLength) {
   calcLength(obj, value, byteLength);
   obj->value = (char*)cmemory_calloc(obj->parent.cmemory, 1, sizeof(char)*obj->byteLength+1);
   obj->parent.funcFree = _freeCString;
-  memcpy(obj->value, value, obj->byteLength+1);
+  memcpy(obj->value, value, obj->byteLength);
   return obj;
 }
 int cstring_getLength(CString* obj) {

@@ -13,16 +13,19 @@ GLuint cglutil_LoadShader(GLenum type, const char *shaderSrc){
   glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled);
 
   if(!compiled) {
+    printf("Error compiling shader:\n");
+    printf("src:\n%s\n", shaderSrc);
     GLint infoLen = 0;
     glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLen);
-    if(infoLen > 1) {
+    if(infoLen > 0) {
       char* infoLog = malloc(sizeof(char) * infoLen);
       glGetShaderInfoLog(shader, infoLen, NULL, infoLog);
-      printf("Error compiling shader:\n%s\n", infoLog);
+      printf("infolog:\n%s\n", infoLog);
       free(infoLog);
     }
     glDeleteShader(shader);
     return 0;
   }
+
   return shader;
 }

@@ -58,20 +58,8 @@ void cgame_draw(void) {
 
   glClear(GL_COLOR_BUFFER_BIT);
 
-
-
-
-  int vProjectionLoc = glGetUniformLocation(game->program, "projection");
-  int vViewLoc = glGetUniformLocation(game->program, "view");
-  int vModelLoc = glGetUniformLocation(game->program, "model");
-
   //
-  //
-  CMatrix4 mat;
-  cmatrix4_setIdentity(initCMatrix4(&mat));
-  glUniformMatrix4fv(vProjectionLoc, 1, GL_FALSE, mat.value);
-  glUniformMatrix4fv(vModelLoc, 1, GL_FALSE, mat.value);
-  glUniformMatrix4fv(vViewLoc, 1, GL_FALSE, (GLfloat*)mat.value);
+  // create Buffer
   GLuint vertexBuffer;
   glGenBuffers(1, &vertexBuffer);
 
@@ -91,6 +79,8 @@ void cgame_draw(void) {
     int vPositionLoc = glGetAttribLocation(game->program, "position");
     int vRotLoc      = glGetAttribLocation(game->program, "rot");
     int vColorLoc    = glGetAttribLocation(game->program, "color");
+    int vCameraLoc = glGetUniformLocation(game->program, "camera");
+    int vModelLoc = glGetUniformLocation(game->program, "model");
     glEnableVertexAttribArray(vPositionLoc);
     glEnableVertexAttribArray(vColorLoc);
     glEnableVertexAttribArray(vRotLoc);
@@ -99,8 +89,8 @@ void cgame_draw(void) {
     glVertexAttribPointer(vColorLoc, 4, GL_FLOAT, GL_FALSE, 10*sizeof(CMatrixValue), (void*)(3*sizeof(CMatrixValue)));
     glVertexAttribPointer(vRotLoc, 3, GL_FLOAT, GL_FALSE, 10*sizeof(CMatrixValue), (void*)(7*sizeof(CMatrixValue)));
     glUniformMatrix4fv(vModelLoc, 1, GL_FALSE, (GLfloat*)node->mat->value);
-    glUniformMatrix4fv(vProjectionLoc, 1, GL_FALSE, (GLfloat*)game->camera->mat->value);
-    //glUniformMatrix4fv(vViewLoc, 1, GL_FALSE, (GLfloat*)mat3.value);
+    glUniformMatrix4fv(vCameraLoc, 1, GL_FALSE, (GLfloat*)game->camera->mat->value);
+
     short* indices = (short*)cprimitive3d_getIndexBinary((CPrimitive3D*)node);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(CIndexValue)*cprimitive3d_getIndexBinaryLength((CPrimitive3D*)node), indices, GL_STATIC_DRAW);

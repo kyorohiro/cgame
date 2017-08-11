@@ -40,20 +40,24 @@ CCamera3D* ccamera3d_update(CCamera3D* obj,
 
   CVector4 defF;
   CVector4 defD;
-  initCVector4(&defF, 0.0, 1.0, 0.0, 1.0);
-  initCVector4(&defD, 0.0, 0.0, -1.0, 1.0);
+  initCVector4(&defF, 0.0, 0.0, -1.0, 1.0);
+  initCVector4(&defD, 0.0, 1.0, 0.0, 1.0);
 
   cmatrix4_multiplyCVector4(&rot, &defF, &defF);
   cmatrix4_multiplyCVector4(&rot, &defD, &defD);
   cmatrix4_setPerspectiveProjection(mat, fovYRadians, aspectRatio, far, near);
+/*
 
   CMatrix4 view;
   initCMatrix4(&view);
   cmatrix4_setLookAt(&view, x, y, z,
-    defD.value[0], defD.value[1], defD.value[2],
     defF.value[0], defF.value[1], defF.value[2]
+    ,
+    defD.value[0], defD.value[1], defD.value[2]
+
   );
 
-  cmatrix4_multiply(&view, mat, mat);
+  //cmatrix4_multiply(&view, mat, mat);
+*/
   return obj;
 }
