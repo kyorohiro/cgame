@@ -35,7 +35,7 @@ CMatrix4* cmatrix4_add(CMatrix4* obj, CMatrix4* arg, CMatrix4* out);
 CMatrix4* cmatrix4_sub(CMatrix4* obj, CMatrix4* arg, CMatrix4* out);
 CMatrix4* cmatrix4_multiply(CMatrix4* obj, CMatrix4* arg, CMatrix4* out);
 CVector4* cmatrix4_multiplyCVector4(CMatrix4* obj, CVector4* arg, CVector4* out);
-
+CMatrix4* cmatrix4_transpose(CMatrix4* obj, CMatrix4* out);
 CMatrixValue cmatrix4_determinant(CMatrix4* obj);
 CMatrixValue cmatrix4_inverse(CMatrix4* obj, CMatrix4* out);
 //     col 0 1 2 3

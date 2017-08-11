@@ -238,6 +238,48 @@ CMatrixValue cmatrix4_inverse(CMatrix4* obj, CMatrix4* out) {
 
  return det;
 }
+
+CMatrix4* cmatrix4_transpose(CMatrix4* obj, CMatrix4* out) {
+  CMatrixValue *raw = obj->value;
+  double a11 = raw[0];
+  double a12 = raw[1];
+  double a13 = raw[2];
+  double a14 = raw[3];
+  double a21 = raw[4];
+  double a22 = raw[5];
+  double a23 = raw[6];
+  double a24 = raw[7];
+  double a31 = raw[8];
+  double a32 = raw[9];
+  double a33 = raw[10];
+  double a34 = raw[11];
+  double a41 = raw[12];
+  double a42 = raw[13];
+  double a43 = raw[14];
+  double a44 = raw[15];
+
+
+  obj->value[0] = a11;
+  obj->value[4] = a12;
+  obj->value[8] = a13;
+  obj->value[12] = a14;
+
+  obj->value[1] = a21;
+  obj->value[5] = a22;
+  obj->value[9] = a23;
+  obj->value[13] = a24;
+
+  obj->value[2] = a31;
+  obj->value[6] = a32;
+  obj->value[10] = a33;
+  obj->value[14] = a34;
+
+  obj->value[3] = a41;
+  obj->value[7] = a42;
+  obj->value[11] = a43;
+  obj->value[15] = a44;
+  return out;
+}
 //     col 0 1 2 3
 // row
 //   0
