@@ -32,5 +32,9 @@ void main() {
   mat4 mm = rotY * rotZ;
   mm = rotX * mm;
   mm = camera * model * mm;
+  //
+  vec3 ambientLight = vec3(0.6, 0.6, 0.6);
+  vec3 directionalLightColor = vec3(0.5, 0.5, 0.75);
+  vec3 directionalVector = vec3(0.85, 0.8, 0.75);
   gl_Position = mm * vec4(position, 1.0);
 }

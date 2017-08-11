@@ -73,14 +73,15 @@ CBytesBuilder* initCBytesBuilderFromPath(CBytesBuilder* obj, char *path) {
 
   FILE *fp = fopen(path, "r");
   char buffer[1024];
-  int size = 0;
+
   if(fp==NULL){
     printf("#1# %s", path);
     return obj;
   }
 
+  size_t size =0;
   do {
-    size_t size = fread(buffer, 1, 1024, fp);
+    size = fread(buffer, 1, 1024, fp);
     if(size > 0) {
       cbytesBuilder_addChars(builder, buffer, size);
     }
