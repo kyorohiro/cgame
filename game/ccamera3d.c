@@ -49,7 +49,7 @@ CCamera3D* ccamera3d_update(CCamera3D* obj,
 */
   cmatrix4_setPerspectiveProjection(mat, fovYRadians, aspectRatio, far, near);
   CMatrix4 rot;
-  cmatrix4_setLookAt2(&rot, x, y, z, rx, ry, rz);
+  cmatrix4_setLookAt2(&rot, x, y, z, rx, ry, rz, 1.0, 1.0, 1.0);
   cmatrix4_multiply(mat, &rot, mat);
 /*
 
