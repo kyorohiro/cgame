@@ -41,7 +41,58 @@ CPrimitive3D* initCPrimitive3DAsTriangle(CPrimitive3D* obj) {
   return obj;
 }
 
+//
+//     B
+//   D A E F
+//     C
 CPrimitive3D* initCPrimitive3DAsCube(CPrimitive3D* obj) {
+  initCPrimitive3D(obj);
+  CMatrixValue vVertices[] = {
+    // A 0-3
+   -0.5, 0.5, 0.5,    1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,   0.9, 0.0, 1.0,
+   -0.5, -0.5, 0.5,   1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,   0.0, 0.0, 1.0,
+   0.5, -0.5, 0.5,    1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,   0.0, 0.0, 1.0,
+   0.5, 0.5, 0.5,     1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,   0.0, 0.0, 1.0,
+   // F 4-7
+   -0.5, 0.5, -0.5,    1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,   0.0, 0.0, -1.0,
+   -0.5, -0.5, -0.5,   1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,   0.0, 0.0, -1.0,
+   0.5, -0.5, -0.5,    1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,   0.0, 0.0, -1.0,
+   0.5, 0.5, -0.5,     1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,   0.0, 0.0, -1.0,
+   // D 8-11
+   -0.5, 0.5, 0.5,    1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,    -1.0, 0.0, 0.0,
+   -0.5, -0.5, 0.5,   1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,    -1.0, 0.0, 0.0,
+   -0.5, 0.5, -0.5,    1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,   -1.0, 0.0, 0.0,
+   -0.5, -0.5, -0.5,   1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,   -1.0, 0.0, 0.0,
+   // E 12-15
+   0.5, -0.5, 0.5,    1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,   1.0, 0.0, 0.0,
+   0.5, 0.5, 0.5,     1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,   1.0, 0.0, 0.0,
+   0.5, -0.5, -0.5,    1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,   1.0, 0.0, 0.0,
+   0.5, 0.5, -0.5,     1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,   1.0, 0.0, 0.0,
+   // B 16-19
+   -0.5, 0.5, 0.5,    1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,   0.9, 1.0, 0.0,
+   0.5, 0.5, 0.5,     1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,   0.0, 1.0, 0.0,
+   -0.5, 0.5, -0.5,    1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,  0.0, 1.0, 0.0,
+   0.5, 0.5, -0.5,     1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,  0.0, 1.0, 0.0,
+   // C 20-23
+   -0.5, -0.5, 0.5,   1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,   0.0, 0.0, 1.0,
+   0.5, -0.5, 0.5,    1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,   0.0, 0.0, 1.0,
+   -0.5, -0.5, -0.5,   1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,   0.0, 0.0, -1.0,
+   0.5, -0.5, -0.5,    1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,   0.0, 0.0, -1.0,
+  };
+  CIndexValue indexes[] = {
+    0, 1, 2, 0, 2, 3, // A1 A2
+    7, 6, 5, 7, 5, 4, // F1 F2
+    8, 11, 9, 8, 10, 11,  // D1 D2
+    15, 13, 12, 14, 15, 12,  // E1 E2
+    16, 17, 18, 18, 17, 19,  // E1 E2
+    22, 21, 20, 23, 21, 22, 
+  };
+  obj->vertexes = initCBytes(newCBytes(obj->parent.parent.cmemory), (char*)vVertices, sizeof(vVertices));
+  obj->indexes = initCBytes(newCBytes(obj->parent.parent.cmemory), (char*)indexes, sizeof(indexes));
+  return obj;
+}
+
+/*CPrimitive3D* initCPrimitive3DAsCube(CPrimitive3D* obj) {
   initCPrimitive3D(obj);
   CMatrixValue vVertices[] = {
    -0.5, 0.5, 0.5,    1.0, 1.0, 1.0, 1.0,  0.0, 0.0, 0.0,   -0.5, 0.5, 0.5,
@@ -68,7 +119,7 @@ CPrimitive3D* initCPrimitive3DAsCube(CPrimitive3D* obj) {
   obj->vertexes = initCBytes(newCBytes(obj->parent.parent.cmemory), (char*)vVertices, sizeof(CMatrixValue)*PRIMITIVE3D_BUFFER_SIZE*8);
   obj->indexes = initCBytes(newCBytes(obj->parent.parent.cmemory), (char*)indexes, sizeof(CIndexValue)*36);
   return obj;
-}
+}*/
 
 CPrimitive3D* cprimitive3d_setRotate(CPrimitive3D* obj, double rx, double ry, double rz) {
   float* fVertexs = (float*)obj->vertexes->value;
