@@ -50,8 +50,10 @@ CCamera3D* ccamera3d_update(CCamera3D* obj,
   CMatrix4 view;
   initCMatrix4(&view);
   cmatrix4_setLookAt(&view, x, y, z,
-    defF.value[0], defF.value[1], defF.value[2],
-    defD.value[0], defD.value[1], defD.value[2]);
+    defD.value[0], defD.value[1], defD.value[2],
+    defF.value[0], defF.value[1], defF.value[2]
+  );
 
+  cmatrix4_multiply(&view, mat, mat);
   return obj;
 }
