@@ -16,6 +16,11 @@ CMatrix4* cmatrix4_setLookAt(CMatrix4* obj,
   double upDirectionX, double upDirectionY, double upDirectionZ
 );
 
+CMatrix4* cmatrix4_setLookAt2(CMatrix4* obj,
+  double x, double y, double z,
+  double rx, double ry, double rz
+);
+
 CMatrix4* cmatrix4_setRotationX(CMatrix4* obj, double radians);
 CMatrix4* cmatrix4_setRotationY(CMatrix4* obj, double radians);
 CMatrix4* cmatrix4_setRotationZ(CMatrix4* obj, double radians);

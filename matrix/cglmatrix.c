@@ -210,6 +210,25 @@ CMatrix4* cmatrix4_setPerspectiveProjection(CMatrix4* obj, double right, double 
   return obj;
 }
 */
+
+CMatrix4* cmatrix4_setLookAt2(CMatrix4* obj,
+  double x, double y, double z,
+  double rx, double ry, double rz
+) {
+  CMatrix4 rotX;
+  CMatrix4 rotY;
+  CMatrix4 rotZ;
+  CMatrix4 tran;
+  CMatrix4 scal;
+  CMatrix4 mat;
+  cmatrix4_setIdentity(initCMatrix4(&mat));
+  cmatrix4_multiply(&mat, cmatrix4_setRotationX(initCMatrix4(&rotX), -rx), &mat);
+  cmatrix4_multiply(&mat, cmatrix4_setRotationY(initCMatrix4(&rotY), -ry), &mat);
+  cmatrix4_multiply(&mat, cmatrix4_setRotationZ(initCMatrix4(&rotZ), -rz), &mat);
+  cmatrix4_multiply(&mat, cmatrix4_setTranslation(initCMatrix4(&tran),  -x, -y, -z), obj);
+  return obj;
+}
+
 CMatrix4* cmatrix4_setLookAt(CMatrix4* obj,
   double posX, double posY, double posZ,
   double focusX, double focusY, double focusZ,

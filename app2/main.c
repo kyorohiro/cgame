@@ -16,14 +16,15 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
   cmatrix4_setRotationX(&rotXMat, 3.14*i/180.0);
 
   CMatrix4 *mat = cobject3d_getCMatrix4((CObject3D*)obj);
-  cmatrix4_setTranslation(initCMatrix4(mat), -2.0, 2.0, -3.0);
+//  cmatrix4_setTranslation(initCMatrix4(mat), -2.0, 2.0, -3.0);
+  cmatrix4_setTranslation(initCMatrix4(mat), 0.0, 0.0, -3.0);
 //  cmatrix4_setTranslation(initCMatrix4(mat), -3.14*i/180.0, 3.14*i/180.0, -3.0);
 //  cmatrix4_multiply(&rotYMat, mat, mat);
   cmatrix4_multiply(mat, &rotXMat, mat);
 
   ccamera3d_update((CCamera3D*)game->camera,
-    0.0, 0.0, -0.3,
-    3.14*i/180.0, 0.0, 0.0,
+    0.0, 0.0, 2.3,
+    0.0, 0.0, 0.0,
 //    0.0, 0.0, 3.14*i/180.0,
     3.14*90.0/180.0, 1.0, 0.5, 1000.0);
 
