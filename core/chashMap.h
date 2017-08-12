@@ -10,10 +10,18 @@
 
 typedef struct {
   CObject parent;
+  CObject *key;
+  CObject *value;
+} CHashMapItem;
+
+typedef struct {
+  CObject parent;
   CArrayList *index;
 } CHashMap;
 
 CHashMap* newCHashMap(CMemory* cmemory);
 CHashMap* initCHashMap(CHashMap *obj, int size);
-
+CHashMapItem* newCHashMapItem(CMemory* cmemory);
+CHashMapItem* initCHashMapItem(CHashMapItem *obj, CObject *key, CObject *value);
+CHashMap* chashMap_put(CHashMap *obj, CObject *key, CObject *value);
 #endif
