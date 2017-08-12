@@ -5,6 +5,9 @@ precision mediump float;
 varying vec4 vColor;
 varying vec3 NNormal;
 varying vec3 FragPos;
+
+
+
 void main() {
   //
   //
