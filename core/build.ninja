@@ -16,9 +16,12 @@ build core${sep}cstring_test.${objExt}: obj core${sep}cstring_test.c
 build core${sep}clinkedList_test.${objExt}: obj core${sep}clinkedList_test.c
 build core${sep}carrayList_test.${objExt}: obj core${sep}carrayList_test.c
 build core${sep}cbytesBuilder_test.${objExt}: obj core${sep}cbytesBuilder_test.c
+build core${sep}chashMap_test.${objExt}: obj core${sep}chashMap_test.c
+
+
 #
 
 #build core/libcore2.o: lib core/cobject.o core/clinkedList.o
 
 build core/libcore.${objExt}: lib core/cobject.${objExt} core/clinkedList.${objExt} core/carrayList.${objExt} core/cmemory.${objExt} core/cobjectManager.${objExt} core/cbytesBuilder.${objExt} core/cbytes.${objExt} core/cstring.${objExt} core${sep}chashMap.${objExt}
-build core/test.${appExt}: test core/libcore.${objExt} core/test.${objExt} core/cbytes_test.${objExt} core/cstring_test.${objExt} core/clinkedList_test.${objExt} core/carrayList_test.${objExt} core/cbytesBuilder_test.${objExt}
+build core/test.${appExt}: test core/libcore.${objExt} core/test.${objExt} core/cbytes_test.${objExt} core/cstring_test.${objExt} core/clinkedList_test.${objExt} core/carrayList_test.${objExt} core/cbytesBuilder_test.${objExt} core${sep}chashMap_test.${objExt}

@@ -10,13 +10,14 @@ int _equals(void *obj, void *src);
 CObject* newCObject(CMemory* cmemory) {
   CObject *ret = cmemory_calloc(cmemory, 1,sizeof(CObject));
   ret->cmemory = cmemory;
+  ret->funcFree = freeCObject;
   return ret;
 }
 
 CObject* initCObject(CObject*obj, const char *name) {
   snprintf(obj->name, sizeof(obj->name), "%s", name);
   obj->reference = 1;
-  obj->funcFree = freeCObject;
+//  obj->funcFree = freeCObject;
   obj->funcHashCode = _hashCode;
   obj->funcCompareTo = _compareTo;
   obj->funcEquals = _equals;
@@ -95,6 +96,7 @@ int cobject_compareTo(CObject* obj, CObject* src) {
   }
   return 0;
 }
+
 int cobject_equals(CObject* obj, CObject* src) {
   CObjectFuncEquals func = obj->funcEquals;
   if(func != NULL) {
@@ -102,6 +104,7 @@ int cobject_equals(CObject* obj, CObject* src) {
   }
   return 0;
 }
+
 CObject* _releaseCObject(CObject* obj, int isForce) {
   obj->reference--;
   if(isForce != 0 || (obj->reference<=0 && cobject_getMode(obj, COBJECT_MODE_FREEABLE) == 1)){
@@ -121,4 +124,8 @@ CObject* releaseForceCObject(CObject* obj) {
 
 CObject* releaseCObject(CObject* obj) {
   return  _releaseCObject(obj, 0);
+}
+
+CMemory* cobject_getCMemory(CObject*obj) {
+  return obj->cmemory;
 }

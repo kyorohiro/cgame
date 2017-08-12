@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "cmemory.h"
 
+void freeCHashMap(void* obj);
 CHashMap* newCHashMap(CMemory* cmemory) {
   CHashMap* ret = cmemory_calloc(cmemory, 1, sizeof(CHashMap));
   ret->parent.cmemory = cmemory;
@@ -12,6 +13,13 @@ CHashMap* newCHashMap(CMemory* cmemory) {
 }
 
 CHashMap* initCHashMap(CHashMap *obj) {
-  initCObject((CObject*)obj, CLINKEDLIST_NAME);
+  initCObject((CObject*)obj, CHASHMAP_NAME);
+  obj->index = newCArrayList(cobject_getCMemory((CObject*)obj));
   return obj;
+}
+
+void freeCHashMap(void* obj) {
+  CHashMap *mapObj = obj;
+  releaseCObject((CObject*)mapObj->index);
+  freeCObject(obj);
 }

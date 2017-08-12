@@ -39,6 +39,7 @@ int cobject_hashCode(CObject* obj);
 int cobject_compareTo(CObject* obj, CObject* src);
 int cobject_equals(CObject* obj, CObject* src);
 
-
 int cobject_getMode(CObject* obj, int mode);
+
+CMemory* cobject_getCMemory(CObject*obj);
 #endif
