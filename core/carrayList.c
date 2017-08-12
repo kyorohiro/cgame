@@ -25,6 +25,11 @@ CArrayList* initCArrayList(CArrayList *obj, int max) {
   return obj;
 }
 
+CArrayList* carrayList_openAll(CArrayList *obj) {
+  obj->length = obj->max;
+  return obj;
+}
+
 void freeCArrayList(void* obj) {
 
   int i=0;

@@ -16,6 +16,7 @@ CHashMap* newCHashMap(CMemory* cmemory) {
 CHashMap* initCHashMap(CHashMap *obj, int size) {
   initCObject((CObject*)obj, CHASHMAP_NAME);
   obj->index = initCArrayList(newCArrayList(cobject_getCMemory((CObject*)obj)), size);
+  carrayList_openAll(obj->index);
   return obj;
 }
 

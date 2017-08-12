@@ -8,7 +8,7 @@ void chashMap_test(){
   printf("# chashMap_test\n");
   int passed = 1;
   CMemory *mem = initCMemory(newCMemory());
-  CHashMap *map = initCHashMap(newCHashMap(mem));
+  CHashMap *map = initCHashMap(newCHashMap(mem), 10);
 
 
   releaseCObject((CObject*)map);
