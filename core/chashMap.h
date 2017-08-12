@@ -14,6 +14,6 @@ typedef struct {
 } CHashMap;
 
 CHashMap* newCHashMap(CMemory* cmemory);
-CHashMap* initCHashMap(CHashMap *obj);
+CHashMap* initCHashMap(CHashMap *obj, int size);
 
 #endif
