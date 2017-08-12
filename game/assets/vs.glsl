@@ -27,8 +27,8 @@ mat3 transposeMat3(mat3 m) {
   return mat3(a00, a10, a20,
              a01, a11, a21,
              a02, a12, a22);
-//  return m;
 }
+
 mat3 inverseMat3(mat3 m) {
   float a00 = m[0][0];
   float a01 = m[0][1];
@@ -75,11 +75,8 @@ void main() {
 
   mat3 xx = mat3(mm);
   xx = inverseMat3(transposeMat3(xx));
-//  NNormal = vec3( xx * vec4(0.0, 0.0, 1.0, 1.0));
-//  NNormal = -1.0*vec3(0.0, 0.0, -1.0);
   NNormal = normalize(xx * normal);
   FragPos = vec3(mm * vec4(position, 1.0));
   gl_Position = camera * mm * vec4(position, 1.0);
-
 
 }
