@@ -17,6 +17,7 @@ typedef struct {
 typedef struct {
   CObject parent;
   CArrayList *index;
+  CLinkedList *cache;
 } CHashMap;
 
 CHashMap* newCHashMap(CMemory* cmemory);

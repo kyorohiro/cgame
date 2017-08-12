@@ -106,6 +106,9 @@ int cobject_equals(CObject* obj, CObject* src) {
 }
 
 CObject* _releaseCObject(CObject* obj, int isForce) {
+  if(obj == NULL) {
+    return obj;
+  }
   obj->reference--;
   if(isForce != 0 || (obj->reference<=0 && cobject_getMode(obj, COBJECT_MODE_FREEABLE) == 1)){
     CObjectFuncFree func = obj->funcFree;
