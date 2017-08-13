@@ -8,7 +8,6 @@
 #define CHASHMAP_NAME "hma"
 #define CHASHMAP_ITEM_NAME "hmi"
 
-
 typedef struct {
   CObject parent;
   CObject *key;
@@ -27,4 +26,5 @@ CHashMapItem* newCHashMapItem(CMemory* cmemory);
 CHashMapItem* initCHashMapItem(CHashMapItem *obj, CObject *key, CObject *value);
 CHashMap* chashMap_put(CHashMap *obj, CObject *key, CObject *value);
 CObject* chashMap_get(CHashMap *obj, CObject *key);
+
 #endif
