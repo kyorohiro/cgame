@@ -12,6 +12,7 @@ void _freeCString(void* obj);
 CString* newCString(CMemory* cmemory) {
   CString* ret = cmemory_calloc(cmemory, 1, sizeof(CString));
   ret->parent.cmemory = cmemory;
+  ret->parent.funcFree = _freeCString;
   return ret;
 }
 
@@ -58,10 +59,10 @@ CString* initCString(CString* obj, char *value) {
   initCObject((CObject *)obj, CSTRING_NAME);
   calcLength(obj, value, -1);
   obj->value = (char*)cmemory_calloc(obj->parent.cmemory, 1, sizeof(char)*obj->byteLength+1);
-  obj->parent.funcFree = _freeCString;
+
   memcpy(obj->value, value, obj->byteLength);
 //  obj->value[obj->byteLength] = '\0';
-//  printf("###%s####\n",value);
+
   return obj;
 }
 

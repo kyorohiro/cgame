@@ -19,14 +19,18 @@ int main(int argv, char** argc) {
     getCMemory()->callocCounter,
     getCMemory()->freeCounter);
 
-  cbytes_test();
-  cstring_test();
+    //
+    //
+    cbytes_test();
+    cstring_test();
 
-  carrayList_test();
-  cbytesBuilder_test();
-  cbytesBuilder_test2();
-  chashMap_test();
+    cbytesBuilder_test();
+    cbytesBuilder_test2();
 
-  clinkedList_test();
+    carrayList_test();
+    clinkedList_test();
+    chashMap_test();
+
+
   return 0;
 }

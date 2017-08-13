@@ -6,6 +6,7 @@
 #include "carrayList.h"
 
 #define CHASHMAP_NAME "hma"
+#define CHASHMAP_ITEM_NAME "hmi"
 
 
 typedef struct {

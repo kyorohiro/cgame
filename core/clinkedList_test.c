@@ -13,7 +13,7 @@ void clinkedList_test(){
     printf("  NG : length = %d\r\n", clinkedList_getLength(lin));
     passed = 0;
   }
-  
+
   clinkedList_addLast(lin, cobject_downCounter(initCObject(newCObject(mem), "test1")));
   clinkedList_addLast(lin, cobject_downCounter(initCObject(newCObject(mem), "test2")));
   clinkedList_insert(lin, cobject_downCounter(initCObject(newCObject(mem), "test")),1);

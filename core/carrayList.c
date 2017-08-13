@@ -31,7 +31,6 @@ CArrayList* carrayList_openAll(CArrayList *obj) {
 }
 
 void freeCArrayList(void* obj) {
-
   int i=0;
   if(obj == NULL) {
     return;

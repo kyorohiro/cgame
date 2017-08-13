@@ -18,15 +18,22 @@ CHashMap* initCHashMap(CHashMap *obj, int size) {
   initCObject((CObject*)obj, CHASHMAP_NAME);
   obj->index = initCArrayList(newCArrayList(cobject_getCMemory((CObject*)obj)), size);
   carrayList_openAll(obj->index);
-  obj->cache = initCLinkedList(newCLinkedList(cobject_getCMemory((CObject*)obj)));
+//  obj->cache = initCLinkedList(newCLinkedList(cobject_getCMemory((CObject*)obj)));
   return obj;
 }
 
 void freeCHashMap(void* obj) {
   CHashMap *mapObj = obj;
-//  printf("#>#%d\n", ((CObject*)mapObj->index)->reference);
+
+//  for(int i=0;i<carrayList_getLength(mapObj->index);i++) {
+//    CLinkedList *o = (CLinkedList *)carrayList_get(mapObj->index,i);
+//    for(int j=0;j<clinkedList_getLength(o);j++) {
+//        CObject *p = clinkedList_get(o,i);
+//    }
+//  }
+
   releaseCObject((CObject*)mapObj->index);
-  releaseCObject((CObject*)mapObj->cache);
+  //releaseCObject((CObject*)mapObj->cache);
   freeCObject(obj);
 }
 
@@ -39,12 +46,12 @@ CHashMap* chashMap_put(CHashMap *obj, CObject *keyObj, CObject *valueObj) {
   CObject* currentValue = carrayList_get(obj->index, key);
   if(currentValue == NULL) {
     currentValue = (CObject*)initCLinkedList(newCLinkedList(cobject_getCMemory((CObject*)obj)));
-    clinkedList_addLast(obj->cache, (CObject*)currentValue);
+  //  clinkedList_addLast(obj->cache, cobject_downCounter(currentValue));
     carrayList_set(obj->index, key, cobject_downCounter(currentValue));
   }
 
   CHashMapItem *item = initCHashMapItem(newCHashMapItem(cobject_getCMemory((CObject*)obj)), keyObj, valueObj);
-  clinkedList_addLast((CLinkedList*)currentValue, (CObject*)item);
+  clinkedList_addLast((CLinkedList*)currentValue, cobject_downCounter((CObject*)item));
   return obj;
 }
 
@@ -60,6 +67,7 @@ CHashMapItem* newCHashMapItem(CMemory* cmemory) {
 }
 
 CHashMapItem* initCHashMapItem(CHashMapItem *obj, CObject *key, CObject *value) {
+  initCObject((CObject*)obj, CHASHMAP_ITEM_NAME);
   obj->key = cobject_upCounter(key);
   obj->value = cobject_upCounter(value);
   return obj;
