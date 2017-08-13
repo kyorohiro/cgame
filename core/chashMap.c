@@ -50,6 +50,20 @@ CHashMap* chashMap_put(CHashMap *obj, CObject *keyObj, CObject *valueObj) {
     carrayList_set(obj->index, key, cobject_downCounter(currentValue));
   }
 
+  CLinkedList *list = (CLinkedList*)currentValue;
+  int len = clinkedList_getLength(list);
+  for(int i=0;i<len;i++) {
+      CHashMapItem *item = (CHashMapItem *)clinkedList_get(list, i);
+      if(0 != cobject_equals(item->key, keyObj)){
+         //
+         releaseCObject(item->value);
+         cobject_upCounter(valueObj);
+         //
+         item->value = valueObj;
+         return obj;
+      }
+  }
+
   CHashMapItem *item = initCHashMapItem(newCHashMapItem(cobject_getCMemory((CObject*)obj)), keyObj, valueObj);
   clinkedList_addLast((CLinkedList*)currentValue, cobject_downCounter((CObject*)item));
   return obj;
@@ -65,9 +79,9 @@ CObject* chashMap_get(CHashMap *obj, CObject *keyObj) {
   }
 
   CLinkedList *list = (CLinkedList*)currentValue;
-  int len = carrayList_getLength(obj->index);
+  int len = clinkedList_getLength(list);
   for(int i=0;i<len;i++) {
-      CHashMapItem *item = (CHashMapItem *)carrayList_get(obj->index,i);
+      CHashMapItem *item = (CHashMapItem *)clinkedList_get(list, i);
       if(0 != cobject_equals(item->key, keyObj)){
           return item->value;
       }

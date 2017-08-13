@@ -15,11 +15,21 @@ void chashMap_test(){
   CString * key1 = initCString(newCString(mem),"k1");
   CString * key2 = initCString(newCString(mem),"k2");
   CString * abc = initCString(newCString(mem),"abc");
-  CString * def = initCString(newCString(mem),"abc");
+  CString * def = initCString(newCString(mem),"def");
 
   //chashMap_put(map, cobject_downCounter((CObject*)key1), cobject_downCounter((CObject*)abc));
   chashMap_put(map, cobject_downCounter((CObject*)key2), cobject_downCounter((CObject*)def));
   chashMap_put(map, (CObject*)key1, (CObject*)abc);
+
+  if(((CString*)chashMap_get(map, (CObject*)key1))->value[0] != 'a') {
+    printf("  NG : 1 : %s \r\n", ((CString*)chashMap_get(map, (CObject*)key1))->value);
+    passed = 0;
+  }
+  chashMap_put(map, (CObject*)key1, (CObject*)def);
+  if(((CString*)chashMap_get(map, (CObject*)key1))->value[0] != 'd') {
+    printf("  NG : 1 : %s \r\n", ((CString*)chashMap_get(map, (CObject*)key1))->value);
+    passed = 0;
+  }
   releaseCObject((CObject*)map);
   //printf(" >>>>>  %d %d\n", ((CObject*)key1)->reference, ((CObject*)key1)->mode);
   releaseCObject((CObject*)key1);
