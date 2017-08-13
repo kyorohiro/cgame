@@ -55,6 +55,25 @@ CHashMap* chashMap_put(CHashMap *obj, CObject *keyObj, CObject *valueObj) {
   return obj;
 }
 
+CObject* chashMap_get(CHashMap *obj, CObject *keyObj) {
+  int hashCode = cobject_hashCode((CObject*)keyObj);
+  int size = carrayList_getLength(obj->index);
+  int key = hashCode % size;
+  CObject* currentValue = carrayList_get(obj->index, key);
+  if(currentValue == NULL) {
+    return NULL;
+  }
+
+  CLinkedList *list = (CLinkedList*)currentValue;
+  int len = carrayList_getLength(obj->index);
+  for(int i=0;i<len;i++) {
+      CHashMapItem *item = (CHashMapItem *)carrayList_get(obj->index,i);
+      if(0 != cobject_equals(item->key, keyObj)){
+          return item->value;
+      }
+  }
+  return NULL;
+}
 //
 //
 //

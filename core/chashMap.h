@@ -26,4 +26,5 @@ CHashMap* initCHashMap(CHashMap *obj, int size);
 CHashMapItem* newCHashMapItem(CMemory* cmemory);
 CHashMapItem* initCHashMapItem(CHashMapItem *obj, CObject *key, CObject *value);
 CHashMap* chashMap_put(CHashMap *obj, CObject *key, CObject *value);
+CObject* chashMap_get(CHashMap *obj, CObject *key);
 #endif
