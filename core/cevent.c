@@ -25,6 +25,7 @@ CEventObserver* initCEventObserver(CEventObserver* obj, CObject *context, CEvent
 void _freeCEventObserver(void* obj) {
   if(obj == NULL) {return;}
   CEventObserver* observerObj = obj;
+//  printf(">x> %d \r\n", ((CObject*)observerObj)->reference);
   releaseCObject((CObject*)observerObj->context);
   freeCObject(obj);
 }
@@ -48,6 +49,7 @@ CEventDispatcher* initCEventDispatcher(CEventDispatcher* obj) {
 void _freeCEventDispatcher(void* obj) {
   if(obj == NULL) {return;}
   CEventDispatcher* dispatchObj = obj;
+//  printf(">> %d \r\n", ((CObject*)dispatchObj->observers)->reference);
   releaseCObject((CObject*)dispatchObj->observers);
   freeCObject(obj);
 }
@@ -55,6 +57,7 @@ void _freeCEventDispatcher(void* obj) {
 CEventDispatcher* ceventDispatcher_addListener(CEventDispatcher* obj, CObject*context, CEventDispatcherFuncOnEvent func) {
   CMemory* cmemory = cobject_getCMemory((CObject*)obj);
   CEventObserver *observer = initCEventObserver(newCEventObserver(cmemory), context, func);
-  clinkedList_addLast(obj->observers, observer);
+  cobject_downCounter((CObject*)observer);
+  clinkedList_addLast(obj->observers, (CObject*)observer);
   return obj;
 }
