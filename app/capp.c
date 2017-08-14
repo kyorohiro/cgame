@@ -42,7 +42,7 @@ void capp_draw(void) {
   //CGame *game = getCGame();
 }
 
-CApp* cgame_start(CApp* obj) {
+CApp* capp_start(CApp* obj) {
   printf("main\n");
   CApp* appObj = getCApp();
   char *argv = "test";
