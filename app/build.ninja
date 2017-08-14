@@ -1,0 +1,3 @@
+
+build app/capp.${objExt}: obj app/capp.c
+build app/libapp.${objExt}: lib app/capp.${objExt}
