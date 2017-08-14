@@ -8,11 +8,14 @@
 
 #define CEVENT_NAME "eve"
 
+typedef void (*CEventDispatcherFuncOnEvent)(CObject* context, CObject* args);
+
 // UTF8
 typedef struct {
   CObject parent;
-} CEvent;
+} CEventDispatcher;
 
-CEvent* newCEvent(CMemory*);
-CEvent* initCEvent(CEvent* obj);
+CEventDispatcher* newCEventDispatcher(CMemory*);
+CEventDispatcher* initCEventDispatcher(CEventDispatcher* obj);
+CEventDispatcher* ceventDispatcher_addListener(CEventDispatcher* obj, CObject*context, CEventDispatcherFuncOnEvent);
 #endif

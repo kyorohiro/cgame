@@ -12,6 +12,7 @@ extern void carrayList_test();
 extern void cbytesBuilder_test();
 extern void cbytesBuilder_test2();
 extern void chashMap_test();
+extern void cevent_test();
 
 int main(int argv, char** argc) {
   CObjectManager *objMgr = getCObjectManager();
@@ -31,6 +32,7 @@ int main(int argv, char** argc) {
     clinkedList_test();
     chashMap_test();
 
+    cevent_test();
 
   return 0;
 }
