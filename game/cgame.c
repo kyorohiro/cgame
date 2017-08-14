@@ -49,6 +49,18 @@ CGame* getCGame() {
   return defaultCGame;
 }
 
+void cgame_special(int key, int x, int y) {
+  printf(">special key:%d, x:%d, y:%d\r\n", key, x, y);
+}
+
+void cgame_keyboard (unsigned char key,int x, int y) {
+  printf(">keyboard key:%c, x:%d, y:%d\r\n", key, x, y);
+}
+
+void cgame_mouse (int button, int state,int x, int y) {
+  printf(">mouse button:%c, xstate:%d x:%d, y:%d\r\n", button, state, x, y);
+}
+
 void cgame_draw(void) {
   CGame *game = getCGame();
   CObject3D *root = (CObject3D*)cgame_getRoot(game);
@@ -140,8 +152,9 @@ CGame* cgame_start(CGame* obj) {
   //glutIdleFunc (gears_idle);
   //glutReshapeFunc(gears_reshape);
   glutDisplayFunc(cgame_draw);
-  //glutSpecialFunc(gears_special);
-  //glutMouseFunc(mouseCB);
+  glutSpecialFunc(cgame_special);
+  glutKeyboardFunc(cgame_keyboard);
+  glutMouseFunc(cgame_mouse);
 
   glUseProgram(obj->program);
   //
