@@ -8,6 +8,11 @@ void cevent_test(){
   CMemory *mem = initCMemory(newCMemory());
   CEventDispatcher *eve = initCEventDispatcher(newCEventDispatcher(mem));
 
+  //
+  //
+
+
+
   releaseCObject((CObject*)eve);
   if(mem->callocCounter != mem->freeCounter) {
     printf("  NG : %d == %d\r\n", mem->callocCounter, mem->freeCounter);
