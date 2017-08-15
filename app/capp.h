@@ -4,6 +4,7 @@
 #include "core/cobject.h"
 #include "core/cmemory.h"
 #include "core/cstring.h"
+#include "core/cevent.h"
 //
 //
 //
@@ -40,6 +41,7 @@ typedef struct {
   char title[256];
   int width;
   int height;
+  CEventDispatcher *mouse;
 } CApp;
 
 //
@@ -49,4 +51,5 @@ CApp* newCApp(CMemory* mem);
 CApp* initCApp(CApp*);
 CApp* getCApp();
 CApp* capp_start(CApp*);
+CApp* capp_addMouseEventListener(CApp*, CObject* context, CEventFuncOnEvent);
 #endif

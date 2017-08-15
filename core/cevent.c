@@ -15,7 +15,7 @@ CEventObserver* newCEventObserver(CMemory* cmemory) {
   return ret;
 }
 
-CEventObserver* initCEventObserver(CEventObserver* obj, CObject *context, CEventDispatcherFuncOnEvent onEvent) {
+CEventObserver* initCEventObserver(CEventObserver* obj, CObject *context, CEventFuncOnEvent onEvent) {
   initCObject((CObject *)obj, CEVENT_OBSERVER_NAME);
   obj->context = cobject_upCounter(context);
   obj->onEvent = onEvent;
@@ -54,7 +54,7 @@ void _freeCEventDispatcher(void* obj) {
   freeCObject(obj);
 }
 
-CEventObserver* ceventDispatcher_addListener(CEventDispatcher* obj, CObject*context, CEventDispatcherFuncOnEvent func) {
+CEventObserver* ceventDispatcher_addListener(CEventDispatcher* obj, CObject*context, CEventFuncOnEvent func) {
   CMemory* cmemory = cobject_getCMemory((CObject*)obj);
   CEventObserver *observer = initCEventObserver(newCEventObserver(cmemory), context, func);
   cobject_downCounter((CObject*)observer);
