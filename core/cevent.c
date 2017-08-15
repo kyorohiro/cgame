@@ -69,7 +69,6 @@ CEventDispatcher* ceventDispatcher_removeListener(CEventDispatcher* obj, CEventO
   for(int i=0; i< len; i++) {
     observer = (CEventObserver*)clinkedList_get(list, i);
     if(0 != cobject_equals((CObject*)observer, (CObject*)target)) {
-      printf(">>> <<<");
       clinkedList_remove(list, i);
       return obj;
     }
