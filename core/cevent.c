@@ -54,10 +54,25 @@ void _freeCEventDispatcher(void* obj) {
   freeCObject(obj);
 }
 
-CEventDispatcher* ceventDispatcher_addListener(CEventDispatcher* obj, CObject*context, CEventDispatcherFuncOnEvent func) {
+CEventObserver* ceventDispatcher_addListener(CEventDispatcher* obj, CObject*context, CEventDispatcherFuncOnEvent func) {
   CMemory* cmemory = cobject_getCMemory((CObject*)obj);
   CEventObserver *observer = initCEventObserver(newCEventObserver(cmemory), context, func);
   cobject_downCounter((CObject*)observer);
   clinkedList_addLast(obj->observers, (CObject*)observer);
-  return obj;
+  return observer;
+}
+
+CEventDispatcher* ceventDispatcher_removeListener(CEventDispatcher* obj, CEventObserver* target) {
+  CLinkedList* list = obj->observers;
+  int len = clinkedList_getLength(list);
+  CEventObserver *observer;
+  for(int i=0; i< len; i++) {
+    observer = (CEventObserver*)clinkedList_get(list, i);
+    if(0 != cobject_equals((CObject*)observer, (CObject*)target)) {
+      printf(">>> <<<");
+      clinkedList_remove(list, i);
+      return obj;
+    }
+  }
+  obj;
 }

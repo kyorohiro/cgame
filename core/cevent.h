@@ -31,5 +31,7 @@ typedef struct {
 
 CEventDispatcher* newCEventDispatcher(CMemory*);
 CEventDispatcher* initCEventDispatcher(CEventDispatcher* obj);
-CEventDispatcher* ceventDispatcher_addListener(CEventDispatcher* obj, CObject*context, CEventDispatcherFuncOnEvent);
+CEventObserver* ceventDispatcher_addListener(CEventDispatcher* obj, CObject*context, CEventDispatcherFuncOnEvent);
+CEventDispatcher* ceventDispatcher_removeListener(CEventDispatcher* obj, CEventObserver* target);
+
 #endif

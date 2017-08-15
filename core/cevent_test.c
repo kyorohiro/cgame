@@ -3,7 +3,9 @@
 #include "cmemory.h"
 #include "cstring.h"
 
-void _testOnEvent(CObject* context, CObject* args);
+void _testOnEvent(CObject* context, CObject* args){
+
+}
 void cevent_test(){
   printf("# cevent_test\n");
   int passed = 1;
@@ -14,8 +16,8 @@ void cevent_test(){
   //
   CObject *context = (CObject*)initCString(newCString(mem), "abc");
   cobject_downCounter(context);
-  ceventDispatcher_addListener(eve, context, _testOnEvent);
-
+  CEventObserver* ob = ceventDispatcher_addListener(eve, context, _testOnEvent);
+  ceventDispatcher_removeListener(eve, ob);
 
   releaseCObject((CObject*)eve);
   if(mem->callocCounter != mem->freeCounter) {
