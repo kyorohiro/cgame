@@ -3,8 +3,12 @@
 #include "cmemory.h"
 #include "cstring.h"
 
+int check = 0;
 void _testOnEvent(CObject* context, CObject* args){
-
+  CString *str1 = (CString *)context;
+  CString *str2 = (CString *)args;
+  printf("%s %s\r\n", str1->value, str2->value);
+  check = 1;
 }
 void cevent_test(){
   printf("# cevent_test\n");
@@ -17,9 +21,21 @@ void cevent_test(){
   CObject *context = (CObject*)initCString(newCString(mem), "abc");
   cobject_downCounter(context);
   CEventObserver* ob = ceventDispatcher_addListener(eve, context, _testOnEvent);
+  //
+  CString *str = initCString(newCString(mem), "def");
+  ceventDispatcher_dispatch(eve, (CObject*)str);
+  releaseCObject((CObject*)str);
+
+  //
   ceventDispatcher_removeListener(eve, ob);
 
   releaseCObject((CObject*)eve);
+
+  if(check != 1) {
+    printf("  NG : check %d\r\n", check);
+    passed = 0;
+  }
+
   if(mem->callocCounter != mem->freeCounter) {
     printf("  NG : %d == %d\r\n", mem->callocCounter, mem->freeCounter);
     passed = 0;
