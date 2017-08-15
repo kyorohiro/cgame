@@ -22,3 +22,7 @@ CRoot3D* initCRoot3D(CRoot3D* obj) {
   initCObject3D((CObject3D*)obj);
   return obj;
 }
+
+CRoot3D* croot3d_pushMulMatrix(CRoot3D* obj, CMatrix4 *mat) {
+  return obj;
+}
