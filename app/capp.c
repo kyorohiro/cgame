@@ -3,6 +3,8 @@
 #include "core/cstring.h"
 #include "core/cbytesBuilder.h"
 #include <stdio.h>
+#include <emscripten.h>
+#include <math.h>
 
 CApp* newCApp(CMemory* mem) {
   CApp * ret = cmemory_calloc(mem, 1, sizeof(CApp));
@@ -63,6 +65,20 @@ void capp_draw(void) {
 //  printf("capp_draw\n");
   CApp* appObj = getCApp();
   ceventDispatcher_dispatch(appObj->display, NULL);
+//  int debugCount;
+   appObj->debugCount++;
+   if(appObj->debugTime == 0){
+     appObj->debugTime = capp_currentMilliSecound(appObj);
+   }
+   if(appObj->debugCount > 100) {
+     appObj->debugCount = 0;
+     double t = capp_currentMilliSecound(appObj);
+     double v = t - appObj->debugTime;
+     double x = v/1000.0;
+     printf("#>> %lf : %lf\r\n", x, 100/x);
+     appObj->debugTime = t;
+   }
+
 //  glutSwapBuffers();
 //  glutPostRedisplay();
 }
@@ -111,6 +127,20 @@ CApp* capp_addInitEventListener(CApp* obj, CObject* context, CEventFuncOnEvent f
 
 CAppMouseEvent* capp_getCurrentMouseEvent(CApp* obj) {
   return obj->mouseEvent;
+}
+
+double capp_currentMilliSecound(CApp* obj) {
+  return emscripten_get_now();
+}
+
+CApp* capp_postRedisplay(CApp* obj) {
+  glutPostRedisplay();
+  return obj;
+}
+
+CApp* capp_flushBuffers(CApp* obj) {
+  glutSwapBuffers();
+  return obj;
 }
 //
 //

@@ -53,6 +53,8 @@ typedef struct {
   CEventDispatcher *init;
   CEventDispatcher *mouse;
   CEventDispatcher *display;
+  int debugCount;
+  double debugTime;
 } CApp;
 
 //
@@ -67,6 +69,12 @@ CApp* capp_addMouseEventListener(CApp*, CObject* context, CEventFuncOnEvent func
 CApp* capp_addDisplayEventListener(CApp*, CObject* context, CEventFuncOnEvent func);
 CApp* capp_addInitEventListener(CApp*, CObject* context, CEventFuncOnEvent func);
 CAppMouseEvent* capp_getCurrentMouseEvent(CApp*);
+CApp* capp_postRedisplay(CApp*);
+CApp* capp_flushBuffers(CApp*);
+//  glutSwapBuffers();
+//  glutPostRedisplay();
+
+double capp_currentMilliSecound(CApp*);
 
 //
 // Mouse Event
