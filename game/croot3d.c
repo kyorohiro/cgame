@@ -14,7 +14,7 @@ CRoot3D* newCRoot3D(CMemory* mem) {
   CRoot3D * ret = cmemory_calloc(mem, 1, sizeof(CRoot3D));
   ret->parent.parent.cmemory = mem;
   ret->parent.parent.funcFree = freeCRoot3D;
-  ret->parent.type = CObject3DTypePrimitive;
+  ret->parent.type = CObject3DTypeRoot;
   return ret;
 }
 
