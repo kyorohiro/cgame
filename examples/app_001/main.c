@@ -10,7 +10,7 @@ void _testOnDisplay(CObject* context, CObject* args) {
 }
 
 int main(int argc, char** argv) {
-  printf("test");
+  printf("capp sample");
   CApp* appObj = getCApp();
   CString *context = initCString(newCString(getCMemory()), "dummy");
   capp_addDisplayEventListener(appObj, (CObject*)context, _testOnDisplay);
