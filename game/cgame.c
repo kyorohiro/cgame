@@ -6,6 +6,7 @@
 
 #include "cglutil.h"
 #include "cprimitive3d.h"
+#include "croot3d.h"
 #include "app/capp.h"
 
 //
@@ -27,7 +28,8 @@ CGame* initCGame(CGame* obj) {
   obj->fShaderSrc = cutil_newCStringFromPath(obj->parent.cmemory, "/game/assets/fs.glsl");
   obj->vShaderSrc = cutil_newCStringFromPath(obj->parent.cmemory, "/game/assets/vs.glsl");
   //
-  obj->root = initCObject3D(newCObject3D(obj->parent.cmemory));
+//  obj->root = initCObject3D(newCObject3D(obj->parent.cmemory));
+  obj->root = (CObject3D*)initCRoot3D(newCRoot3D(obj->parent.cmemory));
   //
   obj->funcFraw = NULL;
   obj->fShaderLocation = 0;
