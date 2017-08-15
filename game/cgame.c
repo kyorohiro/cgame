@@ -59,13 +59,10 @@ CGame* getCGame() {
 
 
 void cgame_draw(CObject *context, CObject *args) {
-
-//  printf("cgame_draw()\r\n");
-//void cgame_draw(void) {
   CGame *game = getCGame();
   CObject3D *root = (CObject3D*)cgame_getRoot(game);
-  cobject3d_enterFrame(root, (CObject*)game);
   //
+  cobject3d_enterFrame(root, (CObject*)game);
   CLinkedList *nodes = cobject3d_getNodes(root);
 
   glClear(GL_COLOR_BUFFER_BIT);
@@ -145,4 +142,9 @@ void cgame_init(CObject *context, CObject *args) {
   glLinkProgram(gameObj->program);
   printf("main2\n");
 
+}
+
+
+CAppMouseEvent* cgame_getCurrentMouseEvent(CGame* obj) {
+  return capp_getCurrentMouseEvent(getCApp());
 }

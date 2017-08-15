@@ -5,6 +5,7 @@
 #include "core/cobject.h"
 #include "core/cmemory.h"
 #include "core/cstring.h"
+#include "app/capp.h"
 #include "cobject3d.h"
 
 #define CGAME_NAME "cga"
@@ -29,11 +30,12 @@ typedef struct {
 // unused CGame is singleton
 //
 CGame* newCGame(CMemory* mem);
-//char* title, int width, int height
 CGame* initCGame(CGame*);
 
 //
 CGame* getCGame();
 CGame* cgame_start(CGame*);
+
 CObject3D* cgame_getRoot(CGame*);
+CAppMouseEvent* cgame_getCurrentMouseEvent(CGame*);
 #endif
