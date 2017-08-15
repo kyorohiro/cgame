@@ -33,5 +33,5 @@ CEventDispatcher* newCEventDispatcher(CMemory*);
 CEventDispatcher* initCEventDispatcher(CEventDispatcher* obj);
 CEventObserver* ceventDispatcher_addListener(CEventDispatcher* obj, CObject*context, CEventDispatcherFuncOnEvent);
 CEventDispatcher* ceventDispatcher_removeListener(CEventDispatcher* obj, CEventObserver* target);
-
+CEventDispatcher* ceventDispatcher_dispatch(CEventDispatcher* obj, CObject* event);
 #endif

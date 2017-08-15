@@ -74,5 +74,16 @@ CEventDispatcher* ceventDispatcher_removeListener(CEventDispatcher* obj, CEventO
       return obj;
     }
   }
-  obj;
+  return obj;
+}
+
+CEventDispatcher* ceventDispatcher_dispatch(CEventDispatcher* obj, CObject* event) {
+  CLinkedList* list = obj->observers;
+  int len = clinkedList_getLength(list);
+  CEventObserver *observer;
+  for(int i=0; i< len; i++) {
+    observer = (CEventObserver*)clinkedList_get(list, i);
+    observer->onEvent(observer->context, event);
+  }
+  return obj;
 }
