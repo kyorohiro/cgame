@@ -108,6 +108,10 @@ CApp* capp_addInitEventListener(CApp* obj, CObject* context, CEventFuncOnEvent f
   ceventDispatcher_addListener(obj->init, context, func);
   return obj;
 }
+
+CAppMouseEvent* capp_getCurrentMouseEvent(CApp* obj) {
+  return obj->mouseEvent;
+}
 //
 //
 //

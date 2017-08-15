@@ -66,6 +66,7 @@ CApp* capp_run(CApp*);
 CApp* capp_addMouseEventListener(CApp*, CObject* context, CEventFuncOnEvent func);
 CApp* capp_addDisplayEventListener(CApp*, CObject* context, CEventFuncOnEvent func);
 CApp* capp_addInitEventListener(CApp*, CObject* context, CEventFuncOnEvent func);
+CAppMouseEvent* capp_getCurrentMouseEvent(CApp*);
 
 //
 // Mouse Event
