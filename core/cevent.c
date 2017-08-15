@@ -55,6 +55,7 @@ void _freeCEventDispatcher(void* obj) {
 }
 
 CEventObserver* ceventDispatcher_addListener(CEventDispatcher* obj, CObject*context, CEventFuncOnEvent func) {
+  printf("call add Listener \r\n");
   CMemory* cmemory = cobject_getCMemory((CObject*)obj);
   CEventObserver *observer = initCEventObserver(newCEventObserver(cmemory), context, func);
   cobject_downCounter((CObject*)observer);
@@ -77,10 +78,13 @@ CEventDispatcher* ceventDispatcher_removeListener(CEventDispatcher* obj, CEventO
 }
 
 CEventDispatcher* ceventDispatcher_dispatch(CEventDispatcher* obj, CObject* event) {
+  printf("call dispatch \r\n");
   CLinkedList* list = obj->observers;
   int len = clinkedList_getLength(list);
   CEventObserver *observer;
+  printf("dispatch %d\r\n", len);
   for(int i=0; i< len; i++) {
+    printf("dispatch %d\r\n",i);
     observer = (CEventObserver*)clinkedList_get(list, i);
     observer->onEvent(observer->context, event);
   }

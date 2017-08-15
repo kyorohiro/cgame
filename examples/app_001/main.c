@@ -5,6 +5,6 @@
 int main(int argc, char** argv) {
   printf("test");
   CApp* appObj = getCApp();
-  capp_start(appObj);
+  capp_run(appObj);
   return 0;
 }

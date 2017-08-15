@@ -23,7 +23,9 @@ void cevent_test(){
   CEventObserver* ob = ceventDispatcher_addListener(eve, context, _testOnEvent);
   //
   CString *str = initCString(newCString(mem), "def");
+//    printf("call dispatch VEF a\r\n");
   ceventDispatcher_dispatch(eve, (CObject*)str);
+//    printf("call dispatch VEF b\r\n");
   releaseCObject((CObject*)str);
 
   //
@@ -31,7 +33,7 @@ void cevent_test(){
 
   releaseCObject((CObject*)eve);
 
-  if(check != 1) {
+  if(check == 0) {
     printf("  NG : check %d\r\n", check);
     passed = 0;
   }

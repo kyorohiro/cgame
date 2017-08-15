@@ -2,4 +2,4 @@ rule app
   command=emcc -s FULL_ES2=1  $in -o $out --preload-file game/assets/vs.glsl  --preload-file game/assets/fs.glsl
 
 build examples${sep}game_001/main.o: obj examples${sep}game_001/main.c
-build examples${sep}game_001/main.html: app examples${sep}game_001/main.o core/libcore.bc matrix/libmatrix.bc game/libgame.bc
+build examples${sep}game_001/main.html: app examples${sep}game_001/main.o core/libcore.bc matrix/libmatrix.bc app/libapp.bc game/libgame.bc

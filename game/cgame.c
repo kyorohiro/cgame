@@ -6,9 +6,11 @@
 
 #include "cglutil.h"
 #include "cprimitive3d.h"
+#include "app/capp.h"
 
 //
-void cgame_draw(void);
+void cgame_draw(CObject *context, CObject *args);
+void cgame_init(CObject *context, CObject *args);
 
 CGame* newCGame(CMemory* mem) {
   CGame * ret = cmemory_calloc(mem, 1, sizeof(CGame));
@@ -26,14 +28,20 @@ CGame* initCGame(CGame* obj) {
   obj->vShaderSrc = cutil_newCStringFromPath(obj->parent.cmemory, "/game/assets/vs.glsl");
   //
   obj->root = initCObject3D(newCObject3D(obj->parent.cmemory));
-//  obj->fShaderLocation = cglutil_LoadShader(GL_VERTEX_SHADER, cstring_getBytes(obj->fShaderSrc));
-//  obj->vShaderLocation = cglutil_LoadShader(GL_VERTEX_SHADER, cstring_getBytes(obj->vShaderSrc));
   //
   obj->funcFraw = NULL;
   obj->fShaderLocation = 0;
   obj->vShaderLocation = 0;
   obj->program = 0;
   obj->camera = (CObject3D*)initCCamera3D(newCCamera3D(obj->parent.cmemory));
+
+  //
+  //
+  CApp* appObj = getCApp();
+  CGame* gameObj = obj;
+  capp_addDisplayEventListener(appObj, (CObject*)gameObj, cgame_draw);
+  capp_addInitEventListener(appObj, (CObject*)gameObj, cgame_init);
+
   return obj;
 }
 
@@ -49,19 +57,11 @@ CGame* getCGame() {
   return defaultCGame;
 }
 
-void cgame_special(int key, int x, int y) {
-  printf(">special key:%d, x:%d, y:%d\r\n", key, x, y);
-}
 
-void cgame_keyboard (unsigned char key,int x, int y) {
-  printf(">keyboard key:%c, x:%d, y:%d\r\n", key, x, y);
-}
+void cgame_draw(CObject *context, CObject *args) {
 
-void cgame_mouse (int button, int state,int x, int y) {
-  printf(">mouse button:%c, xstate:%d x:%d, y:%d\r\n", button, state, x, y);
-}
-
-void cgame_draw(void) {
+  printf("cgame_draw()\r\n");
+//void cgame_draw(void) {
   CGame *game = getCGame();
   CObject3D *root = (CObject3D*)cgame_getRoot(game);
   cobject3d_enterFrame(root, (CObject*)game);
@@ -123,42 +123,26 @@ void cgame_draw(void) {
 //releaseCObject((CObject*)mat);
 }
 
-
-
 CGame* cgame_start(CGame* obj) {
-  printf("main\n");
+  printf("## cgame_start\n");
+  CApp* appObj = getCApp();
   CGame* gameObj = getCGame();
 
-  char *argv = "test";
-  glutInit(0, &argv);
-  glutInitWindowSize(gameObj->width, gameObj->height);
-  glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-
-  glutCreateWindow("es2gears");
-  glClearColor(0.9f, 1.0f, 0.9f, 1.0f);
-  glEnable(GL_CULL_FACE);
-  glEnable(GL_DEPTH_TEST);
-  //
-  //
-  obj->fShaderLocation = cglutil_LoadShader(GL_FRAGMENT_SHADER, cstring_getBytes(obj->fShaderSrc));
-  obj->vShaderLocation = cglutil_LoadShader(GL_VERTEX_SHADER, cstring_getBytes(obj->vShaderSrc));
-  obj->program = glCreateProgram();
-  glAttachShader(obj->program, obj->fShaderLocation);
-  glAttachShader(obj->program, obj->vShaderLocation);
-//  glBindAttribLocation(obj->program, 0, "vPosition");
-  glLinkProgram(obj->program);
-//  int vPositionLocation = glGetAttribLocation(obj->program, "vPosition");
-
-  //glutIdleFunc (gears_idle);
-  //glutReshapeFunc(gears_reshape);
-  glutDisplayFunc(cgame_draw);
-  //glutSpecialFunc(cgame_special);
-  //glutKeyboardFunc(cgame_keyboard);
-  //glutMouseFunc(cgame_mouse);
-
-  glUseProgram(obj->program);
-  //
-  //
-  glutMainLoop();
+  capp_run(appObj);
   return obj;
+}
+
+void cgame_init(CObject *context, CObject *args) {
+  printf("## cgame_init\n");
+  CApp* appObj = getCApp();
+  CGame* gameObj = getCGame();
+
+  gameObj->fShaderLocation = cglutil_LoadShader(GL_FRAGMENT_SHADER, cstring_getBytes(gameObj->fShaderSrc));
+  gameObj->vShaderLocation = cglutil_LoadShader(GL_VERTEX_SHADER, cstring_getBytes(gameObj->vShaderSrc));
+  gameObj->program = glCreateProgram();
+  glAttachShader(gameObj->program, gameObj->fShaderLocation);
+  glAttachShader(gameObj->program, gameObj->vShaderLocation);
+  glLinkProgram(gameObj->program);
+  printf("main2\n");
+
 }

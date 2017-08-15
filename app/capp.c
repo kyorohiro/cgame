@@ -11,10 +11,14 @@ CApp* newCApp(CMemory* mem) {
 }
 
 CApp* initCApp(CApp* obj) {
+  CMemory* mem = obj->parent.cmemory;
   initCObject((CObject*)obj, CAPP_NAME);
   snprintf(obj->title, sizeof(obj->title), "%s", "title");
   obj->width = 400;
   obj->height = 300;
+  obj->mouse = initCEventDispatcher(newCEventDispatcher(mem));
+  obj->display = initCEventDispatcher(newCEventDispatcher(mem));
+  obj->init = initCEventDispatcher(newCEventDispatcher(mem));
   return obj;
 }
 
@@ -56,11 +60,14 @@ void capp_mouse (int button, int state,int x, int y) {
 }
 
 void capp_draw(void) {
+  printf("capp_draw\n");
   CApp* appObj = getCApp();
   ceventDispatcher_dispatch(appObj->display, NULL);
+//  glutSwapBuffers();
+//  glutPostRedisplay();
 }
 
-CApp* capp_start(CApp* obj) {
+CApp* capp_run(CApp* obj) {
   printf("main\n");
   CApp* appObj = getCApp();
   char *argv = "test";
@@ -76,6 +83,9 @@ CApp* capp_start(CApp* obj) {
   glutSpecialFunc(capp_special);
   glutKeyboardFunc(capp_keyboard);
   glutMouseFunc(capp_mouse);
+
+  ceventDispatcher_dispatch(appObj->init, (CObject*)obj);
+
   glutMainLoop();
   return obj;
 }
@@ -88,10 +98,16 @@ CApp* capp_addMouseEventListener(CApp* obj, CObject* context, CEventFuncOnEvent 
 }
 
 CApp* capp_addDisplayEventListener(CApp* obj, CObject* context, CEventFuncOnEvent func) {
+  printf("call add Listener capp \r\n");
   ceventDispatcher_addListener(obj->display, context, func);
   return obj;
 }
 
+CApp* capp_addInitEventListener(CApp* obj, CObject* context, CEventFuncOnEvent func) {
+  printf("call add Listener capp \r\n");
+  ceventDispatcher_addListener(obj->init, context, func);
+  return obj;
+}
 //
 //
 //
