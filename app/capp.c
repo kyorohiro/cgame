@@ -62,25 +62,20 @@ void capp_mouse (int button, int state,int x, int y) {
 }
 
 void capp_draw(void) {
-//  printf("capp_draw\n");
   CApp* appObj = getCApp();
   ceventDispatcher_dispatch(appObj->display, NULL);
-//  int debugCount;
-   appObj->debugCount++;
-   if(appObj->debugTime == 0){
-     appObj->debugTime = capp_currentMilliSecound(appObj);
-   }
-   if(appObj->debugCount > 100) {
-     appObj->debugCount = 0;
-     double t = capp_currentMilliSecound(appObj);
-     double v = t - appObj->debugTime;
-     double x = v/1000.0;
-     printf("#>> %lf : %lf\r\n", x, 100/x);
-     appObj->debugTime = t;
-   }
-
-//  glutSwapBuffers();
-//  glutPostRedisplay();
+  appObj->debugCount++;
+  if(appObj->debugTime == 0){
+   appObj->debugTime = capp_currentMilliSecound(appObj);
+  }
+  if(appObj->debugCount > 100) {
+   appObj->debugCount = 0;
+   double t = capp_currentMilliSecound(appObj);
+   double v = t - appObj->debugTime;
+   double x = v/1000.0;
+   printf("#>> %lf : %lf\r\n", x, 100/x);
+   appObj->debugTime = t;
+  }
 }
 
 CApp* capp_run(CApp* obj) {
