@@ -51,6 +51,7 @@ typedef struct {
   int height;
   CAppMouseEvent *mouseEvent;
   CEventDispatcher *mouse;
+  CEventDispatcher *display;
 } CApp;
 
 //
@@ -60,7 +61,9 @@ CApp* newCApp(CMemory* mem);
 CApp* initCApp(CApp*);
 CApp* getCApp();
 CApp* capp_start(CApp*);
+
 CApp* capp_addMouseEventListener(CApp*, CObject* context, CEventFuncOnEvent func);
+CApp* capp_addDisplayEventListener(CApp*, CObject* context, CEventFuncOnEvent func);
 
 //
 // Mouse Event

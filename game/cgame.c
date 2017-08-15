@@ -152,9 +152,9 @@ CGame* cgame_start(CGame* obj) {
   //glutIdleFunc (gears_idle);
   //glutReshapeFunc(gears_reshape);
   glutDisplayFunc(cgame_draw);
-  glutSpecialFunc(cgame_special);
-  glutKeyboardFunc(cgame_keyboard);
-  glutMouseFunc(cgame_mouse);
+  //glutSpecialFunc(cgame_special);
+  //glutKeyboardFunc(cgame_keyboard);
+  //glutMouseFunc(cgame_mouse);
 
   glUseProgram(obj->program);
   //

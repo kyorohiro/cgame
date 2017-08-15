@@ -56,7 +56,8 @@ void capp_mouse (int button, int state,int x, int y) {
 }
 
 void capp_draw(void) {
-  //CGame *game = getCGame();
+  CApp* appObj = getCApp();
+  ceventDispatcher_dispatch(appObj->display, NULL);
 }
 
 CApp* capp_start(CApp* obj) {
@@ -86,6 +87,10 @@ CApp* capp_addMouseEventListener(CApp* obj, CObject* context, CEventFuncOnEvent 
   return obj;
 }
 
+CApp* capp_addDisplayEventListener(CApp* obj, CObject* context, CEventFuncOnEvent func) {
+  ceventDispatcher_addListener(obj->display, context, func);
+  return obj;
+}
 
 //
 //
