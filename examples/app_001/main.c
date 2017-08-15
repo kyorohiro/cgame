@@ -3,7 +3,6 @@
 #include "core/cstring.h"
 #include "core/cmemory.h"
 
-
 void _testOnDisplay(CObject* context, CObject* args) {
   CApp* appObj = getCApp();
   capp_postRedisplay(appObj);
@@ -16,6 +15,5 @@ int main(int argc, char** argv) {
   CString *context = initCString(newCString(getCMemory()), "dummy");
   capp_addDisplayEventListener(appObj, (CObject*)context, _testOnDisplay);
   capp_run(appObj);
-
   return 0;
 }
