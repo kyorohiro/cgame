@@ -60,7 +60,7 @@ void capp_mouse (int button, int state,int x, int y) {
 }
 
 void capp_draw(void) {
-  printf("capp_draw\n");
+//  printf("capp_draw\n");
   CApp* appObj = getCApp();
   ceventDispatcher_dispatch(appObj->display, NULL);
 //  glutSwapBuffers();

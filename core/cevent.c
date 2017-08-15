@@ -78,13 +78,13 @@ CEventDispatcher* ceventDispatcher_removeListener(CEventDispatcher* obj, CEventO
 }
 
 CEventDispatcher* ceventDispatcher_dispatch(CEventDispatcher* obj, CObject* event) {
-  printf("call dispatch \r\n");
+  //printf("call dispatch \r\n");
   CLinkedList* list = obj->observers;
   int len = clinkedList_getLength(list);
   CEventObserver *observer;
-  printf("dispatch %d\r\n", len);
+  //printf("dispatch %d\r\n", len);
   for(int i=0; i< len; i++) {
-    printf("dispatch %d\r\n",i);
+    //printf("dispatch %d\r\n",i);
     observer = (CEventObserver*)clinkedList_get(list, i);
     observer->onEvent(observer->context, event);
   }

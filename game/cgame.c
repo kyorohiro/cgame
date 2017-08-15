@@ -60,7 +60,7 @@ CGame* getCGame() {
 
 void cgame_draw(CObject *context, CObject *args) {
 
-  printf("cgame_draw()\r\n");
+//  printf("cgame_draw()\r\n");
 //void cgame_draw(void) {
   CGame *game = getCGame();
   CObject3D *root = (CObject3D*)cgame_getRoot(game);
