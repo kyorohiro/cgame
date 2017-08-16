@@ -87,3 +87,53 @@ void cmatrix4_test_multiply() {
   }
   printf("\r\n\r\n");
 }
+
+void cmatrix4_test_inverse() {
+  printf("# cmatrix4_test_inverse\n");
+  int passed = 1;
+  CMemory *mem = initCMemory(newCMemory());
+  CMatrix4 *mat1 = cmatrix4_setValues(initCMatrix4(newCMatrix4(mem)),
+     1, 2, 3, 4,
+     2, 4, 5, 3,
+     3, 5, 4, 2,
+     4, 3, 2, 1);
+  cmatrix4_inverse(mat1, mat1);
+
+  if(
+    (int)(cmatrix4_getValue(mat1,0,0)*1000) != -25 ||
+    (int)(cmatrix4_getValue(mat1,0,1)*1000) != 125 ||
+    (int)(cmatrix4_getValue(mat1,0,2)*1000) != -375 ||
+    (int)(cmatrix4_getValue(mat1,0,3)*1000) != 474 ||
+
+    (int)(cmatrix4_getValue(mat1,1,0)*1000) != 125 ||
+    (int)(cmatrix4_getValue(mat1,1,1)*1000) != -625 ||
+    (int)(cmatrix4_getValue(mat1,1,2)*1000) != 875 ||
+    (int)(cmatrix4_getValue(mat1,1,3)*1000) != -375 ||
+
+    (int)(cmatrix4_getValue(mat1,2,0)*1000) != -375 ||
+    (int)(cmatrix4_getValue(mat1,2,1)*1000) != 875 ||
+    (int)(cmatrix4_getValue(mat1,2,2)*1000) != -625 ||
+    (int)(cmatrix4_getValue(mat1,2,3)*1000) != 125 ||
+
+    (int)(cmatrix4_getValue(mat1,3,0)*1000) != 474 ||
+    (int)(cmatrix4_getValue(mat1,3,1)*1000) != -375 ||
+    (int)(cmatrix4_getValue(mat1,3,2)*1000) != 125 ||
+    (int)(cmatrix4_getValue(mat1,3,3)*1000) != -25
+) {
+  printf("# NG %d:\n", (int)(cmatrix4_getValue(mat1,0,3)*1000) );
+  cmatrix4_show(mat1);
+  passed = 0;
+  }
+
+  releaseCObject((CObject*)mat1);
+  if(mem->callocCounter != mem->freeCounter) {
+    printf("  NG : %d == %d\r\n", mem->callocCounter, mem->freeCounter);
+    passed = 0;
+  }
+
+  freeCMemory(mem);
+  if(passed) {
+    printf("  OK : \r\n");
+  }
+  printf("\r\n\r\n");
+}

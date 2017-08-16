@@ -11,6 +11,7 @@ extern void cvector3_test_dotProduct();
 extern void cmatrix4_test_ortho();
 extern void cmatrix4_test_perspective();
 extern void cmatrix4_test_lookAt();
+extern void cmatrix4_test_inverse();
 
 int test01();
 int main(int argv, char** argc) {
@@ -24,5 +25,6 @@ int main(int argv, char** argc) {
   cmatrix4_test_ortho();
   cmatrix4_test_perspective();
   cmatrix4_test_lookAt();
+  cmatrix4_test_inverse();
   return 0;
 }
