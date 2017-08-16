@@ -40,8 +40,8 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
   double x = (event->x-(app->width/2.0))/(app->width/2.0);
   double y = -1*(event->y-(app->height/2.0))/(app->height/2.0);
 
-  CVector4* out = cgame_getLocalPointFromGlobal(gameObj, x, y, -2.0, mat, NULL);
-
+  CVector4* out = cgame_getLocalPointFromGlobal(gameObj, 0.0, 3.0, 0.5, mat, NULL);
+  CVector4* out2 = cgame_getLocalPointFromGlobal(gameObj, 0.0, 3.0,100.3, mat, NULL);
   cprimitive3d_setColor((CPrimitive3D*)obj, 1.0,0.0,0.0,1.0);
   if(-0.5<out->value[0] && out->value[0]< 0.5) {
     if(-0.5<out->value[1] && out->value[1]< 0.5) {
@@ -49,7 +49,8 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
     }
   }
   if(event->state == 1) {
-    printf(">>%f %f :: %f %f %f %f\r\n",x, y, out->value[0],out->value[1],out->value[2],out->value[3]);
+    printf(">A>%f %f :: %f %f %f %f\r\n",x, y, out->value[0],out->value[1],out->value[2],out->value[3]);
+    printf(">B>%f %f :: %f %f %f %f\r\n",x, y, out2->value[0],out2->value[1],out2->value[2],out2->value[3]);
   }
 
   //
