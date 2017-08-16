@@ -39,23 +39,26 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
 
   CApp *app = getCApp();
 
+  double mouseX = event->x;//400;
+  double mouseY = event->y;//300;
   CCamera3D* camera = cgame_getCamera(gameObj);
   CVector4* vec1 = cglmatrix4_unProject(
-    event->x, 300-event->y, 0.5,
-    //camera->view,
-    NULL,
+    mouseX, 300-mouseY, 1.0,
+    camera->view,
     camera->projection,
     0.0, 0.0, 400.0, 300.0);
 
   CVector4* vec2 = cglmatrix4_unProject(
-    event->x, 300-event->y, -2.0,
+    mouseX, 300-mouseY, 100.0,
     camera->view, camera->projection,
     0.0, 0.0, 400.0, 1000.0);
   cprimitive3d_setColor((CPrimitive3D*)obj, 1.0,0.0,0.0,1.0);
 
   if(event->state == 1) {
-    printf(">A>%f %f : %f %f %f %f\r\n",event->x,event->y,vec1->value[0],vec1->value[1],vec1->value[2],vec1->value[3]);
+    printf(">Aa>%f %f : %f %f %f %f\r\n",event->x,event->y,vec1->value[0],vec1->value[1],vec1->value[2],vec1->value[3]);
+//    printf(">Ab>%f %f : %f %f %f %f\r\n",event->x,event->y,vec1m->value[0],vec1m->value[1],vec1m->value[2],vec1m->value[3]);
     printf(">B>%f %f : %f %f %f %f\r\n",event->x,event->y,vec2->value[0],vec2->value[1],vec2->value[2],vec2->value[3]);
+//    printf(">B>%f %f : %f %f %f %f\r\n",event->x,event->y,vec2m->value[0],vec2m->value[1],vec2m->value[2],vec2m->value[3]);
 
   }
   releaseCObject((CObject*)vec1);
