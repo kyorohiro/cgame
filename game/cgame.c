@@ -51,6 +51,10 @@ CObject3D* cgame_getRoot(CGame* obj) {
   return obj->root;
 }
 
+CCamera3D* cgame_getCamera(CGame* obj) {
+  return (CCamera3D*)obj->camera;
+}
+
 CGame* defaultCGame = NULL;
 CGame* getCGame() {
   if(defaultCGame == NULL) {

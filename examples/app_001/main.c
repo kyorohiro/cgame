@@ -6,7 +6,7 @@
 void _testOnDisplay(CObject* context, CObject* args) {
   CApp* appObj = getCApp();
   capp_postRedisplay(appObj);
-  capp_flushBuffers(appObj);
+  //capp_flushBuffers(appObj);
 }
 
 int main(int argc, char** argv) {

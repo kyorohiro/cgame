@@ -26,14 +26,11 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
   cmatrix4_multiply(mat, &rotYMat, mat);
   cmatrix4_multiply(mat, &rotZMat, mat);
 
-  ccamera3d_update((CCamera3D*)gameObj->camera,
-    0.0, 3.0, 5.3,
-    3.14*-45/180.0, 0.0, 0.0,
-    3.14*90.0/180.0, 1.0, 0.5, 1000.0);
+
 
   //
   cgame_getCurrentMouseEvent(gameObj);
-  
+
 }
 
 int main(int argc, char** argv) {
@@ -47,6 +44,10 @@ int main(int argc, char** argv) {
   cube1->onEnterFrameFunc =_onEnterFrame;
   cobject3d_addNode(root, cube1);
   cobject3d_addNode(root, cube2);
+  ccamera3d_update(cgame_getCamera(gameObj),
+    0.0, 3.0, 5.3,
+    3.14*-45/180.0, 0.0, 0.0,
+    3.14*90.0/180.0, 1.0, 0.5, 1000.0);
   cgame_start(gameObj);
   return 0;
 }

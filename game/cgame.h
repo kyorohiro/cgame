@@ -7,6 +7,7 @@
 #include "core/cstring.h"
 #include "app/capp.h"
 #include "cobject3d.h"
+#include "ccamera3d.h"
 
 #define CGAME_NAME "cga"
 
@@ -37,5 +38,6 @@ CGame* getCGame();
 CGame* cgame_start(CGame*);
 
 CObject3D* cgame_getRoot(CGame*);
+CCamera3D* cgame_getCamera(CGame*);
 CAppMouseEvent* cgame_getCurrentMouseEvent(CGame*);
 #endif
