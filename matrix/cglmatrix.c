@@ -271,7 +271,8 @@ CVector4* cglmatrix4_unProject(
   CMatrix4* model, CMatrix4 * projection,
   double vx, double vy, double vw, double vh) {
     CMatrix4 *transform = cmatrix4_multiply(projection, model, NULL);
-    cmatrix4_inverse(transform, transform);
+    double out;
+    cmatrix4_inverse(transform, transform, &out);
     CVector4 *inVector = initCVector4(newCVector4(getCMemory()),
       (wx - vx) / vw * 2.0 - 1.0,
       (wy - vy) / vh * 2.0 - 1.0,

@@ -92,12 +92,13 @@ void cmatrix4_test_inverse() {
   printf("# cmatrix4_test_inverse\n");
   int passed = 1;
   CMemory *mem = initCMemory(newCMemory());
+  double out;
   CMatrix4 *mat1 = cmatrix4_setValues(initCMatrix4(newCMatrix4(mem)),
      1, 2, 3, 4,
      2, 4, 5, 3,
      3, 5, 4, 2,
      4, 3, 2, 1);
-  cmatrix4_inverse(mat1, mat1);
+  cmatrix4_inverse(mat1, mat1, &out);
 
   if(
     (int)(cmatrix4_getValue(mat1,0,0)*1000) != -25 ||

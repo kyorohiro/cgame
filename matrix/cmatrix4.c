@@ -182,7 +182,8 @@ CMatrixValue cmatrix4_determinant(CMatrix4* obj) {
 
 //
 //http://mathworld.wolfram.com/MatrixInverse.html
-CMatrixValue cmatrix4_inverse(CMatrix4* obj, CMatrix4* out) {
+CMatrixValue cmatrix4_inverse(CMatrix4* obj, CMatrix4* outInverse, double *outDeterminant) {
+//CMatrixValue cmatrix4_inverse(CMatrix4* obj, CMatrix4* out) {
   CMatrixValue *raw = obj->value;
   double a00 = raw[0];
   double a01 = raw[1];
@@ -213,11 +214,14 @@ CMatrixValue cmatrix4_inverse(CMatrix4* obj, CMatrix4* out) {
   double b10 = a21 * a33 - a23 * a31;
   double b11 = a22 * a33 - a23 * a32;
   double det = (b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06);
+  if(outDeterminant != NULL) {
+    *outDeterminant = det;
+  }
   if(det == 0.0) {
     // todo throw exception
     return det;
   }
- CMatrixValue *outRaw = out->value;
+ CMatrixValue *outRaw = outInverse->value;
  outRaw[0] = (a11 * b11 - a12 * b10 + a13 * b09)  / det;
  outRaw[1] = (-a01 * b11 + a02 * b10 - a03 * b09) / det;
  outRaw[2] = (a31 * b05 - a32 * b04 + a33 * b03) / det;
