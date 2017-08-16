@@ -3,13 +3,15 @@
 #include "game/cobject3d.h"
 #include "game/cprimitive3d.h"
 #include "game/ccamera3d.h"
+#include "matrix/cvector4.h"
+#include "app/capp.h"
 int i =0;
 
-
+int j=0;
 void _onEnterFrame(CObject*  obj, CObject* cgame) {
   CGame* gameObj = (CGame*)cgame;
   i = (i+2)%360;
-
+  j++;
   CMatrix4 rotYMat;
   CMatrix4 rotZMat;
   CMatrix4 rotXMat;
@@ -27,7 +29,19 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
   cmatrix4_multiply(mat, &rotZMat, mat);
 
   //
-  cgame_getCurrentMouseEvent(gameObj);
+  CAppMouseEvent *event = cgame_getCurrentMouseEvent(gameObj);
+  //printf(">> %f %f \r\n", event->x, event->y);
+
+/*
+  CVector4* out = cgame_getLocalPointFromGlobal(gameObj, 0.0, 0.0, mat, NULL);
+  printf(">> %f %f %f\r\n", out->value[0],out->value[1],out->value[2]);
+  */
+
+  //
+  // post redisplay
+  if(j < 200) {
+    cgame_postRedisplay(gameObj);
+  }
 
 }
 

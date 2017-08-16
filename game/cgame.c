@@ -122,7 +122,7 @@ void cgame_draw(CObject *context, CObject *args) {
   glDeleteBuffers(1, &indexBuffer);
 
   glutSwapBuffers();
-  glutPostRedisplay();
+  //glutPostRedisplay();
 //releaseCObject((CObject*)mat);
 }
 
@@ -153,4 +153,37 @@ void cgame_init(CObject *context, CObject *args) {
 
 CAppMouseEvent* cgame_getCurrentMouseEvent(CGame* obj) {
   return capp_getCurrentMouseEvent(getCApp());
+}
+
+CGame* cgame_postRedisplay(CGame* obj) {
+  capp_postRedisplay(getCApp());
+  return obj;
+}
+
+CVector4* cgame_getLocalPointFromGlobal(CGame* obj, double x, double y, CMatrix4* in, CVector4* out) {
+//CVector4* cgame_getLocalPointFromGlobal(CGame* obj, double x, double y, CVector4* out) {
+  CMemory *mem = cobject_getCMemory((CObject*)obj);
+  CRoot3D *root = (CRoot3D*)cgame_getRoot(obj);
+  CObject3D *camera = (CObject3D*)cgame_getCamera(obj);
+  CMatrix4 *model = croot3d_peekMulMatrix(root);
+  CMatrix4 *mat = cmatrix4_multiply(camera->mat, model, NULL);
+  if(in != NULL) {
+    mat = cmatrix4_multiply(camera->mat, in, NULL);
+  }
+  cmatrix4_inverse(mat, mat);
+
+  //
+  //
+  if(out == NULL) {
+    out = initCVector4(newCVector4(mem), x, y, 0.0, 1.0);
+  } else {
+    out->value[0] = x;
+    out->value[1] = y;
+    out->value[2] = 0.0;
+    out->value[3] = 1.0;
+  }
+
+  cmatrix4_multiplyCVector4(mat, out, out);
+  releaseCObject((CObject*)mat);
+  return out;
 }

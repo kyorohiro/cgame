@@ -1,4 +1,5 @@
 #include "cobject3d.h"
+#include "croot3d.h"
 #include <stdio.h>
 
 
@@ -52,16 +53,17 @@ CLinkedList* cobject3d_getNodes(CObject3D* obj) {
 }
 
 void cobject3d_enterFrame(CObject3D* obj, CObject3D* root, CObject* cgame) {
-  //  printf("cobject3d_enterFrame\r\n");
   if(obj->onEnterFrameFunc != NULL) {
     obj->onEnterFrameFunc((CObject*)obj, cgame);
   }
+  croot3d_pushMulMatrix((CRoot3D*)root, obj->mat);
   if(obj->isLeaf == 1) {
     return;
   }
   for(int i=0;i<clinkedList_getLength(obj->nodes);i++) {
     cobject3d_enterFrame((CObject3D *)clinkedList_get(obj->nodes, i), root, cgame);
   }
+  croot3d_popMulMatrix((CRoot3D*)root);
 }
 
 

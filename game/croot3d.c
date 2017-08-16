@@ -44,3 +44,7 @@ CMatrix4* croot3d_popMulMatrix(CRoot3D* obj) {
   obj->index--;
   return mat1;
 }
+
+CMatrix4* croot3d_peekMulMatrix(CRoot3D* obj) {
+  return (CMatrix4*)carrayList_get(obj->matrixList, obj->index);
+}
