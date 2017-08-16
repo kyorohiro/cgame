@@ -171,7 +171,7 @@ CVector4* cgame_getLocalPointFromGlobal(CGame* obj, double x, double y, double z
   if(in != NULL) {
     cmatrix4_multiply(mat, in, mat);
   }
-  cmatrix4_inverse(camera->parent.mat, mat, NULL);
+  cmatrix4_inverse(mat, mat, NULL);
 
 
   //
