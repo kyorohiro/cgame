@@ -18,7 +18,7 @@ typedef struct {
 } CRoot3D;
 
 CRoot3D* newCRoot3D(CMemory* mem);
-CRoot3D* initCRoot3D(CRoot3D*);
+CRoot3D* initCRoot3D(CRoot3D* obj, int depth);
 CRoot3D* croot3d_pushMulMatrix(CRoot3D* obj, CMatrix4 *mat);
 
 #endif

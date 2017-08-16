@@ -29,7 +29,7 @@ CGame* initCGame(CGame* obj) {
   obj->vShaderSrc = cutil_newCStringFromPath(obj->parent.cmemory, "/game/assets/vs.glsl");
   //
 //  obj->root = initCObject3D(newCObject3D(obj->parent.cmemory));
-  obj->root = (CObject3D*)initCRoot3D(newCRoot3D(obj->parent.cmemory));
+  obj->root = (CObject3D*)initCRoot3D(newCRoot3D(obj->parent.cmemory), 100);
   //
   obj->funcFraw = NULL;
   obj->fShaderLocation = 0;

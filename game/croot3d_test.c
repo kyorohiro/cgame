@@ -10,7 +10,7 @@ void croot3d_test(){
   printf("croot3d_test\r\n");
   int passed = 1;
   CMemory *mem = initCMemory(newCMemory());
-  CRoot3D *bye = initCRoot3D(newCRoot3D(mem));
+  CRoot3D *bye = initCRoot3D(newCRoot3D(mem), 10);
 
   releaseCObject((CObject*)bye);
   if(mem->callocCounter != mem->freeCounter) {

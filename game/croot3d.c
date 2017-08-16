@@ -7,6 +7,7 @@
 //
 void freeCRoot3D(void* obj) {
   CRoot3D *objTmp = obj;
+  releaseCObject((CObject*)objTmp->matrixList);
   freeCObject3D(obj);
 }
 
@@ -15,11 +16,13 @@ CRoot3D* newCRoot3D(CMemory* mem) {
   ret->parent.parent.cmemory = mem;
   ret->parent.parent.funcFree = freeCRoot3D;
   ret->parent.type = CObject3DTypeRoot;
+  ret->parent.parent.funcFree = freeCRoot3D;
   return ret;
 }
 
-CRoot3D* initCRoot3D(CRoot3D* obj) {
+CRoot3D* initCRoot3D(CRoot3D* obj, int depth) {
   initCObject3D((CObject3D*)obj);
+  obj->matrixList = initCArrayList(newCArrayList(cobject_getCMemory((CObject*)obj)), depth+1);
   return obj;
 }
 
