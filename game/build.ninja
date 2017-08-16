@@ -1,5 +1,6 @@
 
-
+#
+# LIB
 build game/cobject3d.${objExt}: obj game/cobject3d.c
 build game/cgame.${objExt}: obj game/cgame.c
 build game/cglutil.${objExt}: obj game/cglutil.c
@@ -10,6 +11,10 @@ build game/croot3d.${objExt}: obj game/croot3d.c
 
 build game/libgame.${objExt}: lib game/cgame.${objExt} game/cobject3d.${objExt} game/cglutil.${objExt} game/cprimitive3d.${objExt} game/ccamera3d.${objExt} game/clight3d.${objExt} game/croot3d.${objExt}
 
+#
+# TEST
 build game/test.${objExt}: obj game/test.c
 build game/cobject3d_test.${objExt}: obj game/cobject3d_test.c
-build game/test.${appExt}: test core/libcore.${objExt} matrix/libmatrix.${objExt} game/libgame.${objExt} game/test.${objExt} game/cobject3d_test.${objExt}
+build game/croot3d_test.${objExt}: obj game/croot3d_test.c
+
+build game/test.${appExt}: test core/libcore.${objExt} matrix/libmatrix.${objExt} game/libgame.${objExt} game/test.${objExt} game/cobject3d_test.${objExt} game/croot3d_test.${objExt}

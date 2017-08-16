@@ -26,8 +26,6 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
   cmatrix4_multiply(mat, &rotYMat, mat);
   cmatrix4_multiply(mat, &rotZMat, mat);
 
-
-
   //
   cgame_getCurrentMouseEvent(gameObj);
 
