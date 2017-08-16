@@ -42,18 +42,22 @@ void capp_keyboard (unsigned char key,int x, int y) {
 
 void capp_mouse (int button, int state,int x, int y) {
   printf(">mouse button:%c, xstate:%d x:%d, y:%d\r\n", button, state, x, y);
+  int stateTmp = 0;
+  if(state == 0) {
+    stateTmp = 1;
+  }
   CApp* appObj = getCApp();
   if(appObj->mouseEvent == NULL) {
     appObj->mouseEvent = newCAppMouseEvent(appObj->parent.cmemory);
-    initCAppMouseEvent(appObj->mouseEvent, state, x, y);
+    initCAppMouseEvent(appObj->mouseEvent, stateTmp, x, y);
   }
   else if(appObj->parent.reference > 1) {
     releaseCObject((CObject *)appObj);
     appObj->mouseEvent = newCAppMouseEvent(appObj->parent.cmemory);
-    initCAppMouseEvent(appObj->mouseEvent, state, x, y);
+    initCAppMouseEvent(appObj->mouseEvent, stateTmp, x, y);
   }
   else {
-    appObj->mouseEvent->state = state;
+    appObj->mouseEvent->state = stateTmp;
     appObj->mouseEvent->x = x;
     appObj->mouseEvent->y = y;
   }

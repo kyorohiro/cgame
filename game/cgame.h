@@ -40,6 +40,6 @@ CGame* cgame_start(CGame*);
 CObject3D* cgame_getRoot(CGame*);
 CCamera3D* cgame_getCamera(CGame*);
 CAppMouseEvent* cgame_getCurrentMouseEvent(CGame*);
-CVector4* cgame_getLocalPointFromGlobal(CGame*, double x, double y, CMatrix4* opt, CVector4* out);
+CVector4* cgame_getLocalPointFromGlobal(CGame*, double x, double y, double z, CMatrix4* opt, CVector4* out);
 CGame* cgame_postRedisplay(CGame*);
 #endif

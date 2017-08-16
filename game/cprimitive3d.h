@@ -22,8 +22,13 @@ typedef struct {
   double ry;
   double rz;
   int status;
+  double ca;
+  double cr;
+  double cg;
+  double cb;
   CBytes *vertexes;
   CBytes *indexes;
+  int vetexUnitSize;
 } CPrimitive3D;
 
 CPrimitive3D* newCPrimitive3D(CMemory* mem);
@@ -33,6 +38,9 @@ CPrimitive3D* initCPrimitive3DAsTriangle(CPrimitive3D* obj);
 void freeCPrimitive3D(void* obj);
 CPrimitive3D* cprimitive3d_setRotate(CPrimitive3D*, double rx, double ry, double rz);
 CPrimitive3D* cprimitive3d_setPosition(CPrimitive3D*, double x, double y, double z);
+CPrimitive3D* cprimitive3d_setRotate(CPrimitive3D*, double rx, double ry, double rz);
+CPrimitive3D* cprimitive3d_setColor(CPrimitive3D*, double a, double r, double g, double b);
+
 char* cprimitive3d_getVertexBinary(CPrimitive3D*);
 int cprimitive3d_getVertexBinaryLength(CPrimitive3D*);
 char* cprimitive3d_getIndexBinary(CPrimitive3D*);

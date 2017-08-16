@@ -23,6 +23,8 @@ CPrimitive3D* newCPrimitive3D(CMemory* mem) {
 
 CPrimitive3D* initCPrimitive3D(CPrimitive3D* obj) {
   initCObject3D((CObject3D*)obj);
+  obj->ca =obj->cb = obj->cg = obj->cr = 1.0;
+  obj->vetexUnitSize = 13;
   return obj;
 }
 
@@ -154,19 +156,35 @@ CPrimitive3D* cprimitive3d_setPosition(CPrimitive3D* obj , double x, double y, d
   return obj;
 }
 
+CPrimitive3D* cprimitive3d_setColor(CPrimitive3D* obj, double a, double r, double g, double b) {
+  obj->ca = a;
+  obj->cr = r;
+  obj->cg = g;
+  obj->cb = b;
+  obj->status = 1;
+  return obj;
+}
 
 char* cprimitive3d_getVertexBinary(CPrimitive3D* obj) {
   if(obj->vertexes == NULL) {
     return NULL;
   }
-  if(obj->status == 1) {
+
+  if(obj->status == 1)
+  {
     //obj
-    int length = cprimitive3d_getVertexBinaryLength(obj)/10;
+    int length = cprimitive3d_getVertexBinaryLength(obj)/obj->vetexUnitSize;
     float *vVertices = (float*)obj->vertexes->value;
     for(int i=0;i<length;i++) {
-      vVertices[i*10+7] = obj->rx;
-      vVertices[i*10+8] = obj->ry;
-      vVertices[i*10+9] = obj->rz;
+
+      vVertices[i*obj->vetexUnitSize+7] = obj->rx;
+      vVertices[i*obj->vetexUnitSize+8] = obj->ry;
+      vVertices[i*obj->vetexUnitSize+9] = obj->rz;
+      //
+      vVertices[i*obj->vetexUnitSize+3] = obj->cr;
+      vVertices[i*obj->vetexUnitSize+4] = obj->cg;
+      vVertices[i*obj->vetexUnitSize+5] = obj->cb;
+      vVertices[i*obj->vetexUnitSize+6] = obj->ca;
     }
   }
   return obj->vertexes->value;
