@@ -90,6 +90,7 @@ CApp* capp_run(CApp* obj) {
   glutInitWindowSize(appObj->width, appObj->height);
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
   glutCreateWindow("es2gears");
+  glViewport(0, 0, appObj->width, appObj->height);
   glClearColor(0.9f, 1.0f, 0.9f, 1.0f);
   glEnable(GL_CULL_FACE);
   glEnable(GL_DEPTH_TEST);

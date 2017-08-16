@@ -28,4 +28,8 @@ CMatrix4* cmatrix4_setRotationZ(CMatrix4* obj, double radians);
 CMatrix4* cmatrix4_setTranslation(CMatrix4* obj, double x, double y, double z);
 CMatrix4* cmatrix4_setScale(CMatrix4* obj, double x, double y, double z);
 
+CVector4* cglmatrix4_unProject(
+  double wx, double wy, double wz,
+  CMatrix4* model, CMatrix4 * projection,
+  double vx, double vy, double vw, double vh);
 #endif

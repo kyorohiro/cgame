@@ -265,3 +265,26 @@ CMatrix4* cmatrix4_setLookAt(CMatrix4* obj,
     0.0       , 0.0       , 0.0       , 1.0);
   return obj;
 }
+
+CVector4* cglmatrix4_unProject(
+  double wx, double wy, double wz,
+  CMatrix4* model, CMatrix4 * projection,
+  double vx, double vy, double vw, double vh) {
+    CMatrix4 *transform = cmatrix4_multiply(projection, model, NULL);
+    cmatrix4_inverse(transform, transform);
+    CVector4 *inVector = initCVector4(newCVector4(getCMemory()),
+      (wx - vx) / vw * 2.0 - 1.0,
+      (wy - vy) / vh * 2.0 - 1.0,
+      2.0 * wz - 1.0,
+      1.0);
+    cmatrix4_multiplyCVector4(transform, inVector, inVector);
+    double v0 = inVector->value[0];
+    double v1 = inVector->value[1];
+    double v2 = inVector->value[2];
+    double v3 = inVector->value[3];
+    inVector->value[0] = v0 * v3;
+    inVector->value[1] = v1 * v3;
+    inVector->value[2] = v2 * v3;
+    inVector->value[3] = 1.0;
+    return inVector;
+  }
