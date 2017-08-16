@@ -51,7 +51,7 @@ CLinkedList* cobject3d_getNodes(CObject3D* obj) {
   return obj->nodes;
 }
 
-void cobject3d_enterFrame(CObject3D* obj, CObject* cgame) {
+void cobject3d_enterFrame(CObject3D* obj, CObject3D* root, CObject* cgame) {
   //  printf("cobject3d_enterFrame\r\n");
   if(obj->onEnterFrameFunc != NULL) {
     obj->onEnterFrameFunc((CObject*)obj, cgame);
@@ -60,7 +60,7 @@ void cobject3d_enterFrame(CObject3D* obj, CObject* cgame) {
     return;
   }
   for(int i=0;i<clinkedList_getLength(obj->nodes);i++) {
-    cobject3d_enterFrame((CObject3D *)clinkedList_get(obj->nodes, i) , cgame);
+    cobject3d_enterFrame((CObject3D *)clinkedList_get(obj->nodes, i), root, cgame);
   }
 }
 

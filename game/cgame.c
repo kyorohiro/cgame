@@ -68,7 +68,7 @@ void cgame_draw(CObject *context, CObject *args) {
   CGame *game = getCGame();
   CObject3D *root = (CObject3D*)cgame_getRoot(game);
   //
-  cobject3d_enterFrame(root, (CObject*)game);
+  cobject3d_enterFrame(root, root, args);
   CLinkedList *nodes = cobject3d_getNodes(root);
 
   glClear(GL_COLOR_BUFFER_BIT);
