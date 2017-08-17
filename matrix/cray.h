@@ -4,7 +4,7 @@
 
 #include "core/cobject.h"
 #include "core/cmemory.h"
-#include "cvector4.h"
+#include "cvector3.h"
 #include "cmatrix_inner.h"
 
 
@@ -13,13 +13,13 @@
 
 typedef struct {
   CObject parent;
-  CVector4* origin;
-  CVector4* target;
+  CVector3* origin;
+  CVector3* direction;
 } CRay;
 
 CRay* newCRay(CMemory*);
 CRay* initCRay(CRay*, CMatrixValue originX, CMatrixValue originY, CMatrixValue originZ,
-CMatrixValue targetX, CMatrixValue targetY, CMatrixValue targetZ);
-
+CMatrixValue directionX, CMatrixValue directionY, CMatrixValue directionZ);
+CMatrixValue cray_intersectsWithTriangle(CRay* obj, CVector3 *p0, CVector3 *p1, CVector3 *p2);
 
 #endif
