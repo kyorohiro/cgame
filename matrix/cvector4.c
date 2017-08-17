@@ -46,6 +46,14 @@ CMatrixValueType cvector4raw_length(CVector4RawRef obj) {
   return sqrt(v);
 }
 
+CMatrixValueType cvector4raw_distance(CVector4RawRef obj, CVector4RawRef v) {
+  CMatrixValueType x = v[0]- obj[0];
+  CMatrixValueType y = v[1]- obj[1];
+  CMatrixValueType z = v[2]- obj[2];
+  CMatrixValueType w = v[3]- obj[3];
+  return sqrt(x*x + y*y + z*z + w*w);
+}
+
 CMatrixValueType cvector4raw_dotProduct(CVector4RawRef obj, CVector4RawRef arg) {
   CMatrixValueType sum;
   sum  = obj[0] * arg[0];

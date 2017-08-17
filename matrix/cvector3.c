@@ -138,7 +138,10 @@ CVector3RawRef cvector3raw_divScalar(CVector3RawRef obj, CMatrixValueType v, CVe
 }
 
 CMatrixValueType cvector3raw_distance(CVector3RawRef obj, CVector3RawRef v) {
-  return sqrt(obj[0]*v[0] + obj[1]*v[1] + obj[2]*v[2]);
+  CMatrixValueType x = v[0]- obj[0];
+  CMatrixValueType y = v[1]- obj[1];
+  CMatrixValueType z = v[2]- obj[2];
+  return sqrt(x*x + y*y + z*z);
 }
 
 CMatrixValueType cvector3raw_length(CVector3RawRef obj) {

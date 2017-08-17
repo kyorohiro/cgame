@@ -29,10 +29,10 @@ CVector4RawRef cvector4raw_add(CVector4RawRef obj, CVector4RawRef arg, CVector4R
 CVector4RawRef cvector4raw_sub(CVector4RawRef obj, CVector4RawRef arg, CVector4RawRef out);
 CVector4RawRef cvector4raw_mulScalar(CVector4RawRef obj, CMatrixValueType v, CVector4RawRef out);
 CVector4RawRef cvector4raw_divScalar(CVector4RawRef obj, CMatrixValueType v, CVector4RawRef out);
-CMatrixValueType cvector4raw_distance(CVector4RawRef obj, CVector4RawRef v);
+
 */
 CMatrixValueType cvector4raw_length(CVector4RawRef obj);
-
+CMatrixValueType cvector4raw_distance(CVector4RawRef obj, CVector4RawRef v);
 CMatrixValueType cvector4raw_dotProduct(CVector4RawRef obj, CVector4RawRef arg);
 void cvector4raw_show(CVector4RawRef obj);
 #endif
