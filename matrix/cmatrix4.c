@@ -72,19 +72,19 @@ CVector4* cmatrix4_multiplyCVector4(CMatrix4* obj, CVector4* arg, CVector4* out)
   if(out == NULL) {
     out = initCVector4(newCVector4(obj->parent.cmemory), 0.0, 0.0, 0.0, 0.0);
   }
-  CMatrixValue v0 = obj->value[0]*arg->value[0] +
+  CMatrixVertexType v0 = obj->value[0]*arg->value[0] +
                     obj->value[4]*arg->value[1] +
                     obj->value[8]*arg->value[2] +
                     obj->value[12]*arg->value[3];
-  CMatrixValue v1 = obj->value[1]*arg->value[0] +
+  CMatrixVertexType v1 = obj->value[1]*arg->value[0] +
                     obj->value[5]*arg->value[1] +
                     obj->value[9]*arg->value[2] +
                     obj->value[13]*arg->value[3];
-  CMatrixValue v2 = obj->value[2]*arg->value[0] +
+  CMatrixVertexType v2 = obj->value[2]*arg->value[0] +
                     obj->value[6]*arg->value[1] +
                     obj->value[10]*arg->value[2] +
                     obj->value[14]*arg->value[3];
-  CMatrixValue v3 = obj->value[3]*arg->value[0] +
+  CMatrixVertexType v3 = obj->value[3]*arg->value[0] +
                     obj->value[7]*arg->value[1] +
                     obj->value[11]*arg->value[2] +
                     obj->value[15]*arg->value[3];
@@ -130,10 +130,10 @@ CMatrix4* cmatrix4_setIdentity(CMatrix4* obj) {
 //   2
 //   3
 CMatrix4* cmatrix4_setValues(CMatrix4* obj,
-              CMatrixValue a11, CMatrixValue a12, CMatrixValue a13, CMatrixValue a14,
-              CMatrixValue a21, CMatrixValue a22, CMatrixValue a23, CMatrixValue a24,
-              CMatrixValue a31, CMatrixValue a32, CMatrixValue a33, CMatrixValue a34,
-              CMatrixValue a41, CMatrixValue a42, CMatrixValue a43, CMatrixValue a44
+              CMatrixVertexType a11, CMatrixVertexType a12, CMatrixVertexType a13, CMatrixVertexType a14,
+              CMatrixVertexType a21, CMatrixVertexType a22, CMatrixVertexType a23, CMatrixVertexType a24,
+              CMatrixVertexType a31, CMatrixVertexType a32, CMatrixVertexType a33, CMatrixVertexType a34,
+              CMatrixVertexType a41, CMatrixVertexType a42, CMatrixVertexType a43, CMatrixVertexType a44
             ) {
   obj->value[0] = a11;
   obj->value[4] = a12;
@@ -158,8 +158,8 @@ CMatrix4* cmatrix4_setValues(CMatrix4* obj,
   return obj;
 }
 
-CMatrixValue cmatrix4_determinant(CMatrix4* obj) {
-  CMatrixValue *raw = obj->value;
+CMatrixVertexType cmatrix4_determinant(CMatrix4* obj) {
+  CMatrixVertexType *raw = obj->value;
   double detA1 = raw[0] * raw[5] - raw[1] * raw[4];
   double detA2 = raw[0] * raw[6] - raw[2] * raw[4];
   double detA3 = raw[0] * raw[7] - raw[3] * raw[4];
@@ -182,9 +182,9 @@ CMatrixValue cmatrix4_determinant(CMatrix4* obj) {
 
 //
 //http://mathworld.wolfram.com/MatrixInverse.html
-CMatrixValue cmatrix4_inverse(CMatrix4* obj, CMatrix4* outInverse, double *outDeterminant) {
-//CMatrixValue cmatrix4_inverse(CMatrix4* obj, CMatrix4* out) {
-  CMatrixValue *raw = obj->value;
+CMatrixVertexType cmatrix4_inverse(CMatrix4* obj, CMatrix4* outInverse, double *outDeterminant) {
+//CMatrixVertexType cmatrix4_inverse(CMatrix4* obj, CMatrix4* out) {
+  CMatrixVertexType *raw = obj->value;
   double a00 = raw[0];
   double a01 = raw[1];
   double a02 = raw[2];
@@ -221,7 +221,7 @@ CMatrixValue cmatrix4_inverse(CMatrix4* obj, CMatrix4* outInverse, double *outDe
     // todo throw exception
     return det;
   }
- CMatrixValue *outRaw = outInverse->value;
+ CMatrixVertexType *outRaw = outInverse->value;
  outRaw[0] = (a11 * b11 - a12 * b10 + a13 * b09)  / det;
  outRaw[1] = (-a01 * b11 + a02 * b10 - a03 * b09) / det;
  outRaw[2] = (a31 * b05 - a32 * b04 + a33 * b03) / det;
@@ -243,7 +243,7 @@ CMatrixValue cmatrix4_inverse(CMatrix4* obj, CMatrix4* outInverse, double *outDe
 }
 
 CMatrix4* cmatrix4_transpose(CMatrix4* obj, CMatrix4* out) {
-  CMatrixValue *raw = obj->value;
+  CMatrixVertexType *raw = obj->value;
   double a11 = raw[0];
   double a12 = raw[1];
   double a13 = raw[2];
@@ -289,7 +289,7 @@ CMatrix4* cmatrix4_transpose(CMatrix4* obj, CMatrix4* out) {
 //   1
 //   2
 //   3
-CMatrixValue cmatrix4_getValue(CMatrix4* obj, int row, int col) {
+CMatrixVertexType cmatrix4_getValue(CMatrix4* obj, int row, int col) {
   return obj->value[row+4*col];
 }
 

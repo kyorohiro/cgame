@@ -28,10 +28,10 @@ CCamera3D* initCCamera3D(CCamera3D* obj) {
 }
 
 CCamera3D* ccamera3d_update(CCamera3D* obj,
-  CMatrixValue x, CMatrixValue y, CMatrixValue z,
-  CMatrixValue rx, CMatrixValue ry, CMatrixValue rz,
-  CMatrixValue fovYRadians, CMatrixValue aspectRatio,
-  CMatrixValue near, CMatrixValue far) {
+  CMatrixVertexType x, CMatrixVertexType y, CMatrixVertexType z,
+  CMatrixVertexType rx, CMatrixVertexType ry, CMatrixVertexType rz,
+  CMatrixVertexType fovYRadians, CMatrixVertexType aspectRatio,
+  CMatrixVertexType near, CMatrixVertexType far) {
   CObject3D* cobj = (CObject3D*)obj;
   CMatrix4* mat = cobj->mat;
   cmatrix4_setIdentity(mat);

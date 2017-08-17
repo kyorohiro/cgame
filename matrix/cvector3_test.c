@@ -57,7 +57,7 @@ void cvector3_test_normalize() {
     passed = 0;
   }
 
-  CMatrixValue v = cvector3_normalize(vec1);
+  CMatrixVertexType v = cvector3_normalize(vec1);
   if(  floor(v*10000)/10000 != 9.1104 ) {
     printf("  NG : failed to normalize %f \r\n", floor(v*1000)/1000);
     passed = 0;
@@ -85,7 +85,7 @@ void cvector3_test_dotProduct() {
   CVector3 *vec2 = initCVector3(newCVector3(mem), 0.944787189721646, 0.490864092468080, 0.489252638400019);
 
 
-  CMatrixValue v = cvector3_dotProduct(vec1, vec2);
+  CMatrixVertexType v = cvector3_dotProduct(vec1, vec2);
 
   if(  floor(v*1000)/1000 != 0.860 )
   {

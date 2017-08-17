@@ -13,7 +13,7 @@
 
 typedef struct {
   CObject parent;
-  CMatrixValue value[16];
+  CMatrixVertexType value[16];
 } CMatrix4;
 
 CMatrix4* newCMatrix4(CMemory*);
@@ -24,10 +24,10 @@ CMatrix4* initCMatrix4(CMatrix4*);
 CMatrix4* cmatrix4_setIdentity(CMatrix4* obj);
 
 CMatrix4* cmatrix4_setValues(CMatrix4* obj,
-              CMatrixValue a11, CMatrixValue a12, CMatrixValue a13, CMatrixValue a14,
-              CMatrixValue a21, CMatrixValue a22, CMatrixValue a23, CMatrixValue a24,
-              CMatrixValue a31, CMatrixValue a32, CMatrixValue a33, CMatrixValue a34,
-              CMatrixValue a41, CMatrixValue a42, CMatrixValue a43, CMatrixValue a44
+              CMatrixVertexType a11, CMatrixVertexType a12, CMatrixVertexType a13, CMatrixVertexType a14,
+              CMatrixVertexType a21, CMatrixVertexType a22, CMatrixVertexType a23, CMatrixVertexType a24,
+              CMatrixVertexType a31, CMatrixVertexType a32, CMatrixVertexType a33, CMatrixVertexType a34,
+              CMatrixVertexType a41, CMatrixVertexType a42, CMatrixVertexType a43, CMatrixVertexType a44
             );
 //CMatrix4* setRotateX(CMatrix4* obj, double angle);
 
@@ -36,14 +36,14 @@ CMatrix4* cmatrix4_sub(CMatrix4* obj, CMatrix4* arg, CMatrix4* out);
 CMatrix4* cmatrix4_multiply(CMatrix4* obj, CMatrix4* arg, CMatrix4* out);
 CVector4* cmatrix4_multiplyCVector4(CMatrix4* obj, CVector4* arg, CVector4* out);
 CMatrix4* cmatrix4_transpose(CMatrix4* obj, CMatrix4* out);
-CMatrixValue cmatrix4_determinant(CMatrix4* obj);
-CMatrixValue cmatrix4_inverse(CMatrix4* obj, CMatrix4* outInverse, double* outDeterminant);
+CMatrixVertexType cmatrix4_determinant(CMatrix4* obj);
+CMatrixVertexType cmatrix4_inverse(CMatrix4* obj, CMatrix4* outInverse, double* outDeterminant);
 //     col 0 1 2 3
 // row
 //   0
 //   1
 //   2
 //   3
-CMatrixValue cmatrix4_getValue(CMatrix4* obj, int row, int col);
+CMatrixVertexType cmatrix4_getValue(CMatrix4* obj, int row, int col);
 void cmatrix4_show(CMatrix4* obj);
 #endif

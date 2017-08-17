@@ -18,8 +18,8 @@ typedef struct {
 } CRay;
 
 CRay* newCRay(CMemory*);
-CRay* initCRay(CRay*, CMatrixValue originX, CMatrixValue originY, CMatrixValue originZ,
-CMatrixValue directionX, CMatrixValue directionY, CMatrixValue directionZ);
-CMatrixValue cray_intersectsWithTriangle(CRay* obj, CVector3 *p0, CVector3 *p1, CVector3 *p2);
+CRay* initCRay(CRay*, CMatrixVertexType originX, CMatrixVertexType originY, CMatrixVertexType originZ,
+CMatrixVertexType directionX, CMatrixVertexType directionY, CMatrixVertexType directionZ);
+CMatrixVertexType cray_intersectsWithTriangle(CRay* obj, CVector3 *p0, CVector3 *p1, CVector3 *p2);
 
 #endif

@@ -17,7 +17,7 @@ CVector4* newCVector4(CMemory* cmemory) {
 }
 
 
-CVector4* initCVector4(CVector4* obj, CMatrixValue v0, CMatrixValue v1, CMatrixValue v2, CMatrixValue v3) {
+CVector4* initCVector4(CVector4* obj, CMatrixVertexType v0, CMatrixVertexType v1, CMatrixVertexType v2, CMatrixVertexType v3) {
   initCObject((CObject*)obj, KVECTOR4_NAME);
   obj->value[0] = v0;
   obj->value[1] = v1;

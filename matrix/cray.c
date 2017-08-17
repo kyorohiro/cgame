@@ -19,8 +19,8 @@ CRay* newCRay(CMemory* cmemory) {
 }
 
 CRay* initCRay(CRay* obj,
-  CMatrixValue originX, CMatrixValue originY, CMatrixValue originZ,
-  CMatrixValue directionX, CMatrixValue directionY, CMatrixValue directionZ) {
+  CMatrixVertexType originX, CMatrixVertexType originY, CMatrixVertexType originZ,
+  CMatrixVertexType directionX, CMatrixVertexType directionY, CMatrixVertexType directionZ) {
     initCObject((CObject*)obj, KRAY_NAME);
     CMemory *cmemory = cobject_getCMemory((CObject*)obj);
     obj->origin = initCVector3(newCVector3(cmemory), originX, originY, originZ);
@@ -28,7 +28,7 @@ CRay* initCRay(CRay* obj,
     return obj;
 }
 
-CMatrixValue cray_intersectsWithTriangle(CRay* obj, CVector3 *p0, CVector3 *p1, CVector3 *p2) {
+CMatrixVertexType cray_intersectsWithTriangle(CRay* obj, CVector3 *p0, CVector3 *p1, CVector3 *p2) {
 
   CVector3* p10 = cvector3_sub(p1, p0, NULL);
   CVector3* p20 = cvector3_sub(p2, p0, NULL);
