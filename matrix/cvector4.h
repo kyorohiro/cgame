@@ -6,9 +6,12 @@
 #include "cmatrix_inner.h"
 #define KVECTOR4_NAME "ve4"
 
+typedef CMatrixValueType CVector3Raw[3];
+typedef CMatrixValueType *CVector3RawRef;
+
 typedef struct {
   CObject parent;
-  CMatrixVertexType value[4];
+  CMatrixValueType value;
 } CVector4;
 
 CVector4* newCVector4(CMemory*);
