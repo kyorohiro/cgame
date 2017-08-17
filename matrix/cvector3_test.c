@@ -59,9 +59,9 @@ void cvector3_test_normalize() {
     passed = 0;
   }
 
-  CMatrixVertexType v = cvector3_normalize(vec1);
+  CMatrixVertexType v = cvector3_length(vec1);
   if(  floor(v*10000)/10000 != 9.1104 ) {
-    printf("  NG : failed to normalize %f \r\n", floor(v*1000)/1000);
+    printf("  NG : failed to length%f \r\n", floor(v*1000)/1000);
     passed = 0;
   }
 
