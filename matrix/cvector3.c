@@ -143,8 +143,7 @@ CMatrixValueType cvector3raw_distance(CVector3RawRef obj, CVector3RawRef v) {
 
 CMatrixValueType cvector3raw_length(CVector3RawRef obj) {
     double v = obj[0] * obj[0] + obj[1] * obj[1] + obj[2] * obj[2];
-      cvector3raw_show(obj);
-    return sqrt(obj[0] * obj[0] + obj[1] * obj[1] + obj[2] * obj[2]);
+    return sqrt(v);
 }
 
 CVector3RawRef cvector3raw_normalize(CVector3RawRef obj, CVector3RawRef out) {

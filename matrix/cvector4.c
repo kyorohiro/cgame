@@ -26,13 +26,26 @@ CVector4* initCVector4(CVector4* obj, CMatrixVertexType v0, CMatrixVertexType v1
   return obj;
 }
 
+CMatrixValueType cvector4_length(CVector4* obj) {
+  return cvector4raw_length(obj->value);
+}
 
 CMatrixValueType cvector4_dotProduct(CVector4* obj, CVector4* arg) {
   return cvector4raw_dotProduct(obj->value, arg->value);
 }
+
+void cvector4_show(CVector4* obj) {
+  cvector4raw_show(obj->value);
+}
+
 //
 // RAW
 //
+CMatrixValueType cvector4raw_length(CVector4RawRef obj) {
+  double v = obj[0] * obj[0] + obj[1] * obj[1] + obj[2] * obj[2] + obj[3] * obj[3];
+  return sqrt(v);
+}
+
 CMatrixValueType cvector4raw_dotProduct(CVector4RawRef obj, CVector4RawRef arg) {
   CMatrixValueType sum;
   sum  = obj[0] * arg[0];
@@ -40,4 +53,8 @@ CMatrixValueType cvector4raw_dotProduct(CVector4RawRef obj, CVector4RawRef arg) 
   sum += obj[2] * arg[2];
   sum += obj[3] * arg[3];
   return sum;
+}
+
+void cvector4raw_show(CVector4RawRef obj) {
+  printf("%f %f %f %lf\n", obj[0], obj[1], obj[2], obj[3]);
 }
