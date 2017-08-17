@@ -12,10 +12,12 @@ void cmatrix4_test_ray() {
 
   int passed = 1;
   CMemory *mem = initCMemory(newCMemory());
-  CRay *mat1 = initCRay(newCRay(mem),
+  CRay *ray = initCRay(newCRay(mem),
     0.0, 0.0, 0.0,
     0.0, 0.0, -1.0);
-  releaseCObject((CObject*)mat1);
+
+  releaseCObject((CObject*)ray);
+
   if(mem->callocCounter != mem->freeCounter) {
     printf("  NG : %d == %d\r\n", mem->callocCounter, mem->freeCounter);
     passed = 0;
