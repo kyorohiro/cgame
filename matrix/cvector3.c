@@ -28,20 +28,29 @@ CVector3* cvector3_crossProduct(CVector3* obj, CVector3* arg, CVector3* out) {
   if(out == NULL) {
     out = initCVector3(newCVector3(obj->parent.cmemory), 0.0, 0.0, 0.0);
   }
-  CMatrixValue v0 = obj->value[1] * arg->value[2] - obj->value[2] * arg->value[1];
-  CMatrixValue v1 = obj->value[2] * arg->value[0] - obj->value[0] * arg->value[2];
-  CMatrixValue v2 = obj->value[0] * arg->value[1] - obj->value[1] * arg->value[0];
-  out->value[0] = v0;
-  out->value[1] = v1;
-  out->value[2] = v2;
+  cvector3raw_crossProduct(&obj->value, &arg->value, &out->value);
+  return out;
+}
+
+CVector3Raw* cvector3raw_crossProduct(CVector3Raw *obj, CVector3Raw *arg, CVector3Raw *out) {
+  CMatrixValue v0 = *obj[1] * *arg[2] - *obj[2] * *arg[1];
+  CMatrixValue v1 = *obj[2] * *arg[0] - *obj[0] * *arg[2];
+  CMatrixValue v2 = *obj[0] * *arg[1] - *obj[1] * *arg[0];
+  *out[0] = v0;
+  *out[1] = v1;
+  *out[2] = v2;
   return out;
 }
 
 CMatrixValue cvector3_dotProduct(CVector3* obj, CVector3* arg) {
+  return cvector3raw_dotProduct(&obj->value, &arg->value);
+}
+
+CMatrixValue cvector3raw_dotProduct(CVector3Raw* obj, CVector3Raw* arg) {
   double sum;
-  sum  = obj->value[0] * arg->value[0];
-  sum += obj->value[1] * arg->value[1];
-  sum += obj->value[2] * arg->value[2];
+  sum  = *obj[0] * *arg[0];
+  sum += *obj[1] * *arg[1];
+  sum += *obj[2] * *arg[2];
   return sum;
 }
 

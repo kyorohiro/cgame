@@ -6,9 +6,11 @@
 #include "cmatrix_inner.h"
 #define KVECTOR3_NAME "ve4"
 
+typedef CMatrixValue CVector3Raw[3];
+
 typedef struct {
   CObject parent;
-  CMatrixValue value[3];
+  CVector3Raw value;
 } CVector3;
 
 CVector3* newCVector3(CMemory*);
@@ -20,4 +22,6 @@ CMatrixValue cvector3_normalize(CVector3* obj);
 CVector3* cvector3_add(CVector3* obj, CVector3* arg, CVector3* out);
 CVector3* cvector3_sub(CVector3* obj, CVector3* arg, CVector3* out);
 
+CVector3Raw* cvector3raw_crossProduct(CVector3Raw *obj, CVector3Raw *arg, CVector3Raw *out);
+CMatrixValue cvector3raw_dotProduct(CVector3Raw* obj, CVector3Raw* arg);
 #endif
