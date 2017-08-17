@@ -20,14 +20,16 @@ void cvector3_test_add() {
   CVector3 *vec3 =cvector3_add(vec1, vec2, NULL);
 
   if(vec3->value[0] != 7.0 || vec3->value[1] != 7.0 || vec3->value[2] != 7.0 ) {
-    printf("  NG : failed to init value \r\n");
+    printf("  NG : failed to add \r\n");
+    cvector3_show(vec3);
     passed = 0;
   }
 
   CVector3 *vec4 =cvector3_sub(vec1, vec2, NULL);
 
   if(vec4->value[0] != -5.0 || vec4->value[1] != -3.0 || vec4->value[2] != -1.0 ) {
-    printf("  NG : failed to init value \r\n");
+    printf("  NG : failed to sub \r\n");
+    cvector3_show(vec3);
     passed = 0;
   }
   releaseCObject((CObject*)vec1);
