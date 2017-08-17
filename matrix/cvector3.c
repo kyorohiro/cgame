@@ -59,8 +59,23 @@ CVector3* cvector3_sub(CVector3* obj, CVector3* arg, CVector3* out) {
 }
 
 void cvector3_show(CVector3* obj) {
-  printf("%f %f %f\n", obj->value[0], obj->value[1], obj->value[2]);
   cvector3raw_show(obj->value);
+}
+
+CVector3* cvector3_mulScalar(CVector3* obj, CMatrixValueType v, CVector3* out) {
+  if(out == NULL) {
+    out = initCVector3(newCVector3(obj->parent.cmemory), 0.0, 0.0, 0.0);
+  }
+  cvector3raw_mulScalar(obj->value, v, out->value);
+  return out;
+}
+
+CVector3* cvector3_divScalar(CVector3* obj, CMatrixValueType v, CVector3* out) {
+  if(out == NULL) {
+    out = initCVector3(newCVector3(obj->parent.cmemory), 0.0, 0.0, 0.0);
+  }
+  cvector3raw_divScalar(obj->value, v, out->value);
+  return out;
 }
 
 //
@@ -106,6 +121,20 @@ CMatrixValueType cvector3raw_normalize(CVector3RawRef obj) {
          (obj[1] * obj[1]) +
          (obj[2] * obj[2]);
   return sqrt(v);
+}
+
+CVector3RawRef cvector3raw_mulScalar(CVector3RawRef obj, CMatrixValueType v, CVector3RawRef out){
+  obj[0] *= v;
+  obj[1] *= v;
+  obj[2] *= v;
+  return obj;
+}
+
+CVector3RawRef cvector3raw_divScalar(CVector3RawRef obj, CMatrixValueType v, CVector3RawRef out) {
+  obj[0] /= v;
+  obj[1] /= v;
+  obj[2] /= v;
+  return obj;
 }
 
 void cvector3raw_show(CVector3RawRef obj) {
