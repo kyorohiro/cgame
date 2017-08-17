@@ -32,12 +32,12 @@ void cvector3_show(CVector3* obj);
 CVector3RawRef cvector3raw_crossProduct(CVector3RawRef obj, CVector3RawRef arg, CVector3RawRef out);
 CMatrixValueType cvector3raw_dotProduct(CVector3RawRef obj, CVector3RawRef arg);
 CVector3RawRef cvector3raw_normalize(CVector3RawRef obj, CVector3RawRef out);
-CMatrixValueType cvector3raw_length(CVector3RawRef obj);
 CVector3RawRef cvector3raw_add(CVector3RawRef obj, CVector3RawRef arg, CVector3RawRef out);
 CVector3RawRef cvector3raw_sub(CVector3RawRef obj, CVector3RawRef arg, CVector3RawRef out);
 CVector3RawRef cvector3raw_mulScalar(CVector3RawRef obj, CMatrixValueType v, CVector3RawRef out);
 CVector3RawRef cvector3raw_divScalar(CVector3RawRef obj, CMatrixValueType v, CVector3RawRef out);
 CMatrixValueType cvector3raw_distance(CVector3RawRef obj, CVector3RawRef v);
+CMatrixValueType cvector3raw_length(CVector3RawRef obj);
 void cvector3raw_show(CVector3RawRef obj);
 
 #endif
