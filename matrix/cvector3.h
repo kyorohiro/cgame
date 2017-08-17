@@ -24,4 +24,5 @@ CVector3* cvector3_sub(CVector3* obj, CVector3* arg, CVector3* out);
 
 CVector3Raw* cvector3raw_crossProduct(CVector3Raw *obj, CVector3Raw *arg, CVector3Raw *out);
 CMatrixValueType cvector3raw_dotProduct(CVector3Raw* obj, CVector3Raw* arg);
+CMatrixValueType cvector3raw_normalize(CVector3Raw* obj);
 #endif
