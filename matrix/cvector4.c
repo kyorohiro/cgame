@@ -25,3 +25,19 @@ CVector4* initCVector4(CVector4* obj, CMatrixVertexType v0, CMatrixVertexType v1
   obj->value[3] = v3;
   return obj;
 }
+
+
+CMatrixValueType cvector4_dotProduct(CVector4* obj, CVector4* arg) {
+  return cvector4raw_dotProduct(obj->value, arg->value);
+}
+//
+// RAW
+//
+CMatrixValueType cvector4raw_dotProduct(CVector4RawRef obj, CVector4RawRef arg) {
+  CMatrixValueType sum;
+  sum  = obj[0] * arg[0];
+  sum += obj[1] * arg[1];
+  sum += obj[2] * arg[2];
+  sum += obj[3] * arg[3];
+  return sum;
+}
