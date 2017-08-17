@@ -1,18 +1,19 @@
 build matrix/cmatrix4.${objExt}: obj matrix/cmatrix4.c
 build matrix/cvector4.${objExt}: obj matrix/cvector4.c
 build matrix/cvector3.${objExt}: obj matrix/cvector3.c
-
 build matrix/cglmatrix.${objExt}: obj matrix/cglmatrix.c
+build matrix/cray.${objExt}: obj matrix/cray.c
 
 
-build matrix/libmatrix.${objExt}: lib matrix/cmatrix4.${objExt} matrix/cvector4.${objExt} matrix/cvector3.${objExt} matrix/cglmatrix.${objExt}
+build matrix/libmatrix.${objExt}: lib matrix/cmatrix4.${objExt} matrix/cvector4.${objExt} matrix/cvector3.${objExt} matrix/cglmatrix.${objExt} matrix/cray.${objExt}
 
 
 build matrix/cmatrix4_test.${objExt}: obj matrix/cmatrix4_test.c
 build matrix/cvector4_test.${objExt}: obj matrix/cvector4_test.c
 build matrix/cvector3_test.${objExt}: obj matrix/cvector3_test.c
 build matrix/cglmatrix_test.${objExt}: obj matrix/cglmatrix_test.c
+build matrix/cray_test.${objExt}: obj matrix/cray_test.c
 
 
 build matrix/test.${objExt}: obj matrix/test.c
-build matrix/test.${appExt}: test core/libcore.${objExt} matrix/libmatrix.${objExt} matrix/test.${objExt} matrix/cmatrix4_test.${objExt} matrix/cvector4_test.${objExt} matrix/cvector3_test.${objExt} matrix/cglmatrix_test.${objExt}
+build matrix/test.${appExt}: test core/libcore.${objExt} matrix/libmatrix.${objExt} matrix/test.${objExt} matrix/cmatrix4_test.${objExt} matrix/cvector4_test.${objExt} matrix/cvector3_test.${objExt} matrix/cglmatrix_test.${objExt} matrix/cray_test.${objExt}
