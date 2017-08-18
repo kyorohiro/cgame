@@ -60,4 +60,7 @@ CVector4RawRef cmatrix4raw_mulVector4Raw(CMatrix4RawRef obj, CVector4RawRef arg,
 CMatrix4RawRef cmatrix4raw_transpose(CMatrix4RawRef obj, CMatrix4RawRef out);
 CMatrixValueType cmatrix4raw_determinant(CMatrix4RawRef obj);
 CMatrix4RawRef cmatrix4raw_inverse(CMatrix4RawRef obj, CMatrix4RawRef outInverse, CMatrixValueType *outDeterminant);
+
+CMatrixValueType cmatrix4raw_getValue(CMatrix4RawRef obj, int row, int col);
+void cmatrix4raw_show(CMatrix4RawRef obj);
 #endif

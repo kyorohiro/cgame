@@ -145,17 +145,11 @@ CMatrix4* cmatrix4_transpose(CMatrix4* obj, CMatrix4* out) {
 //   2
 //   3
 CMatrixValueType cmatrix4_getValue(CMatrix4* obj, int row, int col) {
-  return obj->value[row+4*col];
+  return cmatrix4raw_getValue(obj->value, row, col);
 }
 
 void cmatrix4_show(CMatrix4* obj){
-  for(int i=0;i<4;i++) {
-    printf("%f %f %f %lf \r\n",
-      cmatrix4_getValue(obj, i, 0),
-      cmatrix4_getValue(obj, i, 1),
-      cmatrix4_getValue(obj, i, 2),
-      cmatrix4_getValue(obj, i, 3));
-  }
+  cmatrix4raw_show(obj->value);
 }
 
 //
@@ -355,4 +349,18 @@ CMatrix4RawRef cmatrix4raw_inverse(CMatrix4RawRef raw, CMatrix4RawRef outInverse
   outInverse[15] = (a20 * b03 - a21 * b01 + a22 * b00) * f;
 
   return outInverse;
+}
+
+CMatrixValueType cmatrix4raw_getValue(CMatrix4RawRef obj, int row, int col) {
+  return obj[row+4*col];
+}
+
+void cmatrix4raw_show(CMatrix4RawRef obj) {
+  for(int i=0;i<4;i++) {
+    printf("%f %f %f %lf \r\n",
+      cmatrix4raw_getValue(obj, i, 0),
+      cmatrix4raw_getValue(obj, i, 1),
+      cmatrix4raw_getValue(obj, i, 2),
+      cmatrix4raw_getValue(obj, i, 3));
+  }
 }
