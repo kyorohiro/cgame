@@ -64,26 +64,7 @@ CVector4* cmatrix4_multiplyCVector4(CMatrix4* obj, CVector4* arg, CVector4* out)
 //}
 //
 CMatrix4* cmatrix4_setIdentity(CMatrix4* obj) {
-  obj->value[0] = 1.0;
-  obj->value[4] = 0.0;
-  obj->value[8] = 0.0;
-  obj->value[12] = 0.0;
-
-  obj->value[1] = 0.0;
-  obj->value[5] = 1.0;
-  obj->value[9] = 0.0;
-  obj->value[13] = 0.0;
-
-  obj->value[2] = 0.0;
-  obj->value[6] = 0.0;
-  obj->value[10] = 1.0;
-  obj->value[13] = 0.0;
-
-  obj->value[3] = 0.0;
-  obj->value[7] = 0.0;
-  obj->value[11] = 0.0;
-  obj->value[15] = 1.0;
-
+  cmatrix4raw_setIdentity(obj->value);
   return obj;
 }
 
