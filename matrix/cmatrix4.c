@@ -28,9 +28,7 @@ CMatrix4* cmatrix4_add(CMatrix4* obj, CMatrix4* arg, CMatrix4* out) {
   if(out ==NULL) {
     out = initCMatrix4(newCMatrix4(obj->parent.cmemory));
   }
-  for(i=0;i<16;i++) {
-    out->value[i] = obj->value[i] + arg->value[i];
-  }
+  cmatrix4raw_add(obj->value, arg->value, out->value);
   return out;
 }
 
@@ -39,9 +37,7 @@ CMatrix4* cmatrix4_sub(CMatrix4* obj, CMatrix4* arg, CMatrix4* out) {
   if(out ==NULL) {
     out = initCMatrix4(newCMatrix4(obj->parent.cmemory));
   }
-  for(i=0;i<16;i++) {
-    out->value[i] = obj->value[i] - arg->value[i];
-  }
+  cmatrix4raw_sub(obj->value, arg->value, out->value);
   return out;
 }
 
@@ -301,4 +297,47 @@ void cmatrix4_show(CMatrix4* obj){
       cmatrix4_getValue(obj, i, 2),
       cmatrix4_getValue(obj, i, 3));
   }
+}
+
+//
+// raw
+//
+CMatrix4RawRef cmatrix4raw_add(CMatrix4RawRef obj, CMatrix4RawRef arg, CMatrix4RawRef out) {
+  out[0]  = obj[0]  + arg[0];
+  out[1]  = obj[1]  + arg[1];
+  out[2]  = obj[2]  + arg[2];
+  out[3]  = obj[3]  + arg[3];
+  out[4]  = obj[4]  + arg[4];
+  out[5]  = obj[5]  + arg[5];
+  out[6]  = obj[6]  + arg[6];
+  out[7]  = obj[7]  + arg[7];
+  out[8]  = obj[8]  + arg[8];
+  out[9]  = obj[9]  + arg[9];
+  out[10] = obj[10] + arg[10];
+  out[11] = obj[11] + arg[11];
+  out[12] = obj[12] + arg[12];
+  out[13] = obj[13] + arg[13];
+  out[14] = obj[14] + arg[14];
+  out[15] = obj[15] + arg[15];
+  return out;
+}
+
+CMatrix4RawRef cmatrix4raw_sub(CMatrix4RawRef obj, CMatrix4RawRef arg, CMatrix4RawRef out) {
+  out[0]  = obj[0]  - arg[0];
+  out[1]  = obj[1]  - arg[1];
+  out[2]  = obj[2]  - arg[2];
+  out[3]  = obj[3]  - arg[3];
+  out[4]  = obj[4]  - arg[4];
+  out[5]  = obj[5]  - arg[5];
+  out[6]  = obj[6]  - arg[6];
+  out[7]  = obj[7]  - arg[7];
+  out[8]  = obj[8]  - arg[8];
+  out[9]  = obj[9]  - arg[9];
+  out[10] = obj[10] - arg[10];
+  out[11] = obj[11] - arg[11];
+  out[12] = obj[12] - arg[12];
+  out[13] = obj[13] - arg[13];
+  out[14] = obj[14] - arg[14];
+  out[15] = obj[15] - arg[15];
+  return out;
 }

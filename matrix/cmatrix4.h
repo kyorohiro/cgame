@@ -7,13 +7,14 @@
 #include "cvector4.h"
 #include "cmatrix_inner.h"
 
-
-
 #define KMATRIX_NAME "kma"
+
+typedef CMatrixValueType CMatrix4Raw[16];
+typedef CMatrixValueType *CMatrix4RawRef;
 
 typedef struct {
   CObject parent;
-  CMatrixVertexType value[16];
+  CMatrix4Raw value;
 } CMatrix4;
 
 CMatrix4* newCMatrix4(CMemory*);
@@ -46,4 +47,11 @@ CMatrixVertexType cmatrix4_inverse(CMatrix4* obj, CMatrix4* outInverse, double* 
 //   3
 CMatrixVertexType cmatrix4_getValue(CMatrix4* obj, int row, int col);
 void cmatrix4_show(CMatrix4* obj);
+
+//
+//
+//
+CMatrix4RawRef cmatrix4raw_add(CMatrix4RawRef obj, CMatrix4RawRef arg, CMatrix4RawRef out);
+CMatrix4RawRef cmatrix4raw_sub(CMatrix4RawRef obj, CMatrix4RawRef arg, CMatrix4RawRef out);
+
 #endif
