@@ -4,11 +4,11 @@
 #include <stdio.h>
 #include <math.h>
 
-void _freeMatrix(void* obj);
+void _freeMatrix3(void* obj);
 
 CMatrix3* newCMatrix3(CMemory* cmemory) {
   CMatrix3 *ret = (CMatrix3*)cmemory_calloc(cmemory, 1, sizeof(CMatrix3));
-  ret->parent.funcFree = _freeMatrix;
+  ret->parent.funcFree = _freeMatrix3;
   ret->parent.cmemory = cmemory;
   return ret;
 }
@@ -18,7 +18,7 @@ CMatrix3* initCMatrix3(CMatrix3* obj) {
   return obj;
 }
 
-void _freeMatrix(void* tmp) {
+void _freeMatrix3(void* tmp) {
   CMatrix3* obj = tmp;
   freeCObject(obj);
 }

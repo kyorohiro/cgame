@@ -4,8 +4,9 @@
 
 
 #include "cglmatrix.h"
-#include "cmatrix4.h"
 #include "cray.h"
+#include "cmatrix3.h"
+#include "cmatrix4.h"
 #include "cvector2.h"
 #include "cvector3.h"
 #include "cvector4.h"
