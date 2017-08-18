@@ -85,12 +85,17 @@ CMatrixValueType cmatrix4_determinant(CMatrix4* obj) {
 //
 //http://mathworld.wolfram.com/MatrixInverse.html
 CMatrix4* cmatrix4_inverse(CMatrix4* obj, CMatrix4* outInverse, CMatrixValueType *outDeterminant) {
+  if(outInverse ==NULL) {
+    outInverse = initCMatrix4(newCMatrix4(obj->parent.cmemory));
+  }
   cmatrix4raw_inverse(obj->value, outInverse->value, outDeterminant);
-
   return outInverse;
 }
 
 CMatrix4* cmatrix4_transpose(CMatrix4* obj, CMatrix4* out) {
+  if(out == NULL) {
+    out = initCMatrix4(newCMatrix4(obj->parent.cmemory));
+  }
   cmatrix4raw_transpose(obj->value, out->value);
   return out;
 }
