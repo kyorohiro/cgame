@@ -99,26 +99,11 @@ CMatrix4* cmatrix4_setValues(CMatrix4* obj,
               CMatrixValueType a31, CMatrixValueType a32, CMatrixValueType a33, CMatrixValueType a34,
               CMatrixValueType a41, CMatrixValueType a42, CMatrixValueType a43, CMatrixValueType a44
             ) {
-  obj->value[0] = a11;
-  obj->value[4] = a12;
-  obj->value[8] = a13;
-  obj->value[12] = a14;
-
-  obj->value[1] = a21;
-  obj->value[5] = a22;
-  obj->value[9] = a23;
-  obj->value[13] = a24;
-
-  obj->value[2] = a31;
-  obj->value[6] = a32;
-  obj->value[10] = a33;
-  obj->value[14] = a34;
-
-  obj->value[3] = a41;
-  obj->value[7] = a42;
-  obj->value[11] = a43;
-  obj->value[15] = a44;
-
+  cmatrix4raw_setValues(obj->value,
+    a11, a12, a13, a14,
+    a21, a22, a23, a24,
+    a31, a32, a33, a34,
+    a41, a42, a43, a44);
   return obj;
 }
 
@@ -138,12 +123,7 @@ CMatrix4* cmatrix4_transpose(CMatrix4* obj, CMatrix4* out) {
   cmatrix4raw_transpose(obj->value, out->value);
   return out;
 }
-//     col 0 1 2 3
-// row
-//   0
-//   1
-//   2
-//   3
+
 CMatrixValueType cmatrix4_getValue(CMatrix4* obj, int row, int col) {
   return cmatrix4raw_getValue(obj->value, row, col);
 }
@@ -155,6 +135,55 @@ void cmatrix4_show(CMatrix4* obj){
 //
 // raw
 //
+CMatrix4RawRef cmatrix4raw_setIdentity(CMatrix4RawRef obj) {
+  obj[0] = 1.0;
+  obj[4] = 0.0;
+  obj[8] = 0.0;
+  obj[12] = 0.0;
+
+  obj[1] = 0.0;
+  obj[5] = 1.0;
+  obj[9] = 0.0;
+  obj[13] = 0.0;
+
+  obj[2] = 0.0;
+  obj[6] = 0.0;
+  obj[10] = 1.0;
+  obj[13] = 0.0;
+
+  obj[3] = 0.0;
+  obj[7] = 0.0;
+  obj[11] = 0.0;
+  obj[15] = 1.0;
+  return obj;
+}
+
+CMatrix4RawRef cmatrix4raw_setValues(CMatrix4RawRef obj,
+              CMatrixValueType a11, CMatrixValueType a12, CMatrixValueType a13, CMatrixValueType a14,
+              CMatrixValueType a21, CMatrixValueType a22, CMatrixValueType a23, CMatrixValueType a24,
+              CMatrixValueType a31, CMatrixValueType a32, CMatrixValueType a33, CMatrixValueType a34,
+              CMatrixValueType a41, CMatrixValueType a42, CMatrixValueType a43, CMatrixValueType a44) {
+  obj[0] = a11;
+  obj[4] = a12;
+  obj[8] = a13;
+  obj[12] = a14;
+
+  obj[1] = a21;
+  obj[5] = a22;
+  obj[9] = a23;
+  obj[13] = a24;
+
+  obj[2] = a31;
+  obj[6] = a32;
+  obj[10] = a33;
+  obj[14] = a34;
+
+  obj[3] = a41;
+  obj[7] = a42;
+  obj[11] = a43;
+  obj[15] = a44;
+  return obj;
+}
 
 CMatrix4RawRef cmatrix4raw_copy(CMatrix4RawRef obj, CMatrix4RawRef out) {
   for(int i=0;i<16;i++) {

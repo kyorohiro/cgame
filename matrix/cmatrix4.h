@@ -52,6 +52,15 @@ void cmatrix4_show(CMatrix4* obj);
 //
 // RAW
 //
+
+CMatrix4RawRef cmatrix4raw_setIdentity(CMatrix4RawRef obj);
+
+CMatrix4RawRef cmatrix4raw_setValues(CMatrix4RawRef obj,
+              CMatrixValueType a11, CMatrixValueType a12, CMatrixValueType a13, CMatrixValueType a14,
+              CMatrixValueType a21, CMatrixValueType a22, CMatrixValueType a23, CMatrixValueType a24,
+              CMatrixValueType a31, CMatrixValueType a32, CMatrixValueType a33, CMatrixValueType a34,
+              CMatrixValueType a41, CMatrixValueType a42, CMatrixValueType a43, CMatrixValueType a44
+            );
 CMatrix4RawRef cmatrix4raw_copy(CMatrix4RawRef obj, CMatrix4RawRef out);
 CMatrix4RawRef cmatrix4raw_add(CMatrix4RawRef obj, CMatrix4RawRef arg, CMatrix4RawRef out);
 CMatrix4RawRef cmatrix4raw_sub(CMatrix4RawRef obj, CMatrix4RawRef arg, CMatrix4RawRef out);
