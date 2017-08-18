@@ -30,6 +30,13 @@ CMatrixValueType cvector4_length(CVector4* obj) {
   return cvector4raw_length(obj->value);
 }
 
+CVector4* cvector4_normalize(CVector4* obj, CVector4* out) {
+  if(out == NULL) {
+    out = initCVector4(newCVector4(obj->parent.cmemory), 0.0, 0.0, 0.0, 0.0);
+  }
+  cvector4raw_normalize(obj->value, out->value);
+  return out;
+}
 CVector4* cvector4_add(CVector4* obj, CVector4* arg, CVector4* out) {
   if(out == NULL) {
     out = initCVector4(newCVector4(obj->parent.cmemory), 0.0, 0.0, 0.0, 0.0);

@@ -24,6 +24,7 @@ CVector4* cvector4_divScalar(CVector4* obj, CMatrixValueType v, CVector4* out);
 CMatrixValueType cvector4_dotProduct(CVector4* obj, CVector4* arg);
 
 CMatrixValueType cvector4_length(CVector4* obj);
+CVector4* cvector4_normalize(CVector4* obj, CVector4* out);
 CMatrixValueType cvector4_distance(CVector4* obj, CVector4* arg);
 
 void cvector4_show(CVector4* obj);
