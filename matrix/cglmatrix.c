@@ -277,7 +277,7 @@ CVector4* cglmatrix4_unProject(
       transform = cmatrix4_setIdentity(initCMatrix4(newCMatrix4(getCMemory())));
       cmatrix4_multiply(projection , model, transform);
     }
-    double out;
+    CMatrixValueType out;
     cmatrix4_inverse(transform, transform, &out);
     CVector4 *inVector = initCVector4(newCVector4(getCMemory()),
       (wx - vx) / vw * 2.0 - 1.0,

@@ -92,7 +92,7 @@ void cmatrix4_test_inverse() {
   printf("# cmatrix4_test_inverse\n");
   int passed = 1;
   CMemory *mem = initCMemory(newCMemory());
-  double out;
+  CMatrixValueType out;
   CMatrix4 *mat1 = cmatrix4_setValues(initCMatrix4(newCMatrix4(mem)),
      1, 2, 3, 4,
      2, 4, 5, 3,
