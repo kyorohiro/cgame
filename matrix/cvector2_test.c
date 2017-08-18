@@ -42,6 +42,14 @@ void cvector2_test_add() {
     passed = 0;
   }
 
+  cvector2_divScalar(vec5, 2.0, vec5);
+  if(vec5->value[0] != 1.0 || vec5->value[1] != 2.0 ) {
+    printf("  NG : failed to div \r\n");
+    cvector2_show(vec1);
+    cvector2_show(vec2);
+    cvector2_show(vec5);
+    passed = 0;
+  }
   releaseCObject((CObject*)vec1);
   releaseCObject((CObject*)vec2);
   releaseCObject((CObject*)vec3);
