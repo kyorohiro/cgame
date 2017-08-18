@@ -34,7 +34,7 @@ CRoot3D* initCRoot3D(CRoot3D* obj, int depth) {
 
 CRoot3D* croot3d_pushMulMatrix(CRoot3D* obj, CMatrix4 *mat) {
   CMatrix4* mat1 = (CMatrix4*)carrayList_get(obj->matrixList, obj->index);
-  CMatrix4* mat2 = cmatrix4_multiply(mat1, mat, NULL);
+  CMatrix4* mat2 = cmatrix4_mul(mat1, mat, NULL);
   carrayList_set(obj->matrixList, ++obj->index, cobject_downCounter((CObject*)mat2));
   return obj;
 }

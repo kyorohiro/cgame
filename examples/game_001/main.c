@@ -26,10 +26,10 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
 
   cmatrix4_setTranslation(initCMatrix4(mat), 0.0, 0.0, -2.0);
 
-  cmatrix4_multiply(&rotYMat, mat, mat);
-//  cmatrix4_multiply(mat, &rotXMat, mat);
-//  cmatrix4_multiply(mat, &rotYMat, mat);
-//  cmatrix4_multiply(mat, &rotZMat, mat);
+  cmatrix4_mul(&rotYMat, mat, mat);
+//  cmatrix4_mul(mat, &rotXMat, mat);
+//  cmatrix4_mul(mat, &rotYMat, mat);
+//  cmatrix4_mul(mat, &rotZMat, mat);
 
   //
   CAppMouseEvent *event = cgame_getCurrentMouseEvent(gameObj);

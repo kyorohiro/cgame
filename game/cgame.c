@@ -166,10 +166,10 @@ CVector4* cgame_getLocalPointFromGlobal(CGame* obj, double x, double y, double z
   CRoot3D *root = (CRoot3D*)cgame_getRoot(obj);
   CCamera3D *camera = (CCamera3D*)cgame_getCamera(obj);
   CMatrix4 *model = croot3d_peekMulMatrix(root);
-  CMatrix4 *mat = cmatrix4_multiply(camera->parent.mat, model, NULL);
+  CMatrix4 *mat = cmatrix4_mul(camera->parent.mat, model, NULL);
 
   if(in != NULL) {
-    cmatrix4_multiply(mat, in, mat);
+    cmatrix4_mul(mat, in, mat);
   }
   cmatrix4_inverse(mat, mat, NULL);
 
@@ -185,7 +185,7 @@ CVector4* cgame_getLocalPointFromGlobal(CGame* obj, double x, double y, double z
     out->value[3] = 1.0;
   }
 
-  cmatrix4_multiplyCVector4(mat, out, out);
+  cmatrix4_mulCVector4(mat, out, out);
 
   releaseCObject((CObject*)mat);
   return out;

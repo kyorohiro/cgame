@@ -62,7 +62,7 @@ void cmatrix4_test_multiply() {
       444, 316, 188, 60,
       502, 358, 214, 70,
       560, 400, 240, 80);
-  mat1 = cmatrix4_multiply(mat1, mat2, mat1);
+  mat1 = cmatrix4_mul(mat1, mat2, mat1);
   cmatrix4_show(mat1);
 
   for(int i=0;i<4;i++) {

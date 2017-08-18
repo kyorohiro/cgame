@@ -41,7 +41,7 @@ CMatrix4* cmatrix4_sub(CMatrix4* obj, CMatrix4* arg, CMatrix4* out) {
   return out;
 }
 
-CMatrix4* cmatrix4_multiply(CMatrix4* obj, CMatrix4* arg, CMatrix4* out) {
+CMatrix4* cmatrix4_mul(CMatrix4* obj, CMatrix4* arg, CMatrix4* out) {
   if(out ==NULL) {
     out = initCMatrix4(newCMatrix4(obj->parent.cmemory));
   }
@@ -51,7 +51,7 @@ CMatrix4* cmatrix4_multiply(CMatrix4* obj, CMatrix4* arg, CMatrix4* out) {
   return out;
 }
 
-CVector4* cmatrix4_multiplyCVector4(CMatrix4* obj, CVector4* arg, CVector4* out) {
+CVector4* cmatrix4_mulCVector4(CMatrix4* obj, CVector4* arg, CVector4* out) {
   if(out == NULL) {
     out = initCVector4(newCVector4(obj->parent.cmemory), 0.0, 0.0, 0.0, 0.0);
   }

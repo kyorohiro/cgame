@@ -19,23 +19,18 @@ typedef struct {
 
 CMatrix4* newCMatrix4(CMemory*);
 CMatrix4* initCMatrix4(CMatrix4*);
-
-
-//CMatrix4* freeMatrix(CMatrix4* obj);
 CMatrix4* cmatrix4_setIdentity(CMatrix4* obj);
-
 CMatrix4* cmatrix4_setValues(CMatrix4* obj,
               CMatrixValueType a11, CMatrixValueType a12, CMatrixValueType a13, CMatrixValueType a14,
               CMatrixValueType a21, CMatrixValueType a22, CMatrixValueType a23, CMatrixValueType a24,
               CMatrixValueType a31, CMatrixValueType a32, CMatrixValueType a33, CMatrixValueType a34,
               CMatrixValueType a41, CMatrixValueType a42, CMatrixValueType a43, CMatrixValueType a44
             );
-//CMatrix4* setRotateX(CMatrix4* obj, double angle);
 
 CMatrix4* cmatrix4_add(CMatrix4* obj, CMatrix4* arg, CMatrix4* out);
 CMatrix4* cmatrix4_sub(CMatrix4* obj, CMatrix4* arg, CMatrix4* out);
-CMatrix4* cmatrix4_multiply(CMatrix4* obj, CMatrix4* arg, CMatrix4* out);
-CVector4* cmatrix4_multiplyCVector4(CMatrix4* obj, CVector4* arg, CVector4* out);
+CMatrix4* cmatrix4_mul(CMatrix4* obj, CMatrix4* arg, CMatrix4* out);
+CVector4* cmatrix4_mulCVector4(CMatrix4* obj, CVector4* arg, CVector4* out);
 CMatrix4* cmatrix4_transpose(CMatrix4* obj, CMatrix4* out);
 CMatrixValueType cmatrix4_determinant(CMatrix4* obj);
 CMatrix4* cmatrix4_inverse(CMatrix4* obj, CMatrix4* outInverse, CMatrixValueType *outDeterminant);

@@ -223,11 +223,11 @@ CMatrix4* cmatrix4_setLookAt2(CMatrix4* obj,
   CMatrix4 scal;
   CMatrix4 mat;
   cmatrix4_setIdentity(initCMatrix4(&mat));
-  cmatrix4_multiply(&mat, cmatrix4_setScale(initCMatrix4(&scal), sx, sy, sz), &mat);
-  cmatrix4_multiply(&mat, cmatrix4_setRotationX(initCMatrix4(&rotX), -rx), &mat);
-  cmatrix4_multiply(&mat, cmatrix4_setRotationY(initCMatrix4(&rotY), -ry), &mat);
-  cmatrix4_multiply(&mat, cmatrix4_setRotationZ(initCMatrix4(&rotZ), -rz), &mat);
-  cmatrix4_multiply(&mat, cmatrix4_setTranslation(initCMatrix4(&tran),  -x, -y, -z), obj);
+  cmatrix4_mul(&mat, cmatrix4_setScale(initCMatrix4(&scal), sx, sy, sz), &mat);
+  cmatrix4_mul(&mat, cmatrix4_setRotationX(initCMatrix4(&rotX), -rx), &mat);
+  cmatrix4_mul(&mat, cmatrix4_setRotationY(initCMatrix4(&rotY), -ry), &mat);
+  cmatrix4_mul(&mat, cmatrix4_setRotationZ(initCMatrix4(&rotZ), -rz), &mat);
+  cmatrix4_mul(&mat, cmatrix4_setTranslation(initCMatrix4(&tran),  -x, -y, -z), obj);
 
   return obj;
 }
@@ -272,10 +272,10 @@ CVector4* cglmatrix4_unProject(
   double vx, double vy, double vw, double vh) {
     CMatrix4 *transform;
     if(model != NULL) {
-      transform = cmatrix4_multiply(projection , model, NULL);
+      transform = cmatrix4_mul(projection , model, NULL);
     } else {
       transform = cmatrix4_setIdentity(initCMatrix4(newCMatrix4(getCMemory())));
-      cmatrix4_multiply(projection , model, transform);
+      cmatrix4_mul(projection , model, transform);
     }
     CMatrixValueType out;
     cmatrix4_inverse(transform, transform, &out);
@@ -284,7 +284,7 @@ CVector4* cglmatrix4_unProject(
       (wy - vy) / vh * 2.0 - 1.0,
       2.0 * wz - 1.0,
       1.0);
-    cmatrix4_multiplyCVector4(transform, inVector, inVector);
+    cmatrix4_mulCVector4(transform, inVector, inVector);
     double v0 = inVector->value[0];
     double v1 = inVector->value[1];
     double v2 = inVector->value[2];

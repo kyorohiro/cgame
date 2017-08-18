@@ -39,7 +39,7 @@ CCamera3D* ccamera3d_update(CCamera3D* obj,
 
   cmatrix4_setPerspectiveProjection(obj->projection, fovYRadians, aspectRatio, far, near);
   cmatrix4_setLookAt2(obj->view, x, y, z, rx, ry, rz, 1.0, 1.0, 1.0);
-  cmatrix4_multiply(obj->projection, obj->view, mat);
+  cmatrix4_mul(obj->projection, obj->view, mat);
 
   return obj;
 }
