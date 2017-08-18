@@ -30,9 +30,47 @@ CMatrixValueType cvector4_length(CVector4* obj) {
   return cvector4raw_length(obj->value);
 }
 
+CVector4* cvector4_add(CVector4* obj, CVector4* arg, CVector4* out) {
+  if(out == NULL) {
+    out = initCVector4(newCVector4(obj->parent.cmemory), 0.0, 0.0, 0.0, 0.0);
+  }
+  cvector4raw_add(obj->value, arg->value, out->value);
+  return out;
+}
+
+CVector4* cvector4_sub(CVector4* obj, CVector4* arg, CVector4* out) {
+  if(out == NULL) {
+    out = initCVector4(newCVector4(obj->parent.cmemory), 0.0, 0.0, 0.0, 0.0);
+  }
+  cvector4raw_sub(obj->value, arg->value, out->value);
+  return out;
+}
+
+CVector4* cvector4_mulScalar(CVector4* obj, CMatrixValueType v, CVector4* out) {
+  if(out == NULL) {
+    out = initCVector4(newCVector4(obj->parent.cmemory), 0.0, 0.0, 0.0, 0.0);
+  }
+  cvector4raw_mulScalar(obj->value, v, out->value);
+  return out;
+}
+
+CVector4* cvector4_divScalar(CVector4* obj, CMatrixValueType v, CVector4* out) {
+  if(out == NULL) {
+    out = initCVector4(newCVector4(obj->parent.cmemory), 0.0, 0.0, 0.0, 0.0);
+  }
+  cvector4raw_divScalar(obj->value, v, out->value);
+  return out;
+}
+
+
+CMatrixValueType cvector4_distance(CVector4* obj, CVector4* arg) {
+  return cvector4raw_distance(obj->value, arg->value);
+}
+
 CMatrixValueType cvector4_dotProduct(CVector4* obj, CVector4* arg) {
   return cvector4raw_dotProduct(obj->value, arg->value);
 }
+
 
 void cvector4_show(CVector4* obj) {
   cvector4raw_show(obj->value);
@@ -41,9 +79,54 @@ void cvector4_show(CVector4* obj) {
 //
 // RAW
 //
+
+CVector4RawRef cvector4raw_add(CVector4RawRef obj, CVector4RawRef arg, CVector4RawRef out) {
+  out[0] = obj[0] + arg[0];
+  out[1] = obj[1] + arg[1];
+  out[2] = obj[2] + arg[2];
+  out[3] = obj[3] + arg[3];
+  return out;
+}
+
+CVector4RawRef cvector4raw_sub(CVector4RawRef obj, CVector4RawRef arg, CVector4RawRef out) {
+  out[0] = obj[0] - arg[0];
+  out[1] = obj[1] - arg[1];
+  out[2] = obj[2] - arg[2];
+  out[3] = obj[3] - arg[3];
+  return out;
+}
+
+CVector4RawRef cvector4raw_mulScalar(CVector4RawRef obj, CMatrixValueType v, CVector4RawRef out) {
+  obj[0] *= v;
+  obj[1] *= v;
+  obj[2] *= v;
+  obj[3] *= v;
+  return obj;
+}
+
+CVector4RawRef cvector4raw_divScalar(CVector4RawRef obj, CMatrixValueType v, CVector4RawRef out) {
+  CMatrixValueType f = 1.0/v;
+  obj[0] *= f;
+  obj[1] *= f;
+  obj[2] *= f;
+  obj[3] *= f;
+  return obj;
+}
+
 CMatrixValueType cvector4raw_length(CVector4RawRef obj) {
   double v = obj[0] * obj[0] + obj[1] * obj[1] + obj[2] * obj[2] + obj[3] * obj[3];
   return sqrt(v);
+}
+
+
+CVector4RawRef cvector4raw_normalize(CVector4RawRef obj, CVector4RawRef out) {
+  double v = cvector4raw_length(obj);
+  double f = 1.0/v;
+  out[0] = obj[0]*f;
+  out[1] = obj[1]*f;
+  out[2] = obj[2]*f;
+  out[3] = obj[3]*f;
+  return out;
 }
 
 CMatrixValueType cvector4raw_distance(CVector4RawRef obj, CVector4RawRef v) {
