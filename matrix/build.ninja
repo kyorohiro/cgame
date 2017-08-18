@@ -1,4 +1,5 @@
 build matrix/cmatrix4.${objExt}: obj matrix/cmatrix4.c
+build matrix/cmatrix3.${objExt}: obj matrix/cmatrix3.c
 
 build matrix/cvector4.${objExt}: obj matrix/cvector4.c
 build matrix/cvector3.${objExt}: obj matrix/cvector3.c
