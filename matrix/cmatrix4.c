@@ -94,10 +94,10 @@ CMatrix4* cmatrix4_setIdentity(CMatrix4* obj) {
 //   2
 //   3
 CMatrix4* cmatrix4_setValues(CMatrix4* obj,
-              CMatrixVertexType a11, CMatrixVertexType a12, CMatrixVertexType a13, CMatrixVertexType a14,
-              CMatrixVertexType a21, CMatrixVertexType a22, CMatrixVertexType a23, CMatrixVertexType a24,
-              CMatrixVertexType a31, CMatrixVertexType a32, CMatrixVertexType a33, CMatrixVertexType a34,
-              CMatrixVertexType a41, CMatrixVertexType a42, CMatrixVertexType a43, CMatrixVertexType a44
+              CMatrixValueType a11, CMatrixValueType a12, CMatrixValueType a13, CMatrixValueType a14,
+              CMatrixValueType a21, CMatrixValueType a22, CMatrixValueType a23, CMatrixValueType a24,
+              CMatrixValueType a31, CMatrixValueType a32, CMatrixValueType a33, CMatrixValueType a34,
+              CMatrixValueType a41, CMatrixValueType a42, CMatrixValueType a43, CMatrixValueType a44
             ) {
   obj->value[0] = a11;
   obj->value[4] = a12;
@@ -122,33 +122,15 @@ CMatrix4* cmatrix4_setValues(CMatrix4* obj,
   return obj;
 }
 
-CMatrixVertexType cmatrix4_determinant(CMatrix4* obj) {
-  CMatrixVertexType *raw = obj->value;
-  double detA1 = raw[0] * raw[5] - raw[1] * raw[4];
-  double detA2 = raw[0] * raw[6] - raw[2] * raw[4];
-  double detA3 = raw[0] * raw[7] - raw[3] * raw[4];
-  double detA12 = raw[1] * raw[6] - raw[2] * raw[5];
-  double detA13 = raw[1] * raw[7] - raw[3] * raw[5];
-  double detA23 = raw[2] * raw[7] - raw[3] * raw[6];
-
-  double detB012 = raw[8] * detA12 - raw[9] * detA2 + raw[10] * detA1;
-  double detB013 = raw[8] * detA13 - raw[9] * detA3 + raw[11] * detA1;
-  double detB023 = raw[8] * detA23 - raw[10] * detA3 + raw[11] * detA2;
-  double detB123 = raw[9] * detA23 - raw[10] * detA13 + raw[11] * detA12;
-
-
-  return -detB123 * raw[12] +
-      detB023 * raw[13] -
-      detB013 * raw[14] +
-      detB012 * raw[15];
-
+CMatrixValueType cmatrix4_determinant(CMatrix4* obj) {
+  return cmatrix4raw_determinant(obj->value);
 }
 
 //
 //http://mathworld.wolfram.com/MatrixInverse.html
-CMatrixVertexType cmatrix4_inverse(CMatrix4* obj, CMatrix4* outInverse, double *outDeterminant) {
+CMatrixValueType cmatrix4_inverse(CMatrix4* obj, CMatrix4* outInverse, double *outDeterminant) {
 //CMatrixVertexType cmatrix4_inverse(CMatrix4* obj, CMatrix4* out) {
-  CMatrixVertexType *raw = obj->value;
+  CMatrixValueType *raw = obj->value;
   double a00 = raw[0];
   double a01 = raw[1];
   double a02 = raw[2];
@@ -185,7 +167,7 @@ CMatrixVertexType cmatrix4_inverse(CMatrix4* obj, CMatrix4* outInverse, double *
     // todo throw exception
     return det;
   }
- CMatrixVertexType *outRaw = outInverse->value;
+ CMatrixValueType *outRaw = outInverse->value;
  outRaw[0] = (a11 * b11 - a12 * b10 + a13 * b09)  / det;
  outRaw[1] = (-a01 * b11 + a02 * b10 - a03 * b09) / det;
  outRaw[2] = (a31 * b05 - a32 * b04 + a33 * b03) / det;
@@ -216,7 +198,7 @@ CMatrix4* cmatrix4_transpose(CMatrix4* obj, CMatrix4* out) {
 //   1
 //   2
 //   3
-CMatrixVertexType cmatrix4_getValue(CMatrix4* obj, int row, int col) {
+CMatrixValueType cmatrix4_getValue(CMatrix4* obj, int row, int col) {
   return obj->value[row+4*col];
 }
 
@@ -350,4 +332,81 @@ CMatrix4RawRef cmatrix4raw_transpose(CMatrix4RawRef obj, CMatrix4RawRef out) {
   out[11] = a43;
   out[15] = a44;
   return out;
+}
+
+
+CMatrixValueType cmatrix4raw_determinant(CMatrix4RawRef raw) {
+  double detA1 = raw[0] * raw[5] - raw[1] * raw[4];
+  double detA2 = raw[0] * raw[6] - raw[2] * raw[4];
+  double detA3 = raw[0] * raw[7] - raw[3] * raw[4];
+  double detA12 = raw[1] * raw[6] - raw[2] * raw[5];
+  double detA13 = raw[1] * raw[7] - raw[3] * raw[5];
+  double detA23 = raw[2] * raw[7] - raw[3] * raw[6];
+
+  double detB012 = raw[8] * detA12 - raw[9] * detA2 + raw[10] * detA1;
+  double detB013 = raw[8] * detA13 - raw[9] * detA3 + raw[11] * detA1;
+  double detB023 = raw[8] * detA23 - raw[10] * detA3 + raw[11] * detA2;
+  double detB123 = raw[9] * detA23 - raw[10] * detA13 + raw[11] * detA12;
+
+
+  return -detB123 * raw[12] + detB023 * raw[13] - detB013 * raw[14] + detB012 * raw[15];
+}
+
+CMatrix4RawRef cmatrix4raw_inverse(CMatrix4RawRef raw, CMatrix4RawRef outInverse, CMatrixValueType *outDeterminant) {
+  double a00 = raw[0];
+  double a01 = raw[1];
+  double a02 = raw[2];
+  double a03 = raw[3];
+  double a10 = raw[4];
+  double a11 = raw[5];
+  double a12 = raw[6];
+  double a13 = raw[7];
+  double a20 = raw[8];
+  double a21 = raw[9];
+  double a22 = raw[10];
+  double a23 = raw[11];
+  double a30 = raw[12];
+  double a31 = raw[13];
+  double a32 = raw[14];
+  double a33 = raw[15];
+  double b00 = a00 * a11 - a01 * a10;
+  double b01 = a00 * a12 - a02 * a10;
+  double b02 = a00 * a13 - a03 * a10;
+  double b03 = a01 * a12 - a02 * a11;
+  double b04 = a01 * a13 - a03 * a11;
+  double b05 = a02 * a13 - a03 * a12;
+  double b06 = a20 * a31 - a21 * a30;
+  double b07 = a20 * a32 - a22 * a30;
+  double b08 = a20 * a33 - a23 * a30;
+  double b09 = a21 * a32 - a22 * a31;
+  double b10 = a21 * a33 - a23 * a31;
+  double b11 = a22 * a33 - a23 * a32;
+  double det = (b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06);
+  if(outDeterminant != NULL) {
+    *outDeterminant = det;
+  }
+  if(det == 0.0) {
+    // todo throw exception
+    return outInverse;
+  }
+
+  CMatrixValueType f = 1.0/det;
+  outInverse[0] = (a11 * b11 - a12 * b10 + a13 * b09)  * f;
+  outInverse[1] = (-a01 * b11 + a02 * b10 - a03 * b09) * f;
+  outInverse[2] = (a31 * b05 - a32 * b04 + a33 * b03) * f;
+  outInverse[3] = (-a21 * b05 + a22 * b04 - a23 * b03) * f;
+  outInverse[4] = (-a10 * b11 + a12 * b08 - a13 * b07) * f;
+  outInverse[5] = (a00 * b11 - a02 * b08 + a03 * b07) * f;
+  outInverse[6] = (-a30 * b05 + a32 * b02 - a33 * b01) * f;
+  outInverse[7] = (a20 * b05 - a22 * b02 + a23 * b01) * f;
+  outInverse[8] = (a10 * b10 - a11 * b08 + a13 * b06) * f;
+  outInverse[9] = (-a00 * b10 + a01 * b08 - a03 * b06) * f;
+  outInverse[10] = (a30 * b04 - a31 * b02 + a33 * b00) * f;
+  outInverse[11] = (-a20 * b04 + a21 * b02 - a23 * b00) * f;
+  outInverse[12] = (-a10 * b09 + a11 * b07 - a12 * b06) * f;
+  outInverse[13] = (a00 * b09 - a01 * b07 + a02 * b06) * f;
+  outInverse[14] = (-a30 * b03 + a31 * b01 - a32 * b00) * f;
+  outInverse[15] = (a20 * b03 - a21 * b01 + a22 * b00) * f;
+
+  return outInverse;
 }
