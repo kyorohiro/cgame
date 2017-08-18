@@ -58,22 +58,12 @@ CVector4* cmatrix4_multiplyCVector4(CMatrix4* obj, CVector4* arg, CVector4* out)
   cmatrix4raw_mulVector4Raw(obj->value, arg->value, out->value);
   return out;
 }
-//
-//CMatrix4* setRotateX(CMatrix4* obj, double angle) {
-//
-//}
-//
+
 CMatrix4* cmatrix4_setIdentity(CMatrix4* obj) {
   cmatrix4raw_setIdentity(obj->value);
   return obj;
 }
 
-//     col 0 1 2 3
-// row
-//   0    a11 a12 a13 a14
-//   1    a21 a22 a23 a24
-//   2
-//   3
 CMatrix4* cmatrix4_setValues(CMatrix4* obj,
               CMatrixValueType a11, CMatrixValueType a12, CMatrixValueType a13, CMatrixValueType a14,
               CMatrixValueType a21, CMatrixValueType a22, CMatrixValueType a23, CMatrixValueType a24,

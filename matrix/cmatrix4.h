@@ -49,10 +49,12 @@ CMatrix4* cmatrix4_inverse(CMatrix4* obj, CMatrix4* outInverse, CMatrixValueType
 CMatrixValueType cmatrix4_getValue(CMatrix4* obj, int row, int col);
 void cmatrix4_show(CMatrix4* obj);
 
+
+//
 //
 // RAW
 //
-
+//
 CMatrix4RawRef cmatrix4raw_setIdentity(CMatrix4RawRef obj);
 
 CMatrix4RawRef cmatrix4raw_setValues(CMatrix4RawRef obj,
