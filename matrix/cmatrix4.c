@@ -45,22 +45,9 @@ CMatrix4* cmatrix4_multiply(CMatrix4* obj, CMatrix4* arg, CMatrix4* out) {
   if(out ==NULL) {
     out = initCMatrix4(newCMatrix4(obj->parent.cmemory));
   }
-  int i=0;
-  int j=0;
-  double o[16];
-  for(i=0;i<4;i++) {
-    for(j=0;j<4;j++) {
-      o[i+4*j]  = obj->value[i+0] * arg->value[4*j];
-      o[i+4*j] += obj->value[i+4] * arg->value[1+4*j];
-      o[i+4*j] += obj->value[i+8] * arg->value[2+4*j];
-      o[i+4*j] += obj->value[i+12] * arg->value[3+4*j];
-//      printf("%f %f %f %f \r\n", obj->value[4*i+0], obj->value[4*i+1], obj->value[4*i+2],  obj->value[4*i+3]);
-    }
-  }
 
-  for(i=0;i<16;i++) {
-    out->value[i] = o[i];
-  }
+  cmatrix4raw_mul(obj->value, arg->value, out->value);
+
   return out;
 }
 
@@ -339,5 +326,23 @@ CMatrix4RawRef cmatrix4raw_sub(CMatrix4RawRef obj, CMatrix4RawRef arg, CMatrix4R
   out[13] = obj[13] - arg[13];
   out[14] = obj[14] - arg[14];
   out[15] = obj[15] - arg[15];
+  return out;
+}
+
+CMatrix4RawRef cmatrix4raw_mul(CMatrix4RawRef obj, CMatrix4RawRef arg, CMatrix4RawRef out) {
+  double o[16];
+  for(int i=0;i<4;i++) {
+    for(int j=0;j<4;j++) {
+      o[i+4*j]  = obj[i+0] * arg[4*j];
+      o[i+4*j] += obj[i+4] * arg[1+4*j];
+      o[i+4*j] += obj[i+8] * arg[2+4*j];
+      o[i+4*j] += obj[i+12] * arg[3+4*j];
+    }
+  }
+
+  for(int k=0;k<16;k++) {
+    out[k] = o[k];
+  }
+
   return out;
 }
