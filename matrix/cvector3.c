@@ -124,16 +124,17 @@ CMatrixValueType cvector3raw_dotProduct(CVector3RawRef obj, CVector3RawRef arg) 
 }
 
 CVector3RawRef cvector3raw_mulScalar(CVector3RawRef obj, CMatrixValueType v, CVector3RawRef out){
-  obj[0] *= v;
-  obj[1] *= v;
-  obj[2] *= v;
+  out[0] = obj[0] * v;
+  out[1] = obj[1] * v;
+  out[2] = obj[2] * v;
   return obj;
 }
 
 CVector3RawRef cvector3raw_divScalar(CVector3RawRef obj, CMatrixValueType v, CVector3RawRef out) {
-  obj[0] /= v;
-  obj[1] /= v;
-  obj[2] /= v;
+  CMatrixValueType f = 1.0/v;
+  out[0] = obj[0] * v;
+  out[1] = obj[1] * v;
+  out[2] = obj[2] * v;
   return obj;
 }
 

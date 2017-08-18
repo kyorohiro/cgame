@@ -25,17 +25,28 @@ void cvector2_test_add() {
     passed = 0;
   }
 
-  CVector2 *vec4 =cvector2_sub(vec1, vec2, NULL);
+  CVector2 *vec4 = cvector2_sub(vec1, vec2, NULL);
 
   if(vec4->value[0] != -2.0 || vec4->value[1] != -2.0 ) {
     printf("  NG : failed to sub \r\n");
+
     cvector2_show(vec3);
     passed = 0;
   }
+  CVector2 *vec5 =cvector2_mulScalar(vec1, 2.0, NULL);
+  if(vec5->value[0] != 2.0 || vec5->value[1] != 4.0 ) {
+    printf("  NG : failed to mul \r\n");
+    cvector2_show(vec1);
+    cvector2_show(vec2);
+    cvector2_show(vec5);
+    passed = 0;
+  }
+
   releaseCObject((CObject*)vec1);
   releaseCObject((CObject*)vec2);
   releaseCObject((CObject*)vec3);
   releaseCObject((CObject*)vec4);
+  releaseCObject((CObject*)vec5);
   if(mem->callocCounter != mem->freeCounter) {
     printf("  NG : %d == %d\r\n", mem->callocCounter, mem->freeCounter);
     passed = 0;

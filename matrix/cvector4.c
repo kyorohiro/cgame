@@ -104,19 +104,19 @@ CVector4RawRef cvector4raw_sub(CVector4RawRef obj, CVector4RawRef arg, CVector4R
 }
 
 CVector4RawRef cvector4raw_mulScalar(CVector4RawRef obj, CMatrixValueType v, CVector4RawRef out) {
-  obj[0] *= v;
-  obj[1] *= v;
-  obj[2] *= v;
-  obj[3] *= v;
+  out[0] = obj[0] * v;
+  out[1] = obj[1] * v;
+  out[2] = obj[2] * v;
+  out[3] = obj[3] * v;
   return obj;
 }
 
 CVector4RawRef cvector4raw_divScalar(CVector4RawRef obj, CMatrixValueType v, CVector4RawRef out) {
   CMatrixValueType f = 1.0/v;
-  obj[0] *= f;
-  obj[1] *= f;
-  obj[2] *= f;
-  obj[3] *= f;
+  out[0] = obj[0] * v;
+  out[1] = obj[1] * v;
+  out[2] = obj[2] * v;
+  out[3] = obj[3] * v;
   return obj;
 }
 
