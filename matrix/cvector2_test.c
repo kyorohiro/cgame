@@ -3,33 +3,33 @@
 #include "core/cbytes.h"
 #include "core/cmemory.h"
 #include "cmatrix4.h"
-#include "cvector3.h"
+#include "cvector2.h"
 
 void cvector2_test_add() {
   printf("# cvector2_test_add\n");
   int passed = 1;
   CMemory *mem = initCMemory(newCMemory());
-  CVector3 *vec1 = initCVector3(newCVector3(mem), 1.0, 2.0, 3.0);
-  CVector3 *vec2 = initCVector3(newCVector3(mem), 6.0, 5.0, 4.0);
+  CVector2 *vec1 = initCVector2(newCVector2(mem), 1.0, 2.0);
+  CVector2 *vec2 = initCVector2(newCVector2(mem), 3.0, 4.0);
 
-  if(vec1->value[0] != 1.0 || vec1->value[1] != 2.0 || vec1->value[2] != 3.0 ) {
+  if(vec1->value[0] != 1.0 || vec1->value[1] != 2.0 ) {
     printf("  NG : failed to init value \r\n");
     passed = 0;
   }
 
-  CVector3 *vec3 =cvector3_add(vec1, vec2, NULL);
+  CVector2 *vec3 =cvector2_add(vec1, vec2, NULL);
 
-  if(vec3->value[0] != 7.0 || vec3->value[1] != 7.0 || vec3->value[2] != 7.0 ) {
+  if(vec3->value[0] != 4.0 || vec3->value[1] != 6.0 ) {
     printf("  NG : failed to add \r\n");
-    cvector3_show(vec3);
+    cvector2_show(vec3);
     passed = 0;
   }
 
-  CVector3 *vec4 =cvector3_sub(vec1, vec2, NULL);
+  CVector2 *vec4 =cvector2_sub(vec1, vec2, NULL);
 
-  if(vec4->value[0] != -5.0 || vec4->value[1] != -3.0 || vec4->value[2] != -1.0 ) {
+  if(vec4->value[0] != -2.0 || vec4->value[1] != -2.0 ) {
     printf("  NG : failed to sub \r\n");
-    cvector3_show(vec3);
+    cvector2_show(vec3);
     passed = 0;
   }
   releaseCObject((CObject*)vec1);
