@@ -49,10 +49,10 @@ CMatrixVertexType cmatrix4_getValue(CMatrix4* obj, int row, int col);
 void cmatrix4_show(CMatrix4* obj);
 
 //
-//
+// RAW
 //
 CMatrix4RawRef cmatrix4raw_add(CMatrix4RawRef obj, CMatrix4RawRef arg, CMatrix4RawRef out);
 CMatrix4RawRef cmatrix4raw_sub(CMatrix4RawRef obj, CMatrix4RawRef arg, CMatrix4RawRef out);
 CMatrix4RawRef cmatrix4raw_mul(CMatrix4RawRef obj, CMatrix4RawRef arg, CMatrix4RawRef out);
-
+CVector4RawRef cmatrix4_mulVector4Raw(CMatrix4RawRef obj, CVector4RawRef arg, CVector4RawRef out);
 #endif

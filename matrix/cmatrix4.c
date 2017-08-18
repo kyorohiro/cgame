@@ -55,26 +55,7 @@ CVector4* cmatrix4_multiplyCVector4(CMatrix4* obj, CVector4* arg, CVector4* out)
   if(out == NULL) {
     out = initCVector4(newCVector4(obj->parent.cmemory), 0.0, 0.0, 0.0, 0.0);
   }
-  CMatrixVertexType v0 = obj->value[0]*arg->value[0] +
-                    obj->value[4]*arg->value[1] +
-                    obj->value[8]*arg->value[2] +
-                    obj->value[12]*arg->value[3];
-  CMatrixVertexType v1 = obj->value[1]*arg->value[0] +
-                    obj->value[5]*arg->value[1] +
-                    obj->value[9]*arg->value[2] +
-                    obj->value[13]*arg->value[3];
-  CMatrixVertexType v2 = obj->value[2]*arg->value[0] +
-                    obj->value[6]*arg->value[1] +
-                    obj->value[10]*arg->value[2] +
-                    obj->value[14]*arg->value[3];
-  CMatrixVertexType v3 = obj->value[3]*arg->value[0] +
-                    obj->value[7]*arg->value[1] +
-                    obj->value[11]*arg->value[2] +
-                    obj->value[15]*arg->value[3];
-  out->value[0] = v0;
-  out->value[1] = v1;
-  out->value[2] = v2;
-  out->value[3] = v3;
+  cmatrix4_mulVector4Raw(obj->value, arg->value, out->value);
   return out;
 }
 //
@@ -344,5 +325,17 @@ CMatrix4RawRef cmatrix4raw_mul(CMatrix4RawRef obj, CMatrix4RawRef arg, CMatrix4R
     out[k] = o[k];
   }
 
+  return out;
+}
+
+CVector4RawRef cmatrix4_mulVector4Raw(CMatrix4RawRef obj, CVector4RawRef arg, CVector4RawRef out) {
+  CMatrixValueType v0 = obj[0]*arg[0] + obj[4]*arg[1] + obj[8]*arg[2] + obj[12]*arg[3];
+  CMatrixValueType v1 = obj[1]*arg[0] + obj[5]*arg[1] + obj[9]*arg[2] + obj[13]*arg[3];
+  CMatrixValueType v2 = obj[2]*arg[0] + obj[6]*arg[1] + obj[10]*arg[2] + obj[14]*arg[3];
+  CMatrixValueType v3 = obj[3]*arg[0] + obj[7]*arg[1] + obj[11]*arg[2] + obj[15]*arg[3];
+  out[0] = v0;
+  out[1] = v1;
+  out[2] = v2;
+  out[3] = v3;
   return out;
 }
