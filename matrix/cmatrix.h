@@ -5,6 +5,7 @@
 
 #include "cglmatrix.h"
 #include "cray.h"
+#include "cmatrix2.h"
 #include "cmatrix3.h"
 #include "cmatrix4.h"
 #include "cvector2.h"

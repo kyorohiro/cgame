@@ -144,7 +144,7 @@ CMatrix3RawRef cmatrix3raw_setValues(CMatrix3RawRef obj,
 }
 
 CMatrix3RawRef cmatrix3raw_copy(CMatrix3RawRef obj, CMatrix3RawRef out) {
-  for(int i=0;i<16;i++) {
+  for(int i=0;i<9;i++) {
     out[i] = obj[i];
   }
   return out;
@@ -178,7 +178,7 @@ CMatrix3RawRef cmatrix3raw_sub(CMatrix3RawRef obj, CMatrix3RawRef arg, CMatrix3R
 }
 
 CMatrix3RawRef cmatrix3raw_mul(CMatrix3RawRef obj, CMatrix3RawRef arg, CMatrix3RawRef out) {
-  double o[16];
+  double o[9];
   for(int i=0;i<3;i++) {
     for(int j=0;j<3;j++) {
       o[i+3*j]  = obj[i+0] * arg[0+3*j];
