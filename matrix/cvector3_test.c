@@ -53,11 +53,40 @@ void cvector3_test_add() {
     passed = 0;
   }
 
+
+  CVector3 *vec6 = initCVector3(newCVector3(mem), 1.0, 3.0, -5.0);
+  CVector3 *vec7 = initCVector3(newCVector3(mem), 4.0, -2.0, -1.0);
+  CMatrixValueType x = cvector3_dotProduct(vec6, vec7);
+  if(((int)x) != 3) {
+    printf("  NG : failed to dotProduct %d \r\n", (int)x);
+    passed = 0;
+  }
+
+  CVector3 *vec8 = initCVector3(newCVector3(mem), 0.417267069084370, 0.049654430325742, 0.902716109915281);
+  CVector3 *vec9 = initCVector3(newCVector3(mem), 0.944787189721646,0.490864092468080, 0.489252638400019);
+  CVector3 *vec10 = cvector3_crossProduct(vec8, vec9, NULL);
+
+  //-0.418817 0.648726 0.157909
+  if( (int)(vec10->value[0]*1000) != -418 ||
+      (int)(vec10->value[1]*1000) != 648 ||
+      (int)(vec10->value[2]*1000) != 157 )
+  {
+    printf("  NG : failed to dotProduct %d %d %d\r\n", ((int)vec10->value[0]*1000), ((int)vec10->value[1]*1000), ((int)vec10->value[2]*1000));
+    cvector3_show(vec10);
+    passed = 0;
+  }
+
   releaseCObject((CObject*)vec1);
   releaseCObject((CObject*)vec2);
   releaseCObject((CObject*)vec3);
   releaseCObject((CObject*)vec4);
   releaseCObject((CObject*)vec5);
+  releaseCObject((CObject*)vec6);
+  releaseCObject((CObject*)vec7);
+  releaseCObject((CObject*)vec8);
+  releaseCObject((CObject*)vec9);
+  releaseCObject((CObject*)vec10);
+
   if(mem->callocCounter != mem->freeCounter) {
     printf("  NG : %d == %d\r\n", mem->callocCounter, mem->freeCounter);
     passed = 0;
