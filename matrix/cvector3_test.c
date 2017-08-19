@@ -76,6 +76,16 @@ void cvector3_test_add() {
     passed = 0;
   }
 
+  //
+  // 1 2 3, 6 5 4
+  // 5*5 3*3 1*1
+  // sqrt 25+9+1 > 35
+  //
+  CMatrixValueType d = cvector3_distance(vec1, vec2);
+  if((int)(d*1000) != 5916) {
+    printf("  NG : failed to distance %f \r\n", d);
+    passed = 0;
+  }
   releaseCObject((CObject*)vec1);
   releaseCObject((CObject*)vec2);
   releaseCObject((CObject*)vec3);
