@@ -51,7 +51,7 @@ CMatrix2* cmatrix2_mul(CMatrix2* obj, CMatrix2* arg, CMatrix2* out) {
   return out;
 }
 
-CVector2* cmatrix2_mulCVector3(CMatrix2* obj, CVector2* arg, CVector2* out) {
+CVector2* cmatrix2_mulCVector2(CMatrix2* obj, CVector2* arg, CVector2* out) {
   if(out == NULL) {
     out = initCVector2(newCVector2(obj->parent.cmemory), 0.0, 0.0);
   }
@@ -173,8 +173,8 @@ CMatrix2RawRef cmatrix2raw_mul(CMatrix2RawRef obj, CMatrix2RawRef arg, CMatrix2R
 // 0 1
 // 2 3
 CVector2RawRef cmatrix2raw_mulVector2Raw(CMatrix2RawRef obj, CVector2RawRef arg, CVector2RawRef out) {
-  CMatrixValueType v0 = obj[0]*arg[0] + obj[1]*arg[1];
-  CMatrixValueType v1 = obj[2]*arg[0] + obj[3]*arg[1];
+  CMatrixValueType v0 = obj[0]*arg[0] + obj[2]*arg[1];
+  CMatrixValueType v1 = obj[1]*arg[0] + obj[3]*arg[1];
   out[0] = v0;
   out[1] = v1;
   return out;

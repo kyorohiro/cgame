@@ -3,6 +3,7 @@
 #include "core/cbytes.h"
 #include "core/cmemory.h"
 #include "cmatrix2.h"
+#include "cvector2.h"
 #include "matrix/cglmatrix.h"
 
 void cmatrix2_test() {
@@ -50,11 +51,26 @@ void cmatrix2_test() {
        passed = 0;
      }
 
+  //
+  // 1 2  1
+  // 3 4  2
+  // 1*1+2*2 > 5
+  // 1*3+4*2 > 11
+  CVector2 *vec1 = initCVector2(newCVector2(mem), 1.0, 2.0);
 
+  CVector2 *vecO = cmatrix2_mulCVector2(mat1, vec1, NULL);
+  if(vecO->value[0] != 5 || vecO->value[1] != 11) {
+       printf("  NG : mulVec\r\n");
+       cmatrix2_show(mat1);
+       cvector2_show(vec1);
+       cvector2_show(vecO);
+       passed = 0;
+     }
   releaseCObject((CObject*)mat1);
   releaseCObject((CObject*)mat2);
   releaseCObject((CObject*)out);
-
+  releaseCObject((CObject*)vec1);
+  releaseCObject((CObject*)vecO);
   if(mem->callocCounter != mem->freeCounter) {
     printf("  NG : %d == %d\r\n", mem->callocCounter, mem->freeCounter);
     passed = 0;
