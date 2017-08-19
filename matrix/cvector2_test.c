@@ -50,6 +50,14 @@ void cvector2_test_add() {
     cvector2_show(vec5);
     passed = 0;
   }
+  //
+
+  CMatrixValueType v= cvector2_dotProduct(vec1, vec2);
+  if(v == -1.0 ) {
+    printf("  NG : failed to dotProduct %f  \r\n", v);
+    passed = 0;
+  }
+  //
   releaseCObject((CObject*)vec1);
   releaseCObject((CObject*)vec2);
   releaseCObject((CObject*)vec3);
