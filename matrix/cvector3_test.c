@@ -86,6 +86,17 @@ void cvector3_test_add() {
     printf("  NG : failed to distance %f \r\n", d);
     passed = 0;
   }
+
+
+  //
+  // 1 2 3 -> sqrt(1+4+9)
+  //
+  CMatrixValueType e = cvector3_length(vec1);
+  if((int)(e*1000) != 3741) {
+    printf("  NG : failed to length %f \r\n", e);
+    passed = 0;
+  }
+
   releaseCObject((CObject*)vec1);
   releaseCObject((CObject*)vec2);
   releaseCObject((CObject*)vec3);
