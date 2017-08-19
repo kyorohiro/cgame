@@ -21,17 +21,17 @@ int main(int argv, char** argc) {
   cmatrix4_test_add();
   cmatrix4_test_multiply();
 
-  cvector3_test_normalize();
-  cvector3_test_dotProduct();
   cmatrix4_test_ortho();
   cmatrix4_test_perspective();
   cmatrix4_test_lookAt();
   cmatrix4_test_inverse();
   cmatrix4_test_ray();
-  cvector4_test_add();
 
   cvector2_test_add();
   cvector3_test_add();
+  cvector3_test_normalize();
+  cvector3_test_dotProduct();
+  cvector4_test_add();
 
   return 0;
 }

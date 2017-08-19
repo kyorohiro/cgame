@@ -29,6 +29,8 @@ void cmatrix4_test_add() {
       }
     }
   }
+  //
+  //
   releaseCObject((CObject*)mat1);
   releaseCObject((CObject*)mat2);
   if(mem->callocCounter != mem->freeCounter) {

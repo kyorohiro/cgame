@@ -8,8 +8,26 @@ void cvector4_test_add() {
   printf("# cvector4_test_add\n");
   int passed = 1;
   CMemory *mem = initCMemory(newCMemory());
-  CVector4 *vec = initCVector4(newCVector4(mem),0.0,0.0,0.0,0.0);
-  releaseCObject((CObject*)vec);
+  CVector4 *vec1 = initCVector4(newCVector4(mem), 1.0, 2.0, 3.0, 4.0);
+  CVector4 *vec2 = initCVector4(newCVector4(mem), 5.0, 6.0, 7.0, 8.0);
+
+  CVector4 *vec3 =cvector4_add(vec1, vec2, NULL);
+  if(vec3->value[0] != 6.0 || vec3->value[1] != 8.0 || vec3->value[2] != 10.0 || vec3->value[3] != 12.0 ) {
+    printf("  NG : failed to add \r\n");
+    cvector4_show(vec3);
+    passed = 0;
+  }
+
+  cvector4_sub(vec1, vec2, vec3);
+  if(vec3->value[0] != -4.0 || vec3->value[1] != -4.0 || vec3->value[2] != -4.0 || vec3->value[3] != -4.0 ) {
+    printf("  NG : failed to sub \r\n");
+    cvector4_show(vec3);
+    passed = 0;
+  }
+
+  releaseCObject((CObject*)vec1);
+  releaseCObject((CObject*)vec2);
+  releaseCObject((CObject*)vec3);
   if(mem->callocCounter != mem->freeCounter) {
     printf("  NG : %d == %d\r\n", mem->callocCounter, mem->freeCounter);
     passed = 0;
