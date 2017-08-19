@@ -63,12 +63,40 @@ void cvector2_test_add() {
     printf("  NG : failed to crossProduct %f  \r\n", w);
     passed = 0;
   }
+   //     .3,4
+  //          2
+  //  .1,2
+  //    2
+  CMatrixValueType x = cvector2_distance(vec1, vec2);
+  if(((int)(x*1000)) != 2828 ) {
+    printf("  NG : failed to distance %f  \r\n", x);
+    passed = 0;
+  }
+
+  CMatrixValueType y = cvector2_length(vec1);
+  if(((int)(y*1000)) != 2236 ) {
+    printf("  NG : failed to length %f  \r\n", y);
+    passed = 0;
+  }
+
+
+  //
+  // 21
+  CVector2 *vec6 = cvector2_normalize(vec1, NULL);
+  if((int)(vec6->value[0]*1000) != 447||
+     (int)(vec6->value[1]*1000) != 894) {
+    printf("  NG : failed to normalize %f  \r\n", y);
+    cvector2_show(vec6);
+    passed = 0;
+  }
   //
   releaseCObject((CObject*)vec1);
   releaseCObject((CObject*)vec2);
   releaseCObject((CObject*)vec3);
   releaseCObject((CObject*)vec4);
   releaseCObject((CObject*)vec5);
+  releaseCObject((CObject*)vec6);
+
   if(mem->callocCounter != mem->freeCounter) {
     printf("  NG : %d == %d\r\n", mem->callocCounter, mem->freeCounter);
     passed = 0;
