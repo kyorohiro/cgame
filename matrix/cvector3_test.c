@@ -32,10 +32,32 @@ void cvector3_test_add() {
     cvector3_show(vec3);
     passed = 0;
   }
+
+  //
+
+  CVector3 *vec5 =cvector3_mulScalar(vec1, 2.0, NULL);
+  if(vec5->value[0] != 2.0 || vec5->value[1] != 4.0 || vec5->value[2] != 6.0 ) {
+    printf("  NG : failed to mul \r\n");
+    cvector3_show(vec1);
+    cvector3_show(vec2);
+    cvector3_show(vec5);
+    passed = 0;
+  }
+
+  cvector3_divScalar(vec5, 2.0, vec5);
+  if(vec5->value[0] != 1.0 || vec5->value[1] != 2.0 || vec5->value[2] != 3.0) {
+    printf("  NG : failed to div \r\n");
+    cvector3_show(vec1);
+    cvector3_show(vec2);
+    cvector3_show(vec5);
+    passed = 0;
+  }
+
   releaseCObject((CObject*)vec1);
   releaseCObject((CObject*)vec2);
   releaseCObject((CObject*)vec3);
   releaseCObject((CObject*)vec4);
+  releaseCObject((CObject*)vec5);
   if(mem->callocCounter != mem->freeCounter) {
     printf("  NG : %d == %d\r\n", mem->callocCounter, mem->freeCounter);
     passed = 0;

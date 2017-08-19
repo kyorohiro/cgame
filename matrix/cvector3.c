@@ -132,9 +132,9 @@ CVector3RawRef cvector3raw_mulScalar(CVector3RawRef obj, CMatrixValueType v, CVe
 
 CVector3RawRef cvector3raw_divScalar(CVector3RawRef obj, CMatrixValueType v, CVector3RawRef out) {
   CMatrixValueType f = 1.0/v;
-  out[0] = obj[0] * v;
-  out[1] = obj[1] * v;
-  out[2] = obj[2] * v;
+  out[0] = obj[0] * f;
+  out[1] = obj[1] * f;
+  out[2] = obj[2] * f;
   return obj;
 }
 

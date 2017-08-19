@@ -21,7 +21,6 @@ int main(int argv, char** argc) {
   cmatrix4_test_add();
   cmatrix4_test_multiply();
 
-  cvector3_test_add();
   cvector3_test_normalize();
   cvector3_test_dotProduct();
   cmatrix4_test_ortho();
@@ -32,5 +31,7 @@ int main(int argv, char** argc) {
   cvector4_test_add();
 
   cvector2_test_add();
+  cvector3_test_add();
+
   return 0;
 }
