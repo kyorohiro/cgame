@@ -34,8 +34,23 @@ void cmatrix2_test() {
        cmatrix2_show(out);
        passed = 0;
      }
+
   //
-  //
+  // 1 2   4 3
+  // 3 4   2 1
+  // 1*4+2*2 1*3+2*1
+  // 3*4+4*2 3*3+4*1
+  // 4+4 3+2  > 8 5
+  // 12+8 9+4 > 20 13
+  cmatrix2_mul(mat1, mat2, out);
+  if(cmatrix2_getValue(out, 0, 0) != 8 || cmatrix2_getValue(out, 0, 1) != 5 ||
+     cmatrix2_getValue(out, 1, 0) != 20 || cmatrix2_getValue(out, 1, 1) != 13) {
+       printf("  NG : mul\r\n");
+       cmatrix2_show(out);
+       passed = 0;
+     }
+
+
   releaseCObject((CObject*)mat1);
   releaseCObject((CObject*)mat2);
   releaseCObject((CObject*)out);
