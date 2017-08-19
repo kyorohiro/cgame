@@ -97,6 +97,15 @@ void cvector3_test_add() {
     passed = 0;
   }
 
+  CVector3 *vec11 = cvector3_normalize(vec1, NULL);
+  if((int)(vec11->value[0]*1000) != (int)(vec1->value[0]/e*1000) ||
+    (int)(vec11->value[1]*1000) != (int)(vec1->value[1]/e*1000) ||
+    (int)(vec11->value[2]*1000) != (int)(vec1->value[2]/e*1000)) {
+    printf("  NG : failed to normalize %f %f \r\n", vec11->value[0], vec1->value[0]/e);
+    cvector3_show(vec11);
+    passed = 0;
+  }
+
   releaseCObject((CObject*)vec1);
   releaseCObject((CObject*)vec2);
   releaseCObject((CObject*)vec3);
@@ -107,6 +116,7 @@ void cvector3_test_add() {
   releaseCObject((CObject*)vec8);
   releaseCObject((CObject*)vec9);
   releaseCObject((CObject*)vec10);
+  releaseCObject((CObject*)vec11);
 
   if(mem->callocCounter != mem->freeCounter) {
     printf("  NG : %d == %d\r\n", mem->callocCounter, mem->freeCounter);
