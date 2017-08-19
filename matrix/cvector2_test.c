@@ -53,8 +53,14 @@ void cvector2_test_add() {
   //
 
   CMatrixValueType v= cvector2_dotProduct(vec1, vec2);
-  if(v == -1.0 ) {
+  if(v != 11.0 ) {
     printf("  NG : failed to dotProduct %f  \r\n", v);
+    passed = 0;
+  }
+
+  CMatrixValueType w= cvector2_crossProduct(vec1, vec2);
+  if(w != -2.0 ) {
+    printf("  NG : failed to crossProduct %f  \r\n", w);
     passed = 0;
   }
   //

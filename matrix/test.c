@@ -20,7 +20,7 @@ int main(int argv, char** argc) {
   printf("hello world");
   cmatrix4_test_add();
   cmatrix4_test_multiply();
-  cvector2_test_add();
+
   cvector3_test_add();
   cvector3_test_normalize();
   cvector3_test_dotProduct();
@@ -30,5 +30,7 @@ int main(int argv, char** argc) {
   cmatrix4_test_inverse();
   cmatrix4_test_ray();
   cvector4_test_add();
+
+  cvector2_test_add();
   return 0;
 }
