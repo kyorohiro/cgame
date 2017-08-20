@@ -68,20 +68,22 @@ void cmatrix4_test() {
        cvector4_show(vecO);
        passed = 0;
   }
-/*
-  //
-  // 1 2 3   1 4 7
-  // 4 5 6 > 2 5 8
-  // 7 8 9   3 6 9
-  cmatrix3_transpose(mat1, out);
-  if(cmatrix3_getValue(out, 0, 0) != 1 || cmatrix3_getValue(out, 0, 1) != 4 ||cmatrix3_getValue(out, 0, 2) != 7 ||
-     cmatrix3_getValue(out, 1, 0) != 2 || cmatrix3_getValue(out, 1, 1) != 5 || cmatrix3_getValue(out, 1, 2) != 8 ||
-     cmatrix3_getValue(out, 2, 0) != 3 || cmatrix3_getValue(out, 2, 1) != 6 || cmatrix3_getValue(out, 2, 2) != 9 ) {
-       printf("  NG : transpose\r\n");
-       cmatrix3_show(out);
+
+  cmatrix4_transpose(mat1, out);
+  if(cmatrix4_getValue(out, 0, 0) != 1 || cmatrix4_getValue(out, 0, 1) != 5 ||
+             cmatrix4_getValue(out, 0, 2) != 9 || cmatrix4_getValue(out, 0, 3) != 13 ||
+     cmatrix4_getValue(out, 1, 0) != 2   || cmatrix4_getValue(out, 1, 1) != 6  ||
+             cmatrix4_getValue(out, 1, 2) != 10  || cmatrix4_getValue(out, 1, 3) != 14 ||
+     cmatrix4_getValue(out, 2, 0) != 3    || cmatrix4_getValue(out, 2, 1) != 7   ||
+             cmatrix4_getValue(out, 2, 2) != 11   || cmatrix4_getValue(out, 2, 3) != 15  ||
+     cmatrix4_getValue(out, 3, 0) != 4    || cmatrix4_getValue(out, 3, 1) != 8 ||
+             cmatrix4_getValue(out, 3, 2) != 12  || cmatrix4_getValue(out, 3, 3) != 16
+   ) {
+       printf("  NG : sub\r\n");
+       cmatrix4_show(out);
        passed = 0;
   }
-
+/*
   //
   // 1 2
   // 3 4 > 1*4 - 2*3 > -2
