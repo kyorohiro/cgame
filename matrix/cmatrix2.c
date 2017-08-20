@@ -216,10 +216,10 @@ CMatrix2RawRef cmatrix2raw_inverse(CMatrix2RawRef raw, CMatrix2RawRef outInverse
   }
 
   CMatrixValueType f = 1.0 / det;
-  outInverse[0] = raw[3] * det;
-  outInverse[2] = -1 * raw[2] * det;
-  outInverse[1] = -1 * raw[1] * det;
-  outInverse[3] = raw[0] * det;
+  outInverse[0] = raw[3] * f;
+  outInverse[2] = -1 * raw[2] * f;
+  outInverse[1] = -1 * raw[1] * f;
+  outInverse[3] = raw[0] * f;
 
   return outInverse;
 }

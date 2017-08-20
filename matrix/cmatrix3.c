@@ -255,6 +255,7 @@ CMatrix3RawRef cmatrix3raw_inverse(CMatrix3RawRef raw, CMatrix3RawRef outInverse
   if(det == 0) {
     return outInverse;
   }
+  CMatrixValueType f = 1.0/det;
   CMatrixValueType i0 =(raw[4] * raw[8] - raw[5] * raw[7]);
   CMatrixValueType i3 =-1*(raw[1] * raw[8] - raw[7] * raw[2]);
   CMatrixValueType i6 =(raw[1] * raw[5] - raw[4] * raw[2]);
@@ -265,15 +266,15 @@ CMatrix3RawRef cmatrix3raw_inverse(CMatrix3RawRef raw, CMatrix3RawRef outInverse
   CMatrixValueType i5 =-1*(raw[0] * raw[7] - raw[6] * raw[1]);
   CMatrixValueType i8 =(raw[0] * raw[4] - raw[3] * raw[1]);
 
-  outInverse[0] = i0;
-  outInverse[1] = i3;
-  outInverse[2] = i6;
-  outInverse[3] = i1;
-  outInverse[4] = i4;
-  outInverse[5] = i7;
-  outInverse[6] = i2;
-  outInverse[7] = i5;
-  outInverse[8] = i8;
+  outInverse[0] = i0 * f;
+  outInverse[1] = i3 * f;
+  outInverse[2] = i6 * f;
+  outInverse[3] = i1 * f;
+  outInverse[4] = i4 * f;
+  outInverse[5] = i7 * f;
+  outInverse[6] = i2 * f;
+  outInverse[7] = i5 * f;
+  outInverse[8] = i8 * f;
 
   return outInverse;
 }

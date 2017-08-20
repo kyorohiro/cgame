@@ -87,6 +87,18 @@ void cmatrix2_test() {
        cmatrix2_show(out);
        passed = 0;
   }
+  //         d -b   4  -2
+  // -1/2 * -c  a > -3  1 / v
+  //
+  CMatrixValueType outDeterminant;
+  cmatrix2_inverse(mat1, out, &outDeterminant);
+  if(cmatrix2_getValue(out, 0, 0) != 4/v || cmatrix2_getValue(out, 0, 1) != -2/v ||
+     cmatrix2_getValue(out, 1, 0) != -3/v || cmatrix2_getValue(out, 1, 1) != 1/v) {
+       printf("  NG : transpose\r\n");
+       cmatrix2_show(mat1);
+       cmatrix2_show(out);
+       passed = 0;
+  }
 
   releaseCObject((CObject*)mat1);
   releaseCObject((CObject*)mat2);
