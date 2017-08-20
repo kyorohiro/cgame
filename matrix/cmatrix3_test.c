@@ -30,15 +30,17 @@ void cmatrix3_test() {
       }
     }
   }
-/*
-  cmatrix2_sub(mat1, mat2, out);
-  if(cmatrix2_getValue(out, 0, 0) != -3 || cmatrix2_getValue(out, 0, 1) != -1 ||
-     cmatrix2_getValue(out, 1, 0) !=1 || cmatrix2_getValue(out, 1, 1) != 3) {
+
+  cmatrix3_sub(mat1, mat2, out);
+  if(cmatrix3_getValue(out, 0, 0) != -8 || cmatrix3_getValue(out, 0, 1) != -6 ||cmatrix3_getValue(out, 0, 2) != -4 ||
+     cmatrix3_getValue(out, 1, 0) !=-2 || cmatrix3_getValue(out, 1, 1) != 0 || cmatrix3_getValue(out, 1, 2) != 2 ||
+     cmatrix3_getValue(out, 2, 0) !=4 || cmatrix3_getValue(out, 2, 1) != 6 || cmatrix3_getValue(out, 2, 2) != 8 ) {
        printf("  NG : sub\r\n");
-       cmatrix2_show(out);
+       cmatrix3_show(out);
        passed = 0;
      }
 
+/*
   //
   // 1 2   4 3
   // 3 4   2 1
