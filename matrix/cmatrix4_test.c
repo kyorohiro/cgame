@@ -50,16 +50,6 @@ void cmatrix4_test() {
 
 
 /*
-  cmatrix4_mul(mat1, mat2, out);
-  if(cmatrix4_getValue(out, 0, 0) != -15 || cmatrix4_getValue(out, 0, 1) != -13 || cmatrix4_getValue(out, 0, 2) != -11 || cmatrix4_getValue(out, 0, 3) != -9 ||
-     cmatrix4_getValue(out, 1, 0) !=-7   || cmatrix4_getValue(out, 1, 1) != -5  || cmatrix4_getValue(out, 1, 2) != -3  || cmatrix4_getValue(out, 1, 3) != -1 ||
-     cmatrix4_getValue(out, 2, 0) !=1    || cmatrix4_getValue(out, 2, 1) != 3   || cmatrix4_getValue(out, 2, 2) != 5   || cmatrix4_getValue(out, 2, 3) != 7  ||
-     cmatrix4_getValue(out, 3, 0) !=9    || cmatrix4_getValue(out, 3, 1) != 11  || cmatrix4_getValue(out, 3, 2) != 13  || cmatrix4_getValue(out, 3, 3) != 15
-   ) {
-       printf("  NG : sub\r\n");
-       cmatrix4_show(out);
-       passed = 0;
-  }
 
   //
   // 1 2 3  1
