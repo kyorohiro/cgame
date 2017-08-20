@@ -33,7 +33,24 @@ void cmatrix4_test() {
     }
   }
 
-  cmatrix4_sub(mat1, mat2, out);
+  cmatrix4_mul(mat1, mat2, out);
+  if(cmatrix4_getValue(out, 0, 0) != 80 || cmatrix4_getValue(out, 0, 1) != 70 ||
+             cmatrix4_getValue(out, 0, 2) != 60 || cmatrix4_getValue(out, 0, 3) != 50 ||
+     cmatrix4_getValue(out, 1, 0) !=240   || cmatrix4_getValue(out, 1, 1) != 214  ||
+             cmatrix4_getValue(out, 1, 2) != 188  || cmatrix4_getValue(out, 1, 3) != 162 ||
+     cmatrix4_getValue(out, 2, 0) !=400    || cmatrix4_getValue(out, 2, 1) != 358   ||
+             cmatrix4_getValue(out, 2, 2) != 316   || cmatrix4_getValue(out, 2, 3) != 274  ||
+     cmatrix4_getValue(out, 3, 0) !=560    || cmatrix4_getValue(out, 3, 1) != 502 ||
+             cmatrix4_getValue(out, 3, 2) != 444  || cmatrix4_getValue(out, 3, 3) != 386
+   ) {
+       printf("  NG : sub\r\n");
+       cmatrix4_show(out);
+       passed = 0;
+  }
+
+
+/*
+  cmatrix4_mul(mat1, mat2, out);
   if(cmatrix4_getValue(out, 0, 0) != -15 || cmatrix4_getValue(out, 0, 1) != -13 || cmatrix4_getValue(out, 0, 2) != -11 || cmatrix4_getValue(out, 0, 3) != -9 ||
      cmatrix4_getValue(out, 1, 0) !=-7   || cmatrix4_getValue(out, 1, 1) != -5  || cmatrix4_getValue(out, 1, 2) != -3  || cmatrix4_getValue(out, 1, 3) != -1 ||
      cmatrix4_getValue(out, 2, 0) !=1    || cmatrix4_getValue(out, 2, 1) != 3   || cmatrix4_getValue(out, 2, 2) != 5   || cmatrix4_getValue(out, 2, 3) != 7  ||
@@ -41,32 +58,6 @@ void cmatrix4_test() {
    ) {
        printf("  NG : sub\r\n");
        cmatrix4_show(out);
-       passed = 0;
-  }
-
-/*
-  //
-  // 1 2 3   9 8 7
-  // 4 5 6 * 6 5 4
-  // 7 8 9   3 2 1
-  //
-  // 1*9+2*6+3*3 1*8+2*5+3*2 1*7+2*4+3*1
-  // 4*9+5*6+6*3 4*8+5*5+6*2 4*7+5*4+6*1
-  // 7*9+8*6+9*3 7*8+8*5+9*2 7*7+8*4+9*1
-  //
-  // 9+12+9   8+10+6   7+8+3
-  // 36+30+18 32+25+12 28+20+6
-  // 63+48+27 56+40+18 49+32+9
-  //
-  // 30  24 18
-  // 84  69 54
-  // 148 114 106
-  cmatrix3_mul(mat1, mat2, out);
-  if(cmatrix3_getValue(out, 0, 0) != 30 || cmatrix3_getValue(out, 0, 1) != 24 ||cmatrix3_getValue(out, 0, 2) != 18 ||
-     cmatrix3_getValue(out, 1, 0) != 84 || cmatrix3_getValue(out, 1, 1) != 69 || cmatrix3_getValue(out, 1, 2) != 54 ||
-     cmatrix3_getValue(out, 2, 0) != 138 || cmatrix3_getValue(out, 2, 1) != 114 || cmatrix3_getValue(out, 2, 2) != 90 ) {
-       printf("  NG : sub\r\n");
-       cmatrix3_show(out);
        passed = 0;
   }
 
