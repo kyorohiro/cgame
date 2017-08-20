@@ -49,7 +49,7 @@ void cmatrix4_test() {
   }
 
 
-/*
+
 
   //
   // 1 2 3  1
@@ -59,16 +59,16 @@ void cmatrix4_test() {
   // 1*1+2*2+3*3 > 1+4+9    > 14
   // 4*1+5*2+6*3 > 4+10+18  > 32
   // 7*1+8*2+9*3 > 7+16+27  > 50
-  CVector3 *vec1 = initCVector3(newCVector3(mem), 1.0, 2.0, 3.0);
-  CVector3 *vecO = cmatrix3_mulCVector3(mat1, vec1, NULL);
-  if(vecO->value[0] != 14 || vecO->value[1] != 32 || vecO->value[2] != 50) {
+  CVector4 *vec1 = initCVector4(newCVector4(mem), 1.0, 2.0, 3.0, 4.0);
+  CVector4 *vecO = cmatrix4_mulCVector4(mat1, vec1, NULL);
+  if(vecO->value[0] != 30 || vecO->value[1] != 70 || vecO->value[2] != 110 || vecO->value[3] != 150) {
        printf("  NG : mulVec\r\n");
-       cmatrix3_show(mat1);
-       cvector3_show(vec1);
-       cvector3_show(vecO);
+       cmatrix4_show(mat1);
+       cvector4_show(vec1);
+       cvector4_show(vecO);
        passed = 0;
   }
-
+/*
   //
   // 1 2 3   1 4 7
   // 4 5 6 > 2 5 8
@@ -113,8 +113,8 @@ void cmatrix4_test() {
   releaseCObject((CObject*)mat1);
   releaseCObject((CObject*)mat2);
   releaseCObject((CObject*)out);
-  //releaseCObject((CObject*)vec1);
-  ///releaseCObject((CObject*)vecO);
+  releaseCObject((CObject*)vec1);
+  releaseCObject((CObject*)vecO);
   if(mem->callocCounter != mem->freeCounter) {
     printf("  NG : %d == %d\r\n", mem->callocCounter, mem->freeCounter);
     passed = 0;
