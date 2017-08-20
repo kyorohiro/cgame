@@ -20,7 +20,11 @@ void cmatrix4_test() {
     12, 11, 10,  9,
      8,  7,  6,  5,
      4,  3,  2,  1);
-
+  CMatrix4 *mat3 = cmatrix4_setValues(initCMatrix4(newCMatrix4(mem)),
+     1,  2,  3,  4,
+     2,  3,  4,  3,
+     3,  4,  3,  2,
+     4,  3,  2,  1);
   CMatrix4 *out = cmatrix4_add(mat1, mat2, NULL);
   for(int i=0;i<4;i++) {
     for(int j=0;j<4;j++) {
@@ -83,37 +87,34 @@ void cmatrix4_test() {
        cmatrix4_show(out);
        passed = 0;
   }
-/*
+
   //
-  // 1 2
-  // 3 4 > 1*4 - 2*3 > -2
-  CMatrixValueType v = cmatrix3_determinant(mat1);
+  CMatrixValueType v = cmatrix4_determinant(mat1);
   if(v!= 0) {
        printf("  NG : determinant %f\r\n", v);
-       cmatrix3_show(out);
+       cmatrix4_show(out);
        passed = 0;
   }
 
-  //
-  //         d -b   4  -2
-  // -1/2 * -c  a > -3  1 / v
-  //
   CMatrixValueType outDeterminant;
-  mat1->value[8] = 1.0;
-  cmatrix3_inverse(mat1, out, &outDeterminant);
-  if(
-    (int)(cmatrix3_getValue(out, 0, 0)*1000)  != -1791 || (int)(cmatrix3_getValue(out, 0, 1)*1000) != 916 || (int)(cmatrix3_getValue(out, 0, 2)*1000) != -125 ||
-    (int)(cmatrix3_getValue(out, 1, 0)*1000)  != 1583 || (int)(cmatrix3_getValue(out, 1, 1)*1000) != -833 || (int)(cmatrix3_getValue(out, 1, 2)*1000) != 250 ||
-    (int)(cmatrix3_getValue(out, 2, 0)*1000)  != -125 || (int)(cmatrix3_getValue(out, 2, 1)*1000) != 250 || (int)(cmatrix3_getValue(out, 2, 2)*1000) != -125 )
-  {
-       printf("  NG : transpose\r\n");
-       cmatrix3_show(mat1);
-       cmatrix3_show(out);
+  cmatrix4_inverse(mat3, out, &outDeterminant);
+  if((int)(cmatrix4_getValue(out, 0, 0)*10) != 1 || (int)(cmatrix4_getValue(out, 0, 1)*10) != 0 ||
+             (int)(cmatrix4_getValue(out, 0, 2)*10) != -5 || (int)(cmatrix4_getValue(out, 0, 3)*10) != 6 ||
+     (int)(cmatrix4_getValue(out, 1, 0)*10) != 0   || (int)(cmatrix4_getValue(out, 1, 1)*10)  != -5  ||
+             (int)(cmatrix4_getValue(out, 1, 2)*10) != 10  || (int)(cmatrix4_getValue(out, 1, 3)*10) != -5 ||
+     (int)(cmatrix4_getValue(out, 2, 0)*10) != -5    || (int)(cmatrix4_getValue(out, 2, 1)*10) != 10  ||
+             (int)(cmatrix4_getValue(out, 2, 2)*10) != -5   || (int)(cmatrix4_getValue(out, 2, 3)*10) != 0 ||
+     (int)(cmatrix4_getValue(out, 3, 0)*10) != 6    || (int)(cmatrix4_getValue(out, 3, 1)*10) != -5 ||
+             (int)(cmatrix4_getValue(out, 3, 2)*10) != 0  || (int)(cmatrix4_getValue(out, 3, 3)*10) != 1
+   ) {
+       printf("  NG : sub\r\n");
+       cmatrix4_show(out);
        passed = 0;
   }
-*/
+
   releaseCObject((CObject*)mat1);
   releaseCObject((CObject*)mat2);
+  releaseCObject((CObject*)mat3);
   releaseCObject((CObject*)out);
   releaseCObject((CObject*)vec1);
   releaseCObject((CObject*)vecO);
