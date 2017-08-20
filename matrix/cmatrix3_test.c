@@ -83,19 +83,20 @@ void cmatrix3_test() {
        cvector3_show(vecO);
        passed = 0;
   }
-/*
+
   //
-  // 1 2 > 1 3
-  // 3 4 > 2 4
-  //
-  cmatrix2_transpose(mat1, out);
-  if(cmatrix2_getValue(out, 0, 0) != 1 || cmatrix2_getValue(out, 0, 1) != 3 ||
-     cmatrix2_getValue(out, 1, 0) != 2 || cmatrix2_getValue(out, 1, 1) != 4) {
+  // 1 2 3   1 4 7
+  // 4 5 6 > 2 5 8
+  // 7 8 9   3 6 9
+  cmatrix3_transpose(mat1, out);
+  if(cmatrix3_getValue(out, 0, 0) != 1 || cmatrix3_getValue(out, 0, 1) != 4 ||cmatrix3_getValue(out, 0, 2) != 7 ||
+     cmatrix3_getValue(out, 1, 0) != 2 || cmatrix3_getValue(out, 1, 1) != 5 || cmatrix3_getValue(out, 1, 2) != 8 ||
+     cmatrix3_getValue(out, 2, 0) != 3 || cmatrix3_getValue(out, 2, 1) != 6 || cmatrix3_getValue(out, 2, 2) != 9 ) {
        printf("  NG : transpose\r\n");
-       cmatrix2_show(out);
+       cmatrix3_show(out);
        passed = 0;
   }
-
+/*
   //
   // 1 2
   // 3 4 > 1*4 - 2*3 > -2
