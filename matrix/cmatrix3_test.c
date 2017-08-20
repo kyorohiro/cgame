@@ -38,24 +38,34 @@ void cmatrix3_test() {
        printf("  NG : sub\r\n");
        cmatrix3_show(out);
        passed = 0;
-     }
+  }
 
-/*
+
   //
-  // 1 2   4 3
-  // 3 4   2 1
-  // 1*4+2*2 1*3+2*1
-  // 3*4+4*2 3*3+4*1
-  // 4+4 3+2  > 8 5
-  // 12+8 9+4 > 20 13
-  cmatrix2_mul(mat1, mat2, out);
-  if(cmatrix2_getValue(out, 0, 0) != 8 || cmatrix2_getValue(out, 0, 1) != 5 ||
-     cmatrix2_getValue(out, 1, 0) != 20 || cmatrix2_getValue(out, 1, 1) != 13) {
-       printf("  NG : mul\r\n");
-       cmatrix2_show(out);
+  // 1 2 3   9 8 7
+  // 4 5 6 * 6 5 4
+  // 7 8 9   3 2 1
+  //
+  // 1*9+2*6+3*3 1*8+2*5+3*2 1*7+2*4+3*1
+  // 4*9+5*6+6*3 4*8+5*5+6*2 4*7+5*4+6*1
+  // 7*9+8*6+9*3 7*8+8*5+9*2 7*7+8*4+9*1
+  //
+  // 9+12+9   8+10+6   7+8+3
+  // 36+30+18 32+25+12 28+20+6
+  // 63+48+27 56+40+18 49+32+9
+  //
+  // 30  24 18
+  // 84  69 54
+  // 148 114 106
+  cmatrix3_mul(mat1, mat2, out);
+  if(cmatrix3_getValue(out, 0, 0) != 30 || cmatrix3_getValue(out, 0, 1) != 24 ||cmatrix3_getValue(out, 0, 2) != 18 ||
+     cmatrix3_getValue(out, 1, 0) != 84 || cmatrix3_getValue(out, 1, 1) != 69 || cmatrix3_getValue(out, 1, 2) != 54 ||
+     cmatrix3_getValue(out, 2, 0) != 138 || cmatrix3_getValue(out, 2, 1) != 114 || cmatrix3_getValue(out, 2, 2) != 90 ) {
+       printf("  NG : sub\r\n");
+       cmatrix3_show(out);
        passed = 0;
-     }
-
+  }
+/*
   //
   // 1 2  1
   // 3 4  2
