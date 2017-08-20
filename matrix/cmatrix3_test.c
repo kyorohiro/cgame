@@ -96,29 +96,35 @@ void cmatrix3_test() {
        cmatrix3_show(out);
        passed = 0;
   }
-/*
+
   //
   // 1 2
   // 3 4 > 1*4 - 2*3 > -2
-  CMatrixValueType v = cmatrix2_determinant(mat1);
-  if(v!= -2) {
+  CMatrixValueType v = cmatrix3_determinant(mat1);
+  if(v!= 0) {
        printf("  NG : determinant %f\r\n", v);
-       cmatrix2_show(out);
+       cmatrix3_show(out);
        passed = 0;
   }
+
+  //
   //         d -b   4  -2
   // -1/2 * -c  a > -3  1 / v
   //
   CMatrixValueType outDeterminant;
-  cmatrix2_inverse(mat1, out, &outDeterminant);
-  if(cmatrix2_getValue(out, 0, 0) != 4/v || cmatrix2_getValue(out, 0, 1) != -2/v ||
-     cmatrix2_getValue(out, 1, 0) != -3/v || cmatrix2_getValue(out, 1, 1) != 1/v) {
+  mat1->value[8] = 1.0;
+  cmatrix3_inverse(mat1, out, &outDeterminant);
+  if(
+    (int)(cmatrix3_getValue(out, 0, 0)*1000)  != -1791 || (int)(cmatrix3_getValue(out, 0, 1)*1000) != 916 || (int)(cmatrix3_getValue(out, 0, 2)*1000) != -125 ||
+    (int)(cmatrix3_getValue(out, 1, 0)*1000)  != 1583 || (int)(cmatrix3_getValue(out, 1, 1)*1000) != -833 || (int)(cmatrix3_getValue(out, 1, 2)*1000) != 250 ||
+    (int)(cmatrix3_getValue(out, 2, 0)*1000)  != -125 || (int)(cmatrix3_getValue(out, 2, 1)*1000) != 250 || (int)(cmatrix3_getValue(out, 2, 2)*1000) != -125 )
+  {
        printf("  NG : transpose\r\n");
-       cmatrix2_show(mat1);
-       cmatrix2_show(out);
+       cmatrix3_show(mat1);
+       cmatrix3_show(out);
        passed = 0;
   }
-*/
+
   releaseCObject((CObject*)mat1);
   releaseCObject((CObject*)mat2);
   releaseCObject((CObject*)out);
