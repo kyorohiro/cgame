@@ -2,32 +2,35 @@
 #include <math.h>
 #include "core/cbytes.h"
 #include "core/cmemory.h"
-#include "cmatrix2.h"
-#include "cvector2.h"
+#include "cmatrix3.h"
+#include "cvector3.h"
 #include "matrix/cglmatrix.h"
 
 void cmatrix3_test() {
   printf("# cmatrix3_test\n");
   int passed = 1;
   CMemory *mem = initCMemory(newCMemory());
-  CMatrix2 *mat1 = cmatrix2_setValues(initCMatrix2(newCMatrix2(mem)),
-     1, 2,
-     3, 4);
-  CMatrix2 *mat2 = cmatrix2_setValues(initCMatrix2(newCMatrix2(mem)),
-      4, 3,
-      2, 1);
+  CMatrix3 *mat1 = cmatrix3_setValues(initCMatrix3(newCMatrix3(mem)),
+     1, 2, 3,
+     4, 5, 6,
+     7, 8, 9);
+  CMatrix3 *mat2 = cmatrix3_setValues(initCMatrix3(newCMatrix3(mem)),
+     9, 8, 7,
+     6, 5, 4,
+     3, 2, 1);
 
-  CMatrix2 *out = cmatrix2_add(mat1, mat2, NULL);
-  for(int i=0;i<2;i++) {
-    for(int j=0;j<2;j++) {
-      if(cmatrix2_getValue(out, i, j) != 5) {
+  CMatrix3 *out = cmatrix3_add(mat1, mat2, NULL);
+  for(int i=0;i<3;i++) {
+    for(int j=0;j<3;j++) {
+      if(cmatrix3_getValue(out, i, j) != 10) {
         printf("  NG : add\r\n");
-        cmatrix2_show(out);
+        cmatrix3_show(out);
         passed = 0;
+        break;
       }
     }
   }
-
+/*
   cmatrix2_sub(mat1, mat2, out);
   if(cmatrix2_getValue(out, 0, 0) != -3 || cmatrix2_getValue(out, 0, 1) != -1 ||
      cmatrix2_getValue(out, 1, 0) !=1 || cmatrix2_getValue(out, 1, 1) != 3) {
@@ -99,12 +102,12 @@ void cmatrix3_test() {
        cmatrix2_show(out);
        passed = 0;
   }
-
+*/
   releaseCObject((CObject*)mat1);
   releaseCObject((CObject*)mat2);
   releaseCObject((CObject*)out);
-  releaseCObject((CObject*)vec1);
-  releaseCObject((CObject*)vecO);
+/*  releaseCObject((CObject*)vec1);
+  releaseCObject((CObject*)vecO);*/
   if(mem->callocCounter != mem->freeCounter) {
     printf("  NG : %d == %d\r\n", mem->callocCounter, mem->freeCounter);
     passed = 0;
