@@ -1,8 +1,15 @@
+#
+# Wins
+# cmd = cmd /c
+
+# Mac
+# cmd =
 sep = /
-cmd = cmd /c
+cmd =
 objExt= o
 appExt= exe
-cc = clang
+objLib = a
+cc = cc
 ar = ar
 rule obj
   command=${cmd} ${cc} -c $in -o $out -I.. -I.
@@ -10,7 +17,7 @@ rule test
   command=${cmd} ${cc} $in -o $out
 rule lib
   command=${cmd} ${ar} rcs $out $in
-  description = "cc ${in} -o ${out}"
+rule exe
+  command=${cmd} ${cc} -o $out $in
 
-sep = "\"
 subninja core${sep}build.ninja

@@ -1,4 +1,4 @@
-sep = /
+
 
 #
 # Wins
@@ -6,16 +6,19 @@ sep = /
 
 # Mac
 # cmd =
+sep = /
 cmd =
-objExt= bc
-appExt= js
+objExt = bc
+appExt = js
+objLib = bc
 rule obj
   command=${cmd} emcc -c $in -o $out -I.. -I.
 rule test
   command=${cmd} emcc $in -o $out --embed-file core/assets/test.dat
 rule lib
   command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out
-
+rule exe
+  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out
 
 #
 # core
