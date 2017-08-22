@@ -8,6 +8,9 @@
 
 
 #define CEXCEPT_NAME "cex"
+#define CTRY_start if(0 == cexception_start(getCException())) {
+#define CTRY_catch }else {
+#define CTRY_end }
 
 typedef struct {
   CObject parent;
@@ -16,11 +19,9 @@ typedef struct {
 
 CException* newCException(CMemory*);
 CException* initCException(CException*);
+CException* getCException();
 
-/*CException* getCException();
-void cexception_start(CException* );
-void cexception_throw(CException* ,int kind);
-void cexception_catch(CException* ,int kind);
-void cexception_end(CException* );
-*/
+int cexception_start(CException* obj);
+void cexception_throw(CException* obj, CObject* arg);
+CObject* cexception_end(CException* obj);
 #endif

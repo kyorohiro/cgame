@@ -1,5 +1,6 @@
 #include "cexception.h"
 #include <stdio.h>
+#include <setjmp.h>
 
 void _freeCException(void* obj) {
   CObject *objObj = (CObject*)obj;
@@ -22,22 +23,23 @@ CException* initCException(CException* obj) {
   return obj;
 }
 
+CException* _defaultCException = NULL;
 CException* getCException() {
+  if(_defaultCException == NULL) {
+    _defaultCException = initCException(newCException(getCMemory()));
+  }
+  return _defaultCException;
+}
+
+jmp_buf env_buffer;
+int cexception_start(CException* obj) {
+  return setjmp( env_buffer );
+}
+
+void cexception_throw(CException* obj, CObject* arg) {
+
+}
+
+CObject* cexception_end(CException* obj) {
   return NULL;
-}
-
-void cexception_start(CException* obj) {
-
-}
-
-void cexception_throw(CException* obj,int kind) {
-
-}
-
-void cexception_catch(CException* obj,int kind) {
-
-}
-
-void cexception_end(CException* obj) {
-
 }
