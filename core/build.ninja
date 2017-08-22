@@ -11,12 +11,14 @@ build core${sep}cstring.${objExt}: obj core${sep}cstring.c
 build core${sep}cbytes.${objExt}: obj core${sep}cbytes.c
 build core${sep}cbytesBuilder.${objExt}: obj core${sep}cbytesBuilder.c
 build core${sep}chashMap.${objExt}: obj core${sep}chashMap.c
+build core${sep}chashMap.${objExt}: obj core${sep}chashMap.c
 
 build core${sep}cevent.${objExt}: obj core${sep}cevent.c
-
+build core${sep}cexception.${objExt}: obj core${sep}cexception.c
 #
 # Lib
-build core/libcore.${objLib}: lib core/cobject.${objExt} core/clinkedList.${objExt} core/carrayList.${objExt} core/cmemory.${objExt} core/cobjectManager.${objExt} core/cbytesBuilder.${objExt} core/cbytes.${objExt} core/cstring.${objExt} core${sep}chashMap.${objExt} core${sep}cevent.${objExt}
+build core/libcore.${objLib}: lib core/cobject.${objExt} core/clinkedList.${objExt} core/carrayList.${objExt} core/cmemory.${objExt} core/cobjectManager.${objExt} core/cbytesBuilder.${objExt} core/cbytes.${objExt} core/cstring.${objExt} core${sep}chashMap.${objExt} core${sep}cevent.${objExt} core${sep}cexception.${objExt}
+
 
 
 #
