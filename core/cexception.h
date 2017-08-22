@@ -8,11 +8,13 @@
 #include <setjmp.h>
 
 #define CEXCEPT_NAME "cex"
-//#define CTry {if(0 == cexception_start(getCException()))
+//
 #define CTry if(0 == setjmp(cexception_push(getCException())->value))
 #define CCatch else if(1 == cexception_rmLast(getCException()))
-#define CEnd if(true){}
-//#define CEnd
+//
+#define CTryA(aa) if(0 == setjmp(cexception_push(aa)->value))
+#define CCatchA(aa) else if(1 == cexception_rmLast(aa))
+
 
 typedef struct {
   CObject parent;
