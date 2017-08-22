@@ -59,7 +59,7 @@ void cbytesBuilder_test2(){
   if(cstring_getLength(s) != 7 || cstring_getByteLength(s) != 7) {
     printf("  NG : length = %d %d\r\n", cstring_getLength(s),cstring_getByteLength(s));
   }
-  releaseCObject((CObject*)s);  
+  releaseCObject((CObject*)s);
   releaseCObject((CObject*)bye);
   if(mem->callocCounter != mem->freeCounter) {
     printf("  NG : %d == %d\r\n", mem->callocCounter, mem->freeCounter);
