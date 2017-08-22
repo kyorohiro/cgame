@@ -8,9 +8,9 @@
 
 
 #define CEXCEPT_NAME "cex"
-#define CTRY_start if(0 == cexception_start(getCException())) {
-#define CTRY_catch }else {
-#define CTRY_end }
+#define CTry if(0 == cexception_start(getCException()))
+#define CCatch else
+//#define CEnd
 
 typedef struct {
   CObject parent;

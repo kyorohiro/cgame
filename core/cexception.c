@@ -37,7 +37,7 @@ int cexception_start(CException* obj) {
 }
 
 void cexception_throw(CException* obj, CObject* arg) {
-
+  longjmp(env_buffer, 1);
 }
 
 CObject* cexception_end(CException* obj) {
