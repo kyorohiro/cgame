@@ -16,6 +16,15 @@
 
 typedef struct {
   CObject parent;
+  jmp_buf value;
+} CJmpBuffer;
+
+CJmpBuffer* newCJmpBuffer(CMemory* cmemory);
+CJmpBuffer* initCJmpBuffer(CJmpBuffer* obj);
+
+
+typedef struct {
+  CObject parent;
   CLinkedList *stack;
   jmp_buf env_buffer;
 } CException;

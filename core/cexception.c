@@ -2,6 +2,30 @@
 #include <stdio.h>
 #include <setjmp.h>
 
+
+//
+//
+//
+void _freeCJmpBuffer(void* obj) {
+  CObject *objObj = (CObject*)obj;
+  CJmpBuffer *exeObj = (CJmpBuffer*)obj;
+  freeCObject(obj);
+}
+
+CJmpBuffer* newCJmpBuffer(CMemory* cmemory) {
+  CJmpBuffer* ret = cmemory_calloc(cmemory, 1, sizeof(CJmpBuffer));
+  ret->parent.cmemory = cmemory;
+  ret->parent.funcFree = _freeCJmpBuffer;
+  return ret;
+}
+
+CJmpBuffer* initCJmpBuffer(CJmpBuffer* obj) {
+  return obj;
+}
+
+//
+//
+//
 void _freeCException(void* obj) {
   CObject *objObj = (CObject*)obj;
   CException *exeObj = (CException*)obj;
