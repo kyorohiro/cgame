@@ -253,6 +253,15 @@ CMatrix3RawRef cmatrix3raw_inverse(CMatrix3RawRef raw, CMatrix3RawRef outInverse
     *outInverse = det;
   }
   if(det == 0) {
+    outInverse[0] = 0.0;
+    outInverse[1] = 0.0;
+    outInverse[2] = 0.0;
+    outInverse[3] = 0.0;
+    outInverse[4] = 0.0;
+    outInverse[5] = 0.0;
+    outInverse[6] = 0.0;
+    outInverse[7] = 0.0;
+    outInverse[8] = 0.0;
     return outInverse;
   }
   CMatrixValueType f = 1.0/det;

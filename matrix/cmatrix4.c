@@ -332,6 +332,22 @@ CMatrix4RawRef cmatrix4raw_inverse(CMatrix4RawRef raw, CMatrix4RawRef outInverse
   }
   if(det == 0.0) {
     // todo throw exception
+    outInverse[0] = 0.0;
+    outInverse[1] = 0.0;
+    outInverse[2] = 0.0;
+    outInverse[3] = 0.0;
+    outInverse[4] = 0.0;
+    outInverse[5] = 0.0;
+    outInverse[6] = 0.0;
+    outInverse[7] = 0.0;
+    outInverse[8] = 0.0;
+    outInverse[9] = 0.0;
+    outInverse[10] = 0.0;
+    outInverse[11] = 0.0;
+    outInverse[12] = 0.0;
+    outInverse[13] = 0.0;
+    outInverse[14] = 0.0;
+    outInverse[15] = 0.0;
     return outInverse;
   }
 

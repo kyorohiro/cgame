@@ -212,6 +212,10 @@ CMatrix2RawRef cmatrix2raw_inverse(CMatrix2RawRef raw, CMatrix2RawRef outInverse
     *outInverse = det;
   }
   if(det == 0) {
+    outInverse[0] = 0.0;
+    outInverse[2] = 0.0;
+    outInverse[1] = 0.0;
+    outInverse[3] = 0.0;
     return outInverse;
   }
 
