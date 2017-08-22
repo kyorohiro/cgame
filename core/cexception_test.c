@@ -12,12 +12,17 @@ void cexception_test(){
   CMemory *mem = initCMemory(newCMemory());
   CException *exe = initCException(newCException(mem));
 
-
   CTry {
-    printf("test try\r\n");
-    _testtest();
+      printf("test try1\r\n");
+    CTry {
+      printf("test try2\r\n");
+      _testtest();
+    } CCatch {
+      printf("test catch2\r\n");
+    }
+      _testtest();
   } CCatch {
-    printf("test catch\r\n");
+      printf("test catch1\r\n");
   }
   releaseCObject((CObject*)exe);
   if(mem->callocCounter != mem->freeCounter) {
