@@ -18,8 +18,6 @@ void cexception_test(){
     _testtest();
   } CCatch {
     printf("test catch\r\n");
-  } CEnd {
-    printf("test end\r\n");
   }
   releaseCObject((CObject*)exe);
   if(mem->callocCounter != mem->freeCounter) {

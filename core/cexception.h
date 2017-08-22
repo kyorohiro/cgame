@@ -9,9 +9,9 @@
 
 #define CEXCEPT_NAME "cex"
 //#define CTry {if(0 == cexception_start(getCException()))
-#define CTry {if(0 == setjmp( getCException()->env_buffer ))
-#define CCatch else
-#define CEnd }
+#define CTry if(0 == setjmp(cexception_push(getCException())->value))
+#define CCatch else if(NULL != cexception_pop(getCException()))
+#define CEnd if(true){}
 //#define CEnd
 
 typedef struct {
@@ -33,7 +33,9 @@ CException* newCException(CMemory*);
 CException* initCException(CException*);
 CException* getCException();
 
-int cexception_start(CException* obj);
+CJmpBuffer* cexception_push(CException* obj);
+CJmpBuffer* cexception_peek(CException* obj);
+CJmpBuffer* cexception_pop(CException* obj);
 void cexception_throw(CException* obj, CObject* arg);
 CObject* cexception_end(CException* obj);
 #endif
