@@ -10,7 +10,7 @@
 #define CEXCEPT_NAME "cex"
 //#define CTry {if(0 == cexception_start(getCException()))
 #define CTry if(0 == setjmp(cexception_push(getCException())->value))
-#define CCatch else if(NULL != cexception_pop(getCException()))
+#define CCatch else if(1 == cexception_rmLast(getCException()))
 #define CEnd if(true){}
 //#define CEnd
 
@@ -26,7 +26,7 @@ CJmpBuffer* initCJmpBuffer(CJmpBuffer* obj);
 typedef struct {
   CObject parent;
   CLinkedList *stack;
-  jmp_buf env_buffer;
+  CObject *current;
 } CException;
 
 CException* newCException(CMemory*);
@@ -35,7 +35,7 @@ CException* getCException();
 
 CJmpBuffer* cexception_push(CException* obj);
 CJmpBuffer* cexception_peek(CException* obj);
-CJmpBuffer* cexception_pop(CException* obj);
+int cexception_rmLast(CException* obj);
 void cexception_throw(CException* obj, CObject* arg);
 CObject* cexception_end(CException* obj);
 #endif

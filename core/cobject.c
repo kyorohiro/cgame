@@ -54,11 +54,18 @@ int _equals(void *obj, void *src) {
 }
 
 CObject* cobject_upCounter(CObject* obj) {
+  if(obj == NULL) {
+    return NULL;
+  }
   obj->reference++;
   return obj;
 }
 
 CObject* cobject_downCounter(CObject* obj) {
+  if(obj == NULL) {
+    return NULL;
+  }
+
   obj->reference--;
   return obj;
 }

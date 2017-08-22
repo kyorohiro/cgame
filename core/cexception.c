@@ -66,14 +66,21 @@ CJmpBuffer* cexception_peek(CException* obj) {
   return (CJmpBuffer*)clinkedList_getLast(obj->stack);
 }
 
-CJmpBuffer* cexception_pop(CException* obj) {
+int cexception_rmLast(CException* obj) {
   CJmpBuffer* ret = (CJmpBuffer*)clinkedList_getLast(obj->stack);
-  clinkedList_removeLast(obj->stack);
-  return ret;
+  if(ret != NULL) {
+   clinkedList_removeLast(obj->stack);
+   releaseCObject((CObject*)ret);
+  }
+  return 1;
 }
 
 void cexception_throw(CException* obj, CObject* arg) {
   CJmpBuffer* item = (CJmpBuffer*)cexception_peek(obj);
+  if(obj->current != NULL) {
+    cobject_downCounter(obj->current);
+  }
+  obj->current = cobject_upCounter(arg);
   if(item != NULL) {
     longjmp(item->value, 1);
   } else {
