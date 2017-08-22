@@ -13,6 +13,7 @@ extern void cbytesBuilder_test();
 extern void cbytesBuilder_test2();
 extern void chashMap_test();
 extern void cevent_test();
+extern void cexception_test();
 
 int main(int argv, char** argc) {
   CObjectManager *objMgr = getCObjectManager();
@@ -33,6 +34,7 @@ int main(int argv, char** argc) {
     chashMap_test();
 
     cevent_test();
+    cexception_test();
 
   return 0;
 }
