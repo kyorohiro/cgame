@@ -42,7 +42,7 @@ void cbytesBuilder_test2(){
   printf("# cbytesBuilder_test2\n");
   int passed = 1;
   CMemory *mem = initCMemory(newCMemory());
-  CBytesBuilder *bye = initCBytesBuilderFromPath(newCBytesBuilder(mem),"/core/assets/test.dat");
+  CBytesBuilder *bye = initCBytesBuilderFromPath(newCBytesBuilder(mem), "/core/assets/test.dat");
 
   CBytes *v = cbytesBuilder_newBytes(bye);
   if(
@@ -52,10 +52,11 @@ void cbytesBuilder_test2(){
     printf("  NG : value = %s\r\n", cbytes_getBytes(v));
     passed = 0;
   }
+  printf(">>d>>%d<<", bye->length);
   releaseCObject((CObject*)v);
 
-
   CString *s = cbytesBuilder_newString(bye);
+
   if(cstring_getLength(s) != 7 || cstring_getByteLength(s) != 7) {
     printf("  NG : length = %d %d\r\n", cstring_getLength(s),cstring_getByteLength(s));
   }
