@@ -9,10 +9,10 @@
 
 #define CEXCEPT_NAME "cex"
 //
-#define CTry if(0 == setjmp(cexception_push(getCException())->value))
+#define CTry if(0 == setjmp(cexception_addLast(getCException())->value))
 #define CCatch else if(1 == cexception_rmLast(getCException()))
 //
-#define CTryA(aa) if(0 == setjmp(cexception_push(aa)->value))
+#define CTryA(aa) if(0 == setjmp(cexception_addLast(aa)->value))
 #define CCatchA(aa) else if(1 == cexception_rmLast(aa))
 
 
@@ -35,8 +35,8 @@ CException* newCException(CMemory*);
 CException* initCException(CException*);
 CException* getCException();
 
-CJmpBuffer* cexception_push(CException* obj);
-CJmpBuffer* cexception_peek(CException* obj);
+CJmpBuffer* cexception_addLast(CException* obj);
+CJmpBuffer* cexception_getLast(CException* obj);
 int cexception_rmLast(CException* obj);
 void cexception_throw(CException* obj, CObject* arg);
 CObject* cexception_end(CException* obj);
