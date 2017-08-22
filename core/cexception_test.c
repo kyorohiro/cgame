@@ -1,25 +1,15 @@
 #include <stdio.h>
-#include "cbytes.h"
+#include "cexception.h"
 #include "cmemory.h"
 
 void cexception_test(){
   printf("# cexception_test\n");
   int passed = 1;
   CMemory *mem = initCMemory(newCMemory());
-  CBytes *bye = initCBytes(newCBytes(mem), "abc", 4);
+  CException *exe = initCException(newCException(mem));
 
-  if(cbytes_getLength(bye) != 4) {
-    printf("  NG : length = %d\r\n", cbytes_getLength(bye));
-    passed = 0;
-  }
 
-  char *v = cbytes_getBytes(bye);
-  if(v[0] != 'a' || v[1] != 'b' || v[2] != 'c' || v[3] != '\0') {
-    printf("  NG : value = %s\r\n", cbytes_getBytes(bye));
-    passed = 0;
-  }
-
-  releaseCObject((CObject*)bye);
+  releaseCObject((CObject*)exe);
   if(mem->callocCounter != mem->freeCounter) {
     printf("  NG : %d == %d\r\n", mem->callocCounter, mem->freeCounter);
     passed = 0;

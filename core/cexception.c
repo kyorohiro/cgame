@@ -4,7 +4,7 @@
 void _freeCException(void* obj) {
   CObject *objObj = (CObject*)obj;
   CException *exeObj = (CException*)obj;
-  freeCObject((CObject*)exeObj->stack);
+  releaseCObject((CObject*)exeObj->stack);
   freeCObject(obj);
 }
 
