@@ -18,6 +18,6 @@ rule test
 rule lib
   command=${cmd} ${ar} rcs $out $in
 rule exe
-  command=${cmd} ${cc} -o $out $in
+  command=${cmd} ${cc}  $in -o $out
 
 subninja core${sep}build.ninja

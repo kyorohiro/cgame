@@ -31,13 +31,12 @@ CException* getCException() {
   return _defaultCException;
 }
 
-jmp_buf env_buffer;
 int cexception_start(CException* obj) {
-  return setjmp( env_buffer );
+  return setjmp( obj->env_buffer );
 }
 
 void cexception_throw(CException* obj, CObject* arg) {
-  longjmp(env_buffer, 1);
+  longjmp(obj->env_buffer, 1);
 }
 
 CObject* cexception_end(CException* obj) {
