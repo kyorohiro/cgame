@@ -70,10 +70,10 @@ void cmatrix4_test_ray2() {
   int passed = 1;
   CMemory *mem = initCMemory(newCMemory());
   CRay *ray = initCRay(newCRay(mem),
-    0.0, 0.0, 0.0,
+    0.0, 5.0, 0.0,
     0.0, 0.0, -1.0);
 
-  CVector3Raw v1; v1[0]=-2.0;v1[1]=2.0;v1[2]= -1.0;
+  CVector3Raw v1; v1[0]=-1.0;v1[1]=2.0;v1[2]= -1.0;
   CVector3Raw v2; v2[0]=2.0;v2[1]=2.0;v2[2]= -1.0;
   CVector3Raw v3; v3[0]=2.0;v3[1]=-2*2.0;v3[2]= -1.0;
   double d = crayraw_intersectsWithTriangle(ray, v1, v3, v2);

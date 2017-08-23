@@ -1,6 +1,7 @@
 #include "cray.h"
 #include "cvector3.h"
 #include <stdio.h>
+#include <math.h>
 
 void _freeCRay(void* obj) {
   if(obj == NULL) {
@@ -63,9 +64,9 @@ CMatrixVertexType crayraw_intersectsWithTriangle(CRay* obj, CVector3Raw p0, CVec
       return 0.0;
     }
 
+    printf("dot %f\r\n", dot);
     if(!(dot <0.0f))
     {
-      printf("dot %f\r\n", dot);
       return 0.0f;
     }
 
@@ -73,9 +74,8 @@ CMatrixVertexType crayraw_intersectsWithTriangle(CRay* obj, CVector3Raw p0, CVec
     //
     CMatrixValueType d = cvector3raw_dotProduct(n, p0);
     CMatrixValueType t = d - cvector3raw_dotProduct(n, obj->origin->value);
-      printf("t %f\r\n", t);
+    printf("t %f\r\n", t);
     if(!(t<=0.0f)) {
-      printf("t %f\r\n", t);
       return 0.0f;
     }
 
@@ -86,7 +86,76 @@ CMatrixVertexType crayraw_intersectsWithTriangle(CRay* obj, CVector3Raw p0, CVec
     //  return 0.0f;
     // }
 
-    return t /= dot;
+    t /= dot;
+
+    CVector3Raw p;
+    cvector3raw_mulScalar(obj->direction->value, t, p);
+    cvector3raw_add(p, obj->origin->value, p);
+
+    CMatrixValueType u0, u1, u2;
+    CMatrixValueType v0, v1, v2;
+    printf("%f %f\r\n",n[1],fabs(n[1]));
+    if(fabs(n[0] > fabs(n[1]))){
+      if(fabs(n[0] > fabs(n[2]))){
+        u0 = p[1] - p0[1];
+        u1 = p1[1] - p0[1];
+        u2 = p2[1] - p0[1];
+        v0 = p[2] - p0[2];
+        v1 = p1[2] - p0[2];
+        v2 = p2[2] - p0[2];
+      } else {
+        u0 = p[0] - p0[0];
+        u1 = p1[0] - p0[0];
+        u2 = p2[0] - p0[0];
+        v0 = p[1] - p0[1];
+        v1 = p1[1] - p0[1];
+        v2 = p2[1] - p0[1];
+      }
+    } else {
+      if(fabs(n[1] > fabs(n[2]))){
+        u0 = p[0] - p0[0];
+        u1 = p1[0] - p0[0];
+        u2 = p2[0] - p0[0];
+        v0 = p[2] - p0[2];
+        v1 = p1[2] - p0[2];
+        v2 = p2[2] - p0[2];
+      } else {
+        u0 = p[0] - p0[0];
+        u1 = p1[0] - p0[0];
+        u2 = p2[0] - p0[0];
+        v0 = p[1] - p0[1];
+        v1 = p1[1] - p0[1];
+        v2 = p2[1] - p0[1];
+      }
+    }
+
+    CMatrixValueType temp = u1*v2-v1*u2;
+    printf("temp %f\r\n", temp);
+    if(!(temp != 0.0f)){
+      return 0.0f;
+    }
+    temp = 1.0f/temp;
+
+
+    CMatrixValueType alpha = (u0*v2-v0*u2)*temp;
+    printf("alpha %f\r\n", alpha);
+    if(!(alpha >= 0.0f)){
+      return 0.0f;
+    }
+
+    CMatrixValueType beta = (u1*v0-v1*u0)*temp;
+    printf("beta %f\r\n", beta);
+    if(!(beta >= 0.0f)){
+      return 0.0f;
+    }
+
+    CMatrixValueType gamma = 1.0f-alpha -beta;
+    printf("gamma %f\r\n", gamma);
+    if(!(gamma >= 0.0f)){
+      return 0.0f;
+    }
+
+    return t;
 }
 CMatrixVertexType crayraw_intersectsWithTriangle2(CRay* obj, CVector3Raw p0, CVector3Raw p1, CVector3Raw p2) {
 
