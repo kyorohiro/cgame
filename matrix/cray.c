@@ -33,27 +33,44 @@ CMatrixVertexType cray_intersectsWithTriangle(CRay* obj, CVector3 *p0, CVector3 
   return crayraw_intersectsWithTriangle(obj, p0->value, p1->value, p2->value);
 }
 
+void cray_show(CRay* obj) {
+  cvector3_show(obj->origin);
+  cvector3_show(obj->direction);
+}
+
 CMatrixVertexType crayraw_intersectsWithTriangle(CRay* obj, CVector3Raw p0, CVector3Raw p1, CVector3Raw p2) {
 
     CVector3Raw e1;
     CVector3Raw e2;
     CVector3Raw n;
     cvector3raw_sub(p1, p0, e1);
-    cvector3raw_sub(p1, p0, e2);
+    cvector3raw_sub(p2, p0, e2);
     cvector3raw_crossProduct(e1, e2, n);
 
     //
     //
+    cvector3raw_show(n);
+    cvector3raw_show(obj->direction->value);
+    cvector3raw_show(e1);
+    cvector3raw_show(e2);
+    cvector3raw_show(p0);
+    cvector3raw_show(p1);
+    cvector3raw_show(p2);
+
     CMatrixValueType dot = cvector3raw_dotProduct(n, obj->direction->value);
     if(!(dot <0.0f)){
-      return 0.0f;
+      printf("dot %f\r\n", dot);
+
+
+      //return 0.0f;
     }
     //
     //
     CMatrixValueType d = cvector3raw_dotProduct(n, p0);
     CMatrixValueType t = d - cvector3raw_dotProduct(n, obj->origin->value);
     if(!(t<=0.0f)) {
-      return 0.0f;
+      printf("t %f\r\n", t);
+    //  return 0.0f;
     }
 
     //

@@ -103,7 +103,9 @@ CVector3RawRef cvector3raw_sub(CVector3RawRef obj, CVector3RawRef arg, CVector3R
   out[2] = obj[2] - arg[2];
   return out;
 }
-
+//
+// 0 1 2
+// 0 1 2
 CVector3RawRef cvector3raw_crossProduct(CVector3RawRef obj, CVector3RawRef arg, CVector3RawRef out) {
   CMatrixValueType v0 = obj[1] * arg[2] - obj[2] * arg[1];
   CMatrixValueType v1 = obj[2] * arg[0] - obj[0] * arg[2];

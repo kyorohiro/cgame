@@ -28,7 +28,6 @@ int main(int argv, char** argc) {
   cmatrix4_test_perspective();
   cmatrix4_test_lookAt();
   cmatrix4_test_inverse();
-  cmatrix4_test_ray();
 
   cvector2_test_add();
   cvector3_test_add();
@@ -39,5 +38,8 @@ int main(int argv, char** argc) {
   cmatrix2_test();
   cmatrix3_test();
   cmatrix4_test();
+
+  cmatrix4_test_ray();
+
   return 0;
 }
