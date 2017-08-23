@@ -30,36 +30,40 @@ CRay* initCRay(CRay* obj,
 }
 
 CMatrixVertexType cray_intersectsWithTriangle(CRay* obj, CVector3 *p0, CVector3 *p1, CVector3 *p2) {
+  return crayraw_intersectsWithTriangle(obj, p0->value, p1->value, p2->value);
+}
 
-  CVector3Raw e1;
-  CVector3Raw e2;
-  CVector3Raw n;
-  cvector3raw_sub(p1->value, p0->value, e1);
-  cvector3raw_sub(p1->value, p0->value, e2);
-  cvector3raw_crossProduct(e1, e2, n);
+CMatrixVertexType crayraw_intersectsWithTriangle(CRay* obj, CVector3Raw p0, CVector3Raw p1, CVector3Raw p2) {
 
-  //
-  //
-  CMatrixValueType dot = cvector3raw_dotProduct(n, obj->direction->value);
-  if(!(dot <0.0f)){
-    return 0.0f;
-  }
-  //
-  //
-  CMatrixValueType d = cvector3raw_dotProduct(n, p0->value);
-  CMatrixValueType t = d - cvector3raw_dotProduct(n, obj->origin->value);
-  if(!(t<=0.0f)) {
-    return 0.0f;
-  }
+    CVector3Raw e1;
+    CVector3Raw e2;
+    CVector3Raw n;
+    cvector3raw_sub(p1, p0, e1);
+    cvector3raw_sub(p1, p0, e2);
+    cvector3raw_crossProduct(e1, e2, n);
 
-  //
-  // minT
-  //
-  // if(!( t >= cvector3raw_dotProduct(minT->value, dot))){
-  //  return 0.0f;
-  // }
+    //
+    //
+    CMatrixValueType dot = cvector3raw_dotProduct(n, obj->direction->value);
+    if(!(dot <0.0f)){
+      return 0.0f;
+    }
+    //
+    //
+    CMatrixValueType d = cvector3raw_dotProduct(n, p0);
+    CMatrixValueType t = d - cvector3raw_dotProduct(n, obj->origin->value);
+    if(!(t<=0.0f)) {
+      return 0.0f;
+    }
 
-  return t /= dot;
+    //
+    // minT
+    //
+    // if(!( t >= cvector3raw_dotProduct(minT->value, dot))){
+    //  return 0.0f;
+    // }
+
+    return t /= dot;
 }
 
 /*
