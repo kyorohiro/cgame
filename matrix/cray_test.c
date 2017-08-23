@@ -70,7 +70,7 @@ void cmatrix4_test_ray2() {
   int passed = 1;
   CMemory *mem = initCMemory(newCMemory());
   CRay *ray = initCRay(newCRay(mem),
-    0.0, 5.0, 0.0,
+    0.0, 1.0, 0.0,
     0.0, 0.0, -1.0);
 
   CVector3Raw v1; v1[0]=-1.0;v1[1]=2.0;v1[2]= -1.0;
