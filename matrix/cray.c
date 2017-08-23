@@ -49,13 +49,14 @@ CMatrixVertexType crayraw_intersectsWithTriangle(CRay* obj, CVector3Raw p0, CVec
 
     //
     //
+    /*
     cvector3raw_show(n);
     cvector3raw_show(obj->direction->value);
     cvector3raw_show(e1);
     cvector3raw_show(e2);
     cvector3raw_show(p0);
     cvector3raw_show(p1);
-    cvector3raw_show(p2);
+    cvector3raw_show(p2);*/
 
     CMatrixValueType dot = cvector3raw_dotProduct(n, obj->direction->value);
     if(dot == 0.0){
