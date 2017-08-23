@@ -13,10 +13,13 @@ extern void cmatrix4_test_ortho();
 extern void cmatrix4_test_perspective();
 extern void cmatrix4_test_lookAt();
 extern void cmatrix4_test_inverse();
-extern void cmatrix4_test_ray();
 extern void cmatrix2_test();
 extern void cmatrix3_test();
 extern void cmatrix4_test();
+//
+extern void cmatrix4_test_ray();
+extern void cmatrix4_test_ray2();
+
 
 int test01();
 int main(int argv, char** argc) {
@@ -40,6 +43,7 @@ int main(int argv, char** argc) {
   cmatrix4_test();
 
   cmatrix4_test_ray();
+  cmatrix4_test_ray2();
 
   return 0;
 }

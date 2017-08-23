@@ -48,6 +48,38 @@ void cmatrix4_test_ray() {
     printf("#4# %lf \r\n", d);
   }
 
+
+  releaseCObject((CObject*)ray);
+
+  if(mem->callocCounter != mem->freeCounter) {
+    printf("  NG : %d == %d\r\n", mem->callocCounter, mem->freeCounter);
+    passed = 0;
+  }
+
+  freeCMemory(mem);
+  if(passed) {
+    printf("  OK : \r\n");
+  }
+  printf("\r\n\r\n");
+}
+
+
+void cmatrix4_test_ray2() {
+  printf("# cmatrix4_test_ray2\n");
+
+  int passed = 1;
+  CMemory *mem = initCMemory(newCMemory());
+  CRay *ray = initCRay(newCRay(mem),
+    0.0, 0.0, 0.0,
+    0.0, 0.0, -1.0);
+
+  CVector3Raw v1; v1[0]=-2.0;v1[1]=2.0;v1[2]= -1.0;
+  CVector3Raw v2; v2[0]=2.0;v2[1]=2.0;v2[2]= -1.0;
+  CVector3Raw v3; v3[0]=2.0;v3[1]=-2*2.0;v3[2]= -1.0;
+  double d = crayraw_intersectsWithTriangle(ray, v1, v3, v2);
+
+  printf("#1# %lf \r\n", d);
+
   releaseCObject((CObject*)ray);
 
   if(mem->callocCounter != mem->freeCounter) {

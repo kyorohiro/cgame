@@ -62,20 +62,22 @@ CMatrixVertexType crayraw_intersectsWithTriangle(CRay* obj, CVector3Raw p0, CVec
     if(dot == 0.0){
       return 0.0;
     }
-    /*
-    if(!(dot <0.0f)){
+
+    if(!(dot <0.0f))
+    {
       printf("dot %f\r\n", dot);
       return 0.0f;
     }
-*/
+
     //
     //
     CMatrixValueType d = cvector3raw_dotProduct(n, p0);
     CMatrixValueType t = d - cvector3raw_dotProduct(n, obj->origin->value);
-  /*  if(!(t<=0.0f)) {
+      printf("t %f\r\n", t);
+    if(!(t<=0.0f)) {
       printf("t %f\r\n", t);
       return 0.0f;
-    }*/
+    }
 
     //
     // minT
