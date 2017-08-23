@@ -4,4 +4,6 @@
 typedef float CMatrixValueType;
 typedef float CMatrixVertexType;
 typedef short CMatrixIndexType;
+
+#define cmatrixAbs(x) fabsf(x) 
 #endif
