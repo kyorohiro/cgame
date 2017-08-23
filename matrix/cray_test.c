@@ -20,7 +20,7 @@ void cmatrix4_test_ray() {
     CVector3Raw v1; v1[0]=2.0;v1[1]=2.0;v1[2]= 0.0;
     CVector3Raw v2; v2[0]=0.0;v2[1]=4.0;v2[2]= -1.0;
     CVector3Raw v3; v3[0]=0.0;v3[1]=4.0;v3[2]= 3.0;
-    double d = crayraw_intersectsWithTriangle(ray, v1, v2, v3);
+    double d = crayraw_intersectsWithTriangle(ray, v1, v3, v2);
 
     printf("#1# %lf \r\n", d);
   }
