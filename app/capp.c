@@ -77,7 +77,7 @@ void capp_draw(void) {
    double t = capp_currentMilliSecound(appObj);
    double v = t - appObj->debugTime;
    double x = v/1000.0;
-   printf("#>> %lf : %lf\r\n", x, 100/x);
+  // printf("#>> %lf : %lf\r\n", x, 100/x);
    appObj->debugTime = t;
   }
 }

@@ -86,7 +86,34 @@ CMatrixVertexType crayraw_intersectsWithTriangle(CRay* obj, CVector3Raw p0, CVec
 
     return t /= dot;
 }
+CMatrixVertexType crayraw_intersectsWithTriangle2(CRay* obj, CVector3Raw p0, CVector3Raw p1, CVector3Raw p2) {
 
+  CVector3Raw triV1;
+  CVector3Raw triV2;
+  CVector3Raw cd20;
+  cvector3raw_sub(p1, p0, triV1);
+  cvector3raw_sub(p2, p0, triV2);
+  cvector3raw_crossProduct(obj->direction->value, triV2, cd20);
+  double a = cvector3raw_dotProduct(triV1, cd20);
+  //
+  // todo check a
+
+  CVector3Raw o0;
+  cvector3raw_sub(obj->origin->value, p0, o0);
+  double u = 1/a * cvector3raw_dotProduct(o0, triV1);
+
+  if (u < 0.0) {
+     return 0.0;
+   }
+
+  CVector3Raw _r;
+  cvector3raw_crossProduct(o0, triV1, _r);
+  double v = 1/a * cvector3raw_dotProduct(obj->direction->value, _r);
+   //
+   // todo check r
+  return 1/a * cvector3raw_dotProduct(triV1
+    ,_r);
+}
 /*
 CMatrixVertexType cray_intersectsWithTriangle(CRay* obj, CVector3 *p0, CVector3 *p1, CVector3 *p2) {
 

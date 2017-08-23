@@ -23,6 +23,6 @@ CRay* initCRay(CRay*,
   CMatrixVertexType directionX, CMatrixVertexType directionY, CMatrixVertexType directionZ);
 CMatrixVertexType cray_intersectsWithTriangle(CRay* obj, CVector3 *p0, CVector3 *p1, CVector3 *p2);
 void cray_show(CRay* obj);
-
+CMatrixVertexType crayraw_intersectsWithTriangle2(CRay* obj, CVector3Raw p0, CVector3Raw p1, CVector3Raw p2);
 CMatrixVertexType crayraw_intersectsWithTriangle(CRay* obj, CVector3Raw p0, CVector3Raw p1, CVector3Raw p2);
 #endif

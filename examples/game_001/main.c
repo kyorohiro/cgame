@@ -27,7 +27,7 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
   cmatrix4_setTranslation(initCMatrix4(mat), 0.0, 0.0, -2.0);
 
   cmatrix4_mul(&rotYMat, mat, mat);
-//  cmatrix4_mul(mat, &rotXMat, mat);
+  cmatrix4_mul(mat, &rotXMat, mat);
 //  cmatrix4_mul(mat, &rotYMat, mat);
 //  cmatrix4_mul(mat, &rotZMat, mat);
 
@@ -37,39 +37,63 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
 
 
 
+  CVector4 dv1;
+  CVector4 dv2;
+  CVector4 dv3;
+  initCVector4(&dv1,-0.5, 0.5, 0.0, 0.0);
+  initCVector4(&dv2, 0.5, 0.5, 0.0, 0.0);
+  initCVector4(&dv3,-0.5,-0.5, 0.0, 0.0);
+  cmatrix4_mulCVector4(mat, &dv1, &dv1);
+  cmatrix4_mulCVector4(mat, &dv2, &dv2);
+  cmatrix4_mulCVector4(mat, &dv3, &dv3);
+
   CApp *app = getCApp();
 
   double mouseX = event->x;//400;
   double mouseY = event->y;//300;
   CCamera3D* camera = cgame_getCamera(gameObj);
   CVector4* vec1 = cglmatrix4_unProject(
-    mouseX, 300-mouseY, 1.0,
+    mouseX, 300-mouseY, 0.5,
     camera->view,
     camera->projection,
     0.0, 0.0, 400.0, 300.0);
 
   CVector4* vec2 = cglmatrix4_unProject(
-    mouseX, 300-mouseY, 100.0,
+    mouseX, 300-mouseY, 10.0,
     camera->view, camera->projection,
-    0.0, 0.0, 400.0, 1000.0);
+    0.0, 0.0, 400.0, 300.0);
   cprimitive3d_setColor((CPrimitive3D*)obj, 1.0,0.0,0.0,1.0);
-
+/*
+  // ray
   CRay* ray  = initCRay(newCRay(getCMemory()),
-  vec1->value[0],vec1->value[1],vec1->value[2],
-  vec2->value[0]-vec1->value[0],vec2->value[1]-vec1->value[1],vec2->value[2]-vec1->value[2]
+    0.25,0.25,2.0,
+    0.0,0.0, -1.0
+//  vec1->value[0],vec1->value[1],vec1->value[2],
+//  vec2->value[0]-vec1->value[0],vec2->value[1]-vec1->value[1], 1.0*(vec2->value[2]-vec1->value[2])
   );
-  cray_intersectsWithTriangle(ray,)
+  //
+  CVector3Raw v1; v1[0] = dv1.value[0];v1[1] = dv1.value[1];v1[2] = dv1.value[2];
+  CVector3Raw v2; v2[0] = dv2.value[0];v2[1] = dv2.value[1];v2[2] = dv2.value[2];
+  CVector3Raw v3; v3[0] = dv3.value[0];v3[1] = dv3.value[1];v3[2] = dv3.value[2];
+//  double d = crayraw_intersectsWithTriangle2(ray, v1, v2, v3);
+  double d = crayraw_intersectsWithTriangle(ray, v1, v2, v3);
+  */
   if(event->state == 1) {
 //    printf(">Aa>%f %f : %f %f %f %f\r\n",event->x,event->y,vec1->value[0],vec1->value[1],vec1->value[2],vec1->value[3]);
 //    printf(">Ab>%f %f : %f %f %f %f\r\n",event->x,event->y,vec1m->value[0],vec1m->value[1],vec1m->value[2],vec1m->value[3]);
 //    printf(">B>%f %f : %f %f %f %f\r\n",event->x,event->y,vec2->value[0],vec2->value[1],vec2->value[2],vec2->value[3]);
 //    printf(">B>%f %f : %f %f %f %f\r\n",event->x,event->y,vec2m->value[0],vec2m->value[1],vec2m->value[2],vec2m->value[3]);
-    printf(">>\r\n");
+/*
+    printf(">N>%f\r\n", d);
+    cvector3raw_show(v1);
+    cvector3raw_show(v2);
+    cvector3raw_show(v3);
     cray_show(ray);
+    */
   }
   releaseCObject((CObject*)vec1);
   releaseCObject((CObject*)vec2);
-  releaseCObject((CObject*)ray);
+  //releaseCObject((CObject*)ray);
 
   //
   // post redisplay
