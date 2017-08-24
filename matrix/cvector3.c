@@ -90,6 +90,13 @@ CMatrixValueType cvector3_length(CVector3* obj) {
 // Raw
 //
 
+CVector3RawRef cvector3raw_setValues(CVector3RawRef obj, CMatrixValueType x, CMatrixValueType y, CMatrixValueType z) {
+  obj[0] = x;
+  obj[1] = y;
+  obj[2] = z;
+  return obj;
+}
+
 CVector3RawRef  cvector3raw_add(CVector3RawRef obj, CVector3RawRef arg, CVector3RawRef out) {
   out[0] = obj[0] + arg[0];
   out[1] = obj[1] + arg[1];

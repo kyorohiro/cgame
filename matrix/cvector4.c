@@ -87,6 +87,14 @@ void cvector4_show(CVector4* obj) {
 // RAW
 //
 
+CVector4RawRef cvector4raw_setValues(CVector4RawRef obj, CMatrixValueType x, CMatrixValueType y, CMatrixValueType z, CMatrixValueType w) {
+  obj[0] = x;
+  obj[1] = y;
+  obj[2] = z;
+  obj[3] = w;
+  return obj;
+}
+
 CVector4RawRef cvector4raw_add(CVector4RawRef obj, CVector4RawRef arg, CVector4RawRef out) {
   out[0] = obj[0] + arg[0];
   out[1] = obj[1] + arg[1];

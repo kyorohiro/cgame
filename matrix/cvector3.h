@@ -29,6 +29,7 @@ CMatrixValueType cvector3_length(CVector3* obj);
 
 void cvector3_show(CVector3* obj);
 
+CVector3RawRef cvector3raw_setValues(CVector3RawRef obj, CMatrixValueType x, CMatrixValueType y, CMatrixValueType z);
 CVector3RawRef cvector3raw_crossProduct(CVector3RawRef obj, CVector3RawRef arg, CVector3RawRef out);
 CMatrixValueType cvector3raw_dotProduct(CVector3RawRef obj, CVector3RawRef arg);
 CVector3RawRef cvector3raw_normalize(CVector3RawRef obj, CVector3RawRef out);

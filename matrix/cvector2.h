@@ -29,6 +29,8 @@ CMatrixValueType cvector2_length(CVector2* obj);
 
 void cvector2_show(CVector2* obj);
 
+
+CVector2RawRef  cvector2raw_add(CVector2RawRef obj, CVector2RawRef arg, CVector2RawRef out);
 CMatrixValueType cvector2raw_crossProduct(CVector2RawRef obj, CVector2RawRef arg);
 CMatrixValueType cvector2raw_dotProduct(CVector2RawRef obj, CVector2RawRef arg);
 CVector2RawRef cvector2raw_normalize(CVector2RawRef obj, CVector2RawRef out);

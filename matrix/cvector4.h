@@ -29,7 +29,7 @@ CMatrixValueType cvector4_distance(CVector4* obj, CVector4* arg);
 
 void cvector4_show(CVector4* obj);
 
-
+CVector4RawRef cvector4raw_setValues(CVector4RawRef obj, CMatrixValueType x, CMatrixValueType y, CMatrixValueType z, CMatrixValueType w);
 CVector4RawRef cvector4raw_add(CVector4RawRef obj, CVector4RawRef arg, CVector4RawRef out);
 CVector4RawRef cvector4raw_sub(CVector4RawRef obj, CVector4RawRef arg, CVector4RawRef out);
 CVector4RawRef cvector4raw_mulScalar(CVector4RawRef obj, CMatrixValueType v, CVector4RawRef out);
