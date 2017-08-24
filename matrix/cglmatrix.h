@@ -5,7 +5,7 @@
 #include "core/cobject.h"
 #include "core/cmemory.h"
 #include "cmatrix4.h"
-
+#include "cvector3.h"
 CMatrix4* cmatrix4_setOrthogonalProjection(CMatrix4* obj, double right, double left, double top, double bottom, double far, double near);
 
 CMatrix4* cmatrix4_setPerspectiveProjection(CMatrix4* obj,  double fovYRadians, double aspectRatio, double far, double near);
@@ -37,7 +37,7 @@ CVector4* cglmatrix4_unProject(
   CMatrix4* model, CMatrix4 * projection,
   double vx, double vy, double vw, double vh);
 
-  int cmatrix4_unProject(
+  int cmatrix4_unproject(
       CMatrix4 *camera,
       CMatrixValueType viewportX,
       CMatrixValueType viewportWidth,

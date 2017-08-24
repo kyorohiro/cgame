@@ -173,6 +173,8 @@ void cmatrix4_test_lookAt() {
   printf("\r\n\r\n");
 }
 
+//
+
 void cmatrix4_test_unproject() {
   printf("# cmatrix4_test_unproject\n");
   CVector3* position = initCVector3(newCVector3(getCMemory()), 0.0, 0.0, 0.0);
@@ -195,6 +197,13 @@ void cmatrix4_test_unproject() {
   cmatrix4_setFrustumMatrix(frustum, l, r, b, t, n, f);
   CMatrix4* C = cmatrix4_mul(frustum, lookat, NULL);
   CVector3* re =  initCVector3(newCVector3(getCMemory()), 0.0, 0.0, 0.0);
+  CVector3* out = initCVector3(newCVector3(getCMemory()), 0.0, 0.0, 0.0);
+  int ret = cmatrix4_unproject(
+      C,
+      0.0, 100.0, 0.0, 100.0, 50.0, 50.0, 1.0,
+      out);
+      printf(">>%d\r\n", ret);
+  cvector3_show(out);
 //  cglmatrix4_unProject(double wx, double wy, double wz, CMatrix4 *model, CMatrix4 *projection, double vx, double vy, double vw, double vh)
 //  unproject(C, 0.0, 100.0, 0.0, 100.0, 50.0, 50.0, 1.0, re);
 }

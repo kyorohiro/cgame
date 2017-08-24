@@ -286,7 +286,7 @@ CMatrix4RawRef cmatrix4raw_setLookAt(CMatrix4RawRef obj,
   return obj;
 }
 
-int cmatrix4_unProject(
+int cmatrix4_unproject(
     CMatrix4 *camera,
     CMatrixValueType viewportX,
     CMatrixValueType viewportWidth,
