@@ -36,6 +36,17 @@ CVector4* cglmatrix4_unProject(
   double wx, double wy, double wz,
   CMatrix4* model, CMatrix4 * projection,
   double vx, double vy, double vw, double vh);
+
+  int cmatrix4_unProject(
+      CMatrix4 *camera,
+      CMatrixValueType viewportX,
+      CMatrixValueType viewportWidth,
+      CMatrixValueType viewportY,
+      CMatrixValueType viewportHeight,
+      CMatrixValueType pickX,
+      CMatrixValueType pickY,
+      CMatrixValueType pickZ,
+      CVector3* out);
 //
 //
 CMatrix4RawRef cmatrix4raw_setLookAt(CMatrix4RawRef obj,

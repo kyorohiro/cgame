@@ -286,6 +286,45 @@ CMatrix4RawRef cmatrix4raw_setLookAt(CMatrix4RawRef obj,
   return obj;
 }
 
+int cmatrix4_unProject(
+    CMatrix4 *camera,
+    CMatrixValueType viewportX,
+    CMatrixValueType viewportWidth,
+    CMatrixValueType viewportY,
+    CMatrixValueType viewportHeight,
+    CMatrixValueType pickX,
+    CMatrixValueType pickY,
+    CMatrixValueType pickZ,
+    CVector3* out) {
+  pickX = (pickX - viewportX);
+  pickY = (pickY - viewportY);
+  pickX = (2.0 * pickX / viewportWidth) - 1.0;
+  pickY = (2.0 * pickY / viewportHeight) - 1.0;
+  pickZ = (2.0 * pickZ) - 1.0;
+
+  // Check if pick point is inside unit cube
+  if (!(-1.0 <= pickX  && pickX <= 1.0 &&
+      -1.0 <= pickY  && pickY <= 1.0 &&
+      -1.0 <= pickZ  && pickZ <= 1.0)){
+    return 0;
+  }
+
+  CMatrix4Raw invCamera;
+  CMatrixValueType outDeterminant;
+  cmatrix4raw_inverse(camera->value, invCamera, &outDeterminant);
+  CMatrix4Raw tra;
+  CVector4Raw v; v[0]=pickX; v[1]=pickY; v[2]=pickZ; v[3] = 1.0;
+  cmatrix4raw_mulVector4Raw(invCamera, v, v);
+  if(v[3] == 0.0) {
+    return 0;
+  }
+  CMatrixValueType w = 1.0/v[3];
+  out->value[0] = v[0] * w;
+  out->value[1] = v[1] * w;
+  out->value[2] = v[2] * w;
+  return 1;
+}
+
 CVector4* cglmatrix4_unProject(
   double wx, double wy, double wz,
   CMatrix4* model, CMatrix4 * projection,
