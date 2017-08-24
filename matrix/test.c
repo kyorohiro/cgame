@@ -9,17 +9,18 @@ extern void cvector3_test_add();
 extern void cvector3_test_normalize();
 extern void cvector3_test_dotProduct();
 extern void cvector2_test_add();
-extern void cmatrix4_test_ortho();
-extern void cmatrix4_test_perspective();
-extern void cmatrix4_test_lookAt();
-extern void cmatrix4_test_inverse();
+
 extern void cmatrix2_test();
 extern void cmatrix3_test();
 extern void cmatrix4_test();
 //
 extern void cmatrix4_test_ray();
 extern void cmatrix4_test_ray2();
-
+//
+extern void cmatrix4_test_ortho();
+extern void cmatrix4_test_perspective();
+extern void cmatrix4_test_lookAt();
+extern void cmatrix4_test_inverse();
 
 int test01();
 int main(int argv, char** argc) {
@@ -27,10 +28,7 @@ int main(int argv, char** argc) {
   cmatrix4_test_add();
   cmatrix4_test_multiply();
 
-  cmatrix4_test_ortho();
-  cmatrix4_test_perspective();
-  cmatrix4_test_lookAt();
-  cmatrix4_test_inverse();
+
 
   cvector2_test_add();
   cvector3_test_add();
@@ -44,6 +42,11 @@ int main(int argv, char** argc) {
 
   cmatrix4_test_ray();
   cmatrix4_test_ray2();
+  //
+  cmatrix4_test_ortho();
+  cmatrix4_test_perspective();
+  cmatrix4_test_lookAt();
+  cmatrix4_test_inverse();
 
   return 0;
 }

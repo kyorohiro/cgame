@@ -63,13 +63,15 @@ void cmatrix4_test_perspective() {
 
   int passed = 1;
   CMemory *mem = initCMemory(newCMemory());
-  // CMatrix4 *obj, double right, double left,
-  //double top, double bottom,
-  //double far, double near)Values(
   double fov = 3.1415 / 2;
   double aspectRatio = 2.0;
   double zNear = 1.0;
   double zFar = 100.0;
+/*
+  double fov = 3.1415 * 90.0 / 180.0;
+  double aspectRatio = 1.77777;
+  double zNear = 1.0;
+  double zFar = 1000.0;*/
 
   CMatrix4 *mat1 = cmatrix4_setPerspectiveProjection(initCMatrix4(newCMatrix4(mem)),
      fov, aspectRatio,

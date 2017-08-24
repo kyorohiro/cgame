@@ -162,10 +162,8 @@ CMatrix4* cmatrix4_setOrthogonalProjection(CMatrix4* obj, double right, double l
 CMatrix4* cmatrix4_setPerspectiveProjection(CMatrix4* obj,
   double fovYRadians, double aspectRatio, double far, double near) {
   double h = tan(fovYRadians * 0.5);
-  double w = h * aspectRatio;
-  double n = near - far;
 
-  obj->value[0] = 1.0/w;
+  obj->value[0] = 1.0/(h*aspectRatio);
   obj->value[4] = 0.0;
   obj->value[8] = 0.0;
   obj->value[12] = 0.0;
@@ -174,11 +172,10 @@ CMatrix4* cmatrix4_setPerspectiveProjection(CMatrix4* obj,
   obj->value[5] = 1.0/h;
   obj->value[9] = 0.0;
   obj->value[13] = 0.0;
-
   obj->value[2] = 0.0;
   obj->value[6] = 0.0;
-  obj->value[10] = (far + near) / n;
-  obj->value[14] = (2.0 * near * far) / n;
+  obj->value[10] = -1*(far + near) / (far - near);
+  obj->value[14] = -1*(2.0 * near * far) / (far - near);
 
   obj->value[3] = 0.0;
   obj->value[7] = 0.0;
