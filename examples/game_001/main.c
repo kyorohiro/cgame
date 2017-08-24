@@ -9,6 +9,7 @@
 #include "core/cobject.h"
 int i =(20+2)%360;
 int j=0;
+
 void _onEnterFrame(CObject*  obj, CObject* cgame) {
 //  CGame* gameObj = (CGame*)cgame;
   CGame* gameObj = getCGame();

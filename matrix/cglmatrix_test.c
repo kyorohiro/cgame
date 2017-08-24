@@ -204,6 +204,4 @@ void cmatrix4_test_unproject() {
       out);
       printf(">>%d\r\n", ret);
   cvector3_show(out);
-//  cglmatrix4_unProject(double wx, double wy, double wz, CMatrix4 *model, CMatrix4 *projection, double vx, double vy, double vw, double vh)
-//  unproject(C, 0.0, 100.0, 0.0, 100.0, 50.0, 50.0, 1.0, re);
 }
