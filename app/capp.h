@@ -55,6 +55,7 @@ typedef struct {
   CEventDispatcher *display;
   int debugCount;
   double debugTime;
+  int fps;
 } CApp;
 
 //
