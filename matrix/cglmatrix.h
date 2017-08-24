@@ -10,6 +10,10 @@ CMatrix4* cmatrix4_setOrthogonalProjection(CMatrix4* obj, double right, double l
 
 CMatrix4* cmatrix4_setPerspectiveProjection(CMatrix4* obj,  double fovYRadians, double aspectRatio, double far, double near);
 
+CMatrix4* cmatrix4_setFrustumMatrix(CMatrix4* obj,
+    double left, double right, double bottom, double top,
+    double near, double far);
+
 CMatrix4* cmatrix4_setLookAt(CMatrix4* obj,
   double posX, double posY, double posZ,
   double focusX, double focusY, double focusZ,

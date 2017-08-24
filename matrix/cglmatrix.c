@@ -183,6 +183,30 @@ CMatrix4* cmatrix4_setPerspectiveProjection(CMatrix4* obj,
   obj->value[15] = 0.0;
   return obj;
 }
+CMatrix4* cmatrix4_setFrustumMatrix(CMatrix4* obj,
+    double left, double right, double bottom, double top,
+    double near, double far){
+      obj->value[0] = (2.0*near)/(right-left);
+      obj->value[4] = 0.0;
+      obj->value[8] = (right+left)/(right-left);
+      obj->value[12] = 0.0;
+
+      obj->value[1] = 0.0;
+      obj->value[5] = (2.0*near)/(top-bottom);
+      obj->value[9] = (top + bottom) / (top-bottom);
+      obj->value[13] = 0.0;
+
+      obj->value[2] = 0.0;
+      obj->value[6] = 0.0;
+      obj->value[10] = -1*(far + near) / (far - near);
+      obj->value[14] = -1*(2.0 * near * far) / (far - near);
+
+      obj->value[3] = 0.0;
+      obj->value[7] = 0.0;
+      obj->value[11] = -1.0;
+      obj->value[15] = 0.0;
+      return obj;
+    }
 /*
 CMatrix4* cmatrix4_setPerspectiveProjection(CMatrix4* obj, double right, double left, double top, double bottom, double far, double near) {
   obj->value[0] = 2.0*near/(right-left);
