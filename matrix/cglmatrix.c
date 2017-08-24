@@ -258,32 +258,31 @@ CMatrix4* cmatrix4_setLookAt(CMatrix4* obj,
   double focusX, double focusY, double focusZ,
   double upDirectionX, double upDirectionY, double upDirectionZ
 ) {
-  CVector3 pos;
-  CVector3 focus;
-  CVector3 upDirection;
-  CVector3 z;
-  CVector3 x;
-  CVector3 y;
-  initCVector3(&pos, posX, posY, posZ);
-  initCVector3(&focus, focusX, focusY, focusZ);
-  initCVector3(&upDirection, upDirectionX, upDirectionY, upDirectionZ);
-  initCVector3(&z, 0.0, 0.0, 0.0);
-  initCVector3(&x, 0.0, 0.0, 0.0);
-  initCVector3(&y, 0.0, 0.0, 0.0);
-  cvector3_sub(&pos, &focus, &z);
-  cvector3_normalize(&z, &z);
-  cvector3_crossProduct(&upDirection, &z, &x);
-  cvector3_normalize(&x, &x);
-  cvector3_crossProduct(&z, &x, &y);
-  cvector3_normalize(&y, &y);
-  double rotatedEyeX = -1 * cvector3_dotProduct(&x, &pos);
-  double rotatedEyeY = -1 * cvector3_dotProduct(&y, &pos);
-  double rotatedEyeZ = -1 * cvector3_dotProduct(&z, &pos);
-  cmatrix4_setValues(obj,
-    x.value[0], x.value[1], x.value[2], rotatedEyeX,
-    y.value[0], y.value[1], y.value[2], rotatedEyeY,
-    z.value[0], z.value[1], z.value[2], rotatedEyeZ,
-    0.0       , 0.0       , 0.0       , 1.0);
+  CVector3Raw cameraPos; cameraPos[0] = posX; cameraPos[1] = posY; cameraPos[2] = posZ;
+  CVector3Raw cameraFocus; cameraFocus[0] = focusX; cameraFocus[1] = focusY; cameraFocus[2] = focusZ;
+  CVector3Raw upDirection; upDirection[0] = upDirectionX; upDirection[1] = upDirectionY; upDirection[2] = upDirectionZ;
+  cmatrix4raw_setLookAt(obj->value, cameraPos, cameraFocus, upDirection);
+  return obj;
+}
+
+CMatrix4RawRef cmatrix4raw_setLookAt(CMatrix4RawRef obj,
+  CMatrix4RawRef cameraPos, CMatrix4RawRef cameraFocus, CMatrix4RawRef upDirection) {
+  CVector3Raw z;
+  CVector3Raw x;
+  CVector3Raw y;
+
+  cvector3raw_normalize(cvector3raw_sub(cameraPos, cameraFocus, z), z);
+  cvector3raw_normalize(cvector3raw_crossProduct(upDirection, z, x), x);
+  cvector3raw_normalize(cvector3raw_crossProduct(z, x, y), y);
+
+  double rotatedEyeX = -1 * cvector3raw_dotProduct(x, cameraPos);
+  double rotatedEyeY = -1 * cvector3raw_dotProduct(y, cameraPos);
+  double rotatedEyeZ = -1 * cvector3raw_dotProduct(z, cameraPos);
+  cmatrix4raw_setValues(obj,
+    x[0], x[1], x[2], rotatedEyeX,
+    y[0], y[1], y[2], rotatedEyeY,
+    z[0], z[1], z[2], rotatedEyeZ,
+    0.0 ,  0.0,  0.0, 1.0);
   return obj;
 }
 
