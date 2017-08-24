@@ -130,7 +130,7 @@ void cmatrix4_test_lookAt() {
     0.0, 1.0,0.0);
 
   if(
-    floor(cmatrix4_getValue(mat1,0,0)*1000) != 500 ||
+    floor(cmatrix4_getValue(mat1,0,0)*1000) != 1000 ||
     floor(cmatrix4_getValue(mat1,0,1)*1000) != 0 ||
     floor(cmatrix4_getValue(mat1,0,2)*1000) != 0 ||
     floor(cmatrix4_getValue(mat1,0,3)*1000) != 0 ||
@@ -142,13 +142,13 @@ void cmatrix4_test_lookAt() {
 
     floor(cmatrix4_getValue(mat1,2,0)*1000) != 0 ||
     floor(cmatrix4_getValue(mat1,2,1)*1000) != 0 ||
-    floor(cmatrix4_getValue(mat1,2,2)*1000) != -1021 ||
-    floor(cmatrix4_getValue(mat1,2,3)*1000) != -2021 ||
+    floor(cmatrix4_getValue(mat1,2,2)*1000) != 1000 ||
+    floor(cmatrix4_getValue(mat1,2,3)*1000) != 0 ||
 
     floor(cmatrix4_getValue(mat1,3,0)*1000) != 0 ||
     floor(cmatrix4_getValue(mat1,3,1)*1000) != 0 ||
-    floor(cmatrix4_getValue(mat1,3,2)*1000) != -1000 ||
-    floor(cmatrix4_getValue(mat1,3,3)*1000) != 0
+    floor(cmatrix4_getValue(mat1,3,2)*1000) != 0 ||
+    floor(cmatrix4_getValue(mat1,3,3)*1000) != 1000
 
 ) {
   printf("# NG %f:\n", floor(cmatrix4_getValue(mat1,2,3)*1000));
