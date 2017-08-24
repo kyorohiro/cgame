@@ -163,3 +163,77 @@ CMatrix4RawRef cmatrix4raw_setScale(CMatrix4RawRef obj, double x, double y, doub
   obj[15] = 1.0;
   return obj;
 }
+
+//
+//
+//
+
+CMatrix3RawRef cmatrix3raw_setRotationX(CMatrix3RawRef obj, double radians) {
+  double c = cos(radians);
+  double s = sin(radians);
+  obj[0] = 1;
+  obj[3] = 0.0;
+  obj[6] = 0.0;
+
+  obj[1] = 0.0;
+  obj[4] = c;
+  obj[7] = -s;
+
+  obj[2] = 0.0;
+  obj[5] =  s;
+  obj[8] = c;
+  return obj;
+}
+
+CMatrix3RawRef cmatrix3raw_setRotationY(CMatrix3RawRef obj, double radians) {
+  double c = cos(radians);
+  double s = sin(radians);
+  obj[0] = c;
+  obj[3] = 0.0;
+  obj[6] = s;
+
+  obj[1] = 0.0;
+  obj[4] = 1.0;
+  obj[7] = 0.0;
+
+  obj[2] =  -s;
+  obj[5] = 0.0;
+  obj[8] = c;
+
+  return obj;
+}
+
+CMatrix3RawRef cmatrix3raw_setRotationZ(CMatrix3RawRef obj, double radians) {
+  double c = cos(radians);
+  double s = sin(radians);
+  obj[0] = c;
+  obj[3] = -s;
+  obj[6] = 0.0;
+
+  obj[1] = s;
+  obj[4] = c;
+  obj[7] = 0.0;
+
+  obj[2] = 0.0;
+  obj[5] = 0.0;
+  obj[8] = 1.0;
+
+  return obj;
+}
+
+
+CMatrix4RawRef cmatrix3raw_setScale(CMatrix3RawRef obj, double x, double y, double z) {
+  obj[0] = x;
+  obj[3] = 0.0;
+  obj[6] = 0.0;
+
+  obj[1] = 0.0;
+  obj[4] = y;
+  obj[7] = 0.0;
+
+  obj[2] = 0.0;
+  obj[5] = 0.0;
+  obj[8] = z;
+
+  return obj;
+}

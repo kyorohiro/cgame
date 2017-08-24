@@ -5,6 +5,7 @@
 #include "core/cmemory.h"
 #include "cmatrix_inner.h"
 #include "cmatrix4.h"
+#include "cmatrix3.h"
 #include "cvector3.h"
 
 CMatrix4* cmatrix4_setRotationX(CMatrix4* obj, double radians);
@@ -21,4 +22,9 @@ CMatrix4RawRef cmatrix4raw_setRotationZ(CMatrix4RawRef obj, double radians);
 CMatrix4RawRef cmatrix4raw_setTranslation(CMatrix4RawRef obj, double x, double y, double z);
 CMatrix4RawRef cmatrix4raw_setScale(CMatrix4RawRef obj, double x, double y, double z);
 
+
+CMatrix3RawRef cmatrix3raw_setRotationX(CMatrix3RawRef obj, double radians);
+CMatrix3RawRef cmatrix3raw_setRotationY(CMatrix3RawRef obj, double radians);
+CMatrix3RawRef cmatrix3raw_setRotationZ(CMatrix3RawRef obj, double radians);
+CMatrix3RawRef cmatrix3raw_setScale(CMatrix3RawRef obj, double x, double y, double z);
 #endif
