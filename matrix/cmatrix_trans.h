@@ -15,6 +15,11 @@ CMatrix4* cmatrix4_setTranslation(CMatrix4* obj, double x, double y, double z);
 CMatrix4* cmatrix4_setScale(CMatrix4* obj, double x, double y, double z);
 
 
+CMatrix3* cmatrix3_setRotationX(CMatrix3* obj, double radians);
+CMatrix3* cmatrix3_setRotationY(CMatrix3* obj, double radians);
+CMatrix3* cmatrix3_setRotationZ(CMatrix3* obj, double radians);
+CMatrix3* cmatrix3_setScale(CMatrix3* obj, double x, double y, double z);
+
 
 CMatrix4RawRef cmatrix4raw_setRotationX(CMatrix4RawRef obj, double radians);
 CMatrix4RawRef cmatrix4raw_setRotationY(CMatrix4RawRef obj, double radians);

@@ -6,26 +6,16 @@
 #include <math.h>
 
 
-
-// c 0 s
-// 0 1 0
-//-s 0 c
 CMatrix4* cmatrix4_setRotationY(CMatrix4* obj, double radians){
   cmatrix4raw_setRotationY(obj->value, radians);
   return obj;
 }
 
-// 1 0 0
-// 0 c -s
-// 0 s c
 CMatrix4* cmatrix4_setRotationX(CMatrix4* obj, double radians){
   cmatrix4raw_setRotationX(obj->value, radians);
   return obj;
 }
 
-// 1 0 0
-// 0 c -s
-// 0 s c
 CMatrix4* cmatrix4_setRotationZ(CMatrix4* obj, double radians){
   cmatrix4raw_setRotationZ(obj->value, radians);
   return obj;
@@ -41,6 +31,29 @@ CMatrix4* cmatrix4_setScale(CMatrix4* obj, double x, double y, double z) {
   return obj;
 }
 
+//
+
+CMatrix3* cmatrix3_setRotationY(CMatrix3* obj, double radians){
+  cmatrix3raw_setRotationY(obj->value, radians);
+  return obj;
+}
+
+CMatrix3* cmatrix3_setRotationX(CMatrix3* obj, double radians){
+  cmatrix3raw_setRotationX(obj->value, radians);
+  return obj;
+}
+
+CMatrix3* cmatrix3_setRotationZ(CMatrix3* obj, double radians){
+  cmatrix3raw_setRotationZ(obj->value, radians);
+  return obj;
+}
+
+
+CMatrix3* cmatrix3_setScale(CMatrix3* obj, double x, double y, double z) {
+  cmatrix3raw_setScale(obj->value, x, y, z);
+  return obj;
+}
+//
 
 CMatrix4RawRef cmatrix4raw_setRotationX(CMatrix4RawRef obj, double radians) {
   double c = cos(radians);
