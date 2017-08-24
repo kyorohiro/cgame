@@ -7,34 +7,13 @@
 //#include "matrix/cray.h"
 #include "app/capp.h"
 #include "core/cobject.h"
-int i =(20+2)%360;
-int j=0;
 
 void _onEnterFrame(CObject*  obj, CObject* cgame) {
-//  CGame* gameObj = (CGame*)cgame;
   CGame* gameObj = getCGame();
-  i = (i+2)%360;
-  j++;
-  CMatrix4 rotYMat;
-  CMatrix4 rotZMat;
-  CMatrix4 rotXMat;
-
-  cmatrix4_setRotationX(initCMatrix4(&rotXMat), 3.14*i/180.0);
-  cmatrix4_setRotationY(initCMatrix4(&rotYMat), 3.14*i/180.0);
-  cmatrix4_setRotationZ(initCMatrix4(&rotZMat), 3.14*i/180.0);
-
   CMatrix4 *mat = cobject3d_getCMatrix4((CObject3D*)obj);
-
   cmatrix4_setTranslation(initCMatrix4(mat), 0.0, 0.0, -2.0);
-
-  cmatrix4_mul(&rotYMat, mat, mat);
-  cmatrix4_mul(mat, &rotXMat, mat);
-//  cmatrix4_mul(mat, &rotYMat, mat);
-//  cmatrix4_mul(mat, &rotZMat, mat);
-
   //
   CAppMouseEvent *event = cgame_getCurrentMouseEvent(gameObj);
-  //printf(">> %f %f \r\n", event->x, event->y);
 
 
 
