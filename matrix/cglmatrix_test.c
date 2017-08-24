@@ -4,6 +4,7 @@
 #include "core/cmemory.h"
 #include "cmatrix4.h"
 #include "matrix/cglmatrix.h"
+#include "matrix/cvector3.h"
 
 
 void cmatrix4_test_ortho() {
@@ -170,4 +171,30 @@ void cmatrix4_test_lookAt() {
     printf("  OK : \r\n");
   }
   printf("\r\n\r\n");
+}
+
+void cmatrix4_test_unproject() {
+  printf("# cmatrix4_test_unproject\n");
+  CVector3* position = initCVector3(newCVector3(getCMemory()), 0.0, 0.0, 0.0);
+  CVector3* focusPosition = initCVector3(newCVector3(getCMemory()), 0.0, 0.0, -1.0);
+  CVector3* upDirection = initCVector3(newCVector3(getCMemory()), 0.0, 1.0, 0.0);
+  CMatrix4* lookat = initCMatrix4(newCMatrix4(getCMemory()));
+  cmatrix4_setLookAt(lookat,
+    0.0, 0.0, 0.0,
+    0.0, 0.0, -1.0,
+    0.0, 1.0, 0.0);
+
+  double n = 0.1;
+  double f = 1000.0;
+  double l = -10.0;
+  double r = 10.0;
+  double b = -10.0;
+  double t = 10.0;
+
+  CMatrix4* frustum = initCMatrix4(newCMatrix4(getCMemory()));
+  cmatrix4_setFrustumMatrix(frustum, l, r, b, t, n, f);
+  CMatrix4* C = cmatrix4_mul(frustum, lookat, NULL);
+  CVector3* re =  initCVector3(newCVector3(getCMemory()), 0.0, 0.0, 0.0);
+//  cglmatrix4_unProject(double wx, double wy, double wz, CMatrix4 *model, CMatrix4 *projection, double vx, double vy, double vw, double vh)
+//  unproject(C, 0.0, 100.0, 0.0, 100.0, 50.0, 50.0, 1.0, re);
 }
