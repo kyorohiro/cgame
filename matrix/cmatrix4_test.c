@@ -3,7 +3,7 @@
 #include "core/cbytes.h"
 #include "core/cmemory.h"
 #include "cmatrix4.h"
-#include "matrix/cglmatrix.h"
+#include "matrix/cmatrix_proj.h"
 
 
 void cmatrix4_test() {

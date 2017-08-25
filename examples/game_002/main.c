@@ -4,6 +4,10 @@
 #include "game/cprimitive3d.h"
 #include "game/ccamera3d.h"
 #include "matrix/cmatrix.h"
+#include "matrix/cmatrix4.h"
+#include "matrix/cmatrix_proj.h"
+
+
 //#include "matrix/cray.h"
 #include "app/capp.h"
 #include "core/cobject.h"
@@ -12,22 +16,31 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
   CGame* gameObj = getCGame();
   CMatrix4 *mat = cobject3d_getCMatrix4((CObject3D*)obj);
   cmatrix4_setTranslation(initCMatrix4(mat), 0.0, 0.0, -2.0);
-  //
   CAppMouseEvent *event = cgame_getCurrentMouseEvent(gameObj);
 
-
-/*
   CVector4Raw dv1;
   CVector4Raw dv2;
   CVector4Raw dv3;
-  initCVector4(&dv1,-0.5, 0.5, 0.0, 0.0);
-  initCVector4(&dv2, 0.5, 0.5, 0.0, 0.0);
-  initCVector4(&dv3,-0.5,-0.5, 0.0, 0.0);
-  cmatrix4_mulCVector4(mat, &dv1, &dv1);
-  cmatrix4_mulCVector4(mat, &dv2, &dv2);
-  cmatrix4_mulCVector4(mat, &dv3, &dv3);
+  cvector4raw_setValues(dv1,-0.5, 0.5, 0.0, 0.0);
+  cvector4raw_setValues(dv2, 0.5, 0.5, 0.0, 0.0);
+  cvector4raw_setValues(dv3,-0.5,-0.5, 0.0, 0.0);
+  cmatrix4raw_mulVector4Raw(mat->value, dv1, dv1);
+  cmatrix4raw_mulVector4Raw(mat->value, dv2, dv2);
+  cmatrix4raw_mulVector4Raw(mat->value, dv3, dv3);
 
-  CApp *app = getCApp();
+
+
+  double mouseX = event->x;//400;
+  double mouseY = event->y;//300;
+  CCamera3D* camera = cgame_getCamera(gameObj);
+// 0.0, 100.0, 0.0, 100.0, 50.0, 50.0, 1.0
+//  cmatrix4_unproject();
+  CVector4* vec1 = cglmatrix4_unProject(
+    mouseX, 300-mouseY, 0.5,
+    camera->view,
+    camera->projection,
+    0.0, 0.0, 400.0, 300.0);
+/*
 
   double mouseX = event->x;//400;
   double mouseY = event->y;//300;
@@ -90,11 +103,9 @@ int main(int argc, char** argv) {
   CGame* gameObj = getCGame();
   CObject3D *root = cgame_getRoot(gameObj);
   CObject3D *cube1 = (CObject3D*)initCPrimitive3DAsCube(newCPrimitive3D(getCMemory()));
-  CObject3D *cube2 = (CObject3D*)initCPrimitive3DAsTriangle(newCPrimitive3D(getCMemory()));
 
   cube1->onEnterFrameFunc =_onEnterFrame;
   cobject3d_addNode(root, cube1);
-  cobject3d_addNode(root, cube2);
 
 /*
   ccamera3d_update(cgame_getCamera(gameObj),

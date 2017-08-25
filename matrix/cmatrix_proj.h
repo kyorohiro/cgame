@@ -50,4 +50,15 @@ CVector4* cglmatrix4_unProject(
 //
 CMatrix4RawRef cmatrix4raw_setLookAt(CMatrix4RawRef obj,
   CMatrix4RawRef cameraPos, CMatrix4RawRef cameraFocus, CMatrix4RawRef upDirection);
+
+int cmatrix4raw_unproject(
+      CMatrix4Raw camera,
+      CMatrixValueType viewportX,
+      CMatrixValueType viewportWidth,
+      CMatrixValueType viewportY,
+      CMatrixValueType viewportHeight,
+      CMatrixValueType pickX,
+      CMatrixValueType pickY,
+      CMatrixValueType pickZ,
+      CVector3RawRef out);
 #endif

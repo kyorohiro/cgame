@@ -3,7 +3,7 @@
 #define __H_MATRIX_R_
 
 
-#include "matrix/cglmatrix.h"
+#include "matrix/cmatrix_proj.h"
 #include "matrix/cray.h"
 #include "matrix/cmatrix2.h"
 #include "matrix/cmatrix3.h"

@@ -4,7 +4,7 @@
 #include "core/cmemory.h"
 #include "cmatrix2.h"
 #include "cvector2.h"
-#include "matrix/cglmatrix.h"
+#include "matrix/cmatrix_proj.h"
 
 void cmatrix2_test() {
   printf("# cmatrix2_test\n");

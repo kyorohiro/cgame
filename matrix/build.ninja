@@ -7,18 +7,18 @@ build matrix/cvector3.${objExt}: obj matrix/cvector3.c
 build matrix/cvector2.${objExt}: obj matrix/cvector2.c
 
 build matrix/cmatrix_trans.${objExt}: obj matrix/cmatrix_trans.c
-build matrix/cglmatrix.${objExt}: obj matrix/cglmatrix.c
+build matrix/cmatrix_proj.${objExt}: obj matrix/cmatrix_proj.c
 build matrix/cray.${objExt}: obj matrix/cray.c
 
 
-build matrix/libmatrix.${objExt}: lib matrix/cmatrix4.${objExt} matrix/cvector4.${objExt} matrix/cvector3.${objExt} matrix/cglmatrix.${objExt} matrix/cray.${objExt} matrix/cvector2.${objExt} matrix/cmatrix3.${objExt} matrix/cmatrix2.${objExt} matrix/cmatrix_trans.${objExt}
+build matrix/libmatrix.${objExt}: lib matrix/cmatrix4.${objExt} matrix/cvector4.${objExt} matrix/cvector3.${objExt} matrix/cmatrix_proj.${objExt} matrix/cray.${objExt} matrix/cvector2.${objExt} matrix/cmatrix3.${objExt} matrix/cmatrix2.${objExt} matrix/cmatrix_trans.${objExt}
 
 
 
 build matrix/cvector4_test.${objExt}: obj matrix/cvector4_test.c
 build matrix/cvector3_test.${objExt}: obj matrix/cvector3_test.c
 build matrix/cvector2_test.${objExt}: obj matrix/cvector2_test.c
-build matrix/cglmatrix_test.${objExt}: obj matrix/cglmatrix_test.c
+build matrix/cmatrix_proj_test.${objExt}: obj matrix/cmatrix_proj_test.c
 
 build matrix/cmatrix4_test.${objExt}: obj matrix/cmatrix4_test.c
 build matrix/cmatrix3_test.${objExt}: obj matrix/cmatrix3_test.c
@@ -27,4 +27,4 @@ build matrix/cmatrix2_test.${objExt}: obj matrix/cmatrix2_test.c
 build matrix/cray_test.${objExt}: obj matrix/cray_test.c
 build matrix/test.${objExt}: obj matrix/test.c
 
-build matrix/test.${appExt}: test core/libcore.${objExt} matrix/libmatrix.${objExt} matrix/test.${objExt} matrix/cmatrix4_test.${objExt} matrix/cvector4_test.${objExt} matrix/cvector3_test.${objExt} matrix/cglmatrix_test.${objExt} matrix/cray_test.${objExt}  matrix/cvector2_test.${objExt} matrix/cmatrix2_test.${objExt} matrix/cmatrix3_test.${objExt}
+build matrix/test.${appExt}: test core/libcore.${objExt} matrix/libmatrix.${objExt} matrix/test.${objExt} matrix/cmatrix4_test.${objExt} matrix/cvector4_test.${objExt} matrix/cvector3_test.${objExt} matrix/cmatrix_proj_test.${objExt} matrix/cray_test.${objExt}  matrix/cvector2_test.${objExt} matrix/cmatrix2_test.${objExt} matrix/cmatrix3_test.${objExt}

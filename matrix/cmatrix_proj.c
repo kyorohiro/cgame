@@ -1,6 +1,6 @@
 #include "cmatrix4.h"
 #include "cvector3.h"
-#include "cglmatrix.h"
+#include "cmatrix_proj.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -166,33 +166,11 @@ int cmatrix4_unproject(
     CMatrixValueType pickY,
     CMatrixValueType pickZ,
     CVector3* out) {
-  pickX = (pickX - viewportX);
-  pickY = (pickY - viewportY);
-  pickX = (2.0 * pickX / viewportWidth) - 1.0;
-  pickY = (2.0 * pickY / viewportHeight) - 1.0;
-  pickZ = (2.0 * pickZ) - 1.0;
-
-  // Check if pick point is inside unit cube
-  if (!(-1.0 <= pickX  && pickX <= 1.0 &&
-      -1.0 <= pickY  && pickY <= 1.0 &&
-      -1.0 <= pickZ  && pickZ <= 1.0)){
-    return 0;
+  if(out ==NULL) {
+    out = initCVector3(newCVector3(camera->parent.cmemory), 0.0, 0.0, 0.0);
   }
-
-  CMatrix4Raw invCamera;
-  CMatrixValueType outDeterminant;
-  cmatrix4raw_inverse(camera->value, invCamera, &outDeterminant);
-  CMatrix4Raw tra;
-  CVector4Raw v; v[0]=pickX; v[1]=pickY; v[2]=pickZ; v[3] = 1.0;
-  cmatrix4raw_mulVector4Raw(invCamera, v, v);
-  if(v[3] == 0.0) {
-    return 0;
-  }
-  CMatrixValueType w = 1.0/v[3];
-  out->value[0] = v[0] * w;
-  out->value[1] = v[1] * w;
-  out->value[2] = v[2] * w;
-  return 1;
+  return cmatrix4raw_unproject(camera->value, viewportX, viewportWidth, viewportY, viewportHeight,
+     pickX, pickY, pickZ, out->value);
 }
 
 CVector4* cglmatrix4_unProject(
@@ -223,4 +201,43 @@ CVector4* cglmatrix4_unProject(
     inVector->value[2] = v2 * v3;
     inVector->value[3] = 1.0;
     return inVector;
+  }
+
+  int cmatrix4raw_unproject(
+        CMatrix4RawRef camera,
+        CMatrixValueType viewportX,
+        CMatrixValueType viewportWidth,
+        CMatrixValueType viewportY,
+        CMatrixValueType viewportHeight,
+        CMatrixValueType pickX,
+        CMatrixValueType pickY,
+        CMatrixValueType pickZ,
+        CVector3RawRef out) {
+          pickX = (pickX - viewportX);
+          pickY = (pickY - viewportY);
+          pickX = (2.0 * pickX / viewportWidth) - 1.0;
+          pickY = (2.0 * pickY / viewportHeight) - 1.0;
+          pickZ = (2.0 * pickZ) - 1.0;
+
+          // Check if pick point is inside unit cube
+          if (!(-1.0 <= pickX  && pickX <= 1.0 &&
+              -1.0 <= pickY  && pickY <= 1.0 &&
+              -1.0 <= pickZ  && pickZ <= 1.0)){
+            return 0;
+          }
+
+          CMatrix4Raw invCamera;
+          CMatrixValueType outDeterminant;
+          cmatrix4raw_inverse(camera, invCamera, &outDeterminant);
+          CMatrix4Raw tra;
+          CVector4Raw v; v[0]=pickX; v[1]=pickY; v[2]=pickZ; v[3] = 1.0;
+          cmatrix4raw_mulVector4Raw(invCamera, v, v);
+          if(v[3] == 0.0) {
+            return 0;
+          }
+          CMatrixValueType w = 1.0/v[3];
+          out[0] = v[0] * w;
+          out[1] = v[1] * w;
+          out[2] = v[2] * w;
+          return 1;
   }
