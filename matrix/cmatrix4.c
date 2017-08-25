@@ -227,10 +227,10 @@ CMatrix4RawRef cmatrix4raw_mul(CMatrix4RawRef obj, CMatrix4RawRef arg, CMatrix4R
 }
 
 CVector4RawRef cmatrix4raw_mulVector4Raw(CMatrix4RawRef obj, CVector4RawRef arg, CVector4RawRef out) {
-  return cmatrix4raw_mulCVector(obj, arg[0], arg[1], arg[2], arg[3], out);
+  return cmatrix4raw_mulVector(obj, arg[0], arg[1], arg[2], arg[3], out);
 }
 
-CVector4RawRef cmatrix4raw_mulCVector(CMatrix4RawRef obj, CMatrixValueType x,  CMatrixValueType y, CMatrixValueType z, CMatrixValueType w, CVector4RawRef out) {
+CVector4RawRef cmatrix4raw_mulVector(CMatrix4RawRef obj, CMatrixValueType x,  CMatrixValueType y, CMatrixValueType z, CMatrixValueType w, CVector4RawRef out) {
   CMatrixValueType v0 = obj[0]*x + obj[4]*y + obj[8]*z + obj[12]*w;
   CMatrixValueType v1 = obj[1]*x + obj[5]*y + obj[9]*z + obj[13]*w;
   CMatrixValueType v2 = obj[2]*x + obj[6]*y + obj[10]*z + obj[14]*w;

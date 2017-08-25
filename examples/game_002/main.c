@@ -14,7 +14,8 @@
 
 void _onEnterFrame(CObject*  obj, CObject* cgame) {
   CGame* gameObj = getCGame();
-  CMatrix4 *mat = cobject3d_getCMatrix4((CObject3D*)obj);
+  CObject3D* obj3D = (CObject3D*)obj;
+  CMatrix4 *mat = cobject3d_getCMatrix4(obj3D);
   cmatrix4_setTranslation(initCMatrix4(mat), 0.5, 1.0, -2.0);
   CAppMouseEvent *event = cgame_getCurrentMouseEvent(gameObj);
 
@@ -47,31 +48,31 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
     //cvector3raw_show(out1);
     cvector3raw_show(out2);
 
-/*
+
     //
     //
     //
     CVector3Raw ori;
     CVector3Raw dir;
     cvector3raw_setValues(ori, 0.0, 0.0, 5.0);
-    cvector3raw_sub(out, ori, dir);
+    cvector3raw_sub(out2, ori, dir);
     //
     //
-    CVector3Raw p0;
-    CVector3Raw p1;
-    CVector3Raw p2;
+    CVector4Raw p0;
+    CVector4Raw p1;
+    CVector4Raw p2;
     cvector3raw_setValues(p0,0.0f, 0.5f, 0.0f);
     cvector3raw_setValues(p1,-0.5f, -0.5f, 0.0f);
     cvector3raw_setValues(p2,0.5f, -0.5f, 0.0f);
-    cmatrix4raw_mulVector3Raw(mat, p0, 1.0, p0);
-    cmatrix4raw_mulVector3Raw(mat, p1, 1.0, p1);
-    cmatrix4raw_mulVector3Raw(mat, p2, 1.0, p2);
+    cmatrix4raw_mulVector(obj3D->mat->value, p0[0], p0[1], p0[2], 1.0, p0);
+    cmatrix4raw_mulVector(obj3D->mat->value, p1[0], p1[1], p1[2], 1.0, p1);
+    cmatrix4raw_mulVector(obj3D->mat->value, p2[0], p2[1], p2[2], 1.0, p2);
     //
     CMatrixVertexType rock = crayraw_intersectsWithTriangle(ori, dir,
       p0, p1, p2);
 
     printf(" rock = %f \r\n", rock);
-    */
+
     printf("\r\n");
   }
 //  cmatrix4_unproject();
