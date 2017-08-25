@@ -30,18 +30,18 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
 
 
 
-  double mouseX = event->x;//400;
-  double mouseY = event->y;//300;
+  double mouseX = event->x -200;
+  double mouseY = event->y -150;//300;
   CCamera3D* camera = cgame_getCamera(gameObj);
 
   CMatrix4Raw tmp;
   CVector3Raw out1;
   CVector3Raw out2;
   cmatrix4raw_mul(camera->projection->value, camera->view->value, tmp);
-  cmatrix4raw_unproject(tmp, 0.0, 100.0, 0.0, 100.0, 50.0, 50.0, 1.0, out1);
-  cmatrix4raw_unproject(tmp, 0.0, 100.0, 0.0, 100.0, 50.0, 50.0, 0.0, out2);
+  cmatrix4raw_unproject(tmp, mouseX, 400.0, mouseY, 300.0, 200.0, 150.0, 0.0, out1);
+  cmatrix4raw_unproject(tmp, mouseX, 400.0, mouseY, 300.0, 200.0, 150.0, 1.0, out2);
   if(event->state == 1) {
-    printf("#\r\n");
+    printf("# %f %f\r\n", mouseX, mouseY);
     cvector3raw_show(out1);
     cvector3raw_show(out2);
     printf("\r\n");
@@ -130,7 +130,7 @@ int main(int argc, char** argv) {
   ccamera3d_update(cgame_getCamera(gameObj),
       0.0, 0.0, 5.0,
       0.0, 0.0, 0.0,
-      3.14*45.0/180.0, 400.0/300.0, 0.5, 1000.0);
+      3.14*45.0/180.0, 400.0/300.0, 0.5, 100.0);
 
   cgame_start(gameObj);
 
