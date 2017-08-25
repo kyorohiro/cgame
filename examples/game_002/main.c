@@ -33,13 +33,26 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
   double mouseX = event->x;//400;
   double mouseY = event->y;//300;
   CCamera3D* camera = cgame_getCamera(gameObj);
-// 0.0, 100.0, 0.0, 100.0, 50.0, 50.0, 1.0
+
+  CMatrix4Raw tmp;
+  CVector3Raw out1;
+  CVector3Raw out2;
+  cmatrix4raw_mul(camera->projection->value, camera->view->value, tmp);
+  cmatrix4raw_unproject(tmp, 0.0, 100.0, 0.0, 100.0, 50.0, 50.0, 1.0, out1);
+  cmatrix4raw_unproject(tmp, 0.0, 100.0, 0.0, 100.0, 50.0, 50.0, 0.0, out2);
+  if(event->state == 1) {
+    printf("#\r\n");
+    cvector3raw_show(out1);
+    cvector3raw_show(out2);
+    printf("\r\n");
+  }
 //  cmatrix4_unproject();
+/*
   CVector4* vec1 = cglmatrix4_unProject(
     mouseX, 300-mouseY, 0.5,
     camera->view,
     camera->projection,
-    0.0, 0.0, 400.0, 300.0);
+    0.0, 0.0, 400.0, 300.0);*/
 /*
 
   double mouseX = event->x;//400;
@@ -70,8 +83,8 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
   //CVector3Raw v3; v3[0] = dv3.value[0];v3[1] = dv3.value[1];v3[2] = dv3.value[2];
 //  double d = crayraw_intersectsWithTriangle2(ray, v1, v2, v3);
   //double d = crayraw_intersectsWithTriangle(ray, v1, v2, v3);
-  //
-  //if(event->state == 1) {
+  //*/
+//  if(event->state == 1) {
 //    printf(">Aa>%f %f : %f %f %f %f\r\n",event->x,event->y,vec1->value[0],vec1->value[1],vec1->value[2],vec1->value[3]);
 //    printf(">Ab>%f %f : %f %f %f %f\r\n",event->x,event->y,vec1m->value[0],vec1m->value[1],vec1m->value[2],vec1m->value[3]);
 //    printf(">B>%f %f : %f %f %f %f\r\n",event->x,event->y,vec2->value[0],vec2->value[1],vec2->value[2],vec2->value[3]);
@@ -83,7 +96,7 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
     //cvector3raw_show(v3);
     //cray_show(ray);
     //
-  }
+/*
   releaseCObject((CObject*)vec1);
   releaseCObject((CObject*)vec2);
   //releaseCObject((CObject*)ray);
