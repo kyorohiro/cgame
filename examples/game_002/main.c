@@ -35,15 +35,43 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
   CCamera3D* camera = cgame_getCamera(gameObj);
 
   if(event->state == 1) {
+    //
+    //
     CMatrix4Raw tmp;
-    CVector3Raw out1;
+//    CVector3Raw out1;
     CVector3Raw out2;
     cmatrix4raw_mul(camera->projection->value, camera->view->value, tmp);
-    cmatrix4raw_unproject(tmp, -mouseX, 400.0, mouseY, 300.0, 200.0, 150.0, 0.0, out1);
+  //  cmatrix4raw_unproject(tmp, -mouseX, 400.0, mouseY, 300.0, 200.0, 150.0, 0.0, out1);
     cmatrix4raw_unproject(tmp, -mouseX, 400.0, mouseY, 300.0, 200.0, 150.0, 1.0, out2);
     printf("# %f %f\r\n", mouseX, mouseY);
-    cvector3raw_show(out1);
+    //cvector3raw_show(out1);
     cvector3raw_show(out2);
+
+/*
+    //
+    //
+    //
+    CVector3Raw ori;
+    CVector3Raw dir;
+    cvector3raw_setValues(ori, 0.0, 0.0, 5.0);
+    cvector3raw_sub(out, ori, dir);
+    //
+    //
+    CVector3Raw p0;
+    CVector3Raw p1;
+    CVector3Raw p2;
+    cvector3raw_setValues(p0,0.0f, 0.5f, 0.0f);
+    cvector3raw_setValues(p1,-0.5f, -0.5f, 0.0f);
+    cvector3raw_setValues(p2,0.5f, -0.5f, 0.0f);
+    cmatrix4raw_mulVector3Raw(mat, p0, 1.0, p0);
+    cmatrix4raw_mulVector3Raw(mat, p1, 1.0, p1);
+    cmatrix4raw_mulVector3Raw(mat, p2, 1.0, p2);
+    //
+    CMatrixVertexType rock = crayraw_intersectsWithTriangle(ori, dir,
+      p0, p1, p2);
+
+    printf(" rock = %f \r\n", rock);
+    */
     printf("\r\n");
   }
 //  cmatrix4_unproject();
