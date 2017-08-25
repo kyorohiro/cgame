@@ -63,6 +63,8 @@ CMatrix4RawRef cmatrix4raw_add(CMatrix4RawRef obj, CMatrix4RawRef arg, CMatrix4R
 CMatrix4RawRef cmatrix4raw_sub(CMatrix4RawRef obj, CMatrix4RawRef arg, CMatrix4RawRef out);
 CMatrix4RawRef cmatrix4raw_mul(CMatrix4RawRef obj, CMatrix4RawRef arg, CMatrix4RawRef out);
 CVector4RawRef cmatrix4raw_mulVector4Raw(CMatrix4RawRef obj, CVector4RawRef arg, CVector4RawRef out);
+CVector4RawRef cmatrix4raw_mulCVector(CMatrix4RawRef obj, CMatrixValueType x,  CMatrixValueType y, CMatrixValueType z, CMatrixValueType w, CVector4RawRef out);
+
 CMatrix4RawRef cmatrix4raw_transpose(CMatrix4RawRef obj, CMatrix4RawRef out);
 CMatrixValueType cmatrix4raw_determinant(CMatrix4RawRef obj);
 CMatrix4RawRef cmatrix4raw_inverse(CMatrix4RawRef obj, CMatrix4RawRef outInverse, CMatrixValueType *outDeterminant);

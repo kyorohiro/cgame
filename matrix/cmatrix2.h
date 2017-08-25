@@ -57,6 +57,8 @@ CMatrix2RawRef cmatrix2raw_add(CMatrix2RawRef obj, CMatrix2RawRef arg, CMatrix2R
 CMatrix2RawRef cmatrix2raw_sub(CMatrix2RawRef obj, CMatrix2RawRef arg, CMatrix2RawRef out);
 CMatrix2RawRef cmatrix2raw_mul(CMatrix2RawRef obj, CMatrix2RawRef arg, CMatrix2RawRef out);
 CVector2RawRef cmatrix2raw_mulVector2Raw(CMatrix2RawRef obj, CVector2RawRef arg, CVector2RawRef out);
+CVector2RawRef cmatrix2raw_mulVector(CMatrix2RawRef obj, CMatrixValueType x, CMatrixValueType y, CVector2RawRef out);
+
 CMatrix2RawRef cmatrix2raw_transpose(CMatrix2RawRef obj, CMatrix2RawRef out);
 CMatrixValueType cmatrix2raw_determinant(CMatrix2RawRef obj);
 CMatrix2RawRef cmatrix2raw_inverse(CMatrix2RawRef obj, CMatrix2RawRef outInverse, CMatrixValueType *outDeterminant);

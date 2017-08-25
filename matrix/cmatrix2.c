@@ -173,8 +173,12 @@ CMatrix2RawRef cmatrix2raw_mul(CMatrix2RawRef obj, CMatrix2RawRef arg, CMatrix2R
 // 0 1
 // 2 3
 CVector2RawRef cmatrix2raw_mulVector2Raw(CMatrix2RawRef obj, CVector2RawRef arg, CVector2RawRef out) {
-  CMatrixValueType v0 = obj[0]*arg[0] + obj[2]*arg[1];
-  CMatrixValueType v1 = obj[1]*arg[0] + obj[3]*arg[1];
+  return cmatrix2raw_mulVector(obj, arg[0], arg[1], out);
+}
+
+CVector2RawRef cmatrix2raw_mulVector(CMatrix2RawRef obj, CMatrixValueType x, CMatrixValueType y, CVector2RawRef out) {
+  CMatrixValueType v0 = obj[0]*x + obj[2]*y;
+  CMatrixValueType v1 = obj[1]*x + obj[3]*y;
   out[0] = v0;
   out[1] = v1;
   return out;

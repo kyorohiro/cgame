@@ -195,13 +195,18 @@ CMatrix3RawRef cmatrix3raw_mul(CMatrix3RawRef obj, CMatrix3RawRef arg, CMatrix3R
 }
 
 CVector3RawRef cmatrix3raw_mulVector3Raw(CMatrix3RawRef obj, CVector3RawRef arg, CVector3RawRef out) {
-  CMatrixValueType v0 = obj[0]*arg[0] + obj[3]*arg[1] + obj[6]*arg[2];
-  CMatrixValueType v1 = obj[1]*arg[0] + obj[4]*arg[1] + obj[7]*arg[2];
-  CMatrixValueType v2 = obj[2]*arg[0] + obj[5]*arg[1] + obj[8]*arg[2];
+  return cmatrix3raw_mulVector(obj, arg[0], arg[1], arg[2], out);
+}
+
+CVector3RawRef cmatrix3raw_mulVector(CMatrix3RawRef obj, CMatrixValueType x, CMatrixValueType y, CMatrixValueType z, CVector3RawRef out) {
+  CMatrixValueType v0 = obj[0]*x + obj[3]*y + obj[6]*z;
+  CMatrixValueType v1 = obj[1]*x + obj[4]*y + obj[7]*z;
+  CMatrixValueType v2 = obj[2]*x + obj[5]*y + obj[8]*z;
   out[0] = v0;
   out[1] = v1;
   out[2] = v2;
   return out;
+
 }
 
 CMatrix3RawRef cmatrix3raw_transpose(CMatrix3RawRef obj, CMatrix3RawRef out) {
