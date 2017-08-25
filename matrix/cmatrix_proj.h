@@ -4,9 +4,9 @@
 
 #include "core/cobject.h"
 #include "core/cmemory.h"
-#include "cmatrix4.h"
-#include "cvector3.h"
-#include "cmatrix_trans.h"
+#include "matrix/cmatrix4.h"
+#include "matrix/cvector3.h"
+#include "matrix/cmatrix_trans.h"
 
 
 CMatrix4* cmatrix4_setOrthogonalProjection(CMatrix4* obj, double right, double left, double top, double bottom, double far, double near);
@@ -30,11 +30,6 @@ CMatrix4* cmatrix4_setLookAt2(CMatrix4* obj,
 );
 
 
-
-CVector4* cglmatrix4_unProject(
-  double wx, double wy, double wz,
-  CMatrix4* model, CMatrix4 * projection,
-  double vx, double vy, double vw, double vh);
 
   int cmatrix4_unproject(
       CMatrix4 *camera,
@@ -61,4 +56,13 @@ int cmatrix4raw_unproject(
       CMatrixValueType pickY,
       CMatrixValueType pickZ,
       CVector3RawRef out);
+
+
+
+      /*
+      CVector4* cglmatrix4_unProject(
+        double wx, double wy, double wz,
+        CMatrix4* model, CMatrix4 * projection,
+        double vx, double vy, double vw, double vh);
+      */
 #endif
