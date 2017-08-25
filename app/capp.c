@@ -40,8 +40,7 @@ void capp_keyboard (unsigned char key,int x, int y) {
   printf(">keyboard key:%c, x:%d, y:%d\r\n", key, x, y);
 }
 
-void capp_mouse (int button, int state,int x, int y) {
-  printf(">mouse button:%c, xstate:%d x:%d, y:%d\r\n", button, state, x, y);
+void capp_mouse_motion_a (int state, int x, int y) {
   int stateTmp = 0;
   if(state == 0) {
     stateTmp = 1;
@@ -49,12 +48,12 @@ void capp_mouse (int button, int state,int x, int y) {
   CApp* appObj = getCApp();
   if(appObj->mouseEvent == NULL) {
     appObj->mouseEvent = newCAppMouseEvent(appObj->parent.cmemory);
-    initCAppMouseEvent(appObj->mouseEvent, stateTmp, x, y);
+    initCAppMouseEvent(appObj->mouseEvent, state, x, y);
   }
   else if(appObj->parent.reference > 1) {
     releaseCObject((CObject *)appObj);
     appObj->mouseEvent = newCAppMouseEvent(appObj->parent.cmemory);
-    initCAppMouseEvent(appObj->mouseEvent, stateTmp, x, y);
+    initCAppMouseEvent(appObj->mouseEvent, state, x, y);
   }
   else {
     appObj->mouseEvent->state = stateTmp;
@@ -62,7 +61,19 @@ void capp_mouse (int button, int state,int x, int y) {
     appObj->mouseEvent->y = y;
   }
   ceventDispatcher_dispatch(appObj->mouse, (CObject*)appObj->mouseEvent);
+}
 
+void capp_mouse (int button, int state,int x, int y) {
+  printf(">mouse button:%c, xstate:%d x:%d, y:%d\r\n", button, state, x, y);
+  capp_mouse_motion_a (state, x, y);
+}
+
+void capp_mouseM (int x, int y) {
+  capp_mouse_motion_a (1, x, y);
+}
+
+void capp_mousePM (int x, int y) {
+  capp_mouse_motion_a (0, x, y);
 }
 
 void capp_draw(void) {
@@ -100,7 +111,8 @@ CApp* capp_run(CApp* obj) {
   glutSpecialFunc(capp_special);
   glutKeyboardFunc(capp_keyboard);
   glutMouseFunc(capp_mouse);
-
+  glutMotionFunc(capp_mouseM);
+  glutPassiveMotionFunc(capp_mousePM);
   ceventDispatcher_dispatch(appObj->init, (CObject*)obj);
 
   glutMainLoop();

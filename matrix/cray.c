@@ -63,7 +63,7 @@ CMatrixVertexType crayraw_intersectsWithTriangle(CVector3Raw origin, CVector3Raw
       return 0.0;
     }
 
-    printf("dot %f\r\n", dot);
+    //printf("dot %f\r\n", dot);
     if(!(dot <0.0f))
     {
       return 0.0f;
@@ -73,7 +73,7 @@ CMatrixVertexType crayraw_intersectsWithTriangle(CVector3Raw origin, CVector3Raw
     //
     CMatrixValueType d = cvector3raw_dotProduct(n, p0);
     CMatrixValueType t = d - cvector3raw_dotProduct(n, origin);
-    printf("t %f\r\n", t);
+    //printf("t %f\r\n", t);
     if(!(t<=0.0f)) {
       return 0.0f;
     }
@@ -93,7 +93,7 @@ CMatrixVertexType crayraw_intersectsWithTriangle(CVector3Raw origin, CVector3Raw
 
     CMatrixValueType u0, u1, u2;
     CMatrixValueType v0, v1, v2;
-    printf("%f %f\r\n",n[1], cmatrixAbs(n[1]));
+  //  printf("%f %f\r\n",n[1], cmatrixAbs(n[1]));
     if(cmatrixAbs(n[0]) > cmatrixAbs(n[1])){
       if(cmatrixAbs(n[0]) > cmatrixAbs(n[2])){
         u0 = p[1] - p0[1];
@@ -129,7 +129,7 @@ CMatrixVertexType crayraw_intersectsWithTriangle(CVector3Raw origin, CVector3Raw
     }
 
     CMatrixValueType temp = u1*v2-v1*u2;
-    printf("temp %f\r\n", temp);
+  //  printf("temp %f\r\n", temp);
     if(!(temp != 0.0f)){
       return 0.0f;
     }
@@ -137,19 +137,19 @@ CMatrixVertexType crayraw_intersectsWithTriangle(CVector3Raw origin, CVector3Raw
 
 
     CMatrixValueType alpha = (u0*v2-v0*u2)*temp;
-    printf("alpha %f\r\n", alpha);
+  //  printf("alpha %f\r\n", alpha);
     if(!(alpha >= 0.0f)){
       return 0.0f;
     }
 
     CMatrixValueType beta = (u1*v0-v1*u0)*temp;
-    printf("beta %f\r\n", beta);
+  //  printf("beta %f\r\n", beta);
     if(!(beta >= 0.0f)){
       return 0.0f;
     }
 
     CMatrixValueType gamma = 1.0f-alpha -beta;
-    printf("gamma %f\r\n", gamma);
+  //  printf("gamma %f\r\n", gamma);
     if(!(gamma >= 0.0f)){
       return 0.0f;
     }
