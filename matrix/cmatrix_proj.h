@@ -31,16 +31,16 @@ CMatrix4* cmatrix4_setLookAt2(CMatrix4* obj,
 
 
 
-  int cmatrix4_unproject(
-      CMatrix4 *camera,
-      CMatrixValueType viewportX,
-      CMatrixValueType viewportWidth,
-      CMatrixValueType viewportY,
-      CMatrixValueType viewportHeight,
-      CMatrixValueType pickX,
-      CMatrixValueType pickY,
-      CMatrixValueType pickZ,
-      CVector3* out);
+int cmatrix4_unproject(
+    CMatrix4 *camera,
+    CMatrixValueType viewportX,
+    CMatrixValueType viewportWidth,
+    CMatrixValueType viewportY,
+    CMatrixValueType viewportHeight,
+    CMatrixValueType pickX,
+    CMatrixValueType pickY,
+    CMatrixValueType pickZ,
+    CVector3* out);
 //
 //
 CMatrix4RawRef cmatrix4raw_setLookAt(CMatrix4RawRef obj,

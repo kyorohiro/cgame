@@ -196,7 +196,7 @@ int cmatrix4_unproject(
               -1.0 <= pickZ  && pickZ <= 1.0)){
             return 0;
           }
-
+          printf(">> >> %f %f %f\r\n", pickX, pickY, pickZ);
           CMatrix4Raw invCamera;
           CMatrixValueType outDeterminant;
           cmatrix4raw_inverse(camera, invCamera, &outDeterminant);

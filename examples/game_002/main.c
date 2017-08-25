@@ -15,7 +15,7 @@
 void _onEnterFrame(CObject*  obj, CObject* cgame) {
   CGame* gameObj = getCGame();
   CMatrix4 *mat = cobject3d_getCMatrix4((CObject3D*)obj);
-  cmatrix4_setTranslation(initCMatrix4(mat), 0.0, 0.0, -2.0);
+  cmatrix4_setTranslation(initCMatrix4(mat), 0.5, 1.0, -2.0);
   CAppMouseEvent *event = cgame_getCurrentMouseEvent(gameObj);
 
   CVector4Raw dv1;
@@ -34,13 +34,13 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
   double mouseY = event->y -150;//300;
   CCamera3D* camera = cgame_getCamera(gameObj);
 
-  CMatrix4Raw tmp;
-  CVector3Raw out1;
-  CVector3Raw out2;
-  cmatrix4raw_mul(camera->projection->value, camera->view->value, tmp);
-  cmatrix4raw_unproject(tmp, mouseX, 400.0, mouseY, 300.0, 200.0, 150.0, 0.0, out1);
-  cmatrix4raw_unproject(tmp, mouseX, 400.0, mouseY, 300.0, 200.0, 150.0, 1.0, out2);
   if(event->state == 1) {
+    CMatrix4Raw tmp;
+    CVector3Raw out1;
+    CVector3Raw out2;
+    cmatrix4raw_mul(camera->projection->value, camera->view->value, tmp);
+    cmatrix4raw_unproject(tmp, -mouseX, 400.0, mouseY, 300.0, 200.0, 150.0, 0.0, out1);
+    cmatrix4raw_unproject(tmp, -mouseX, 400.0, mouseY, 300.0, 200.0, 150.0, 1.0, out2);
     printf("# %f %f\r\n", mouseX, mouseY);
     cvector3raw_show(out1);
     cvector3raw_show(out2);
@@ -115,7 +115,7 @@ int main(int argc, char** argv) {
 
   CGame* gameObj = getCGame();
   CObject3D *root = cgame_getRoot(gameObj);
-  CObject3D *cube1 = (CObject3D*)initCPrimitive3DAsCube(newCPrimitive3D(getCMemory()));
+  CObject3D *cube1 = (CObject3D*)initCPrimitive3DAsTriangle(newCPrimitive3D(getCMemory()));
 
   cube1->onEnterFrameFunc =_onEnterFrame;
   cobject3d_addNode(root, cube1);
