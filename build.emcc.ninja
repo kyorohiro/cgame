@@ -36,3 +36,7 @@ subninja game${sep}build.ninja
 subninja examples${sep}app_001${sep}build.ninja
 subninja examples${sep}game_001${sep}build.ninja
 subninja examples${sep}game_002${sep}build.ninja
+
+#
+# next
+subninja app2${sep}build.ninja
