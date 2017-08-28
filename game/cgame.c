@@ -20,6 +20,7 @@ CGame* newCGame(CMemory* mem) {
 }
 
 CGame* initCGame(CGame* obj) {
+  printf("initCGame\r\n");
   initCObject((CObject*)obj, CGAME_NAME);
   snprintf(obj->title, sizeof(obj->title), "%s", "title");
   obj->width = 400;
@@ -32,8 +33,11 @@ CGame* initCGame(CGame* obj) {
     char* fs = "./game/assets/fs.glsl";
     char* vs = "./game/assets/vs.glsl";
   #endif
+  printf("load Shader\r\n");
+
   obj->fShaderSrc = cutil_newCStringFromPath(obj->parent.cmemory, fs);
   obj->vShaderSrc = cutil_newCStringFromPath(obj->parent.cmemory, vs);
+  printf("len = %d\r\n",cstring_getByteLength(obj->fShaderSrc));
   //
 //  obj->root = initCObject3D(newCObject3D(obj->parent.cmemory));
   obj->root = (CObject3D*)initCRoot3D(newCRoot3D(obj->parent.cmemory), 100);
@@ -50,7 +54,7 @@ CGame* initCGame(CGame* obj) {
   CGame* gameObj = obj;
   capp_addDisplayEventListener(appObj, (CObject*)gameObj, cgame_draw);
   capp_addInitEventListener(appObj, (CObject*)gameObj, cgame_init);
-
+  printf("[ASOS OK]\r\n");
   return obj;
 }
 
@@ -65,20 +69,31 @@ CCamera3D* cgame_getCamera(CGame* obj) {
 CGame* defaultCGame = NULL;
 CGame* getCGame() {
   if(defaultCGame == NULL) {
-    defaultCGame = initCGame(newCGame(getCMemory()));
+    defaultCGame = initCGame(
+      newCGame(getCMemory())
+    )
+    ;
   }
   return defaultCGame;
 }
 
 
 void cgame_draw(CObject *context, CObject *args) {
+
   CGame *game = getCGame();
   CObject3D *root = (CObject3D*)cgame_getRoot(game);
+  if(root == NULL) {
+    printf("ROOT == NULL\r\n");
+    return;
+  }
   //
   cobject3d_enterFrame(root, root, args);
   CLinkedList *nodes = cobject3d_getNodes(root);
 
   glClear(GL_COLOR_BUFFER_BIT);
+  if(nodes == NULL) {
+    return;
+  }
 
   //
   // create Buffer
@@ -87,7 +102,6 @@ void cgame_draw(CObject *context, CObject *args) {
 
   GLuint indexBuffer;
   glGenBuffers(1, &indexBuffer);
-
   for(int i=0;i<clinkedList_getLength(nodes);i++) {
     CObject3D *node = (CObject3D*)clinkedList_get(nodes, i);
     if(node->type != CObject3DTypePrimitive) {
@@ -124,26 +138,25 @@ void cgame_draw(CObject *context, CObject *args) {
     //glDrawArrays(GL_TRIANGLES, 0, 3);
   }
 
-
   glDeleteBuffers(1, &vertexBuffer);
   glDeleteBuffers(1, &indexBuffer);
 
   //glutSwapBuffers();
   //glutPostRedisplay();
 //releaseCObject((CObject*)mat);
+
 }
 
 CGame* cgame_start(CGame* obj) {
   printf("## cgame_start\n");
   CApp* appObj = getCApp();
-  CGame* gameObj = getCGame();
 
   capp_run(appObj);
   return obj;
 }
 
 void cgame_init(CObject *context, CObject *args) {
-  printf("## cgame_init\n");
+  printf("#1# cgame_init\n");
   CApp* appObj = getCApp();
   CGame* gameObj = getCGame();
 

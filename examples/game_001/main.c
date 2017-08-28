@@ -41,6 +41,7 @@ int main(int argc, char** argv) {
   printf("call main\r\n");
 
   CGame* gameObj = getCGame();
+
   CObject3D *root = cgame_getRoot(gameObj);
   CObject3D *cube1 = (CObject3D*)initCPrimitive3DAsCube(newCPrimitive3D(getCMemory()));
   CObject3D *cube2 = (CObject3D*)initCPrimitive3DAsTriangle(newCPrimitive3D(getCMemory()));
@@ -55,6 +56,5 @@ int main(int argc, char** argv) {
       3.14*45.0/180.0, 400.0/300.0, 0.5, 1000.0);
 
   cgame_start(gameObj);
-
   return 0;
 }

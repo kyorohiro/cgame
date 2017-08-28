@@ -130,10 +130,11 @@ CApp* capp_run(CApp* obj) {
   #else
     int prevTime = SDL_GetTicks();
     int currentTime = SDL_GetTicks();
-    int interval = 1000/30;
+    int interval = 1000/60;
     do {
-      main_loop(obj);
       int currentTime = SDL_GetTicks();
+      main_loop(obj);
+//      SDL_GL_SwapWindow(window);
       if(currentTime-prevTime < interval) {
         SDL_Delay(interval-(currentTime-prevTime));
       } else {
