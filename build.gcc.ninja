@@ -32,3 +32,7 @@ subninja matrix${sep}build.ninja
 # game
 subninja app${sep}build.ninja
 subninja game${sep}build.ninja
+
+#
+# example
+subninja examples${sep}app_001${sep}build.ninja

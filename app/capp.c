@@ -128,8 +128,19 @@ CApp* capp_run(CApp* obj) {
   #ifdef PLATFORM_EMCC
     emscripten_set_main_loop_arg(main_loop, obj, 60, 1);
   #else
+    int prevTime = SDL_GetTicks();
+    int currentTime = SDL_GetTicks();
+    int interval = 1000/30;
     do {
       main_loop(obj);
+      int currentTime = SDL_GetTicks();
+      if(currentTime-prevTime < interval) {
+        SDL_Delay(interval-(currentTime-prevTime));
+      } else {
+        SDL_Delay(1);
+      }
+      prevTime = currentTime;
+
     } while(obj->isQuit == 0);
   #endif
 
