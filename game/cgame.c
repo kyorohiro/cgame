@@ -87,13 +87,13 @@ void cgame_draw(CObject *context, CObject *args) {
     return;
   }
   //
-  cobject3d_enterFrame(root, root, args);
   CLinkedList *nodes = cobject3d_getNodes(root);
-
   glClear(GL_COLOR_BUFFER_BIT);
   if(nodes == NULL) {
     return;
   }
+
+  cobject3d_enterFrame(root, root, args);
 
   //
   // create Buffer
