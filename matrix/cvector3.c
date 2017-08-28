@@ -38,8 +38,11 @@ CMatrixValueType cvector3_dotProduct(CVector3* obj, CVector3* arg) {
 
 
 CVector3* cvector3_normalize(CVector3* obj, CVector3* out) {
-    cvector3raw_normalize(obj->value, out->value);
-    return out;
+  if(out == NULL) {
+    out = initCVector3(newCVector3(obj->parent.cmemory), 0.0, 0.0, 0.0);
+  }
+  cvector3raw_normalize(obj->value, out->value);
+  return out;
 }
 
 
