@@ -62,44 +62,27 @@ void capp_draw(CApp* obj) {
   }
 }
 
-int x = 0;
-int y = 0;
 void main_loop(void*args) {
-  // CAppMouseEvent
   CApp *app = args;
   SDL_Event event;
   while (SDL_PollEvent(&event)) {
     switch (event.type) {
-      case SDL_KEYDOWN:
-        switch (event.key.keysym.sym) {
-            case SDLK_RIGHT: x++; break;
-            case SDLK_LEFT: x--; break;
-            case SDLK_UP: y--; break;
-            case SDLK_DOWN: y++; break;
-            default: printf("Other key"); break;
-        }
       case SDL_MOUSEMOTION:
         app->mouseEvent->x = event.motion.x;
         app->mouseEvent->y = event.motion.y;
-        //printf("in %f %f\r\n",app->mouseEvent->x, app->mouseEvent->y);
         ceventDispatcher_dispatch(app->mouse, (CObject*)app->mouseEvent);
         break;
       case SDL_MOUSEBUTTONDOWN:
         app->mouseEvent->state = 1;
-//        printf("button : %d %d", event.button.x, event.button.y);
         break;
       case SDL_MOUSEBUTTONUP:
         app->mouseEvent->state = 0;
-//        printf("button : %d %d", event.button.x, event.button.y);
         break;
       case SDL_MOUSEWHEEL:
-//        printf("button : %d %d", event.wheel.x, event.wheel.y);
         break;
       case SDL_QUIT:
         app->isQuit = 1;
     }
-//    printf("loop %d %d %d %f %f %d\r\n", x, y, event.type, event.tfinger.x, event.tfinger.y,
-//  event.key.keysym.sym);
   }
   capp_draw(app);
 }
@@ -115,7 +98,7 @@ CApp* capp_run(CApp* obj) {
   SDL_GLContext glContext;
   printf("main 2\n");
 
-  window = SDL_CreateWindow("sdlglshader", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, appObj->width, appObj->height, SDL_WINDOW_OPENGL);
+  window = SDL_CreateWindow("test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, appObj->width, appObj->height, SDL_WINDOW_OPENGL);
 
   glContext = SDL_GL_CreateContext(window);
   //SetOpenGLAttributes();
@@ -161,9 +144,6 @@ CApp* capp_run(CApp* obj) {
     } while(obj->isQuit == 0);
   #endif
 
-/*
-  glutMainLoop();
-  */
   return obj;
 }
 
