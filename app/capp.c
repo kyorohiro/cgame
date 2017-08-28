@@ -79,8 +79,9 @@ void main_loop(void*args) {
             default: printf("Other key"); break;
         }
       case SDL_MOUSEMOTION:
-        app->mouseEvent->x = x;
-        app->mouseEvent->y = y;
+        app->mouseEvent->x = event.motion.x;
+        app->mouseEvent->y = event.motion.y;
+        //printf("in %f %f\r\n",app->mouseEvent->x, app->mouseEvent->y);
         ceventDispatcher_dispatch(app->mouse, (CObject*)app->mouseEvent);
         break;
       case SDL_MOUSEBUTTONDOWN:
@@ -115,7 +116,18 @@ CApp* capp_run(CApp* obj) {
   printf("main 2\n");
 
   window = SDL_CreateWindow("sdlglshader", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, appObj->width, appObj->height, SDL_WINDOW_OPENGL);
+
   glContext = SDL_GL_CreateContext(window);
+  //SetOpenGLAttributes();
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+  SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+  SDL_GL_SetSwapInterval(1);
+//ifndef __APPLE__
+//  glewExperimental = GL_TRUE;
+//  glewInit();
+//endif
 
   glViewport(0, 0, appObj->width, appObj->height);
   glEnable(GL_CULL_FACE);

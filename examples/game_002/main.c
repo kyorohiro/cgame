@@ -13,6 +13,7 @@
 #include "core/cobject.h"
 
 void _onEnterFrame(CObject*  obj, CObject* cgame) {
+
   CGame* gameObj = getCGame();
   CObject3D* obj3D = (CObject3D*)obj;
   CMatrix4 *mat = cobject3d_getCMatrix4(obj3D);
@@ -32,6 +33,7 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
 
   double mouseX = event->x -200;
   double mouseY = event->y -150;//300;
+  //printf("-%f %f-\r\n", mouseX, mouseY);
   CCamera3D* camera = cgame_getCamera(gameObj);
 
   //
