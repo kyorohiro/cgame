@@ -10,7 +10,7 @@
 int i =(20+2)%360;
 int fps;
 void _onEnterFrame(CObject*  obj, CObject* cgame) {
-  
+
   CApp* appObj = getCApp();
   CGame* gameObj = getCGame();
   i = (i+2)%360;

@@ -53,13 +53,17 @@ CLinkedList* cobject3d_getNodes(CObject3D* obj) {
 }
 
 void cobject3d_enterFrame(CObject3D* obj, CObject3D* root, CObject* cgame) {
-
   if(obj->onEnterFrameFunc != NULL) {
     obj->onEnterFrameFunc((CObject*)obj, cgame);
   }
   croot3d_pushMulMatrix((CRoot3D*)root, obj->mat);
 
   if(obj->isLeaf == 1) {
+    croot3d_popMulMatrix((CRoot3D*)root);
+    return;
+  }
+  if(obj->nodes == NULL) {
+    croot3d_popMulMatrix((CRoot3D*)root);
     return;
   }
   for(int i=0;i<clinkedList_getLength(obj->nodes);i++) {
@@ -69,6 +73,7 @@ void cobject3d_enterFrame(CObject3D* obj, CObject3D* root, CObject* cgame) {
     }
   }
   croot3d_popMulMatrix((CRoot3D*)root);
+
 }
 
 
