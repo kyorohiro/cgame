@@ -18,8 +18,16 @@ rule test
 rule lib
   command=${cmd} ${ar} rcs $out $in
 rule exe
-  command=${cmd} ${cc}  $in -o $out -DPLATFORM_OSX -O2 -lSDL2main -lSDL2 -L/usr/local/Cellar/sdl2/2.0.5/lib/ -framework OpenGL
+  command=${cmd} ${cc} $in -o $out -DPLATFORM_OSX -O2 -lSDL2main -lSDL2 -L/usr/local/Cellar/sdl2/2.0.5/lib/ -framework OpenGL
 
+
+
+#
+# core
 subninja core${sep}build.ninja
 subninja matrix${sep}build.ninja
+
+#
+# game
 subninja app${sep}build.ninja
+subninja game${sep}build.ninja

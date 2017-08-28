@@ -1,20 +1,20 @@
-
+baseP = game
 #
 # LIB
-build game/cobject3d.${objExt}: obj game/cobject3d.c
-build game/cgame.${objExt}: obj game/cgame.c
-build game/cglutil.${objExt}: obj game/cglutil.c
-build game/cprimitive3d.${objExt}: obj game/cprimitive3d.c
-build game/ccamera3d.${objExt}: obj game/ccamera3d.c
-build game/clight3d.${objExt}: obj game/clight3d.c
-build game/croot3d.${objExt}: obj game/croot3d.c
+build ${baseP}${sep}cobject3d.${objExt}: obj ${baseP}${sep}cobject3d.c
+build ${baseP}${sep}cgame.${objExt}: obj ${baseP}${sep}cgame.c
+build ${baseP}${sep}cglutil.${objExt}: obj ${baseP}${sep}cglutil.c
+build ${baseP}${sep}cprimitive3d.${objExt}: obj ${baseP}${sep}cprimitive3d.c
+build ${baseP}${sep}ccamera3d.${objExt}: obj ${baseP}${sep}ccamera3d.c
+build ${baseP}${sep}clight3d.${objExt}: obj ${baseP}${sep}clight3d.c
+build ${baseP}${sep}croot3d.${objExt}: obj ${baseP}${sep}croot3d.c
 
-build game/libgame.${objExt}: lib game/cgame.${objExt} game/cobject3d.${objExt} game/cglutil.${objExt} game/cprimitive3d.${objExt} game/ccamera3d.${objExt} game/clight3d.${objExt} game/croot3d.${objExt}
+build ${baseP}${sep}libgame.${objLib}: lib ${baseP}${sep}cgame.${objExt} ${baseP}${sep}cobject3d.${objExt} ${baseP}${sep}cglutil.${objExt} ${baseP}${sep}cprimitive3d.${objExt} ${baseP}${sep}ccamera3d.${objExt} ${baseP}${sep}clight3d.${objExt} ${baseP}${sep}croot3d.${objExt}
 
 #
 # TEST
-build game/test.${objExt}: obj game/test.c
-build game/cobject3d_test.${objExt}: obj game/cobject3d_test.c
-build game/croot3d_test.${objExt}: obj game/croot3d_test.c
+build ${baseP}${sep}test.${objExt}: obj ${baseP}${sep}test.c
+build ${baseP}${sep}cobject3d_test.${objExt}: obj ${baseP}${sep}cobject3d_test.c
+build ${baseP}${sep}croot3d_test.${objExt}: obj ${baseP}${sep}croot3d_test.c
 
-build game/test.${appExt}: test core/libcore.${objExt} matrix/libmatrix.${objExt} game/libgame.${objExt} game/test.${objExt} game/cobject3d_test.${objExt} game/croot3d_test.${objExt}
+build ${baseP}${sep}test.${appExt}: test core/libcore.${objLib} matrix/libmatrix.${objLib} ${baseP}${sep}/libgame.${objLib} ${baseP}${sep}test.${objExt} ${baseP}${sep}cobject3d_test.${objExt} ${baseP}${sep}croot3d_test.${objExt}
