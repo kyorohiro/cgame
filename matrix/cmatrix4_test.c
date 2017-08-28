@@ -231,7 +231,7 @@ void cmatrix4_test_inverse() {
     (int)(cmatrix4_getValue(mat1,0,0)*1000) != -25 ||
     (int)(cmatrix4_getValue(mat1,0,1)*1000) != 125 ||
     (int)(cmatrix4_getValue(mat1,0,2)*1000) != -375 ||
-    (int)(cmatrix4_getValue(mat1,0,3)*1000) != 474 ||
+    (int)(cmatrix4_getValue(mat1,0,3)*100) != 47 ||
 
     (int)(cmatrix4_getValue(mat1,1,0)*1000) != 125 ||
     (int)(cmatrix4_getValue(mat1,1,1)*1000) != -625 ||
@@ -243,7 +243,7 @@ void cmatrix4_test_inverse() {
     (int)(cmatrix4_getValue(mat1,2,2)*1000) != -625 ||
     (int)(cmatrix4_getValue(mat1,2,3)*1000) != 125 ||
 
-    (int)(cmatrix4_getValue(mat1,3,0)*1000) != 474 ||
+    (int)(cmatrix4_getValue(mat1,3,0)*100) != 47 ||
     (int)(cmatrix4_getValue(mat1,3,1)*1000) != -375 ||
     (int)(cmatrix4_getValue(mat1,3,2)*1000) != 125 ||
     (int)(cmatrix4_getValue(mat1,3,3)*1000) != -25
