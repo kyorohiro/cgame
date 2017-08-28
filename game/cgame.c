@@ -25,8 +25,15 @@ CGame* initCGame(CGame* obj) {
   obj->width = 400;
   obj->height = 300;
   //
-  obj->fShaderSrc = cutil_newCStringFromPath(obj->parent.cmemory, "/game/assets/fs.glsl");
-  obj->vShaderSrc = cutil_newCStringFromPath(obj->parent.cmemory, "/game/assets/vs.glsl");
+  #ifdef PLATFORM_EMCC
+    char* fs = "/game/assets/fs.glsl";
+    char* vs = "/game/assets/vs.glsl";
+  #else
+    char* fs = "./game/assets/fs.glsl";
+    char* vs = "./game/assets/vs.glsl";
+  #endif
+  obj->fShaderSrc = cutil_newCStringFromPath(obj->parent.cmemory, fs);
+  obj->vShaderSrc = cutil_newCStringFromPath(obj->parent.cmemory, vs);
   //
 //  obj->root = initCObject3D(newCObject3D(obj->parent.cmemory));
   obj->root = (CObject3D*)initCRoot3D(newCRoot3D(obj->parent.cmemory), 100);
