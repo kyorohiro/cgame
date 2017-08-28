@@ -73,7 +73,7 @@ void main() {
   vec4 t = mm * vec4(normal, 1.0);
 
 
-  mat3 xx = mat3(mm);
+  mat3 xx = mat3(mm[0].xyz, mm[1].xyz, mm[2].xyz);//mat3(mm);
   xx = inverseMat3(transposeMat3(xx));
   NNormal = normalize(xx * normal);
   FragPos = vec3(mm * vec4(position, 1.0));
