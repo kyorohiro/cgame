@@ -8,6 +8,7 @@ sep = /
 cmd =
 objExt= o
 appExt= exe
+exaExt = exe
 objLib = a
 cc = cc
 ar = ar

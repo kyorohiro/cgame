@@ -10,6 +10,7 @@ sep = /
 cmd =
 objExt = bc
 appExt = js
+exaExt = html
 objLib = bc
 rule obj
   command=${cmd} emcc -c $in -o $out -I.. -I. -s USE_SDL=2 -DPLATFORM_EMCC
