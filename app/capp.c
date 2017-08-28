@@ -131,10 +131,14 @@ CApp* capp_run(CApp* obj) {
     int prevTime = SDL_GetTicks();
     int currentTime = SDL_GetTicks();
     int interval = 1000/60;
+    float r = 0.0f;
     do {
       int currentTime = SDL_GetTicks();
+      r += 0.01f;
+      glClearColor(0.9f, r, 0.5f, 1.0f);
+      glClear(GL_COLOR_BUFFER_BIT);
       main_loop(obj);
-//      SDL_GL_SwapWindow(window);
+      SDL_GL_SwapWindow(window);
       if(currentTime-prevTime < interval) {
         SDL_Delay(interval-(currentTime-prevTime));
       } else {
@@ -154,18 +158,19 @@ CApp* capp_run(CApp* obj) {
 //
 //
 CApp* capp_addMouseEventListener(CApp* obj, CObject* context, CEventFuncOnEvent func) {
+  printf("call add Mouse Listener capp \r\n");
   ceventDispatcher_addListener(obj->mouse, context, func);
   return obj;
 }
 
 CApp* capp_addDisplayEventListener(CApp* obj, CObject* context, CEventFuncOnEvent func) {
-  printf("call add Listener capp \r\n");
+  printf("call add Display Listener capp \r\n");
   ceventDispatcher_addListener(obj->display, context, func);
   return obj;
 }
 
 CApp* capp_addInitEventListener(CApp* obj, CObject* context, CEventFuncOnEvent func) {
-  printf("call add Listener capp \r\n");
+  printf("call add Init Listener capp \r\n");
   ceventDispatcher_addListener(obj->init, context, func);
   return obj;
 }
@@ -183,24 +188,15 @@ double capp_currentMilliSecound(CApp* obj) {
 }
 
 CApp* capp_postRedisplay(CApp* obj) {
-  /*
-  glutPostRedisplay();
-  */
+  // glutPostRedisplay();
   return obj;
 }
 
 CApp* capp_flushBuffers(CApp* obj) {
-  /*
-  glutSwapBuffers();
-  */
+  // glutSwapBuffers();
   return obj;
 }
-//
-//
-//
-//
-// Mouse Event
-//
+
 void _freeCAppMouseEvent(void* obj) {
   freeCObject(obj);
 }

@@ -37,7 +37,7 @@ CGame* initCGame(CGame* obj) {
 
   obj->fShaderSrc = cutil_newCStringFromPath(obj->parent.cmemory, fs);
   obj->vShaderSrc = cutil_newCStringFromPath(obj->parent.cmemory, vs);
-  printf("len = %d\r\n",cstring_getByteLength(obj->fShaderSrc));
+  //printf("len = %d\r\n",cstring_getByteLength(obj->fShaderSrc));
   //
 //  obj->root = initCObject3D(newCObject3D(obj->parent.cmemory));
   obj->root = (CObject3D*)initCRoot3D(newCRoot3D(obj->parent.cmemory), 100);
@@ -71,8 +71,7 @@ CGame* getCGame() {
   if(defaultCGame == NULL) {
     defaultCGame = initCGame(
       newCGame(getCMemory())
-    )
-    ;
+    );
   }
   return defaultCGame;
 }
@@ -90,6 +89,7 @@ void cgame_draw(CObject *context, CObject *args) {
   CLinkedList *nodes = cobject3d_getNodes(root);
   glClear(GL_COLOR_BUFFER_BIT);
   if(nodes == NULL) {
+    printf("NODES == NULL\r\n");
     return;
   }
 
