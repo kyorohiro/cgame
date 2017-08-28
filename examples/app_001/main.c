@@ -5,6 +5,7 @@
 
 int fps;
 void _testOnDisplay(CObject* context, CObject* args) {
+  
   CApp* appObj = getCApp();
   capp_postRedisplay(appObj);
   if(fps != appObj->fps) {

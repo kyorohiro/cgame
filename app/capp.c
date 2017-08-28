@@ -45,6 +45,7 @@ CApp* initCApp(CApp* obj) {
 }
 
 void capp_draw(CApp* obj) {
+//  glClear(GL_COLOR_BUFFER_BIT);
   CApp* appObj = getCApp();
   ceventDispatcher_dispatch(appObj->display, NULL);
   appObj->debugCount++;
@@ -98,23 +99,32 @@ CApp* capp_run(CApp* obj) {
   SDL_GLContext glContext;
   printf("main 2\n");
 
+  SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+//  SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+//  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 1);
+//  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+
   window = SDL_CreateWindow("test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, appObj->width, appObj->height, SDL_WINDOW_OPENGL);
+  if (!window) {
+    printf("failed to create window\n");
+    return obj;
+  }
+  //SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, 0);
 
   glContext = SDL_GL_CreateContext(window);
+  if (!glContext) {
+    printf("failed to create glContext\n");
+    return obj;
+  }
+  printf("main 3\n");
+
   //SetOpenGLAttributes();
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
-  SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-  SDL_GL_SetSwapInterval(1);
-//ifndef __APPLE__
-//  glewExperimental = GL_TRUE;
-//  glewInit();
-//endif
 
   glViewport(0, 0, appObj->width, appObj->height);
   glEnable(GL_CULL_FACE);
   glEnable(GL_DEPTH_TEST);
+  glEnable(GL_FRAMEBUFFER_SRGB);
+//  glFrontFace(GL_CW);
   glClearColor(0.9f, 0.5f, 0.5f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT);
   SDL_GL_SwapWindow(window);
@@ -130,10 +140,12 @@ CApp* capp_run(CApp* obj) {
     do {
       int currentTime = SDL_GetTicks();
       r += 0.01f;
-      glClearColor(0.9f, r, 0.5f, 1.0f);
-      glClear(GL_COLOR_BUFFER_BIT);
+//      glClearColor(0.9f, r, 0.5f, 1.0f);
+//      glClear(GL_COLOR_BUFFER_BIT);
       main_loop(obj);
+
       SDL_GL_SwapWindow(window);
+//      SDL_RenderPresent(renderer);
       if(currentTime-prevTime < interval) {
         SDL_Delay(interval-(currentTime-prevTime));
       } else {
