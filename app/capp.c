@@ -129,7 +129,7 @@ CApp* capp_run(CApp* obj) {
     emscripten_set_main_loop_arg(main_loop, obj, 60, 1);
   #else
     do {
-      main_loop(&ctx);
+      main_loop(obj);
     } while(obj->isQuit == 0);
   #endif
 
@@ -163,7 +163,11 @@ CAppMouseEvent* capp_getCurrentMouseEvent(CApp* obj) {
 }
 
 double capp_currentMilliSecound(CApp* obj) {
-  return emscripten_get_now();
+  #ifdef PLATFORM_EMCC
+    return emscripten_get_now();
+  #else
+    return SDL_GetTicks();
+  #endif
 }
 
 CApp* capp_postRedisplay(CApp* obj) {
