@@ -1,5 +1,5 @@
-#ifndef _H_CAPP2
-#define _H_CAPP2
+#ifndef _H_CAPP
+#define _H_CAPP
 
 #include "core/cobject.h"
 #include "core/cmemory.h"
@@ -19,8 +19,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <SDL_events.h>
-#include <SDL_opengl.h>
+#ifdef __APPLE__
+#include <OpenGL/gl.h>
+#include <Glut/glut.h>
+#else
+#include <GL/gl.h>
+#include <GL/glut.h>
+#endif
 
 GLuint cglutil_LoadShader(GLenum type, const char *shaderSrc);
 
@@ -51,7 +56,6 @@ typedef struct {
   int debugCount;
   double debugTime;
   int fps;
-  int isQuit;
 } CApp;
 
 //

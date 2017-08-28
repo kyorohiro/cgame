@@ -8,8 +8,9 @@
 #include "core/cobject.h"
 
 int i =(20+2)%360;
-
+int fps;
 void _onEnterFrame(CObject*  obj, CObject* cgame) {
+  CApp* appObj = getCApp();
   CGame* gameObj = getCGame();
   i = (i+2)%360;
   CMatrix4Raw rotYMat;
@@ -29,7 +30,10 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
 //  cmatrix4raw_mul(mat->value, rotYMat, mat->value);
 //  cmatrix4raw_mul(mat->value, rotZMat, mat->value);
 
-
+  if(fps != appObj->fps) {
+    fps = appObj->fps;
+    printf("fps:%d;\r\n",fps);
+  }
   cgame_postRedisplay(gameObj);
 }
 

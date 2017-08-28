@@ -121,7 +121,7 @@ void cgame_draw(CObject *context, CObject *args) {
   glDeleteBuffers(1, &vertexBuffer);
   glDeleteBuffers(1, &indexBuffer);
 
-  glutSwapBuffers();
+  //glutSwapBuffers();
   //glutPostRedisplay();
 //releaseCObject((CObject*)mat);
 }

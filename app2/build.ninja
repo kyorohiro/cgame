@@ -1,4 +1,0 @@
-
-build app2/capp.${objExt}: obj app2/capp.c
-build app2${sep}/main.${objExt}: obj app2${sep}/main.c
-build app2${sep}/main.html: exe app2${sep}main.${objExt} app2/capp.${objExt} core/libcore.${objExt} matrix/libmatrix.${objExt} game/libgame.${objExt}

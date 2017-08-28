@@ -40,4 +40,4 @@ subninja examples${sep}game_002${sep}build.ninja
 
 #
 # next
-subninja app2${sep}build.ninja
+#subninja app2${sep}build.ninja

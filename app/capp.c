@@ -1,15 +1,33 @@
-#include "capp.h"
+#include "app/capp.h"
 #include "core/cmemory.h"
 #include "core/cstring.h"
 #include "core/cbytesBuilder.h"
 #include <stdio.h>
-#include <emscripten.h>
 #include <math.h>
+
+//
+#include <stdio.h>
+#include <stdlib.h>
+#include <SDL.h>
+#include <SDL_events.h>
+#include <SDL_opengl.h>
+//
+#ifdef PLATFORM_EMCC
+#include <emscripten.h>
+#endif
 
 CApp* newCApp(CMemory* mem) {
   CApp * ret = cmemory_calloc(mem, 1, sizeof(CApp));
   ret->parent.cmemory = mem;
   return ret;
+}
+
+CApp* defaultCApp = NULL;
+CApp* getCApp() {
+  if(defaultCApp == NULL) {
+    defaultCApp = initCApp(newCApp(getCMemory()));
+  }
+  return defaultCApp;
 }
 
 CApp* initCApp(CApp* obj) {
@@ -21,62 +39,12 @@ CApp* initCApp(CApp* obj) {
   obj->mouse = initCEventDispatcher(newCEventDispatcher(mem));
   obj->display = initCEventDispatcher(newCEventDispatcher(mem));
   obj->init = initCEventDispatcher(newCEventDispatcher(mem));
+  //
+  obj->mouseEvent = initCAppMouseEvent(newCAppMouseEvent(obj->parent.cmemory), 0, 0, 0);
   return obj;
 }
 
-CApp* defaultCApp = NULL;
-CApp* getCApp() {
-  if(defaultCApp == NULL) {
-    defaultCApp = initCApp(newCApp(getCMemory()));
-  }
-  return defaultCApp;
-}
-
-void capp_special(int key, int x, int y) {
-  printf(">special key:%d, x:%d, y:%d\r\n", key, x, y);
-}
-
-void capp_keyboard (unsigned char key,int x, int y) {
-  printf(">keyboard key:%c, x:%d, y:%d\r\n", key, x, y);
-}
-
-void capp_mouse_motion_a (int state, int x, int y) {
-  int stateTmp = 0;
-  if(state == 0) {
-    stateTmp = 1;
-  }
-  CApp* appObj = getCApp();
-  if(appObj->mouseEvent == NULL) {
-    appObj->mouseEvent = newCAppMouseEvent(appObj->parent.cmemory);
-    initCAppMouseEvent(appObj->mouseEvent, state, x, y);
-  }
-  else if(appObj->parent.reference > 1) {
-    releaseCObject((CObject *)appObj);
-    appObj->mouseEvent = newCAppMouseEvent(appObj->parent.cmemory);
-    initCAppMouseEvent(appObj->mouseEvent, state, x, y);
-  }
-  else {
-    appObj->mouseEvent->state = stateTmp;
-    appObj->mouseEvent->x = x;
-    appObj->mouseEvent->y = y;
-  }
-  ceventDispatcher_dispatch(appObj->mouse, (CObject*)appObj->mouseEvent);
-}
-
-void capp_mouse (int button, int state,int x, int y) {
-  printf(">mouse button:%c, xstate:%d x:%d, y:%d\r\n", button, state, x, y);
-  capp_mouse_motion_a (state, x, y);
-}
-
-void capp_mouseM (int x, int y) {
-  capp_mouse_motion_a (1, x, y);
-}
-
-void capp_mousePM (int x, int y) {
-  capp_mouse_motion_a (0, x, y);
-}
-
-void capp_draw(void) {
+void capp_draw(CApp* obj) {
   CApp* appObj = getCApp();
   ceventDispatcher_dispatch(appObj->display, NULL);
   appObj->debugCount++;
@@ -94,28 +62,80 @@ void capp_draw(void) {
   }
 }
 
+int x = 0;
+int y = 0;
+void main_loop(void*args) {
+  // CAppMouseEvent
+  CApp *app = args;
+  SDL_Event event;
+  while (SDL_PollEvent(&event)) {
+    switch (event.type) {
+      case SDL_KEYDOWN:
+        switch (event.key.keysym.sym) {
+            case SDLK_RIGHT: x++; break;
+            case SDLK_LEFT: x--; break;
+            case SDLK_UP: y--; break;
+            case SDLK_DOWN: y++; break;
+            default: printf("Other key"); break;
+        }
+      case SDL_MOUSEMOTION:
+        app->mouseEvent->x = x;
+        app->mouseEvent->y = y;
+        ceventDispatcher_dispatch(app->mouse, (CObject*)app->mouseEvent);
+        break;
+      case SDL_MOUSEBUTTONDOWN:
+        app->mouseEvent->state = 1;
+//        printf("button : %d %d", event.button.x, event.button.y);
+        break;
+      case SDL_MOUSEBUTTONUP:
+        app->mouseEvent->state = 0;
+//        printf("button : %d %d", event.button.x, event.button.y);
+        break;
+      case SDL_MOUSEWHEEL:
+//        printf("button : %d %d", event.wheel.x, event.wheel.y);
+        break;
+      case SDL_QUIT:
+        app->isQuit = 1;
+    }
+//    printf("loop %d %d %d %f %f %d\r\n", x, y, event.type, event.tfinger.x, event.tfinger.y,
+//  event.key.keysym.sym);
+  }
+  capp_draw(app);
+}
+
 CApp* capp_run(CApp* obj) {
-  printf("main\n");
+  printf("main 0\n");
   CApp* appObj = getCApp();
   char *argv = "test";
-  glutInit(0, &argv);
-  glutInitWindowSize(appObj->width, appObj->height);
-  glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-  glutCreateWindow("es2gears");
+  //
+    printf("main 1\n");
+  SDL_Init(SDL_INIT_EVERYTHING);
+  SDL_Window* window;
+  SDL_GLContext glContext;
+  printf("main 2\n");
+
+  window = SDL_CreateWindow("sdlglshader", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, appObj->width, appObj->height, SDL_WINDOW_OPENGL);
+  glContext = SDL_GL_CreateContext(window);
+
   glViewport(0, 0, appObj->width, appObj->height);
-  glClearColor(0.9f, 1.0f, 0.9f, 1.0f);
   glEnable(GL_CULL_FACE);
   glEnable(GL_DEPTH_TEST);
-
-  glutDisplayFunc(capp_draw);
-  glutSpecialFunc(capp_special);
-  glutKeyboardFunc(capp_keyboard);
-  glutMouseFunc(capp_mouse);
-  glutMotionFunc(capp_mouseM);
-  glutPassiveMotionFunc(capp_mousePM);
+  glClearColor(0.9f, 0.5f, 0.5f, 1.0f);
+  glClear(GL_COLOR_BUFFER_BIT);
+  SDL_GL_SwapWindow(window);
   ceventDispatcher_dispatch(appObj->init, (CObject*)obj);
 
+  #ifdef PLATFORM_EMCC
+    emscripten_set_main_loop_arg(main_loop, obj, 60, 1);
+  #else
+    do {
+      main_loop(&ctx);
+    } while(obj->isQuit == 0);
+  #endif
+
+/*
   glutMainLoop();
+  */
   return obj;
 }
 
@@ -147,12 +167,16 @@ double capp_currentMilliSecound(CApp* obj) {
 }
 
 CApp* capp_postRedisplay(CApp* obj) {
+  /*
   glutPostRedisplay();
+  */
   return obj;
 }
 
 CApp* capp_flushBuffers(CApp* obj) {
+  /*
   glutSwapBuffers();
+  */
   return obj;
 }
 //

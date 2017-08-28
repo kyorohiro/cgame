@@ -3,9 +3,14 @@
 #include "core/cstring.h"
 #include "core/cmemory.h"
 
+int fps;
 void _testOnDisplay(CObject* context, CObject* args) {
   CApp* appObj = getCApp();
   capp_postRedisplay(appObj);
+  if(fps != appObj->fps) {
+    fps = appObj->fps;
+    printf("fps:%d;\r\n",fps);
+  }
   //capp_flushBuffers(appObj);
 }
 

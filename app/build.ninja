@@ -1,3 +1,5 @@
-
-build app/capp.${objExt}: obj app/capp.c
-build app/libapp.${objExt}: exe app/capp.${objExt}
+baseP = app
+build ${baseP}${sep}capp.${objExt}: obj ${baseP}${sep}capp.c
+build ${baseP}${sep}main.${objExt}: obj ${baseP}${sep}main.c
+build ${baseP}${sep}libapp.${objExt}: exe ${baseP}${sep}capp.${objExt}
+build ${baseP}${sep}/main.html: exe ${baseP}${sep}main.${objExt} ${baseP}/capp.${objExt} core/libcore.${objExt} matrix/libmatrix.${objExt} game/libgame.${objExt}
