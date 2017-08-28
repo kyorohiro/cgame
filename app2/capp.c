@@ -1,4 +1,4 @@
-#include "capp.h"
+#include "app2/capp.h"
 #include "core/cmemory.h"
 #include "core/cstring.h"
 #include "core/cbytesBuilder.h"
@@ -6,6 +6,13 @@
 #include <emscripten.h>
 #include <math.h>
 
+//
+#include <stdio.h>
+#include <stdlib.h>
+#include <SDL.h>
+#include <SDL_events.h>
+#include <SDL_opengl.h>
+//
 CApp* newCApp(CMemory* mem) {
   CApp * ret = cmemory_calloc(mem, 1, sizeof(CApp));
   ret->parent.cmemory = mem;
@@ -95,27 +102,44 @@ void capp_draw(void) {
 }
 
 CApp* capp_run(CApp* obj) {
-  printf("main\n");
+  printf("main 0\n");
   CApp* appObj = getCApp();
   char *argv = "test";
+  //
+    printf("main 1\n");
+  SDL_Init(SDL_INIT_EVERYTHING);
+  SDL_Window* window;
+  SDL_GLContext glContext;
+  printf("main 2\n");
+
+  //SDL_Renderer* renderer;
+  //SDL_CreateWindowAndRenderer(600, 400, 0, &window, &renderer);
+  window = SDL_CreateWindow("sdlglshader", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_OPENGL);
+  glContext = SDL_GL_CreateContext(window);
+  /*
   glutInit(0, &argv);
   glutInitWindowSize(appObj->width, appObj->height);
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
   glutCreateWindow("es2gears");
+  */
   glViewport(0, 0, appObj->width, appObj->height);
-  glClearColor(0.9f, 1.0f, 0.9f, 1.0f);
   glEnable(GL_CULL_FACE);
   glEnable(GL_DEPTH_TEST);
-
+  glClearColor(0.9f, 1.0f, 0.9f, 1.0f);
+  glClear(GL_COLOR_BUFFER_BIT);
+  SDL_GL_SwapWindow(window);
+/*
   glutDisplayFunc(capp_draw);
   glutSpecialFunc(capp_special);
   glutKeyboardFunc(capp_keyboard);
   glutMouseFunc(capp_mouse);
   glutMotionFunc(capp_mouseM);
   glutPassiveMotionFunc(capp_mousePM);
+*/
   ceventDispatcher_dispatch(appObj->init, (CObject*)obj);
-
+/*
   glutMainLoop();
+  */
   return obj;
 }
 
@@ -147,12 +171,16 @@ double capp_currentMilliSecound(CApp* obj) {
 }
 
 CApp* capp_postRedisplay(CApp* obj) {
+  /*
   glutPostRedisplay();
+  */
   return obj;
 }
 
 CApp* capp_flushBuffers(CApp* obj) {
+  /*
   glutSwapBuffers();
+  */
   return obj;
 }
 //

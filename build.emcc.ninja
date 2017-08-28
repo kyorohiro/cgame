@@ -12,13 +12,14 @@ objExt = bc
 appExt = js
 objLib = bc
 rule obj
-  command=${cmd} emcc -c $in -o $out -I.. -I.
+  command=${cmd} emcc -c $in -o $out -I.. -I. 
 rule test
   command=${cmd} emcc $in -o $out --embed-file core/assets/test.dat
 rule lib
-  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out
+  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=2
 rule exe
-  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out
+  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=2 -O2
+
 
 #
 # core

@@ -1,5 +1,5 @@
-#ifndef _H_CAPP
-#define _H_CAPP
+#ifndef _H_CAPP2
+#define _H_CAPP2
 
 #include "core/cobject.h"
 #include "core/cmemory.h"
@@ -19,13 +19,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#ifdef __APPLE__
-#include <OpenGL/gl.h>
-#include <Glut/glut.h>
-#else
-#include <GL/gl.h>
-#include <GL/glut.h>
-#endif
+#include <SDL_events.h>
+#include <SDL_opengl.h>
 
 GLuint cglutil_LoadShader(GLenum type, const char *shaderSrc);
 
