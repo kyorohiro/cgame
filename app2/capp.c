@@ -3,7 +3,6 @@
 #include "core/cstring.h"
 #include "core/cbytesBuilder.h"
 #include <stdio.h>
-#include <emscripten.h>
 #include <math.h>
 
 //
@@ -13,6 +12,10 @@
 #include <SDL_events.h>
 #include <SDL_opengl.h>
 //
+#ifdef PLATFORM_EMCC
+#include <emscripten.h>
+#endif
+
 CApp* newCApp(CMemory* mem) {
   CApp * ret = cmemory_calloc(mem, 1, sizeof(CApp));
   ret->parent.cmemory = mem;
@@ -101,6 +104,29 @@ void capp_draw(void) {
   }
 }
 
+int x = 0;
+int y = 0;
+void main_loop(void*args) {
+  CApp *app = args;
+  SDL_Event event;
+  while (SDL_PollEvent(&event)) {
+    switch (event.type) {
+      case SDL_KEYDOWN:
+        switch (event.key.keysym.sym) {
+            case SDLK_RIGHT: x++; break;
+            case SDLK_LEFT: x--; break;
+            case SDLK_UP: y--; break;
+            case SDLK_DOWN: y++; break;
+            default: printf("Other key"); break;
+        }
+      case SDL_QUIT:
+        app->isQuit = 1;
+    }
+    printf("loop %d %d %d %f %f %d\r\n", x, y, event.type, event.tfinger.x, event.tfinger.y,
+  event.key.keysym.sym);
+  }
+}
+
 CApp* capp_run(CApp* obj) {
   printf("main 0\n");
   CApp* appObj = getCApp();
@@ -112,31 +138,25 @@ CApp* capp_run(CApp* obj) {
   SDL_GLContext glContext;
   printf("main 2\n");
 
-  //SDL_Renderer* renderer;
-  //SDL_CreateWindowAndRenderer(600, 400, 0, &window, &renderer);
-  window = SDL_CreateWindow("sdlglshader", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_OPENGL);
+  window = SDL_CreateWindow("sdlglshader", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, appObj->width, 480, SDL_WINDOW_OPENGL);
   glContext = SDL_GL_CreateContext(window);
-  /*
-  glutInit(0, &argv);
-  glutInitWindowSize(appObj->width, appObj->height);
-  glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-  glutCreateWindow("es2gears");
-  */
+
   glViewport(0, 0, appObj->width, appObj->height);
   glEnable(GL_CULL_FACE);
   glEnable(GL_DEPTH_TEST);
   glClearColor(0.9f, 1.0f, 0.9f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT);
   SDL_GL_SwapWindow(window);
-/*
-  glutDisplayFunc(capp_draw);
-  glutSpecialFunc(capp_special);
-  glutKeyboardFunc(capp_keyboard);
-  glutMouseFunc(capp_mouse);
-  glutMotionFunc(capp_mouseM);
-  glutPassiveMotionFunc(capp_mousePM);
-*/
   ceventDispatcher_dispatch(appObj->init, (CObject*)obj);
+
+  #ifdef PLATFORM_EMCC
+    emscripten_set_main_loop_arg(main_loop, obj, 60, 1);
+  #else
+    do {
+      main_loop(&ctx);
+    } while(obj->isQuit == 0);
+  #endif
+
 /*
   glutMainLoop();
   */

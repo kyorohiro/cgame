@@ -51,6 +51,7 @@ typedef struct {
   int debugCount;
   double debugTime;
   int fps;
+  int isQuit;
 } CApp;
 
 //
