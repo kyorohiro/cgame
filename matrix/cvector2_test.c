@@ -18,7 +18,6 @@ void cvector2_test_add() {
   }
 
   CVector2 *vec3 =cvector2_add(vec1, vec2, NULL);
-
   if(vec3->value[0] != 4.0 || vec3->value[1] != 6.0 ) {
     printf("  NG : failed to add \r\n");
     cvector2_show(vec3);
@@ -26,13 +25,13 @@ void cvector2_test_add() {
   }
 
   CVector2 *vec4 = cvector2_sub(vec1, vec2, NULL);
-
   if(vec4->value[0] != -2.0 || vec4->value[1] != -2.0 ) {
     printf("  NG : failed to sub \r\n");
 
     cvector2_show(vec3);
     passed = 0;
   }
+
   CVector2 *vec5 =cvector2_mulScalar(vec1, 2.0, NULL);
   if(vec5->value[0] != 2.0 || vec5->value[1] != 4.0 ) {
     printf("  NG : failed to mul \r\n");
@@ -50,7 +49,6 @@ void cvector2_test_add() {
     cvector2_show(vec5);
     passed = 0;
   }
-  //
 
   CMatrixValueType v= cvector2_dotProduct(vec1, vec2);
   if(v != 11.0 ) {
@@ -63,10 +61,7 @@ void cvector2_test_add() {
     printf("  NG : failed to crossProduct %f  \r\n", w);
     passed = 0;
   }
-   //     .3,4
-  //          2
-  //  .1,2
-  //    2
+
   CMatrixValueType x = cvector2_distance(vec1, vec2);
   if(((int)(x*1000)) != 2828 ) {
     printf("  NG : failed to distance %f  \r\n", x);
@@ -79,9 +74,6 @@ void cvector2_test_add() {
     passed = 0;
   }
 
-
-  //
-  // 21
   CVector2 *vec6 = cvector2_normalize(vec1, NULL);
   if((int)(vec6->value[0]*1000) != 447||
      (int)(vec6->value[1]*1000) != 894) {
@@ -89,6 +81,7 @@ void cvector2_test_add() {
     cvector2_show(vec6);
     passed = 0;
   }
+
   //
   releaseCObject((CObject*)vec1);
   releaseCObject((CObject*)vec2);
