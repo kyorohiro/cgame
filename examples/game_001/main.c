@@ -7,7 +7,7 @@
 #include "app/capp.h"
 #include "core/cobject.h"
 
-int i =(20+2)%360;
+int i =(180+2)%360;
 int fps;
 void _onEnterFrame(CObject*  obj, CObject* cgame) {
 

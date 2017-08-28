@@ -121,13 +121,23 @@ CApp* capp_run(CApp* obj) {
   //SetOpenGLAttributes();
 
   glViewport(0, 0, appObj->width, appObj->height);
-  glEnable(GL_CULL_FACE);
+  glScissor(0, 0, appObj->width, appObj->height);
+  //
+
+  //glEnable(GL_SCISSOR_TEST);
+  //glClearColor(1.0,1.0,1.0,1.0); // set clear color to grey
+  glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+  //glDisable(GL_SCISSOR_TEST);
+
+  //
+  glEnable(GL_DEPTH_TEST); // turn on depth testing
+//  glEnable(GL_CULL_FACE);
   glEnable(GL_DEPTH_TEST);
-  glEnable(GL_FRAMEBUFFER_SRGB);
+//  glEnable(GL_FRAMEBUFFER_SRGB);
 //  glFrontFace(GL_CW);
   glClearColor(0.9f, 0.5f, 0.5f, 1.0f);
-  glClear(GL_COLOR_BUFFER_BIT);
-  SDL_GL_SwapWindow(window);
+  glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+//  SDL_GL_SwapWindow(window);
   ceventDispatcher_dispatch(appObj->init, (CObject*)obj);
 
   #ifdef PLATFORM_EMCC
@@ -138,6 +148,7 @@ CApp* capp_run(CApp* obj) {
     int interval = 1000/60;
     float r = 0.0f;
     do {
+        glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
       int currentTime = SDL_GetTicks();
       r += 0.01f;
 //      glClearColor(0.9f, r, 0.5f, 1.0f);
