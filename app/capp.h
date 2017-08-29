@@ -56,7 +56,7 @@ typedef struct {
 // unused CGame is singleton
 //
 CApp* newCApp(CMemory* mem);
-CApp* initCApp(CApp*);
+CApp* initCApp(CApp* obj, int width, int height);
 CApp* getCApp();
 CApp* capp_run(CApp*);
 

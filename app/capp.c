@@ -22,26 +22,26 @@ CApp* newCApp(CMemory* mem) {
   return ret;
 }
 
-CApp* defaultCApp = NULL;
-CApp* getCApp() {
-  if(defaultCApp == NULL) {
-    defaultCApp = initCApp(newCApp(getCMemory()));
-  }
-  return defaultCApp;
-}
-
-CApp* initCApp(CApp* obj) {
+CApp* initCApp(CApp* obj, int width, int height) {
   CMemory* mem = obj->parent.cmemory;
   initCObject((CObject*)obj, CAPP_NAME);
   snprintf(obj->title, sizeof(obj->title), "%s", "title");
-  obj->width = 400;
-  obj->height = 300;
+  obj->width = width;
+  obj->height = height;
   obj->mouse = initCEventDispatcher(newCEventDispatcher(mem));
   obj->display = initCEventDispatcher(newCEventDispatcher(mem));
   obj->init = initCEventDispatcher(newCEventDispatcher(mem));
   //
   obj->mouseEvent = initCAppMouseEvent(newCAppMouseEvent(obj->parent.cmemory), 0, 0, 0);
   return obj;
+}
+
+CApp* defaultCApp = NULL;
+CApp* getCApp() {
+  if(defaultCApp == NULL) {
+    defaultCApp = initCApp(newCApp(getCMemory()), 300, 400);
+  }
+  return defaultCApp;
 }
 
 void capp_draw(CApp* obj) {
