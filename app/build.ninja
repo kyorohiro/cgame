@@ -1,3 +1,4 @@
 baseP = app
 build ${baseP}${sep}capp.${objExt}: obj ${baseP}${sep}capp.c
-build ${baseP}${sep}libapp.${objLib}: lib ${baseP}${sep}capp.${objExt}
+build ${baseP}${sep}cglu.${objExt}: obj ${baseP}${sep}cglu.c
+build ${baseP}${sep}libapp.${objLib}: lib ${baseP}${sep}capp.${objExt} ${baseP}${sep}cglu.${objExt}
