@@ -181,7 +181,6 @@ void cgame_init(CObject *context, CObject *args) {
   //
   glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
   glEnable(GL_DEPTH_TEST);
-  glEnable(GL_DEPTH_TEST);
   glClearColor(0.9f, 0.5f, 0.5f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
   //
