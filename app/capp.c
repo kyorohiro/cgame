@@ -90,26 +90,19 @@ void main_loop(void*args) {
 
 CApp* capp_run(CApp* obj) {
   printf("main 0\n");
-  CApp* appObj = getCApp();
-  char *argv = "test";
   //
-    printf("main 1\n");
   SDL_Init(SDL_INIT_EVERYTHING);
-
-
-  printf("main 2\n");
-
-  SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+//  SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 //  SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 //  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 1);
 //  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
 
-  appObj->window = SDL_CreateWindow("test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, appObj->width, appObj->height, SDL_WINDOW_OPENGL);
-  if (!appObj->window) {
+  obj->window = SDL_CreateWindow("test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, obj->width, obj->height, SDL_WINDOW_OPENGL);
+  if (!obj->window) {
     printf("failed to create window\n");
     return obj;
   }
-  appObj->renderer = SDL_CreateRenderer(appObj->window, -1, 0);
+  obj->renderer = SDL_CreateRenderer(obj->window, -1, 0);
 
   //SDL_GLContext glContext;
   //glContext = SDL_GL_CreateContext(window);
@@ -117,12 +110,8 @@ CApp* capp_run(CApp* obj) {
   //  printf("failed to create glContext\n");
   //  return obj;
   //}
-  printf("main 3\n");
 
-  //SetOpenGLAttributes();
-
-//  SDL_GL_SwapWindow(window);
-  ceventDispatcher_dispatch(appObj->init, (CObject*)obj);
+  ceventDispatcher_dispatch(obj->init, (CObject*)obj);
 
   #ifdef PLATFORM_EMCC
     emscripten_set_main_loop_arg(main_loop, obj, 60, 1);
