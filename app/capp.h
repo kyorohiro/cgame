@@ -19,6 +19,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <SDL.h>
 #include <SDL_events.h>
 #include <SDL_opengl.h>
 
@@ -52,6 +53,8 @@ typedef struct {
   double debugTime;
   int fps;
   int isQuit;
+  SDL_Window* window;
+  SDL_Renderer *renderer;
 } CApp;
 
 //

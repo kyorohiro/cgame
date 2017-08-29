@@ -95,7 +95,7 @@ CApp* capp_run(CApp* obj) {
   //
     printf("main 1\n");
   SDL_Init(SDL_INIT_EVERYTHING);
-  SDL_Window* window;
+
 
   printf("main 2\n");
 
@@ -104,12 +104,12 @@ CApp* capp_run(CApp* obj) {
 //  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 1);
 //  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
 
-  window = SDL_CreateWindow("test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, appObj->width, appObj->height, SDL_WINDOW_OPENGL);
-  if (!window) {
+  appObj->window = SDL_CreateWindow("test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, appObj->width, appObj->height, SDL_WINDOW_OPENGL);
+  if (!appObj->window) {
     printf("failed to create window\n");
     return obj;
   }
-  SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, 0);
+  appObj->renderer = SDL_CreateRenderer(appObj->window, -1, 0);
 
   //SDL_GLContext glContext;
   //glContext = SDL_GL_CreateContext(window);
@@ -121,23 +121,6 @@ CApp* capp_run(CApp* obj) {
 
   //SetOpenGLAttributes();
 
-  glViewport(0, 0, appObj->width, appObj->height);
-  glScissor(0, 0, appObj->width, appObj->height);
-  //
-
-  //glEnable(GL_SCISSOR_TEST);
-  //glClearColor(1.0,1.0,1.0,1.0); // set clear color to grey
-  glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-  //glDisable(GL_SCISSOR_TEST);
-
-  //
-  glEnable(GL_DEPTH_TEST); // turn on depth testing
-//  glEnable(GL_CULL_FACE);
-  glEnable(GL_DEPTH_TEST);
-//  glEnable(GL_FRAMEBUFFER_SRGB);
-//  glFrontFace(GL_CW);
-  glClearColor(0.9f, 0.5f, 0.5f, 1.0f);
-  glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 //  SDL_GL_SwapWindow(window);
   ceventDispatcher_dispatch(appObj->init, (CObject*)obj);
 
@@ -147,16 +130,10 @@ CApp* capp_run(CApp* obj) {
     int prevTime = SDL_GetTicks();
     int currentTime = SDL_GetTicks();
     int interval = 1000/60;
-    float r = 0.0f;
     do {
-        glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
       int currentTime = SDL_GetTicks();
-      r += 0.01f;
-//      glClearColor(0.9f, r, 0.5f, 1.0f);
-//      glClear(GL_COLOR_BUFFER_BIT);
       main_loop(obj);
 
-      SDL_GL_SwapWindow(window);
 //      SDL_RenderPresent(renderer);
       if(currentTime-prevTime < interval) {
         SDL_Delay(interval-(currentTime-prevTime));
@@ -210,6 +187,8 @@ CApp* capp_postRedisplay(CApp* obj) {
 
 CApp* capp_flushBuffers(CApp* obj) {
   // glutSwapBuffers();
+  //SDL_GL_SwapWindow(obj->window);
+  SDL_RenderPresent(obj->renderer);
   return obj;
 }
 

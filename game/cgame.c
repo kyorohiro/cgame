@@ -55,6 +55,7 @@ CGame* initCGame(CGame* obj) {
   capp_addDisplayEventListener(appObj, (CObject*)gameObj, cgame_draw);
   capp_addInitEventListener(appObj, (CObject*)gameObj, cgame_init);
   printf("[ASOS OK]\r\n");
+
   return obj;
 }
 
@@ -78,6 +79,9 @@ CGame* getCGame() {
 
 
 void cgame_draw(CObject *context, CObject *args) {
+  //
+  //
+  glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
   CGame *game = getCGame();
   CObject3D *root = (CObject3D*)cgame_getRoot(game);
@@ -144,6 +148,10 @@ void cgame_draw(CObject *context, CObject *args) {
   //glutSwapBuffers();
   //glutPostRedisplay();
 //releaseCObject((CObject*)mat);
+  //
+  //
+  capp_flushBuffers(getCApp());
+
 
 }
 
@@ -168,6 +176,16 @@ void cgame_init(CObject *context, CObject *args) {
   glLinkProgram(gameObj->program);
   printf("main2\n");
 
+  //
+  glViewport(0, 0, appObj->width, appObj->height);
+  glScissor(0, 0, appObj->width, appObj->height);
+  //
+  glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+  glEnable(GL_DEPTH_TEST);
+  glEnable(GL_DEPTH_TEST);
+  glClearColor(0.9f, 0.5f, 0.5f, 1.0f);
+  glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+  //
 }
 
 
