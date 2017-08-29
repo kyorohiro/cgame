@@ -96,7 +96,7 @@ CApp* capp_run(CApp* obj) {
     printf("main 1\n");
   SDL_Init(SDL_INIT_EVERYTHING);
   SDL_Window* window;
-  SDL_GLContext glContext;
+
   printf("main 2\n");
 
   SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
@@ -109,13 +109,14 @@ CApp* capp_run(CApp* obj) {
     printf("failed to create window\n");
     return obj;
   }
-  //SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, 0);
+  SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, 0);
 
-  glContext = SDL_GL_CreateContext(window);
-  if (!glContext) {
-    printf("failed to create glContext\n");
-    return obj;
-  }
+  //SDL_GLContext glContext;
+  //glContext = SDL_GL_CreateContext(window);
+  //if (!glContext) {
+  //  printf("failed to create glContext\n");
+  //  return obj;
+  //}
   printf("main 3\n");
 
   //SetOpenGLAttributes();
