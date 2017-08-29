@@ -9,13 +9,11 @@
 //
 //
 
-#ifndef _H_LOADSHADER_
-#define _H_LOADSHADER_
 //
 //
 //
 #define GL_GLEXT_PROTOTYPES
-#define EGL_EGLEXT_PROTOTYPES
+//#define EGL_EGLEXT_PROTOTYPES
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,9 +21,6 @@
 #include <SDL_events.h>
 #include <SDL_opengl.h>
 
-GLuint cglutil_LoadShader(GLenum type, const char *shaderSrc);
-
-#endif
 
 //
 //

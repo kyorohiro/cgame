@@ -18,11 +18,11 @@ CGame* newCGame(CMemory* mem) {
   ret->parent.cmemory = mem;
   return ret;
 }
-
-CGame* initCGame(CGame* obj) {
+CGame* initCGame(CGame* obj, CApp* appObj) {
   printf("initCGame\r\n");
   initCObject((CObject*)obj, CGAME_NAME);
   snprintf(obj->title, sizeof(obj->title), "%s", "title");
+  obj->app = appObj;
   obj->width = 400;
   obj->height = 300;
   //
@@ -50,10 +50,8 @@ CGame* initCGame(CGame* obj) {
 
   //
   //
-  CApp* appObj = getCApp();
-  CGame* gameObj = obj;
-  capp_addDisplayEventListener(appObj, (CObject*)gameObj, cgame_draw);
-  capp_addInitEventListener(appObj, (CObject*)gameObj, cgame_init);
+  capp_addDisplayEventListener(appObj, (CObject*)obj, cgame_draw);
+  capp_addInitEventListener(appObj, (CObject*)obj, cgame_init);
   printf("[ASOS OK]\r\n");
 
   return obj;
@@ -71,7 +69,7 @@ CGame* defaultCGame = NULL;
 CGame* getCGame() {
   if(defaultCGame == NULL) {
     defaultCGame = initCGame(
-      newCGame(getCMemory())
+      newCGame(getCMemory()),getCApp()
     );
   }
   return defaultCGame;
@@ -150,7 +148,7 @@ void cgame_draw(CObject *context, CObject *args) {
 //releaseCObject((CObject*)mat);
   //
   //
-  capp_flushBuffers(getCApp());
+  capp_flushBuffers(game->app);
 
 
 }
@@ -165,8 +163,9 @@ CGame* cgame_start(CGame* obj) {
 
 void cgame_init(CObject *context, CObject *args) {
   printf("#1# cgame_init\n");
-  CApp* appObj = getCApp();
+
   CGame* gameObj = getCGame();
+  CApp* appObj = gameObj->app;
 
   gameObj->fShaderLocation = cglutil_LoadShader(GL_FRAGMENT_SHADER, cstring_getBytes(gameObj->fShaderSrc));
   gameObj->vShaderLocation = cglutil_LoadShader(GL_VERTEX_SHADER, cstring_getBytes(gameObj->vShaderSrc));
@@ -194,7 +193,7 @@ CAppMouseEvent* cgame_getCurrentMouseEvent(CGame* obj) {
 }
 
 CGame* cgame_postRedisplay(CGame* obj) {
-  capp_postRedisplay(getCApp());
+  capp_postRedisplay(obj->app);
   return obj;
 }
 

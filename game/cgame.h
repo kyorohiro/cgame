@@ -8,12 +8,15 @@
 #include "app/capp.h"
 #include "cobject3d.h"
 #include "ccamera3d.h"
+#include "cglutil.h"
+
 
 #define CGAME_NAME "cga"
 
 typedef void (*CGameFuncDraw)(CObject* obj);
 typedef struct {
   CObject parent;
+  CApp* app;
   char title[256];
   int width;
   int height;
@@ -31,7 +34,7 @@ typedef struct {
 // unused CGame is singleton
 //
 CGame* newCGame(CMemory* mem);
-CGame* initCGame(CGame*);
+CGame* initCGame(CGame*, CApp*);
 
 //
 CGame* getCGame();
