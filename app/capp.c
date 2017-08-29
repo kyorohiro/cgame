@@ -39,7 +39,7 @@ CApp* initCApp(CApp* obj, int width, int height) {
 CApp* defaultCApp = NULL;
 CApp* getCApp() {
   if(defaultCApp == NULL) {
-    defaultCApp = initCApp(newCApp(getCMemory()), 300, 400);
+    defaultCApp = initCApp(newCApp(getCMemory()), 400, 300);
   }
   return defaultCApp;
 }

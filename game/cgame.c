@@ -23,8 +23,6 @@ CGame* initCGame(CGame* obj, CApp* appObj) {
   initCObject((CObject*)obj, CGAME_NAME);
   snprintf(obj->title, sizeof(obj->title), "%s", "title");
   obj->app = appObj;
-  obj->width = 400;
-  obj->height = 300;
   //
   #ifdef PLATFORM_EMCC
     char* fs = "/game/assets/fs.glsl";

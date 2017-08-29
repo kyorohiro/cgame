@@ -1,4 +1,5 @@
-
+#ifndef _H_CCORE_
+#define _H_CCORE_
 #include "core/carrayList.h"
 #include "core/cbytes.h"
 #include "core/cbytesBuilder.h"
@@ -11,3 +12,4 @@
 #include "core/cobject.h"
 #include "core/cobjectManager.h"
 #include "core/cstring.h"
+#endif

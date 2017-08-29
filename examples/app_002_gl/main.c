@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "app/capp.h"
-#include "core/cstring.h"
-#include "core/cmemory.h"
+#include "core/ccore.h"
 
 
 int fps;
