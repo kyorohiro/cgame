@@ -18,9 +18,6 @@ typedef void (*CGameFuncDraw)(CObject* obj);
 typedef struct {
   CObject parent;
   CApp* app;
-  char title[256];
-  int width;
-  int height;
   CGameFuncDraw funcFraw;
   CString* fShaderSrc;
   CString* vShaderSrc;

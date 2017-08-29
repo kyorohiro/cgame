@@ -21,7 +21,7 @@ CGame* newCGame(CMemory* mem) {
 CGame* initCGame(CGame* obj, CApp* appObj) {
   printf("initCGame\r\n");
   initCObject((CObject*)obj, CGAME_NAME);
-  snprintf(obj->title, sizeof(obj->title), "%s", "title");
+//  snprintf(obj->title, sizeof(obj->title), "%s", "title");
   obj->app = appObj;
   //
   #ifdef PLATFORM_EMCC
