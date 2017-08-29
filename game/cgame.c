@@ -167,8 +167,8 @@ void cgame_init(CObject *context, CObject *args) {
   CGame* gameObj = getCGame();
   CApp* appObj = gameObj->app;
 
-  gameObj->fShaderLocation = cglutil_LoadShader(GL_FRAGMENT_SHADER, cstring_getBytes(gameObj->fShaderSrc));
-  gameObj->vShaderLocation = cglutil_LoadShader(GL_VERTEX_SHADER, cstring_getBytes(gameObj->vShaderSrc));
+  gameObj->fShaderLocation = cglu_loadShader(GL_FRAGMENT_SHADER, cstring_getBytes(gameObj->fShaderSrc));
+  gameObj->vShaderLocation = cglu_loadShader(GL_VERTEX_SHADER, cstring_getBytes(gameObj->vShaderSrc));
   gameObj->program = glCreateProgram();
   glAttachShader(gameObj->program, gameObj->fShaderLocation);
   glAttachShader(gameObj->program, gameObj->vShaderLocation);

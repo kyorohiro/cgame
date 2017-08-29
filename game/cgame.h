@@ -6,9 +6,10 @@
 #include "core/cmemory.h"
 #include "core/cstring.h"
 #include "app/capp.h"
+#include "app/cglu.h"
 #include "cobject3d.h"
 #include "ccamera3d.h"
-#include "cglutil.h"
+
 
 
 #define CGAME_NAME "cga"
