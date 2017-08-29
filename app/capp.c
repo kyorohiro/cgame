@@ -123,7 +123,6 @@ CApp* capp_run(CApp* obj) {
       int currentTime = SDL_GetTicks();
       main_loop(obj);
 
-//      SDL_RenderPresent(renderer);
       if(currentTime-prevTime < interval) {
         SDL_Delay(interval-(currentTime-prevTime));
       } else {
