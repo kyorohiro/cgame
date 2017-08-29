@@ -11,10 +11,12 @@
 //
 #define CTry if(0 == setjmp(cexception_addLast(getCException())->value))
 #define CCatch else if(1 == cexception_rmLast(getCException()))
+#define CThrow(aa) cexception_throw(getCException(), aa)
+
 //
 #define CTryA(aa) if(0 == setjmp(cexception_addLast(aa)->value))
 #define CCatchA(aa) else if(1 == cexception_rmLast(aa))
-
+#define CThrowA(aa,bb) cexception_throw(aa, bb)
 
 typedef struct {
   CObject parent;

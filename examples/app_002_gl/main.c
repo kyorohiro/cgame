@@ -12,6 +12,20 @@ void _onInit(CObject* context, CObject* args) {
   glViewport(0, 0, appObj->width, appObj->height);
   glClearColor(1.0, 0.7, 0.7, 1.0);//rgba
   glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+  //
+  int frgShader;
+  int verShader;
+  CTry {
+    frgShader = cglu_loadShader(GL_FRAGMENT_SHADER, "");
+    verShader = cglu_loadShader(GL_VERTEX_SHADER, "");
+  } CCatch {
+    printf("## ERROR\r\n");
+  }
+
+  int program = glCreateProgram();
+  glAttachShader(program, frgShader);
+  glAttachShader(program, verShader);
+  glLinkProgram(program);
 }
 
 void _onDisplay(CObject* context, CObject* args) {

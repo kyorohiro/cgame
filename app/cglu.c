@@ -1,10 +1,12 @@
 #include "cglu.h"
+#include "core/ccore.h"
 
 GLuint cglu_loadShader(GLenum type, const char *shaderSrc) {
   GLuint shader;
   GLint compiled;
   shader = glCreateShader(type);
   if(shader == 0) {
+    CThrow(NULL);
     return 0;
   }
 
@@ -24,6 +26,7 @@ GLuint cglu_loadShader(GLenum type, const char *shaderSrc) {
       free(infoLog);
     }
     glDeleteShader(shader);
+    CThrow(NULL);
     return 0;
   }
 

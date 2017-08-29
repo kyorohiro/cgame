@@ -5,6 +5,7 @@
 #include "core/cmemory.h"
 #include "core/cstring.h"
 #include "core/cevent.h"
+#include "app/cglu.h"
 //
 //
 //
