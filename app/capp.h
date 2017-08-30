@@ -51,6 +51,7 @@ typedef struct {
   int isQuit;
   SDL_Window* window;
   SDL_Renderer *renderer;
+  int fpsCount;
 } CApp;
 
 //

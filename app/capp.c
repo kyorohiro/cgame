@@ -73,20 +73,39 @@ void main_loop(void*args) {
         app->mouseEvent->x = event.motion.x;
         app->mouseEvent->y = event.motion.y;
         ceventDispatcher_dispatch(app->mouse, (CObject*)app->mouseEvent);
+        app->fpsCount = 100;
         break;
       case SDL_MOUSEBUTTONDOWN:
         app->mouseEvent->state = 1;
+        app->fpsCount = 100;
         break;
       case SDL_MOUSEBUTTONUP:
         app->mouseEvent->state = 0;
+        app->fpsCount = 100;
         break;
       case SDL_MOUSEWHEEL:
+        app->fpsCount = 100;
         break;
       case SDL_QUIT:
         app->isQuit = 1;
     }
   }
+
   capp_draw(app);
+  //
+  // fps keeper
+  //
+  #ifdef PLATFORM_EMCC
+  if(app->fpsCount == 0) {
+    emscripten_pause_main_loop();
+    emscripten_async_call(main_loop, app, 1000/5);
+  } else if(app->fpsCount == 100){
+    emscripten_resume_main_loop();
+    app->fpsCount--;
+  } else {
+    app->fpsCount--;
+  }
+  #endif
 }
 
 CApp* capp_run(CApp* obj) {
@@ -123,7 +142,17 @@ CApp* capp_run(CApp* obj) {
     do {
       int currentTime = SDL_GetTicks();
       main_loop(obj);
-
+      //
+      // fps keeper
+      //
+      if(obj->fpsCount == 0) {
+        interval = 1000/5;
+      } else if(obj->fpsCount == 100){
+        interval = 1000/60;
+        obj->fpsCount--;
+      } else {
+        obj->fpsCount--;
+      }
       if(currentTime-prevTime < interval) {
         SDL_Delay(interval-(currentTime-prevTime));
       } else {
@@ -171,6 +200,11 @@ double capp_currentMilliSecound(CApp* obj) {
 
 CApp* capp_postRedisplay(CApp* obj) {
   // glutPostRedisplay();
+  obj->fpsCount = 100;
+  #ifdef PLATFORM_EMCC
+    //emscripten_async_call(main_loop, obj, 1000/60);
+  #else
+  #endif
   return obj;
 }
 
