@@ -51,7 +51,6 @@ void _onInit(CObject* context, CObject* args) {
 }
 
 void _onDisplay(CObject* context, CObject* args) {
-  //printf("## _onDisplay\r\n");
 
   glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
   GLuint vertexBuffer;
@@ -62,13 +61,6 @@ void _onDisplay(CObject* context, CObject* args) {
   glUseProgram(program);
   int positionLoc = glGetAttribLocation(program, "position");
 
-/*
-  int positionLoc = glGetAttribLocation(program, "position");
-  glEnableVertexAttribArray(positionLoc);
-  glVertexAttribPointer(positionLoc,
-    3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)0);
-*/
-
   //
   glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
   glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*3*3, vertexBufferData, GL_STATIC_DRAW);
@@ -78,8 +70,7 @@ void _onDisplay(CObject* context, CObject* args) {
 
 
   glEnableVertexAttribArray(positionLoc);
-  glVertexAttribPointer(positionLoc,
-    3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)0);
+  glVertexAttribPointer(positionLoc, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)0);
 
   glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, 0);
 

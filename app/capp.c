@@ -148,13 +148,14 @@ CApp* capp_run(CApp* obj) {
       if(obj->fpsCount == 0) {
         interval = 1000/5;
       } else if(obj->fpsCount == 100){
-        interval = 1000/60;
+        interval = 1000/60+1;
         obj->fpsCount--;
       } else {
         obj->fpsCount--;
       }
-      if(currentTime-prevTime < interval) {
+      if((currentTime-prevTime) < interval) {
         SDL_Delay(interval-(currentTime-prevTime));
+        //printf("%d\r\n", (interval-(currentTime-prevTime)));
       } else {
         SDL_Delay(1);
       }
