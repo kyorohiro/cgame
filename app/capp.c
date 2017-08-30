@@ -46,7 +46,8 @@ CApp* getCApp() {
 
 void capp_draw(CApp* obj) {
 //  glClear(GL_COLOR_BUFFER_BIT);
-  CApp* appObj = getCApp();
+  CApp* appObj = obj;
+  //printf("capp_draw\r\n");
   ceventDispatcher_dispatch(appObj->display, NULL);
   appObj->debugCount++;
   if(appObj->debugTime == 0){
