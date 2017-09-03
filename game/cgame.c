@@ -124,7 +124,7 @@ void cgame_draw(CObject *context, CObject *args) {
     GLfloat *vVertices = (GLfloat *)cprimitive3d_getVertexSetBinary((CPrimitive3D *)node);
 
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(CMatrixVertexType)*10*cprimitive3d_getVertexSetBinaryLength((CPrimitive3D *)node), vVertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, cprimitive3d_getVertexSetBinaryLength((CPrimitive3D *)node)*10, vVertices, GL_STATIC_DRAW);
     glUseProgram(game->program);
     int vPositionLoc = glGetAttribLocation(game->program, "position");
     int vColorLoc    = glGetAttribLocation(game->program, "color");
@@ -143,8 +143,8 @@ void cgame_draw(CObject *context, CObject *args) {
 
     short* indices = (short*)cprimitive3d_getIndexBinary((CPrimitive3D*)node);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(CMatrixIndexType)*cprimitive3d_getIndexBinaryLength((CPrimitive3D*)node), indices, GL_STATIC_DRAW);
-    glDrawElements(GL_TRIANGLES, cprimitive3d_getIndexBinaryLength((CPrimitive3D*)node), GL_UNSIGNED_SHORT, 0);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, cprimitive3d_getIndexBinaryLength((CPrimitive3D*)node), indices, GL_STATIC_DRAW);
+    glDrawElements(GL_TRIANGLES, cprimitive3d_getIndexBinaryLength((CPrimitive3D*)node)/sizeof(CMatrixIndexType), GL_UNSIGNED_SHORT, 0);
   }
 
   glDeleteBuffers(1, &vertexBuffer);

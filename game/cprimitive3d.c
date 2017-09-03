@@ -198,7 +198,7 @@ int cprimitive3d_getVertexSetBinaryLength(CPrimitive3D* obj) {
   if(obj->vertexSet == NULL) {
     return 0;
   } else {
-    return obj->vertexSet->length/sizeof(CMatrixVertexType);
+    return obj->vertexSet->length;
   }
 }
 
@@ -214,6 +214,43 @@ int cprimitive3d_getIndexBinaryLength(CPrimitive3D* obj) {
   if(obj->indexes == NULL) {
     return 0;
   } else {
-    return obj->indexes->length/sizeof(CMatrixIndexType);
+    return obj->indexes->length;
+  }
+}
+
+
+char* cprimitive3d_getVertexBinary(CPrimitive3D* obj) {
+  return obj->vertexes->value;
+}
+
+int cprimitive3d_getVertexBinaryLength(CPrimitive3D* obj) {
+  if(obj->vertexes == NULL) {
+    return 0;
+  } else {
+    return obj->vertexes->length;
+  }
+}
+
+char* cprimitive3d_getNormalBinary(CPrimitive3D* obj) {
+  return obj->normals->value;
+}
+
+int cprimitive3d_getNormalBinaryLength(CPrimitive3D* obj) {
+  if(obj->normals == NULL) {
+    return 0;
+  } else {
+    return obj->normals->length;
+  }
+}
+
+char* cprimitive3d_getColorBinary(CPrimitive3D* obj) {
+  return obj->colors->value;
+}
+
+int cprimitive3d_getColorBinaryLength(CPrimitive3D* obj) {
+  if(obj->colors == NULL) {
+    return 0;
+  } else {
+    return obj->colors->length;
   }
 }
