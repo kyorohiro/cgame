@@ -35,8 +35,8 @@ typedef struct {
 
   //
   // draw cache
-  // CBytes *vertexes;
-  // CBytes *indexes;
+  CBytes *vertexes;
+  CBytes *indexes;
 } CGame;
 
 //

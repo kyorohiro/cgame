@@ -12,19 +12,29 @@
 //
 void cgame_draw(CObject *context, CObject *args);
 void cgame_init(CObject *context, CObject *args);
+void _freeCGame(void* obj);
 
 CGame* newCGame(CMemory* mem) {
   CGame * ret = cmemory_calloc(mem, 1, sizeof(CGame));
   ret->parent.cmemory = mem;
+  ret->parent.funcFree = _freeCGame;
   return ret;
+}
+
+void _freeCGame(void* obj) {
+  if(obj == NULL) {
+    return;
+  }
+  freeCObject(obj);
 }
 
 CGame* initCGame(CGame* obj, CApp* appObj) {
   printf("initCGame\r\n");
   initCObject((CObject*)obj, CGAME_NAME);
-//  snprintf(obj->title, sizeof(obj->title), "%s", "title");
   obj->app = appObj;
-  //
+
+  // 
+  // shader
   #ifdef PLATFORM_EMCC
     char* fs = "/game/assets/fs.glsl";
     char* vs = "/game/assets/vs.glsl";
@@ -32,19 +42,22 @@ CGame* initCGame(CGame* obj, CApp* appObj) {
     char* fs = "./game/assets/fs.glsl";
     char* vs = "./game/assets/vs.glsl";
   #endif
-  printf("load Shader\r\n");
-
   obj->fShaderSrc = cutil_newCStringFromPath(obj->parent.cmemory, fs);
   obj->vShaderSrc = cutil_newCStringFromPath(obj->parent.cmemory, vs);
-  //printf("len = %d\r\n",cstring_getByteLength(obj->fShaderSrc));
-  //
-//  obj->root = initCObject3D(newCObject3D(obj->parent.cmemory));
   obj->root = (CObject3D*)initCRoot3D(newCRoot3D(obj->parent.cmemory), 100);
   //
   obj->funcFraw = NULL;
   obj->fShaderLocation = 0;
   obj->vShaderLocation = 0;
   obj->program = 0;
+
+  //
+  //
+  obj->vertexes = initCBytes(newCBytes(obj->parent.cmemory), NULL, sizeof(CMatrixVertexType)*PRIMITIVE3D_BUFFER_SIZE*100);
+  obj->indexes = initCBytes(newCBytes(obj->parent.cmemory), NULL, sizeof(CMatrixIndexType)*100);
+
+  //
+  //
   obj->camera = (CObject3D*)initCCamera3D(newCCamera3D(obj->parent.cmemory));
 
   //
