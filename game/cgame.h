@@ -19,11 +19,17 @@ typedef struct {
   CObject parent;
   CApp* app;
   CGameFuncDraw funcFraw;
-  CString* fShaderSrc;
-  CString* vShaderSrc;
+
+  //
+  // shader
+  int program;
   int fShaderLocation;
   int vShaderLocation;
-  int program;
+  CString* fShaderSrc;
+  CString* vShaderSrc;
+
+  //
+  // basic primitive
   CObject3D *root;
   CObject3D *camera;
 } CGame;
