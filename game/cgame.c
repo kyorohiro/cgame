@@ -18,6 +18,7 @@ CGame* newCGame(CMemory* mem) {
   ret->parent.cmemory = mem;
   return ret;
 }
+
 CGame* initCGame(CGame* obj, CApp* appObj) {
   printf("initCGame\r\n");
   initCObject((CObject*)obj, CGAME_NAME);

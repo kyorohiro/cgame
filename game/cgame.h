@@ -32,6 +32,11 @@ typedef struct {
   // basic primitive
   CObject3D *root;
   CObject3D *camera;
+
+  //
+  // draw cache
+  // CBytes *vertexes;
+  // CBytes *indexes;
 } CGame;
 
 //
