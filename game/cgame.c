@@ -33,7 +33,7 @@ CGame* initCGame(CGame* obj, CApp* appObj) {
   initCObject((CObject*)obj, CGAME_NAME);
   obj->app = appObj;
 
-  // 
+  //
   // shader
   #ifdef PLATFORM_EMCC
     char* fs = "/game/assets/fs.glsl";

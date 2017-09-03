@@ -26,7 +26,10 @@ typedef struct {
   double cr;
   double cg;
   double cb;
+  CBytes *vertexSet;
   CBytes *vertexes;
+  CBytes *normals;
+  CBytes *colors;
   CBytes *indexes;
   int vetexUnitSize;
 } CPrimitive3D;
