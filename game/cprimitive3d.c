@@ -172,7 +172,7 @@ CPrimitive3D* cprimitive3d_setColor(CPrimitive3D* obj, double a, double r, doubl
   return obj;
 }
 
-char* cprimitive3d_getVertexBinary(CPrimitive3D* obj) {
+char* cprimitive3d_getVertexSetBinary(CPrimitive3D* obj) {
   if(obj->vertexSet == NULL) {
     return NULL;
   }
@@ -180,7 +180,7 @@ char* cprimitive3d_getVertexBinary(CPrimitive3D* obj) {
   if(obj->status == 1)
   {
     //obj
-    int length = cprimitive3d_getVertexBinaryLength(obj)/obj->vetexUnitSize;
+    int length = cprimitive3d_getVertexSetBinaryLength(obj)/obj->vetexUnitSize;
     float *vVertices = (float*)obj->vertexSet->value;
     for(int i=0;i<length;i++) {
       //
@@ -194,7 +194,7 @@ char* cprimitive3d_getVertexBinary(CPrimitive3D* obj) {
 
 }
 
-int cprimitive3d_getVertexBinaryLength(CPrimitive3D* obj) {
+int cprimitive3d_getVertexSetBinaryLength(CPrimitive3D* obj) {
   if(obj->vertexSet == NULL) {
     return 0;
   } else {

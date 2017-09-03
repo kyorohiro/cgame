@@ -121,10 +121,10 @@ void cgame_draw(CObject *context, CObject *args) {
     if(node->type != CObject3DTypePrimitive) {
       continue;
     }
-    GLfloat *vVertices = (GLfloat *)cprimitive3d_getVertexBinary((CPrimitive3D *)node);
+    GLfloat *vVertices = (GLfloat *)cprimitive3d_getVertexSetBinary((CPrimitive3D *)node);
 
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(CMatrixVertexType)*10*cprimitive3d_getVertexBinaryLength((CPrimitive3D *)node), vVertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(CMatrixVertexType)*10*cprimitive3d_getVertexSetBinaryLength((CPrimitive3D *)node), vVertices, GL_STATIC_DRAW);
     glUseProgram(game->program);
     int vPositionLoc = glGetAttribLocation(game->program, "position");
     int vColorLoc    = glGetAttribLocation(game->program, "color");
