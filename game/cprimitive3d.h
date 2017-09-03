@@ -10,7 +10,7 @@
 #include "matrix/cmatrix4.h"
 
 #define PRIMITIVE3D_NAME "pr3"
-#define PRIMITIVE3D_BUFFER_SIZE 13
+#define PRIMITIVE3D_BUFFER_SIZE 10
 //
 //
 typedef struct {
@@ -36,9 +36,6 @@ CPrimitive3D* initCPrimitive3D(CPrimitive3D*);
 CPrimitive3D* initCPrimitive3DAsCube(CPrimitive3D*);
 CPrimitive3D* initCPrimitive3DAsTriangle(CPrimitive3D* obj);
 void freeCPrimitive3D(void* obj);
-CPrimitive3D* cprimitive3d_setRotate(CPrimitive3D*, double rx, double ry, double rz);
-CPrimitive3D* cprimitive3d_setPosition(CPrimitive3D*, double x, double y, double z);
-CPrimitive3D* cprimitive3d_setRotate(CPrimitive3D*, double rx, double ry, double rz);
 CPrimitive3D* cprimitive3d_setColor(CPrimitive3D*, double a, double r, double g, double b);
 
 char* cprimitive3d_getVertexBinary(CPrimitive3D*);

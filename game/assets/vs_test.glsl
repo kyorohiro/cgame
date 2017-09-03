@@ -4,6 +4,7 @@ precision mediump float;
 
 attribute vec3 position;
 attribute vec4 color;
+attribute vec3 rot;
 attribute vec3 normal;
 uniform mat4 model;
 uniform mat4 camera;
@@ -49,11 +50,33 @@ mat3 inverseMat3(mat3 m) {
 
 void main() {
   vColor = color;
-  vec4 t = model * vec4(normal, 1.0);
-  mat3 xx = mat3(model[0].xyz, model[1].xyz, model[2].xyz);//mat3(mm);
+  mat4 rotX = mat4(
+    1.0        , 0.0         , 0.0         , 0.0,
+    0.0        , cos(rot[0]) , sin(rot[0]) , 0.0,
+    0.0        , -sin(rot[0]), cos(rot[0]) , 0.0,
+    0.0        , 0.0         , 0.0         , 1.0
+  );
+  mat4 rotY = mat4(
+    cos(rot[1]), 0.0, -sin(rot[1]), 0.0,
+    0.0        , 1.0, 0.0         , 0.0,
+    sin(rot[1]), 0.0, cos(rot[1]) , 0.0,
+    0.0        , 0.0, 0.0         , 1.0
+  );
+  mat4 rotZ = mat4(
+     cos(rot[2]) , sin(rot[2]), 0.0         , 0.0,
+     -sin(rot[2]), cos(rot[2]), 0.0         , 0.0,
+     0.0         , 0.0        , 1.0         , 0.0,
+     0.0         , 0.0        , 0.0         , 1.0
+  );
+  mat4 mm = rotY * rotZ * rotX;
+  mm = model;// * mm;
+  vec4 t = mm * vec4(normal, 1.0);
+
+
+  mat3 xx = mat3(mm[0].xyz, mm[1].xyz, mm[2].xyz);//mat3(mm);
   xx = inverseMat3(transposeMat3(xx));
   NNormal = normalize(xx * normal);
-  FragPos = vec3(model * vec4(position, 1.0));
-  gl_Position = camera * model * vec4(position, 1.0);
+  FragPos = vec3(mm * vec4(position, 1.0));
+  gl_Position = camera * mm * vec4(position, 1.0);
 
 }

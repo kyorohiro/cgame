@@ -113,41 +113,30 @@ void cgame_draw(CObject *context, CObject *args) {
     glBufferData(GL_ARRAY_BUFFER, sizeof(CMatrixVertexType)*10*cprimitive3d_getVertexBinaryLength((CPrimitive3D *)node), vVertices, GL_STATIC_DRAW);
     glUseProgram(game->program);
     int vPositionLoc = glGetAttribLocation(game->program, "position");
-    int vRotLoc      = glGetAttribLocation(game->program, "rot");
     int vColorLoc    = glGetAttribLocation(game->program, "color");
     int vNormalLoc    = glGetAttribLocation(game->program, "normal");
     int vCameraLoc = glGetUniformLocation(game->program, "camera");
     int vModelLoc = glGetUniformLocation(game->program, "model");
     glEnableVertexAttribArray(vPositionLoc);
     glEnableVertexAttribArray(vColorLoc);
-    glEnableVertexAttribArray(vRotLoc);
     glEnableVertexAttribArray(vNormalLoc);
     glVertexAttribPointer(vPositionLoc, 3, GL_FLOAT, GL_FALSE, PRIMITIVE3D_BUFFER_SIZE * sizeof(CMatrixVertexType), (void*)0);
     glVertexAttribPointer(vColorLoc, 4, GL_FLOAT, GL_FALSE, PRIMITIVE3D_BUFFER_SIZE * sizeof(CMatrixVertexType), (void*)(3*sizeof(CMatrixVertexType)));
-    glVertexAttribPointer(vRotLoc, 3, GL_FLOAT, GL_FALSE, PRIMITIVE3D_BUFFER_SIZE * sizeof(CMatrixVertexType), (void*)(7*sizeof(CMatrixVertexType)));
-    glVertexAttribPointer(vNormalLoc, 3, GL_FLOAT, GL_FALSE, PRIMITIVE3D_BUFFER_SIZE * sizeof(CMatrixVertexType), (void*)(10*sizeof(CMatrixVertexType)));
+    glVertexAttribPointer(vNormalLoc, 3, GL_FLOAT, GL_FALSE, PRIMITIVE3D_BUFFER_SIZE * sizeof(CMatrixVertexType), (void*)(7*sizeof(CMatrixVertexType)));
 
     glUniformMatrix4fv(vModelLoc, 1, GL_FALSE, (GLfloat*)node->mat->value);
     glUniformMatrix4fv(vCameraLoc, 1, GL_FALSE, (GLfloat*)game->camera->mat->value);
-//    printf("#\r\n");
-//    cmatrix4_show(node->mat);
+
     short* indices = (short*)cprimitive3d_getIndexBinary((CPrimitive3D*)node);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(CMatrixIndexType)*cprimitive3d_getIndexBinaryLength((CPrimitive3D*)node), indices, GL_STATIC_DRAW);
     glDrawElements(GL_TRIANGLES, cprimitive3d_getIndexBinaryLength((CPrimitive3D*)node), GL_UNSIGNED_SHORT, 0);
-    //glDrawArrays(GL_TRIANGLES, 0, 3);
   }
 
   glDeleteBuffers(1, &vertexBuffer);
   glDeleteBuffers(1, &indexBuffer);
 
-  //glutSwapBuffers();
-  //glutPostRedisplay();
-//releaseCObject((CObject*)mat);
-  //
-  //
   capp_flushBuffers(game->app);
-
 
 }
 
