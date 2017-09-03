@@ -8,11 +8,13 @@
 #include "core/cobject.h"
 
 int i =(180+2)%360;
+int j =(30+2)%360;
 int fps;
 void _onEnterFrame(CObject*  obj, CObject* cgame) {
 
   CApp* appObj = getCApp();
   CGame* gameObj = getCGame();
+
   i = (i+2)%360;
   CMatrix4Raw rotYMat;
   CMatrix4Raw rotZMat;
@@ -35,9 +37,11 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
     fps = appObj->fps;
     printf("fps:%d;\r\n",fps);
   }
+
   cgame_postRedisplay(gameObj);
 
 }
+
 
 int main(int argc, char** argv) {
   printf("call main\r\n");
@@ -49,8 +53,9 @@ int main(int argc, char** argv) {
   CObject3D *cube2 = (CObject3D*)initCPrimitive3DAsTriangle(newCPrimitive3D(getCMemory()));
 
   cube1->onEnterFrameFunc =_onEnterFrame;
-  cobject3d_addNode(root, cube1);
+
   cobject3d_addNode(root, cube2);
+  cobject3d_addNode(root, cube1);
 
   ccamera3d_update(cgame_getCamera(gameObj),
       0.0, 0.0, 5.0,

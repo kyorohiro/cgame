@@ -53,8 +53,8 @@ CGame* initCGame(CGame* obj, CApp* appObj) {
 
   //
   //
-  obj->vertexes = initCBytes(newCBytes(obj->parent.cmemory), NULL, sizeof(CMatrixVertexType)*PRIMITIVE3D_BUFFER_SIZE*100);
-  obj->indexes = initCBytes(newCBytes(obj->parent.cmemory), NULL, sizeof(CMatrixIndexType)*100);
+  obj->vertexes = initCBytes(newCBytes(obj->parent.cmemory), NULL, sizeof(CMatrixVertexType)*PRIMITIVE3D_BUFFER_SIZE*500);
+  obj->indexes = initCBytes(newCBytes(obj->parent.cmemory), NULL, sizeof(CMatrixIndexType)*500);
 
   //
   //
@@ -116,19 +116,13 @@ void cgame_draw02(CObject *context, CObject *args) {
  cobject3d_enterFrame(root, root, args);
 
 
- //
- // create Buffer
- GLuint vertexBuffer;
- GLuint indexBuffer;
- glGenBuffers(1, &vertexBuffer);
- glGenBuffers(2, &indexBuffer);
+
  CMatrix4Raw modelMat;
  cmatrix4raw_setIdentity(modelMat);
 
  //game->vertexes
  GLfloat *ver = (GLfloat *)game->vertexes->value;
  GLshort *ind = (GLshort *)game->indexes->value;
- int verInd = 0;
  int pointer = 0;
  int pointerI = 0;
 
@@ -144,40 +138,47 @@ void cgame_draw02(CObject *context, CObject *args) {
 
    int len = cprimitive3d_getVertexBinaryLength((CPrimitive3D *)node) / sizeof(CMatrixVertexType);
    CMatrix4RawRef m = cobject3d_getCMatrix4((CObject3D *)node)->value;
+  // cmatrix4raw_show(m);
 
    CVector4Raw out;
-
-   for(int j=0;j<len;j+=1) {
+   for(int j=0;j<len/3;j+=1) {
      cmatrix4raw_mulVector(m, vVertices[j*3+0], vVertices[j*3+1], vVertices[j*3+2], 1.0, out);
      ver[pointer++] =  out[0];
      ver[pointer++] =  out[1];
      ver[pointer++] =  out[2];
-
-     ver[pointer++] =  vColors[j*4+0];
-     ver[pointer++] =  vColors[j*4+1];
-     ver[pointer++] =  vColors[j*4+2];
-     ver[pointer++] =  vColors[j*4+3];
+     //printf("[%d] %f %f %f \r\n ", j, out[0], out[1], out[2]);
+     ver[pointer++] =  1.0;//vColors[j*4+0];
+     ver[pointer++] =  1.0;//vColors[j*4+1];
+     ver[pointer++] =  1.0;//vColors[j*4+2];
+     ver[pointer++] =  1.0;//vColors[j*4+3];
      //
      cmatrix4raw_mulVector(m, vNormals[j*3+0], vNormals[j*3+1], vNormals[j*3+2], 1.0, out);
-     ver[pointer++] =  out[0];
-     ver[pointer++] =  out[1];
-     ver[pointer++] =  out[2];
+     ver[pointer++] =  0.0;//out[0];
+     ver[pointer++] =  0.0;//out[1];
+     ver[pointer++] =  1.0;//out[2];
      //
    }
+  // printf("\r\n\r\n ##");
    //
-   GLshort *indices = (short*)cprimitive3d_getIndexBinary((CPrimitive3D*)node);
+   GLshort *indices = (GLshort *)cprimitive3d_getIndexBinary((CPrimitive3D*)node);
    len = cprimitive3d_getIndexBinaryLength((CPrimitive3D*)node)  / sizeof(CMatrixIndexType);
+   int pBase = pointerI;
    for(int j=0;j<len;j++) {
-     ind[pointerI++] =  indices[j];
+     ind[pointerI++] =  indices[j]+pBase;
    }
+   //break;
  }
-
  //
  //
-
- glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
- glBufferData(GL_ARRAY_BUFFER, sizeof(CMatrixVertexType)*pointer, ver, GL_STATIC_DRAW);
+ //
+ // create Buffer
+ GLuint vertexBuffer;
+ GLuint indexBuffer;
+ glGenBuffers(1, &vertexBuffer);
+ glGenBuffers(2, &indexBuffer);
  glUseProgram(game->program);
+
+
  int vPositionLoc = glGetAttribLocation(game->program, "position");
  int vColorLoc    = glGetAttribLocation(game->program, "color");
  int vNormalLoc    = glGetAttribLocation(game->program, "normal");
@@ -190,6 +191,8 @@ void cgame_draw02(CObject *context, CObject *args) {
 
  int buffeSize = 10* sizeof(CMatrixVertexType);
 
+ glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+ glBufferData(GL_ARRAY_BUFFER, sizeof(CMatrixVertexType)*pointer, ver, GL_STATIC_DRAW);
 
 //  int buffeSize = PRIMITIVE3D_BUFFER_SIZE;
  glVertexAttribPointer(vPositionLoc, 3, GL_FLOAT, GL_FALSE, buffeSize, (void*)0);
@@ -203,6 +206,7 @@ void cgame_draw02(CObject *context, CObject *args) {
  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
  glBufferData(GL_ELEMENT_ARRAY_BUFFER, pointerI*sizeof(GLshort), ind, GL_STATIC_DRAW);
  glDrawElements(GL_TRIANGLES, pointerI, GL_UNSIGNED_SHORT, 0);
+// printf("%d %d\r\n", pointerI,pointer);
 
  glDeleteBuffers(1, &vertexBuffer);
  glDeleteBuffers(2, &indexBuffer);
@@ -278,7 +282,7 @@ void cgame_draw01(CObject *context, CObject *args) {
 }
 
 void cgame_draw(CObject *context, CObject *args) {
-  cgame_draw01(context, args);
+  cgame_draw02(context, args);
 }
 
 CGame* cgame_start(CGame* obj) {
