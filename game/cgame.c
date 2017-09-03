@@ -54,8 +54,8 @@ CGame* initCGame(CGame* obj, CApp* appObj) {
 
   //
   //
-  obj->vertexes = initCBytes(newCBytes(obj->parent.cmemory), NULL, sizeof(CMatrixVertexType)*PRIMITIVE3D_BUFFER_SIZE*100);
-  obj->indexes = initCBytes(newCBytes(obj->parent.cmemory), NULL, sizeof(CMatrixIndexType)*100);
+  obj->vertexes = initCBytes(newCBytes(obj->parent.cmemory), NULL, sizeof(CMatrixVertexType)*PRIMITIVE3D_BUFFER_SIZE*300);
+  obj->indexes = initCBytes(newCBytes(obj->parent.cmemory), NULL, sizeof(CMatrixIndexType)*300);
 
   //
   //
@@ -115,7 +115,7 @@ void cgame_draw02(CObject *context, CObject *args) {
   glGenBuffers(1, &vertexBuffer);
 
   GLuint indexBuffer;
-  glGenBuffers(1, &indexBuffer);
+  glGenBuffers(2, &indexBuffer);
   for(int i=0;i<clinkedList_getLength(nodes);i++) {
     CObject3D *node = (CObject3D*)clinkedList_get(nodes, i);
     if(node->type != CObject3DTypePrimitive) {
@@ -148,7 +148,7 @@ void cgame_draw02(CObject *context, CObject *args) {
   }
 
   glDeleteBuffers(1, &vertexBuffer);
-  glDeleteBuffers(1, &indexBuffer);
+  glDeleteBuffers(2, &indexBuffer);
 
   capp_flushBuffers(game->app);
 
@@ -157,7 +157,10 @@ void cgame_draw02(CObject *context, CObject *args) {
 
 void cgame_draw01(CObject *context, CObject *args) {
   //
-  //
+  //int max_attribs;
+  //glGetIntegerv (GL_MAX_VERTEX_ATTRIBS, &max_attribs);
+  //printf(">>%d");
+//
   glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
   CGame *game = getCGame();
@@ -184,7 +187,7 @@ void cgame_draw01(CObject *context, CObject *args) {
   GLuint vertexBuffer;
   GLuint indexBuffer;
   glGenBuffers(1, &vertexBuffer);
-  glGenBuffers(1, &indexBuffer);
+  glGenBuffers(2, &indexBuffer);
   CMatrix4Raw modelMat;
   cmatrix4raw_setIdentity(modelMat);
 
@@ -203,21 +206,29 @@ void cgame_draw01(CObject *context, CObject *args) {
     GLfloat *vVertices = (GLfloat *)cprimitive3d_getVertexBinary((CPrimitive3D *)node);
     GLfloat *vColors = (GLfloat *)cprimitive3d_getColorBinary((CPrimitive3D *)node);
     GLfloat *vNormals = (GLfloat *)cprimitive3d_getNormalBinary((CPrimitive3D *)node);
+    CMatrix4RawRef mat4 = cobject3d_getCMatrix4((CObject3D *)node)->value;
 
     int len = cprimitive3d_getVertexBinaryLength((CPrimitive3D *)node) / sizeof(CMatrixIndexType);
+    CMatrix4RawRef m = cobject3d_getCMatrix4((CObject3D *)node)->value;
+
+    CVector4Raw out;
+
     for(int j=0;j<len;j+=1) {
-      ver[pointer++] =  vVertices[j*3+0];
-      ver[pointer++] =  vVertices[j*3+1];
-      ver[pointer++] =  vVertices[j*3+2];
-      //
+      cmatrix4raw_mulVector(m, vVertices[j*3+0], vVertices[j*3+1], vVertices[j*3+2], 1.0, out);
+      ver[pointer++] =  out[0];
+      ver[pointer++] =  out[1];
+      ver[pointer++] =  out[2];
+
       ver[pointer++] =  vColors[j*4+0];
       ver[pointer++] =  vColors[j*4+1];
       ver[pointer++] =  vColors[j*4+2];
       ver[pointer++] =  vColors[j*4+3];
       //
-      ver[pointer++] =  vNormals[j*3+0];
-      ver[pointer++] =  vNormals[j*3+1];
-      ver[pointer++] =  vNormals[j*3+2];
+      cmatrix4raw_mulVector(m, vNormals[j*3+0], vNormals[j*3+1], vNormals[j*3+2], 1.0, out);
+      ver[pointer++] =  out[0];
+      ver[pointer++] =  out[1];
+      ver[pointer++] =  out[2];
+      //
     }
     //
     GLshort *indices = (short*)cprimitive3d_getIndexBinary((CPrimitive3D*)node);
@@ -227,22 +238,31 @@ void cgame_draw01(CObject *context, CObject *args) {
     }
   }
 
+  //
+  //
   glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
   glBufferData(GL_ARRAY_BUFFER, sizeof(CMatrixVertexType)*pointer, ver, GL_STATIC_DRAW);
   glUseProgram(game->program);
   int vPositionLoc = glGetAttribLocation(game->program, "position");
   int vColorLoc    = glGetAttribLocation(game->program, "color");
   int vNormalLoc    = glGetAttribLocation(game->program, "normal");
-  int vCameraLoc = glGetUniformLocation(game->program, "camera");
   int vModelLoc = glGetUniformLocation(game->program, "model");
+  int vCameraLoc = glGetUniformLocation(game->program, "camera");
+
   glEnableVertexAttribArray(vPositionLoc);
   glEnableVertexAttribArray(vColorLoc);
   glEnableVertexAttribArray(vNormalLoc);
-  glVertexAttribPointer(vPositionLoc, 3, GL_FLOAT, GL_FALSE, PRIMITIVE3D_BUFFER_SIZE * sizeof(CMatrixVertexType), (void*)0);
-  glVertexAttribPointer(vColorLoc, 4, GL_FLOAT, GL_FALSE, PRIMITIVE3D_BUFFER_SIZE * sizeof(CMatrixVertexType), (void*)(3*sizeof(CMatrixVertexType)));
-  glVertexAttribPointer(vNormalLoc, 3, GL_FLOAT, GL_FALSE, PRIMITIVE3D_BUFFER_SIZE * sizeof(CMatrixVertexType), (void*)(7*sizeof(CMatrixVertexType)));
 
-  glUniformMatrix4fv(vModelLoc, 1, GL_FALSE, modelMat);
+
+  int buffeSize = 10;
+
+
+//  int buffeSize = PRIMITIVE3D_BUFFER_SIZE;
+  glVertexAttribPointer(vPositionLoc, 3, GL_FLOAT, GL_FALSE, buffeSize * sizeof(CMatrixVertexType), (void*)0);
+  glVertexAttribPointer(vColorLoc, 4, GL_FLOAT, GL_FALSE, buffeSize * sizeof(CMatrixVertexType), (void*)(3*sizeof(CMatrixVertexType)));
+  glVertexAttribPointer(vNormalLoc, 3, GL_FLOAT, GL_FALSE, buffeSize * sizeof(CMatrixVertexType), (void*)(7*sizeof(CMatrixVertexType)));
+
+  glUniformMatrix4fv(vModelLoc, 1, GL_FALSE, (GLfloat*)modelMat);
   glUniformMatrix4fv(vCameraLoc, 1, GL_FALSE, (GLfloat*)game->camera->mat->value);
 
 
@@ -251,7 +271,7 @@ void cgame_draw01(CObject *context, CObject *args) {
   glDrawElements(GL_TRIANGLES, pointerI, GL_UNSIGNED_SHORT, 0);
 
   glDeleteBuffers(1, &vertexBuffer);
-  glDeleteBuffers(1, &indexBuffer);
+  glDeleteBuffers(2, &indexBuffer);
 
   capp_flushBuffers(game->app);
 
