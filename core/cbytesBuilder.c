@@ -67,6 +67,14 @@ CString* cbytesBuilder_newString(CBytesBuilder* obj) {
   return ret;
 }
 
+CString* cutil_newCStringFromPath(CMemory* cmemory, char* path) {
+  CBytesBuilder *builder = newCBytesBuilder(cmemory);
+  builder = initCBytesBuilderFromPath(builder, path);
+  CString *ret = cbytesBuilder_newString(builder);
+  releaseCObject((CObject*)builder);
+  return ret;
+}
+
 // util
 CBytesBuilder* initCBytesBuilderFromPath(CBytesBuilder* obj, char *path) {
   CBytesBuilder *builder = initCBytesBuilder(obj);
@@ -93,10 +101,4 @@ CBytesBuilder* initCBytesBuilderFromPath(CBytesBuilder* obj, char *path) {
   return obj;
 }
 
-CString* cutil_newCStringFromPath(CMemory* cmemory, char* path) {
-  CBytesBuilder *builder = newCBytesBuilder(cmemory);
-  builder = initCBytesBuilderFromPath(builder, path);
-  CString *ret = cbytesBuilder_newString(builder);
-  releaseCObject((CObject*)builder);
-  return ret;
-}
+

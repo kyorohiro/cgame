@@ -19,4 +19,6 @@ CBytes* newCBytes(CMemory*);
 CBytes* initCBytes(CBytes* obj, char *value, int length);
 int cbytes_getLength(CBytes* obj);
 char* cbytes_getBytes(CBytes* obj);
+CBytes* cbytes_setLength(CBytes* obj, int nextlength);
+
 #endif

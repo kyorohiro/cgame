@@ -36,3 +36,23 @@ int cbytes_getLength(CBytes* obj) {
 char* cbytes_getBytes(CBytes* obj) {
   return obj->value;
 }
+
+CBytes* cbytes_setLength(CBytes* obj, int nextLength) {
+  int prevLength = obj->length;
+  if(nextLength <= prevLength) {
+    obj->length = nextLength;
+    return obj;
+  }
+
+  char* next = (char*)cmemory_calloc(obj->parent.cmemory, 1, sizeof(char)*nextLength);
+  for(int i=0;i<prevLength;i++) {
+    next[i] = obj->value[i];
+  }
+
+  if(obj->value != NULL) {
+    cmemory_free(((CObject*)obj)->cmemory, obj->value);
+  }
+
+  obj->value = next;
+  return obj;
+}
