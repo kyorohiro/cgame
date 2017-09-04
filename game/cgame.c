@@ -138,6 +138,15 @@ void cgame_draw02(CObject *context, CObject *args) {
 
    int len = cprimitive3d_getVertexBinaryLength((CPrimitive3D *)node) / sizeof(CMatrixVertexType);
    CMatrix4RawRef m = cobject3d_getCMatrix4((CObject3D *)node)->value;
+
+   CMatrix4Raw n;
+   CMatrixValueType outDeterminant;
+   cmatrix4raw_transpose(m, n);
+   cmatrix4raw_inverse(n, n, &outDeterminant);
+//   cmatrix4raw_transpose(m, n);
+
+//   cmatrix4raw_
+
   // cmatrix4raw_show(m);
 
    CVector4Raw out;
@@ -152,10 +161,12 @@ void cgame_draw02(CObject *context, CObject *args) {
      ver[pointer++] =  1.0;//vColors[j*4+2];
      ver[pointer++] =  1.0;//vColors[j*4+3];
      //
-     cmatrix4raw_mulVector(m, vNormals[j*3+0], vNormals[j*3+1], vNormals[j*3+2], 1.0, out);
-     ver[pointer++] =  0.0;//out[0];
-     ver[pointer++] =  0.0;//out[1];
-     ver[pointer++] =  1.0;//out[2];
+     // mul(normal(inverseMat3(transposeMat3(model))), normal)
+     cmatrix4raw_mulVector(n, vNormals[j*3+0], vNormals[j*3+1], vNormals[j*3+2], 1.0, out);
+     cvector4raw_normalize(out, out);
+     ver[pointer++] =  out[0];
+     ver[pointer++] =  out[1];
+     ver[pointer++] =  out[2];
      //
    }
   // printf("\r\n\r\n ##");

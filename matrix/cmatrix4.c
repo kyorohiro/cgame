@@ -376,6 +376,7 @@ CMatrix4RawRef cmatrix4raw_inverse(CMatrix4RawRef raw, CMatrix4RawRef outInverse
   return outInverse;
 }
 
+
 CMatrixValueType cmatrix4raw_getValue(CMatrix4RawRef obj, int row, int col) {
   return obj[row+4*col];
 }
