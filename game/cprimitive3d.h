@@ -37,6 +37,8 @@ CPrimitive3D* newCPrimitive3D(CMemory* mem);
 CPrimitive3D* initCPrimitive3D(CPrimitive3D*);
 CPrimitive3D* initCPrimitive3DAsCube(CPrimitive3D*);
 CPrimitive3D* initCPrimitive3DAsTriangle(CPrimitive3D* obj);
+CPrimitive3D* initCPrimitive3DAsSquare(CPrimitive3D* obj);
+
 void freeCPrimitive3D(void* obj);
 CPrimitive3D* cprimitive3d_setColor(CPrimitive3D*, double a, double r, double g, double b);
 
