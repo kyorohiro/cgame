@@ -136,34 +136,3 @@ CGame* cgame_postRedisplay(CGame* obj) {
   capp_postRedisplay(obj->app);
   return obj;
 }
-
-CVector4* cgame_getLocalPointFromGlobal(CGame* obj, double x, double y, double z, CMatrix4* in, CVector4* out) {
-//CVector4* cgame_getLocalPointFromGlobal(CGame* obj, double x, double y, CVector4* out) {
-  CMemory *mem = cobject_getCMemory((CObject*)obj);
-  CRoot3D *root = (CRoot3D*)cgame_getRoot(obj);
-  CCamera3D *camera = (CCamera3D*)cgame_getCamera(obj);
-  CMatrix4 *model = croot3d_peekMulMatrix(root);
-  CMatrix4 *mat = cmatrix4_mul(camera->parent.mat, model, NULL);
-
-  if(in != NULL) {
-    cmatrix4_mul(mat, in, mat);
-  }
-  cmatrix4_inverse(mat, mat, NULL);
-
-
-  //
-  //
-  if(out == NULL) {
-    out = initCVector4(newCVector4(mem), x, y, z, 1.0);
-  } else {
-    out->value[0] = x;
-    out->value[1] = y;
-    out->value[2] = 0.0;
-    out->value[3] = 1.0;
-  }
-
-  cmatrix4_mulCVector4(mat, out, out);
-
-  releaseCObject((CObject*)mat);
-  return out;
-}
