@@ -83,6 +83,7 @@ void cgame_draw_matu(CObject *context, CObject *args) {
      ver[pointer++] =  out[0];
      ver[pointer++] =  out[1];
      ver[pointer++] =  out[2];
+
      //
    }
   // printf("\r\n\r\n ##");

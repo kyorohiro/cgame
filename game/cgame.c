@@ -41,11 +41,21 @@ CGame* initCGame(CGame* obj, CApp* appObj) {
   //
   // shader
   #ifdef PLATFORM_EMCC
+    #if RENDER_MODE == 0
+    char* fs = "/game/assets/fs_ume.glsl";
+    char* vs = "/game/assets/vs_ume.glsl";
+    #else
     char* fs = "/game/assets/fs.glsl";
     char* vs = "/game/assets/vs.glsl";
+    #endif
   #else
+    #if RENDER_MODE == 0
+    char* fs = "./game/assets/fs_ume.glsl";
+    char* vs = "./game/assets/vs_ume.glsl";
+    #else
     char* fs = "./game/assets/fs.glsl";
     char* vs = "./game/assets/vs.glsl";
+    #endif
   #endif
   obj->program = 0;
   obj->fShaderLocation = 0;
@@ -126,9 +136,11 @@ void cgame_draw(CObject *context, CObject *args) {
   gameObj->mouseRay->origin->value[1] = ori[1];
   gameObj->mouseRay->origin->value[2] = ori[2];
 
-
-//  cgame_draw_matu(context, args);
+#if RENDER_MODE == 0
   cgame_draw_ume(context, args);
+#else
+  cgame_draw_matu(context, args);
+#endif
 }
 
 CGame* cgame_start(CGame* obj) {
