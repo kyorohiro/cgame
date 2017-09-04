@@ -10,8 +10,6 @@
 #include "app/capp.h"
 
 void cgame_draw_ume(CObject *context, CObject *args) {
-  //
-  //
   glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
   CGame *game = getCGame();
