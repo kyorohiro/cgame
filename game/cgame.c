@@ -89,11 +89,6 @@ CGame* getCGame() {
   return defaultCGame;
 }
 
-void cgame_draw02(CObject *context, CObject *args) {
-
-}
-
-
 void cgame_draw(CObject *context, CObject *args) {
   cgame_draw_matu(context, args);
 }
