@@ -7,9 +7,16 @@
 //
 void freeCPrimitive3D(void* obj) {
   CPrimitive3D *objTmp = obj;
-  if(objTmp->vertexSet != NULL) {
-    releaseCObject((CObject*)objTmp->vertexSet);
+  if(objTmp->vertexes != NULL) {
+    releaseCObject((CObject*)objTmp->vertexes);
   }
+  if(objTmp->colors != NULL) {
+    releaseCObject((CObject*)objTmp->colors);
+  }
+  if(objTmp->colors != NULL) {
+    releaseCObject((CObject*)objTmp->normals);
+  }
+
   freeCObject3D(obj);
 }
 
@@ -35,36 +42,6 @@ CPrimitive3D* cprimitive3d_setColor(CPrimitive3D* obj, double a, double r, doubl
   obj->cb = b;
   obj->status = 1;
   return obj;
-}
-
-char* cprimitive3d_getVertexSetBinary(CPrimitive3D* obj) {
-  if(obj->vertexSet == NULL) {
-    return NULL;
-  }
-
-  if(obj->status == 1)
-  {
-    //obj
-    int length = cprimitive3d_getVertexSetBinaryLength(obj)/obj->vetexUnitSize;
-    float *vVertices = (float*)obj->vertexSet->value;
-    for(int i=0;i<length;i++) {
-      //
-      vVertices[i*obj->vetexUnitSize+3] = obj->cr;
-      vVertices[i*obj->vetexUnitSize+4] = obj->cg;
-      vVertices[i*obj->vetexUnitSize+5] = obj->cb;
-      vVertices[i*obj->vetexUnitSize+6] = obj->ca;
-    }
-  }
-  return obj->vertexSet->value;
-
-}
-
-int cprimitive3d_getVertexSetBinaryLength(CPrimitive3D* obj) {
-  if(obj->vertexSet == NULL) {
-    return 0;
-  } else {
-    return obj->vertexSet->length;
-  }
 }
 
 char* cprimitive3d_getIndexBinary(CPrimitive3D* obj) {
