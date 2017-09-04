@@ -30,17 +30,18 @@ CPrimitive3D* newCPrimitive3D(CMemory* mem) {
 
 CPrimitive3D* initCPrimitive3D(CPrimitive3D* obj) {
   initCObject3D((CObject3D*)obj);
-  obj->ca =obj->cb = obj->cg = obj->cr = 1.0;
-  obj->vetexUnitSize = 13;
   return obj;
 }
 
 CPrimitive3D* cprimitive3d_setColor(CPrimitive3D* obj, double a, double r, double g, double b) {
-  obj->ca = a;
-  obj->cr = r;
-  obj->cg = g;
-  obj->cb = b;
-  obj->status = 1;
+  int colorLen = cbytes_getLength((CBytes*)obj->colors)/sizeof(CMatrixVertexType);
+  CMatrixVertexType* colors = (CMatrixVertexType*)obj->colors->value;
+  for(int i=0; i<colorLen;i+=4) {
+    colors[i+0] = r;
+    colors[i+1] = g;
+    colors[i+2] = b;
+    colors[i+3] = a;
+  }
   return obj;
 }
 

@@ -15,22 +15,10 @@
 //
 typedef struct {
   CObject3D parent;
-  double x;
-  double y;
-  double z;
-  double rx;
-  double ry;
-  double rz;
-  int status;
-  double ca;
-  double cr;
-  double cg;
-  double cb;
   CBytes *vertexes;
   CBytes *normals;
   CBytes *colors;
   CBytes *indexes;
-  int vetexUnitSize;
 } CPrimitive3D;
 
 CPrimitive3D* newCPrimitive3D(CMemory* mem);

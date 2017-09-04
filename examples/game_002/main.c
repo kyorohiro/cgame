@@ -44,12 +44,17 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
   cmatrix4raw_unproject(tmp, -mouseX, 400.0, mouseY, 300.0, 200.0, 150.0, 1.0, out2);
   //cvector3raw_show(out2);
 
+
   //
+  /*
+  CRay* mouseRay = cgame_getMouseRay(gameObj);
+  CVector3RawRef ori = mouseRay->origin->value;
+  CVector3RawRef dir = mouseRay->direction->value;
+  */
   CVector3Raw ori;
   CVector3Raw dir;
   cvector3raw_setValues(ori, 0.0, 0.0, 5.0);
   cvector3raw_sub(out2, ori, dir);
-
   //
   CVector4Raw p0;
   CVector4Raw p1;
@@ -63,8 +68,10 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
 
   //
   CMatrixVertexType rock = crayraw_intersectsWithTriangle(ori, dir, p0, p1, p2);
+//  CMatrixVertexType rock = crayraw_intersectsWithTriangle(mouseRay->origin->value, mouseRay->direction->value, p0, p1, p2);
+  //crayraw_intersectsWithTriangle(ori, dir, p0, p1, p2);
   if(rock != 0) {
-    cprimitive3d_setColor((CPrimitive3D*)obj3D, 1.0, 1.0, 0.8, 0.8);
+    cprimitive3d_setColor((CPrimitive3D*)obj3D, 1.0, 1.0, 0.5, 0.5);
   } else {
     cprimitive3d_setColor((CPrimitive3D*)obj3D, 1.0, 1.0, 1.0, 1.0);
   }
