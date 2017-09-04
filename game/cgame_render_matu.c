@@ -63,7 +63,6 @@ void cgame_draw_matu(CObject *context, CObject *args) {
    CMatrixValueType outDeterminant;
    cmatrix4raw_transpose(m, n);
    cmatrix4raw_inverse(n, n, &outDeterminant);
-//   cmatrix4raw_transpose(m, n);
 
 //   cmatrix4raw_
 

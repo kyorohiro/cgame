@@ -127,7 +127,6 @@ void cgame_draw(CObject *context, CObject *args) {
   gameObj->mouseRay->origin->value[2] = ori[2];
 
 
-
 //  cgame_draw_matu(context, args);
   cgame_draw_ume(context, args);
 }
