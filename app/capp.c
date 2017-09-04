@@ -234,3 +234,27 @@ CAppMouseEvent* initCAppMouseEvent(CAppMouseEvent* obj, int state, float x, floa
   obj->y = y;
   return obj;
 }
+
+char* capp_getAssetsPath(CApp* obj, char* path, char* out) {
+#ifdef PLATFORM_EMCC
+  char* basePath = SDL_GetBasePath();
+#else
+  char* basePath = "./";
+#endif
+  int baseLen = strlen(basePath);
+  int pathLen = strlen(path);
+  if(out == NULL) {
+    out = cmemory_calloc(cobject_getCMemory((CObject*)obj), 1, (baseLen+pathLen+2));
+  }
+  int i=0;
+  int j=0;
+  for(i=0;i<baseLen;i++) {
+    out[i] = basePath[i];
+  }
+  for(j=0;j<pathLen;j++) {
+    out[i+j] = path[j];
+  }
+  out[i+j] ='\0';
+
+  return out;
+}

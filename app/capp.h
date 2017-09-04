@@ -68,6 +68,7 @@ CApp* capp_addInitEventListener(CApp*, CObject* context, CEventFuncOnEvent func)
 CAppMouseEvent* capp_getCurrentMouseEvent(CApp*);
 CApp* capp_postRedisplay(CApp*);
 CApp* capp_flushBuffers(CApp*);
+char* capp_getAssetsPath(CApp* obj, char* path, char* out);
 //  glutSwapBuffers();
 //  glutPostRedisplay();
 

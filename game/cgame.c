@@ -40,23 +40,14 @@ CGame* initCGame(CGame* obj, CApp* appObj) {
 
   //
   // shader
-  #ifdef PLATFORM_EMCC
-    #if RENDER_MODE == 0
-    char* fs = "/game/assets/fs_ume.glsl";
-    char* vs = "/game/assets/vs_ume.glsl";
-    #else
-    char* fs = "/game/assets/fs_matu.glsl";
-    char* vs = "/game/assets/vs_matu.glsl";
-    #endif
+  #if RENDER_MODE == 0
+  char* fs = capp_getAssetsPath(appObj, "game/assets/fs_ume.glsl", NULL);
+  char* vs = capp_getAssetsPath(appObj, "game/assets/vs_ume.glsl", NULL);
   #else
-    #if RENDER_MODE == 0
-    char* fs = "./game/assets/fs_ume.glsl";
-    char* vs = "./game/assets/vs_ume.glsl";
-    #else
-    char* fs = "./game/assets/fs.glsl";
-    char* vs = "./game/assets/vs.glsl";
-    #endif
+  char* fs = capp_getAssetsPath(appObj, "game/assets/fs_matu.glsl", NULL);
+  char* vs = capp_getAssetsPath(appObj, "game/assets/vs_matu.glsl", NULL);
   #endif
+
   obj->program = 0;
   obj->fShaderLocation = 0;
   obj->vShaderLocation = 0;
@@ -144,7 +135,7 @@ void cgame_draw(CObject *context, CObject *args) {
 }
 
 CGame* cgame_start(CGame* obj) {
-  printf("## cgame_start\n");
+  printf("## cgame_start %s\r\n", SDL_GetBasePath());
   #if RENDER_MODE == 0
   printf("## ume\n");
   #else
