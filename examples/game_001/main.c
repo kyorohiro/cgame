@@ -58,7 +58,7 @@ int main(int argc, char** argv) {
   cobject3d_addNode(root, cube1);
 
   ccamera3d_update(cgame_getCamera(gameObj),
-      0.0, 0.0, 5.5,
+      0.0, 0.0, 5.0,
       0.0, 0.0, 0.0,
       3.14*45.0/180.0, 400.0/300.0, 0.5, 1000.0);
 

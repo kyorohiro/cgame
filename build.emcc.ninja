@@ -21,7 +21,7 @@ rule lib
 rule exe
   command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=2 -O2 -DPLATFORM_EMCC
 rule app
-  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out --preload-file game/assets/vs.glsl  --preload-file game/assets/fs.glsl --preload-file game/assets/vs_ume.glsl  --preload-file game/assets/fs_ume.glsl -s USE_SDL=2 -O2 -DPLATFORM_EMCC
+  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out --preload-file game/assets/vs_matu.glsl  --preload-file game/assets/fs_matu.glsl --preload-file game/assets/vs_ume.glsl  --preload-file game/assets/fs_ume.glsl -s USE_SDL=2 -O2 -DPLATFORM_EMCC
 
 
 #

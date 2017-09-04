@@ -45,8 +45,8 @@ CGame* initCGame(CGame* obj, CApp* appObj) {
     char* fs = "/game/assets/fs_ume.glsl";
     char* vs = "/game/assets/vs_ume.glsl";
     #else
-    char* fs = "/game/assets/fs.glsl";
-    char* vs = "/game/assets/vs.glsl";
+    char* fs = "/game/assets/fs_matu.glsl";
+    char* vs = "/game/assets/vs_matu.glsl";
     #endif
   #else
     #if RENDER_MODE == 0
@@ -145,6 +145,11 @@ void cgame_draw(CObject *context, CObject *args) {
 
 CGame* cgame_start(CGame* obj) {
   printf("## cgame_start\n");
+  #if RENDER_MODE == 0
+  printf("## ume\n");
+  #else
+  printf("## matu\n");
+  #endif
   CApp* appObj = getCApp();
 
   capp_run(appObj);
