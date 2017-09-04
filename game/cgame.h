@@ -9,7 +9,7 @@
 #include "app/cglu.h"
 #include "cobject3d.h"
 #include "ccamera3d.h"
-
+#include "matrix/cray.h"
 
 
 #define CGAME_NAME "cga"
@@ -34,9 +34,12 @@ typedef struct {
   CObject3D *camera;
 
   //
+  CRay* mouseRay;
+
+  //
   // draw cache
-  CBytes *vertexes;
-  CBytes *indexes;
+  CBytes* vertexes;
+  CBytes* indexes;
 } CGame;
 
 //

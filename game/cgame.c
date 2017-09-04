@@ -8,6 +8,7 @@
 #include "cprimitive3d.h"
 #include "croot3d.h"
 #include "app/capp.h"
+#include "matrix/cray.h"
 
 //
 void cgame_draw(CObject *context, CObject *args);
@@ -32,6 +33,8 @@ void _freeCGame(void* obj) {
 
 CGame* initCGame(CGame* obj, CApp* appObj) {
   printf("initCGame\r\n");
+  CMemory *memory = (CMemory*)cobject_getCMemory((CObject*)obj);
+
   initCObject((CObject*)obj, CGAME_NAME);
   obj->app = appObj;
 
@@ -44,29 +47,31 @@ CGame* initCGame(CGame* obj, CApp* appObj) {
     char* fs = "./game/assets/fs.glsl";
     char* vs = "./game/assets/vs.glsl";
   #endif
-  obj->fShaderSrc = cutil_newCStringFromPath(obj->parent.cmemory, fs);
-  obj->vShaderSrc = cutil_newCStringFromPath(obj->parent.cmemory, vs);
-  obj->root = (CObject3D*)initCRoot3D(newCRoot3D(obj->parent.cmemory), 100);
-  //
-  obj->funcFraw = NULL;
+  obj->program = 0;
   obj->fShaderLocation = 0;
   obj->vShaderLocation = 0;
-  obj->program = 0;
+  obj->fShaderSrc = cutil_newCStringFromPath(obj->parent.cmemory, fs);
+  obj->vShaderSrc = cutil_newCStringFromPath(obj->parent.cmemory, vs);
 
   //
-  //
+  // game draw cache
   obj->vertexes = initCBytes(newCBytes(obj->parent.cmemory), NULL, sizeof(CMatrixVertexType)*PRIMITIVE3D_BUFFER_SIZE*500);
   obj->indexes = initCBytes(newCBytes(obj->parent.cmemory), NULL, sizeof(CMatrixIndexType)*500);
 
   //
   //
   obj->camera = (CObject3D*)initCCamera3D(newCCamera3D(obj->parent.cmemory));
+  obj->root = (CObject3D*)initCRoot3D(newCRoot3D(obj->parent.cmemory), 100);
+  obj->funcFraw = NULL;
+
+  //
+  // event
+  capp_addDisplayEventListener(appObj, (CObject*)obj, cgame_draw);
+  capp_addInitEventListener(appObj, (CObject*)obj, cgame_init);
 
   //
   //
-  capp_addDisplayEventListener(appObj, (CObject*)obj, cgame_draw);
-  capp_addInitEventListener(appObj, (CObject*)obj, cgame_init);
-  printf("[ASOS OK]\r\n");
+  obj->mouseRay = initCRay(newCRay(memory), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 
   return obj;
 }
