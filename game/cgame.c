@@ -165,6 +165,9 @@ void cgame_init(CObject *context, CObject *args) {
   //
 }
 
+CRay* cgame_getMouseRay(CGame* obj) {
+  return obj->mouseRay;
+}
 
 CAppMouseEvent* cgame_getCurrentMouseEvent(CGame* obj) {
   return capp_getCurrentMouseEvent(getCApp());

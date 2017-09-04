@@ -56,4 +56,5 @@ CObject3D* cgame_getRoot(CGame*);
 CCamera3D* cgame_getCamera(CGame*);
 CAppMouseEvent* cgame_getCurrentMouseEvent(CGame*);
 CGame* cgame_postRedisplay(CGame*);
+CRay* cgame_getMouseRay(CGame*);
 #endif
