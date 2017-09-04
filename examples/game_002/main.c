@@ -68,12 +68,7 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
   } else {
     cprimitive3d_setColor((CPrimitive3D*)obj3D, 1.0, 1.0, 1.0, 1.0);
   }
-/*
-  if(event->state == 1) {
-    printf("# %f %f\r\n", mouseX, mouseY);
-    printf(" rock = %f \r\n", rock);
-    printf("\r\n");
-  }*/
+
   cgame_postRedisplay(gameObj);
 }
 
@@ -86,13 +81,6 @@ int main(int argc, char** argv) {
 
   cube1->onEnterFrameFunc =_onEnterFrame;
   cobject3d_addNode(root, cube1);
-
-/*
-  ccamera3d_update(cgame_getCamera(gameObj),
-    0.0, 3.0, 5.3,
-    3.14*-45/180.0, 0.0, 0.0,
-    3.14*90.0/180.0, 1.0, 0.5, 1000.0);
-*/
 
   ccamera3d_update(cgame_getCamera(gameObj),
       0.0, 0.0, 5.0,
