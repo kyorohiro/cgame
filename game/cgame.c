@@ -90,7 +90,8 @@ CGame* getCGame() {
 }
 
 void cgame_draw(CObject *context, CObject *args) {
-  cgame_draw_matu(context, args);
+//  cgame_draw_matu(context, args);
+  cgame_draw_ume(context, args);
 }
 
 CGame* cgame_start(CGame* obj) {

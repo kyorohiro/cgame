@@ -9,14 +9,12 @@
 #include "croot3d.h"
 #include "app/capp.h"
 
-void cgame_draw_matu(CObject *context, CObject *args) {
-  //
-  //
-  //
- //int max_attribs;
- //glGetIntegerv (GL_MAX_VERTEX_ATTRIBS, &max_attribs);
- //printf(">>%d");
 //
+//int max_attribs;
+//glGetIntegerv (GL_MAX_VERTEX_ATTRIBS, &max_attribs);
+//printf(">>%d");
+//
+void cgame_draw_matu(CObject *context, CObject *args) {
  glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
  CGame *game = getCGame();
