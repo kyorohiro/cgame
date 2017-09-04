@@ -156,10 +156,10 @@ void cgame_draw02(CObject *context, CObject *args) {
      ver[pointer++] =  out[1];
      ver[pointer++] =  out[2];
      //printf("[%d] %f %f %f \r\n ", j, out[0], out[1], out[2]);
-     ver[pointer++] =  1.0;//vColors[j*4+0];
-     ver[pointer++] =  1.0;//vColors[j*4+1];
-     ver[pointer++] =  1.0;//vColors[j*4+2];
-     ver[pointer++] =  1.0;//vColors[j*4+3];
+     ver[pointer++] =  vColors[j*4+0];
+     ver[pointer++] =  vColors[j*4+1];
+     ver[pointer++] =  vColors[j*4+2];
+     ver[pointer++] =  vColors[j*4+3];
      //
      // mul(normal(inverseMat3(transposeMat3(model))), normal)
      cmatrix4raw_mulVector(n, vNormals[j*3+0], vNormals[j*3+1], vNormals[j*3+2], 1.0, out);

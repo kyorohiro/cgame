@@ -41,14 +41,14 @@ CPrimitive3D* initCPrimitive3DAsTriangle(CPrimitive3D* obj) {
    0.5f, -0.5f, 0.0f,
   };
   CMatrixVertexType normals[] = {
-    0.0, 0.0, 1.0, 1.0,
-    0.0, 1.0, 0.0, 1.0,
-    1.0, 0.0, 0.0, 1.0
+    0.0, 0.0, 1.0,
+    0.0, 0.0, 1.0,
+    0.0, 0.0, 1.0
   };
   CMatrixVertexType colors[] = {
-     0.0, 0.0, 0.0,
-     0.0, 0.0, 0.0,
-     0.0, 0.0, 0.0
+     1.0, 1.0, 1.0, 1.0,
+     1.0, 1.0, 1.0, 1.0,
+     1.0, 1.0, 1.0, 1.0
   };
   CMatrixIndexType indexes[] = {
     0, 1, 2
