@@ -95,6 +95,39 @@ CGame* getCGame() {
 }
 
 void cgame_draw(CObject *context, CObject *args) {
+  //
+  // mouse ray
+  CGame* gameObj = (CGame*)context;
+  CApp* appObj = gameObj->app;
+  CCamera3D* camera = cgame_getCamera(gameObj);
+  CAppMouseEvent *event = cgame_getCurrentMouseEvent(gameObj);
+
+  double mouseX = event->x - appObj->width/2;
+  double mouseY = event->y - appObj->height/2;
+
+
+  CMatrix4Raw tmp;
+  CVector3Raw out2;
+  cmatrix4raw_mul(camera->projection->value, camera->view->value, tmp);
+  cmatrix4raw_unproject(tmp, -mouseX, appObj->width, mouseY, appObj->height, appObj->width/2, appObj->height/2, 1.0, out2);
+  //cvector3raw_show(out2);
+
+  //
+  CVector3Raw ori;
+  CVector3Raw dir;
+  cvector3raw_setValues(ori, 0.0, 0.0, 5.0);
+  cvector3raw_sub(out2, ori, dir);
+
+  gameObj->mouseRay->direction->value[0] = dir[0];
+  gameObj->mouseRay->direction->value[1] = dir[1];
+  gameObj->mouseRay->direction->value[2] = dir[2];
+
+  gameObj->mouseRay->origin->value[0] = ori[0];
+  gameObj->mouseRay->origin->value[1] = ori[1];
+  gameObj->mouseRay->origin->value[2] = ori[2];
+
+
+
 //  cgame_draw_matu(context, args);
   cgame_draw_ume(context, args);
 }
@@ -110,7 +143,7 @@ CGame* cgame_start(CGame* obj) {
 void cgame_init(CObject *context, CObject *args) {
   printf("#1# cgame_init\n");
 
-  CGame* gameObj = getCGame();
+  CGame* gameObj = (CGame*)context;
   CApp* appObj = gameObj->app;
 
   gameObj->fShaderLocation = cglu_loadShader(GL_FRAGMENT_SHADER, cstring_getBytes(gameObj->fShaderSrc));
