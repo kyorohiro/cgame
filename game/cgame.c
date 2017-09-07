@@ -135,7 +135,7 @@ void cgame_draw(CObject *context, CObject *args) {
 }
 
 CGame* cgame_start(CGame* obj) {
-  printf("## cgame_start %s\r\n", SDL_GetBasePath());
+  printf("## cgame_start \r\n");
   #if RENDER_MODE == 0
   printf("## ume\n");
   #else
