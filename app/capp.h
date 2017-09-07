@@ -47,15 +47,16 @@ typedef struct {
   CEventDispatcher *display;
   int debugCount;
   double debugTime;
-  int fps;
-  int isQuit;
 #ifdef USE_SDL_2
   SDL_Window* window;
   SDL_Renderer *renderer;
 #else
   SDL_Surface* screen;
 #endif
+  int fps;
   int fpsCount;
+//
+  int isQuit;
 } CApp;
 
 //
