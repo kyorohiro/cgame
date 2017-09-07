@@ -143,5 +143,9 @@ CObject* releaseCObject(CObject* obj) {
 }
 
 CMemory* cobject_getCMemory(CObject*obj) {
-  return obj->cmemory;
+  if(obj->cmemory == NULL) {
+    return getCMemory();
+  } else {
+    return obj->cmemory;
+  }
 }
