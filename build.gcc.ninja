@@ -12,10 +12,13 @@ exaExt = exe
 objLib = a
 cc = cc
 ar = ar
+sdlVersion = 2
+
+
 rule obj
-  command=${cmd} ${cc} -c $in -o $out -I.. -I. -O2 -I/usr/local/Cellar/sdl2/2.0.5/include/SDL2/ -DPLATFORM_OSX
+  command=${cmd} ${cc} -c $in -o $out -I.. -I. -O2 -I/usr/local/Cellar/sdl2/2.0.5/include/SDL2/ -DPLATFORM_OSX -DUSE_SDL_${sdlVersion}
 rule test
-  command=${cmd} ${cc} $in -o $out -DPLATFORM_OSX
+  command=${cmd} ${cc} $in -o $out -DPLATFORM_OSX -DUSE_SDL_${sdlVersion}
 rule lib
   command=${cmd} ${ar} rcs $out $in
 rule exe

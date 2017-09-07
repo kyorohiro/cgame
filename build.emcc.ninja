@@ -15,15 +15,15 @@ objLib = bc
 sdlVersion = 2
 
 rule obj
-  command=${cmd} emcc -c $in -o $out -I.. -I. -s USE_SDL=${sdlVersion} -DPLATFORM_EMCC
+  command=${cmd} emcc -c $in -o $out -I.. -I. -s USE_SDL=${sdlVersion} -DPLATFORM_EMCC -DUSE_SDL_${sdlVersion}
 rule test
-  command=${cmd} emcc $in -o $out --embed-file core/assets/test.dat  -s USE_SDL=${sdlVersion} -DPLATFORM_EMCC
+  command=${cmd} emcc $in -o $out --embed-file core/assets/test.dat  -s USE_SDL=${sdlVersion} -DPLATFORM_EMCC -DUSE_SDL_${sdlVersion}
 rule lib
-  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -DPLATFORM_EMCC
+  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion}
 rule exe
-  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -O2 -DPLATFORM_EMCC
+  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -O2
 rule app
-  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out --preload-file game/assets/ -s USE_SDL=2 -O2 -DPLATFORM_EMCC
+  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out --preload-file game/assets/ -s USE_SDL=2 -O2
 
 
 #
