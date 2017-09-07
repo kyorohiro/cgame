@@ -5,7 +5,8 @@
 
 int fps;
 void _testOnDisplay(CObject* context, CObject* args) {
-  
+  glClearColor(1.0, 0.7, 0.7, 1.0);//rgba
+  glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
   CApp* appObj = getCApp();
   capp_postRedisplay(appObj);
   if(fps != appObj->fps) {

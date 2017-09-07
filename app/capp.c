@@ -117,14 +117,20 @@ CApp* capp_run(CApp* obj) {
 //  SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 //  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 1);
 //  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
-
+#ifdef USE_SDL_2
   obj->window = SDL_CreateWindow("test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, obj->width, obj->height, SDL_WINDOW_OPENGL);
   if (!obj->window) {
     printf("failed to create window\n");
     return obj;
   }
   obj->renderer = SDL_CreateRenderer(obj->window, -1, 0);
-
+#else
+  obj->screen = SDL_SetVideoMode( 640, 480, 0, SDL_HWSURFACE|SDL_OPENGL| SDL_DOUBLEBUF );
+  if (obj->screen == NULL) {
+    printf("failed to create window\n");
+    return obj;
+  }
+#endif
   //SDL_GLContext glContext;
   //glContext = SDL_GL_CreateContext(window);
   //if (!glContext) {
@@ -213,7 +219,11 @@ CApp* capp_postRedisplay(CApp* obj) {
 CApp* capp_flushBuffers(CApp* obj) {
   // glutSwapBuffers();
   //SDL_GL_SwapWindow(obj->window);
+#ifdef USE_SDL_2
   SDL_RenderPresent(obj->renderer);
+#else
+  SDL_GL_SwapBuffers();
+#endif
   return obj;
 }
 
