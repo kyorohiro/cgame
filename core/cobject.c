@@ -14,10 +14,16 @@ CObject* newCObject(CMemory* cmemory) {
   return ret;
 }
 
+CObject* initCObjectRock(CObject*obj, const char *name) {
+  snprintf(obj->name, sizeof(obj->name), "%s", name);
+  obj->cmemory = NULL;
+  obj->funcFree = NULL;
+  return initCObject(obj, name);
+}
+
 CObject* initCObject(CObject*obj, const char *name) {
   snprintf(obj->name, sizeof(obj->name), "%s", name);
   obj->reference = 1;
-//  obj->funcFree = freeCObject;
   obj->funcHashCode = _hashCode;
   obj->funcCompareTo = _compareTo;
   obj->funcEquals = _equals;
