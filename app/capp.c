@@ -4,6 +4,7 @@
 #include "core/cbytesBuilder.h"
 #include <stdio.h>
 #include <math.h>
+#include <string.h>
 
 //
 #include <stdio.h>
@@ -237,7 +238,11 @@ CAppMouseEvent* initCAppMouseEvent(CAppMouseEvent* obj, int state, float x, floa
 
 char* capp_getAssetsPath(CApp* obj, char* path, char* out) {
 #ifdef PLATFORM_EMCC
+  #ifdef USE_SDL_2
   char* basePath = SDL_GetBasePath();
+  #else
+  char* basePath = "/";
+  #endif
 #else
   char* basePath = "./";
 #endif
