@@ -23,6 +23,7 @@ typedef struct {
 
 typedef struct {
   CObject parent;
+  int channelId;
   Mix_Chunk *value;
 } CMixerChunk;
 
@@ -30,11 +31,13 @@ CMixer* newCMixer(CMemory* mem);
 CMixer* initCMixer(CMixer* obj);
 CMixerChunk* cmixer_createChunk(CMixer* obj, char* path);
 
-
 CMixerChunk* newCMixerChunk(CMemory* mem);
-CMixerChunk* initCMixerChunk(CMixerChunk* obj, Mix_Chunk* value);
+CMixerChunk* initCMixerChunk(CMixerChunk* obj, int channelId, Mix_Chunk* value);
 
-CMixerChunk* cmixerChunk_play(CMixerChunk* obj, int channelId, int loop);
-CMixerChunk* cmixerChunk_setVolume(CMixerChunk* obj, int volume);
+CMixerChunk* cmixer_playChunk(CMixer* obj, int channelId, CMixerChunk*, int loop);
+CMixerChunk* cmixer_pauseChunk(CMixer* obj, CMixerChunk*);
+CMixerChunk* cmixer_resumeChunk(CMixer* obj, CMixerChunk*);
+CMixerChunk* cmixer_haltChunk(CMixer* obj, CMixerChunk*);
+CMixerChunk* cmixer_setChunkVolume(CMixer* obj, CMixerChunk*, int volume);
 
 #endif

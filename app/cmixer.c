@@ -46,32 +46,50 @@ CMixerChunk* newCMixerChunk(CMemory* cmemory) {
   return ret;
 }
 
-CMixerChunk* initCMixerChunk(CMixerChunk* obj, Mix_Chunk* value) {
+CMixerChunk* initCMixerChunk(CMixerChunk* obj, int channelId, Mix_Chunk* value) {
   initCObject((CObject*)obj, CMIXER_CHANNEL_NAME);
   obj->value = value;
+  obj->channelId = channelId;
   return obj;
 }
 
-CMixerChunk* cmixer_createChunk(CMixer* obj, char* path){
+CMixerChunk* cmixer_createChunk(CMixer* obj, char* path) {
   CMemory* mem = cobject_getCMemory((CObject*)obj);
   Mix_Chunk* chunk = Mix_LoadWAV(path);
   if( chunk == NULL) {
     printf("Failed at Mix_LoadWAV\r\n");
     return NULL;
   }
-  CMixerChunk* ret = initCMixerChunk(newCMixerChunk(mem),chunk);
+  CMixerChunk* ret = initCMixerChunk(newCMixerChunk(mem), 0, chunk);
   return ret;
 }
 
-CMixerChunk* cmixerChunk_play(CMixerChunk* obj, int channelId, int loop) {
-  if( Mix_PlayChannel( channelId, obj->value, loop ) == -1 ) {
+
+CMixerChunk* cmixer_playChunk(CMixer* obj, int channelId, CMixerChunk* objCh, int loop) {
+  if( Mix_PlayChannel( channelId, objCh->value, loop ) == -1 ) {
     printf("Failed at Mix_PlayChannel\r\n");
-    return obj;
+    return objCh;
   }
-  return obj;
+  objCh->channelId = channelId;
+  return objCh;
 }
 
-CMixerChunk* cmixerChunk_setVolume(CMixerChunk* obj, int volume) {
-  Mix_VolumeChunk(obj->value, volume);
-  return obj;
+CMixerChunk* cmixer_setChunkVolume(CMixer* obj, CMixerChunk* objCh, int volume) {
+  Mix_VolumeChunk(objCh->value, volume);
+  return objCh;
+}
+
+CMixerChunk* cmixer_pauseChunk(CMixer* obj, CMixerChunk* objCh) {
+  Mix_Pause(objCh->channelId);
+  return objCh;
+}
+
+CMixerChunk* cmixer_resumeChunk(CMixer* obj, CMixerChunk* objCh) {
+  Mix_Resume(objCh->channelId);
+  return objCh;
+}
+
+CMixerChunk* cmixer_haltChunk(CMixer* obj, CMixerChunk* objCh) {
+  Mix_HaltChannel(objCh->channelId);
+  return objCh;
 }

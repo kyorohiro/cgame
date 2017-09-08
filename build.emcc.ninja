@@ -12,7 +12,7 @@ objExt = bc
 appExt = js
 exaExt = html
 objLib = bc
-sdlVersion = 1
+sdlVersion = 2
 
 rule obj
   command=${cmd} emcc -c $in -o $out -I.. -I. -s USE_SDL=${sdlVersion} -DPLATFORM_EMCC -DUSE_SDL_${sdlVersion}
