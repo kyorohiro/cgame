@@ -49,4 +49,10 @@ CMixerChunk* cmixer_resumeChunk(CMixer* obj, CMixerChunk*);
 CMixerChunk* cmixer_haltChunk(CMixer* obj, CMixerChunk*);
 CMixerChunk* cmixer_setChunkVolume(CMixer* obj, CMixerChunk*, int volume);
 
+CMixerMusic* cmixer_createMusic(CMixer* obj, char* path);
+CMixerMusic* cmixer_playMusic(CMixer* obj, CMixerMusic*, int loop);
+CMixerMusic* cmixer_pauseMusic(CMixer* obj, CMixerMusic*);
+CMixerMusic* cmixer_resumeMusic(CMixer* obj, CMixerMusic*);
+CMixerMusic* cmixer_haltMusic(CMixer* obj, CMixerMusic*);
+CMixerMusic* cmixer_setMusicVolume(CMixer* obj, CMixerMusic*, int volume);
 #endif

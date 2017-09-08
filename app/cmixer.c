@@ -63,19 +63,6 @@ CMixerChunk* initCMixerChunk(CMixerChunk* obj, int channelId, Mix_Chunk* value) 
   return obj;
 }
 
-CMixerMusic* newCMixerMusic(CMemory* cmemory) {
-  CMixerMusic* ret = (CMixerMusic*)cmemory_calloc(cmemory, 1, sizeof(CMixerMusic));
-  ret->parent.cmemory = cmemory;
-  ret->parent.funcFree = _freeCMixerMusic;
-  return ret;
-}
-
-CMixerMusic* initCMixerMusic(CMixerMusic* obj, Mix_Music* value) {
-  initCObject((CObject*)obj, CMIXER_CMUSIC_NAME);
-  obj->value = value;
-  return obj;
-}
-
 
 CMixerChunk* cmixer_createChunk(CMixer* obj, char* path) {
   CMemory* mem = cobject_getCMemory((CObject*)obj);
@@ -116,4 +103,56 @@ CMixerChunk* cmixer_resumeChunk(CMixer* obj, CMixerChunk* objCh) {
 CMixerChunk* cmixer_haltChunk(CMixer* obj, CMixerChunk* objCh) {
   Mix_HaltChannel(objCh->channelId);
   return objCh;
+}
+
+//
+//
+//
+CMixerMusic* newCMixerMusic(CMemory* cmemory) {
+  CMixerMusic* ret = (CMixerMusic*)cmemory_calloc(cmemory, 1, sizeof(CMixerMusic));
+  ret->parent.cmemory = cmemory;
+  ret->parent.funcFree = _freeCMixerMusic;
+  return ret;
+}
+
+CMixerMusic* initCMixerMusic(CMixerMusic* obj, Mix_Music* value) {
+  initCObject((CObject*)obj, CMIXER_CMUSIC_NAME);
+  obj->value = value;
+  return obj;
+}
+
+CMixerMusic* cmixer_createMusic(CMixer* obj, char* path) {
+  CMemory* mem = cobject_getCMemory((CObject*)obj);
+  Mix_Music *music = Mix_LoadMUS(path);
+  if( music == NULL) {
+    printf("Failed at Mix_LoadMUS\r\n");
+    return NULL;
+  }
+  CMixerMusic* ret = initCMixerMusic(newCMixerMusic(mem), music);
+  return ret;
+}
+
+CMixerMusic* cmixer_playMusic(CMixer* obj, CMixerMusic* objMu, int loop) {
+  Mix_PlayMusic(objMu->value, 1);
+  return objMu;
+}
+
+CMixerMusic* cmixer_pauseMusic(CMixer* obj, CMixerMusic* objMu) {
+  Mix_PauseMusic();
+  return objMu;
+}
+
+CMixerMusic* cmixer_resumeMusic(CMixer* obj, CMixerMusic* objMu) {
+  Mix_ResumeMusic();
+  return objMu;
+}
+
+CMixerMusic* cmixer_haltMusic(CMixer* obj, CMixerMusic* objMu) {
+  Mix_HaltMusic();
+  return objMu;
+}
+
+CMixerMusic* cmixer_setMusicVolume(CMixer* obj, CMixerMusic* objMu, int volume) {
+  Mix_VolumeMusic(volume);
+  return objMu;
 }
