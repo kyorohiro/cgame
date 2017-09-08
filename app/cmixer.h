@@ -12,8 +12,16 @@
 #include <SDL_mixer.h>
 #endif
 
+#include "core/cobject.h"
+
+#define CMIXER_CHANNEL_NAME "cmc"
+
 typedef struct {
   CObject parent;
+  Mix_Music *music;
 } CMixer;
+
+CMixer* newCMixer(CMemory* mem);
+CMixer* initCMixer(CMixer* obj);
 
 #endif
