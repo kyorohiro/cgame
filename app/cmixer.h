@@ -16,6 +16,7 @@
 
 #define CMIXER_CMIXER_NAME "cmx"
 #define CMIXER_CHANNEL_NAME "cmc"
+#define CMIXER_CMUSIC_NAME "cmu"
 typedef struct {
   CObject parent;
   Mix_Music *music;
@@ -27,11 +28,19 @@ typedef struct {
   Mix_Chunk *value;
 } CMixerChunk;
 
+typedef struct {
+  CObject parent;
+  Mix_Music *value;
+} CMixerMusic;
+
 CMixer* newCMixer(CMemory* mem);
 CMixer* initCMixer(CMixer* obj);
 
 CMixerChunk* newCMixerChunk(CMemory* mem);
 CMixerChunk* initCMixerChunk(CMixerChunk* obj, int channelId, Mix_Chunk* value);
+
+CMixerMusic* newCMixerMusic(CMemory* mem);
+CMixerMusic* initCMixerMusic(CMixerMusic* obj, Mix_Music* value);
 
 CMixerChunk* cmixer_createChunk(CMixer* obj, char* path);
 CMixerChunk* cmixer_playChunk(CMixer* obj, int channelId, CMixerChunk*, int loop);

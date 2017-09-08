@@ -19,6 +19,16 @@ void _freeCMixerChunk(void* obj) {
   freeCObject(obj);
 }
 
+void _freeCMixerMusic(void* obj) {
+  CObject *objObj = (CObject*)obj;
+  CMixerMusic *mixObj = (CMixerMusic*)obj;
+  if(mixObj->value != NULL) {
+    Mix_FreeMusic(mixObj->value);
+    mixObj = NULL;
+  }
+  freeCObject(obj);
+}
+
 CMixer* newCMixer(CMemory* cmemory) {
   CMixer* ret = (CMixer*)cmemory_calloc(cmemory, 1, sizeof(CMixer));
   ret->parent.cmemory = cmemory;
@@ -52,6 +62,20 @@ CMixerChunk* initCMixerChunk(CMixerChunk* obj, int channelId, Mix_Chunk* value) 
   obj->channelId = channelId;
   return obj;
 }
+
+CMixerMusic* newCMixerMusic(CMemory* cmemory) {
+  CMixerMusic* ret = (CMixerMusic*)cmemory_calloc(cmemory, 1, sizeof(CMixerMusic));
+  ret->parent.cmemory = cmemory;
+  ret->parent.funcFree = _freeCMixerMusic;
+  return ret;
+}
+
+CMixerMusic* initCMixerMusic(CMixerMusic* obj, Mix_Music* value) {
+  initCObject((CObject*)obj, CMIXER_CMUSIC_NAME);
+  obj->value = value;
+  return obj;
+}
+
 
 CMixerChunk* cmixer_createChunk(CMixer* obj, char* path) {
   CMemory* mem = cobject_getCMemory((CObject*)obj);
