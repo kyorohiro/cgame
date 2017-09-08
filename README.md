@@ -5,7 +5,10 @@ Generated executable file is moved on browser
 to use emscripten.
 
 ## LICENSE
+- ./examples/assets/se_maoudamashii_element_thunder05.ogg
+  http://maoudamashii.jokersounds.com/music_rule.html
 
+- Other
 <p xmlns:dct="http://purl.org/dc/terms/">
   <a rel="license"
      href="http://creativecommons.org/publicdomain/zero/1.0/">

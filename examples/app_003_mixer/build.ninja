@@ -1,0 +1,4 @@
+#  command=emcc -s FULL_ES2=1  $in -o $out -s USE_SDL=2 -O2
+baseP = examples${sep}app_003_mixer
+build ${baseP}${sep}main.${objExt}: obj ${baseP}${sep}main.c
+build ${baseP}${sep}main.${exaExt}: appEx ${baseP}${sep}main.${objExt} app${sep}libapp.${objLib} core${sep}libcore.${objLib} matrix${sep}libmatrix.${objLib}

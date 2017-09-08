@@ -15,7 +15,7 @@ objLib = bc
 sdlVersion = 1
 
 rule obj
-  command=${cmd} emcc -c $in -o $out -I.. -I. -s USE_SDL=${sdlVersion} -DPLATFORM_EMCC -DUSE_SDL_${sdlVersion} -Werror
+  command=${cmd} emcc -c $in -o $out -I.. -I. -s USE_SDL=${sdlVersion} -DPLATFORM_EMCC -DUSE_SDL_${sdlVersion}
 rule test
   command=${cmd} emcc $in -o $out --embed-file core/assets/test.dat  -s USE_SDL=${sdlVersion} -DPLATFORM_EMCC -DUSE_SDL_${sdlVersion}
 rule lib
@@ -24,7 +24,8 @@ rule exe
   command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -O2
 rule app
   command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out --preload-file game/assets/ -s USE_SDL=${sdlVersion} -O2
-
+rule appEx
+  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out --preload-file game/assets/ --preload-file examples/assets/ -s USE_SDL=${sdlVersion} -O2
 
 #
 # core
@@ -41,5 +42,6 @@ subninja game${sep}build.ninja
 # example
 subninja examples${sep}app_001${sep}build.ninja
 subninja examples${sep}app_002_gl${sep}build.ninja
+#subninja examples${sep}app_003_mixer${sep}build.ninja
 subninja examples${sep}game_001${sep}build.ninja
 subninja examples${sep}game_002${sep}build.ninja
