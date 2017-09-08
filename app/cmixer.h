@@ -28,7 +28,7 @@ typedef struct {
 
 CMixer* newCMixer(CMemory* mem);
 CMixer* initCMixer(CMixer* obj);
-CMixerChunk* cmixer_loadChunk(CMixer* obj, char* path);
+CMixerChunk* cmixer_createChunk(CMixer* obj, char* path);
 
 
 CMixerChunk* newCMixerChunk(CMemory* mem);

@@ -52,7 +52,7 @@ CMixerChunk* initCMixerChunk(CMixerChunk* obj, Mix_Chunk* value) {
   return obj;
 }
 
-CMixerChunk* cmixer_loadChunk(CMixer* obj, char* path){
+CMixerChunk* cmixer_createChunk(CMixer* obj, char* path){
   CMemory* mem = cobject_getCMemory((CObject*)obj);
   Mix_Chunk* chunk = Mix_LoadWAV(path);
   if( chunk == NULL) {
