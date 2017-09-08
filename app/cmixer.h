@@ -29,11 +29,11 @@ typedef struct {
 
 CMixer* newCMixer(CMemory* mem);
 CMixer* initCMixer(CMixer* obj);
-CMixerChunk* cmixer_createChunk(CMixer* obj, char* path);
 
 CMixerChunk* newCMixerChunk(CMemory* mem);
 CMixerChunk* initCMixerChunk(CMixerChunk* obj, int channelId, Mix_Chunk* value);
 
+CMixerChunk* cmixer_createChunk(CMixer* obj, char* path);
 CMixerChunk* cmixer_playChunk(CMixer* obj, int channelId, CMixerChunk*, int loop);
 CMixerChunk* cmixer_pauseChunk(CMixer* obj, CMixerChunk*);
 CMixerChunk* cmixer_resumeChunk(CMixer* obj, CMixerChunk*);
