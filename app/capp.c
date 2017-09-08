@@ -125,7 +125,7 @@ CApp* capp_run(CApp* obj) {
   }
   obj->renderer = SDL_CreateRenderer(obj->window, -1, 0);
 #else
-  obj->screen = SDL_SetVideoMode( 640, 480, 0, SDL_HWSURFACE|SDL_OPENGL| SDL_DOUBLEBUF );
+  obj->screen = SDL_SetVideoMode( obj->width, obj->height, 0, SDL_HWSURFACE|SDL_OPENGL| SDL_DOUBLEBUF );
   if (obj->screen == NULL) {
     printf("failed to create window\n");
     return obj;
