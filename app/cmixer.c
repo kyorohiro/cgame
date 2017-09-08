@@ -7,13 +7,14 @@ void _freeCMixer(void* obj) {
   freeCObject(obj);
 }
 
-CMixer* newCMixer(CMemory* mem) {
-  CBytes* ret = cmemory_calloc(cmemory, 1, sizeof(CBytes));
+CMixer* newCMixer(CMemory* cmemory) {
+  CMixer* ret = (CMixer*)cmemory_calloc(cmemory, 1, sizeof(CMixer));
   ret->parent.cmemory = cmemory;
   ret->parent.funcFree = _freeCMixer;
+  return ret;
 }
 
 CMixer* initCMixer(CMixer* obj){
-  initCObject(obj, CMIXER_CHANNEL_NAME);
+  initCObject((CObject*)obj, CMIXER_CHANNEL_NAME);
   return obj;
 }
