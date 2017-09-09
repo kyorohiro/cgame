@@ -2,6 +2,11 @@
 
 CMixer* newCMixer(CMemory* mem);
 CMixer* initCMixer(CMixer* obj);
+CMixerChunk* newCMixerChunk(CMemory* mem);
+CMixerChunk* initCMixerChunk(CMixerChunk* obj, int channelId, Mix_Chunk* value);
+CMixerMusic* newCMixerMusic(CMemory* mem);
+CMixerMusic* initCMixerMusic(CMixerMusic* obj, Mix_Music* value);
+
 CMixer* defaultCMixer = NULL;
 CMixer* getCMixer() {
   if(defaultCMixer == NULL) {
@@ -85,33 +90,28 @@ CMixerChunk* cmixer_createChunk(CMixer* obj, char* path) {
 }
 
 
-CMixerChunk* cmixer_playChunk(CMixer* obj, int channelId, CMixerChunk* objCh, int loop) {
+void cmixer_playChunk(CMixer* obj, int channelId, CMixerChunk* objCh, int loop) {
   if( Mix_PlayChannel( channelId, objCh->value, loop ) == -1 ) {
     printf("Failed at Mix_PlayChannel\r\n");
-    return objCh;
+    return;
   }
   objCh->channelId = channelId;
-  return objCh;
 }
 
-CMixerChunk* cmixer_setChunkVolume(CMixer* obj, CMixerChunk* objCh, int volume) {
+void cmixer_setChunkVolume(CMixer* obj, CMixerChunk* objCh, int volume) {
   Mix_VolumeChunk(objCh->value, volume);
-  return objCh;
 }
 
-CMixerChunk* cmixer_pauseChunk(CMixer* obj, CMixerChunk* objCh) {
+void cmixer_pauseChunk(CMixer* obj, CMixerChunk* objCh) {
   Mix_Pause(objCh->channelId);
-  return objCh;
 }
 
-CMixerChunk* cmixer_resumeChunk(CMixer* obj, CMixerChunk* objCh) {
+void cmixer_resumeChunk(CMixer* obj, CMixerChunk* objCh) {
   Mix_Resume(objCh->channelId);
-  return objCh;
 }
 
-CMixerChunk* cmixer_haltChunk(CMixer* obj, CMixerChunk* objCh) {
+void cmixer_haltChunk(CMixer* obj, CMixerChunk* objCh) {
   Mix_HaltChannel(objCh->channelId);
-  return objCh;
 }
 
 //
@@ -141,27 +141,22 @@ CMixerMusic* cmixer_createMusic(CMixer* obj, char* path) {
   return ret;
 }
 
-CMixerMusic* cmixer_playMusic(CMixer* obj, CMixerMusic* objMu, int loop) {
+void cmixer_playMusic(CMixer* obj, CMixerMusic* objMu, int loop) {
   Mix_PlayMusic(objMu->value, 1);
-  return objMu;
 }
 
-CMixerMusic* cmixer_pauseMusic(CMixer* obj, CMixerMusic* objMu) {
+void cmixer_pauseMusic(CMixer* obj, CMixerMusic* objMu) {
   Mix_PauseMusic();
-  return objMu;
 }
 
-CMixerMusic* cmixer_resumeMusic(CMixer* obj, CMixerMusic* objMu) {
+void cmixer_resumeMusic(CMixer* obj, CMixerMusic* objMu) {
   Mix_ResumeMusic();
-  return objMu;
 }
 
-CMixerMusic* cmixer_haltMusic(CMixer* obj, CMixerMusic* objMu) {
+void cmixer_haltMusic(CMixer* obj, CMixerMusic* objMu) {
   Mix_HaltMusic();
-  return objMu;
 }
 
-CMixerMusic* cmixer_setMusicVolume(CMixer* obj, CMixerMusic* objMu, int volume) {
+void cmixer_setMusicVolume(CMixer* obj, CMixerMusic* objMu, int volume) {
   Mix_VolumeMusic(volume);
-  return objMu;
 }

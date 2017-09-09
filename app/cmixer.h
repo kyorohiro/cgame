@@ -36,23 +36,17 @@ typedef struct {
 
 CMixer* getCMixer();
 
-CMixerChunk* newCMixerChunk(CMemory* mem);
-CMixerChunk* initCMixerChunk(CMixerChunk* obj, int channelId, Mix_Chunk* value);
-
-CMixerMusic* newCMixerMusic(CMemory* mem);
-CMixerMusic* initCMixerMusic(CMixerMusic* obj, Mix_Music* value);
-
 CMixerChunk* cmixer_createChunk(CMixer* obj, char* path);
-CMixerChunk* cmixer_playChunk(CMixer* obj, int channelId, CMixerChunk*, int loop);
-CMixerChunk* cmixer_pauseChunk(CMixer* obj, CMixerChunk*);
-CMixerChunk* cmixer_resumeChunk(CMixer* obj, CMixerChunk*);
-CMixerChunk* cmixer_haltChunk(CMixer* obj, CMixerChunk*);
-CMixerChunk* cmixer_setChunkVolume(CMixer* obj, CMixerChunk*, int volume);
+void cmixer_playChunk(CMixer* obj, int channelId, CMixerChunk*, int loop);
+void cmixer_pauseChunk(CMixer* obj, CMixerChunk*);
+void cmixer_resumeChunk(CMixer* obj, CMixerChunk*);
+void cmixer_haltChunk(CMixer* obj, CMixerChunk*);
+void cmixer_setChunkVolume(CMixer* obj, CMixerChunk*, int volume);
 
 CMixerMusic* cmixer_createMusic(CMixer* obj, char* path);
-CMixerMusic* cmixer_playMusic(CMixer* obj, CMixerMusic*, int loop);
-CMixerMusic* cmixer_pauseMusic(CMixer* obj, CMixerMusic*);
-CMixerMusic* cmixer_resumeMusic(CMixer* obj, CMixerMusic*);
-CMixerMusic* cmixer_haltMusic(CMixer* obj, CMixerMusic*);
-CMixerMusic* cmixer_setMusicVolume(CMixer* obj, CMixerMusic*, int volume);
+void cmixer_playMusic(CMixer* obj, CMixerMusic*, int loop);
+void cmixer_pauseMusic(CMixer* obj, CMixerMusic*);
+void cmixer_resumeMusic(CMixer* obj, CMixerMusic*);
+void cmixer_haltMusic(CMixer* obj, CMixerMusic*);
+void cmixer_setMusicVolume(CMixer* obj, CMixerMusic*, int volume);
 #endif
