@@ -67,14 +67,25 @@ CTtf* cttfMgr_createTtf(CTtfMgr* obj, char* path, int size) {
 }
 
 CImage* cttf_createCImageAtSolid(CTtf* obj, char *text, double r, double g, double b, double a) {
-  SDL_Color fg;fg.r=255*r;fg.g=255*g;fg.b=255*b;fg.a =255*a;
+  SDL_Color fg;fg.r=255*r;fg.g=255*g;fg.b=255*b;
+#ifdef USE_SDL_2
+fg.a =255*a;
+#else
+fg.unused =255*a;
+#endif
   SDL_Surface* surface = TTF_RenderUTF8_Solid(obj->value, text, fg);
   CMemory* mem = cobject_getCMemory((CObject*)obj);
   return initCImageFromSDLSurface(newCImage(mem), surface);
 }
 
 CImage*  cttf_createCImageAtShaded(CTtf* obj, char *text, double r, double g, double b, double a) {
-  SDL_Color fg;fg.r=255*r;fg.g=255*g;fg.b=255*b;fg.a =255*a;
+  SDL_Color fg;fg.r=255*r;fg.g=255*g;fg.b=255*b;
+#ifdef USE_SDL_2
+fg.a =255*a;
+#else
+fg.unused =255*a;
+#endif
+
   SDL_Color bg = {0xff,0xff,0xff,0xff};
   SDL_Surface* surface = TTF_RenderUTF8_Shaded(obj->value, text, fg, bg);
   CMemory* mem = cobject_getCMemory((CObject*)obj);
@@ -82,7 +93,12 @@ CImage*  cttf_createCImageAtShaded(CTtf* obj, char *text, double r, double g, do
 }
 
 CImage* cttf_createCImageAtBlended(CTtf* obj, char *text, double r, double g, double b, double a) {
-  SDL_Color fg;fg.r=255*r;fg.g=255*g;fg.b=255*b;fg.a =255*a;
+  SDL_Color fg;fg.r=255*r;fg.g=255*g;fg.b=255*b;
+#ifdef USE_SDL_2
+fg.a =255*a;
+#else
+fg.unused =255*a;
+#endif
   SDL_Surface* surface = TTF_RenderUTF8_Blended(obj->value, text, fg);
   CMemory* mem = cobject_getCMemory((CObject*)obj);
   return initCImageFromSDLSurface(newCImage(mem), surface);

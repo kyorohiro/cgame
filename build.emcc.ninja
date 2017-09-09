@@ -25,7 +25,7 @@ rule exe
 rule app
   command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} -O2 --preload-file game/assets/
 rule appEx
-  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} -O2 --preload-file game/assets/ --preload-file examples/assets/ 
+  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} -O2 --preload-file game/assets/ --preload-file examples/assets/
 
 #
 # core
@@ -45,3 +45,4 @@ subninja examples${sep}app_002_gl${sep}build.ninja
 subninja examples${sep}app_003_mixer${sep}build.ninja
 subninja examples${sep}game_001${sep}build.ninja
 subninja examples${sep}game_002${sep}build.ninja
+subninja examples${sep}app_004_gl_texture${sep}build.ninja
