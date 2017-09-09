@@ -1,5 +1,14 @@
 #include "cmixer.h"
 
+CMixer* newCMixer(CMemory* mem);
+CMixer* initCMixer(CMixer* obj);
+CMixer* defaultCMixer = NULL;
+CMixer* getCMixer() {
+  if(defaultCMixer == NULL) {
+    defaultCMixer = initCMixer(newCMixer(getCMemory()));
+  }
+  return defaultCMixer;
+}
 
 void _freeCMixer(void* obj) {
   CObject *objObj = (CObject*)obj;

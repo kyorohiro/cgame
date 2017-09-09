@@ -33,8 +33,8 @@ typedef struct {
   Mix_Music *value;
 } CMixerMusic;
 
-CMixer* newCMixer(CMemory* mem);
-CMixer* initCMixer(CMixer* obj);
+
+CMixer* getCMixer();
 
 CMixerChunk* newCMixerChunk(CMemory* mem);
 CMixerChunk* initCMixerChunk(CMixerChunk* obj, int channelId, Mix_Chunk* value);
