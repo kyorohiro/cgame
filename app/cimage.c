@@ -24,7 +24,7 @@ CImage* cimageMgr_createImage(CImageMgr* obj, char* path) {
 void _freeCImage(void* obj) {
   CObject *objObj = (CObject*)obj;
   CImage *imgObj = (CImage*)obj;
-  if(imgObj == NULL) {
+  if(imgObj != NULL) {
     SDL_FreeSurface(imgObj->value);
     imgObj->value = NULL;
   }

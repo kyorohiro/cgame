@@ -71,51 +71,50 @@ void _onDisplay(CObject* context, CObject* args) {
   int imageW = cimage_getWidth(img);
   int imageH = cimage_getHeight(img);
 
+  glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
-    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+  // buffer
+  GLuint vertexBuffer;
+  GLuint indexBuffer;
+  GLuint textureBuffer;
+  glGenBuffers(1, &vertexBuffer);
+  glGenBuffers(1, &indexBuffer);
+  glGenTextures(1,&textureBuffer);
 
-    // buffer
-    GLuint vertexBuffer;
-    GLuint indexBuffer;
-    GLuint textureBuffer;
-    glGenBuffers(1, &vertexBuffer);
-    glGenBuffers(1, &indexBuffer);
-    glGenTextures(1,&textureBuffer);
+  glBindTexture(GL_TEXTURE_2D, textureBuffer);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    glBindTexture(GL_TEXTURE_2D, textureBuffer);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+  glTexImage2D(GL_TEXTURE_2D, 0, data_fmt,//GL_RGBA,//data_fmt,
+      imageW, imageH, 0, data_fmt, GL_UNSIGNED_BYTE, pixels);
+  glGenerateMipmap(GL_TEXTURE_2D);
 
-    glTexImage2D(GL_TEXTURE_2D, 0, data_fmt,//GL_RGBA,//data_fmt,
-        imageW, imageH, 0, data_fmt, GL_UNSIGNED_BYTE, pixels);
-    glGenerateMipmap(GL_TEXTURE_2D);
+  releaseCObject((CObject*)img);
 
-    releaseCObject((CObject*)img);
-
-    //
-    // shader
-    glUseProgram(program);
-    int positionLoc = glGetAttribLocation(program, "position");
-    int texCoordLoc = glGetAttribLocation(program, "texCoord");
-    glEnableVertexAttribArray(positionLoc);
-    glEnableVertexAttribArray(texCoordLoc);
+  //
+  // shader
+  glUseProgram(program);
+  int positionLoc = glGetAttribLocation(program, "position");
+  int texCoordLoc = glGetAttribLocation(program, "texCoord");
+  glEnableVertexAttribArray(positionLoc);
+  glEnableVertexAttribArray(texCoordLoc);
 
 
-    //
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*5*3, vertexBufferData, GL_STATIC_DRAW);
+  //
+  glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*5*3, vertexBufferData, GL_STATIC_DRAW);
 
-    glVertexAttribPointer(positionLoc, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)0);
-    glVertexAttribPointer(texCoordLoc, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(3* sizeof(GLfloat)));
+  glVertexAttribPointer(positionLoc, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)0);
+  glVertexAttribPointer(texCoordLoc, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(3* sizeof(GLfloat)));
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLshort)*3, indexData, GL_STATIC_DRAW);
-    glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, 0);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLshort)*3, indexData, GL_STATIC_DRAW);
+  glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, 0);
 
-    glDeleteBuffers(1, &vertexBuffer);
-    glDeleteBuffers(1, &indexBuffer);
+  glDeleteBuffers(1, &vertexBuffer);
+  glDeleteBuffers(1, &indexBuffer);
 
 
   if(fps != appObj->fps) {
