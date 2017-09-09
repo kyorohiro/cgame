@@ -3,5 +3,6 @@ build ${baseP}${sep}capp.${objExt}: obj ${baseP}${sep}capp.c
 build ${baseP}${sep}cglu.${objExt}: obj ${baseP}${sep}cglu.c
 build ${baseP}${sep}cmixer.${objExt}: obj ${baseP}${sep}cmixer.c
 build ${baseP}${sep}cimage.${objExt}: obj ${baseP}${sep}cimage.c
+build ${baseP}${sep}cttf.${objExt}: obj ${baseP}${sep}cttf.c
 
 build ${baseP}${sep}libapp.${objLib}: lib ${baseP}${sep}capp.${objExt} ${baseP}${sep}cglu.${objExt} ${baseP}${sep}cmixer.${objExt} ${baseP}${sep}cimage.${objExt}
