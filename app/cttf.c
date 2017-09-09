@@ -1,6 +1,7 @@
 #include "cttf.h"
 #include <stdio.h>
 #include <SDL_opengl.h>
+#include "cimage.h"
 
 CTtfMgr* newCTtfMgr(CMemory* mem);
 CTtfMgr* initCTtfMgr(CTtfMgr* obj);
@@ -60,7 +61,29 @@ CTtf* initCTtf(CTtf* obj, char* path, int size) {
 }
 
 
-CTtf* createTtf(CTtfMgr* obj, char* path, int size) {
+CTtf* cttfMgr_createTtf(CTtfMgr* obj, char* path, int size) {
   CMemory* mem = cobject_getCMemory((CObject*)obj);
   return initCTtf(newCTtf(mem), path, size);
+}
+
+CImage* cttf_createCImageAtSolid(CTtf* obj, char *text, double r, double g, double b, double a) {
+  SDL_Color fg;fg.r=255*r;fg.g=255*g;fg.b=255*b;fg.a =255*a;
+  SDL_Surface* surface = TTF_RenderUTF8_Solid(obj->value, text, fg);
+  CMemory* mem = cobject_getCMemory((CObject*)obj);
+  return initCImageFromSDLSurface(newCImage(mem), surface);
+}
+
+CImage*  cttf_createCImageAtShaded(CTtf* obj, char *text, double r, double g, double b, double a) {
+  SDL_Color fg;fg.r=255*r;fg.g=255*g;fg.b=255*b;fg.a =255*a;
+  SDL_Color bg = {0xff,0xff,0xff,0xff};
+  SDL_Surface* surface = TTF_RenderUTF8_Shaded(obj->value, text, fg, bg);
+  CMemory* mem = cobject_getCMemory((CObject*)obj);
+  return initCImageFromSDLSurface(newCImage(mem), surface);
+}
+
+CImage* cttf_createCImageAtBlended(CTtf* obj, char *text, double r, double g, double b, double a) {
+  SDL_Color fg;fg.r=255*r;fg.g=255*g;fg.b=255*b;fg.a =255*a;
+  SDL_Surface* surface = TTF_RenderUTF8_Blended(obj->value, text, fg);
+  CMemory* mem = cobject_getCMemory((CObject*)obj);
+  return initCImageFromSDLSurface(newCImage(mem), surface);
 }

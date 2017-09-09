@@ -24,6 +24,9 @@ typedef struct {
 
 CImageMgr* getCImageMgr(CMemory* mem);
 CImage* cimageMgr_createImage(CImageMgr* obj, char* path);
+CImage* initCImageFromSDLSurface(CImage* obj, SDL_Surface* value);
+CImage* newCImage(CMemory* mem);
+
 
 int cimage_getWidth(CImage* obj);
 int cimage_getHeight(CImage* obj);

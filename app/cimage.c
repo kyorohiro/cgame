@@ -4,8 +4,8 @@
 
 CImageMgr* newCImageMgr(CMemory* mem);
 CImageMgr* initCImageMgr(CImageMgr* obj);
-CImage* newCImage(CMemory* mem);
 CImage* initCImage(CImage* obj, char* path);
+
 
 CImageMgr* defaultCImageMgr = NULL;
 CImageMgr* getCImageMgr(CMemory* mem) {
@@ -64,6 +64,12 @@ CImage* newCImage(CMemory* cmemory) {
 CImage* initCImage(CImage* obj, char* path){
   initCObject((CObject*)obj, CIMAGE_NAME);
   SDL_Surface* value = IMG_Load( path );
+  obj->value = value;
+  return obj;
+}
+
+CImage* initCImageFromSDLSurface(CImage* obj, SDL_Surface* value) {
+  initCObject((CObject*)obj, CIMAGE_NAME);
   obj->value = value;
   return obj;
 }
