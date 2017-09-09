@@ -131,7 +131,7 @@ void _onDisplay(CObject* context, CObject* args) {
 int main(int argc, char** argv) {
   printf("capp sample\r\n");
   //appObj = getCApp();//
-  appObj = initCApp(newCApp(getCMemory()), 400, 300);
+  appObj = initCApp(newCApp(getCMemory()), 300, 300);
   CString *context = initCString(newCString(getCMemory()), "dummy");
   capp_addDisplayEventListener(appObj, (CObject*)context, _onDisplay);
   capp_addInitEventListener(appObj,  (CObject*)context, _onInit);
