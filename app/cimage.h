@@ -22,7 +22,7 @@ typedef struct {
   CObject parent;
 } CImageMgr;
 
-CImageMgr* getCImageMgr(CMemory* mem);
+CImageMgr* getCImageMgr();
 CImage* cimageMgr_createImage(CImageMgr* obj, char* path);
 CImage* initCImageFromSDLSurface(CImage* obj, SDL_Surface* value);
 CImage* newCImage(CMemory* mem);

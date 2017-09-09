@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include "app/capp.h"
 #include "core/ccore.h"
-
-#include <SDL.h>
-#include <SDL_image.h>
+#include "app/cimage.h"
 int fps;
 CApp* appObj;
 int frgShader;
@@ -66,12 +64,12 @@ void _onDisplay(CObject* context, CObject* args) {
   //
   //
   int texture;
-  SDL_Surface *image = IMG_Load("./examples/assets/icon.png");
-  if (!image)
-  {
-     printf("Failed at IMG_Load: %s\n", IMG_GetError());
-     return ;
-  }
+  CImageMgr* mgr = getCImageMgr();
+  CImage* img = cimageMgr_createImage(mgr, "./examples/assets/icon.png");
+  GLenum data_fmt = cimage_getColorFormatGL(img, GL_RGB);
+  void* pixels = cimage_getPixels(img);
+  int imageW = cimage_getWidth(img);
+  int imageH = cimage_getHeight(img);
 
 
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
@@ -84,37 +82,18 @@ void _onDisplay(CObject* context, CObject* args) {
     glGenBuffers(1, &indexBuffer);
     glGenTextures(1,&textureBuffer);
 
-    // texture
-    GLenum data_fmt;
-    GLint nOfColors = image->format->BytesPerPixel;
-    if (nOfColors == 4) {
-      if (image->format->Rmask == 0x000000ff) {
-        data_fmt = GL_RGBA;
-      } else {
-        data_fmt = GL_BGRA;
-      }
-    } else if (nOfColors == 3) {
-      if (image->format->Rmask == 0x000000ff){
-        data_fmt = GL_RGBA;
-      } else {
-        data_fmt = GL_BGRA;
-      }
-    } else {
-      printf("warning: the image is not truecolor..  this will probably break\n");
-    }
     glBindTexture(GL_TEXTURE_2D, textureBuffer);
-  //  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
-  //  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     glTexImage2D(GL_TEXTURE_2D, 0, data_fmt,//GL_RGBA,//data_fmt,
-        image->w, image->h, 0, data_fmt, GL_UNSIGNED_BYTE, image->pixels);
+        imageW, imageH, 0, data_fmt, GL_UNSIGNED_BYTE, pixels);
     glGenerateMipmap(GL_TEXTURE_2D);
-  //  printf("%d %d %d\r\n", image->w, image->h, test);
-    SDL_FreeSurface(image);
+
+    releaseCObject((CObject*)img);
+
     //
     // shader
     glUseProgram(program);

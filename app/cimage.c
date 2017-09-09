@@ -8,7 +8,7 @@ CImage* initCImage(CImage* obj, char* path);
 
 
 CImageMgr* defaultCImageMgr = NULL;
-CImageMgr* getCImageMgr(CMemory* mem) {
+CImageMgr* getCImageMgr() {
   if(defaultCImageMgr == NULL) {
     defaultCImageMgr = initCImageMgr(newCImageMgr(getCMemory()));
   }
