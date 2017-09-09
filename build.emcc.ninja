@@ -21,7 +21,7 @@ rule test
 rule lib
   command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion}
 rule exe
-  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} -O2 --use-preload-plugins 
+  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} -O2 --use-preload-plugins
 rule app
   command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} -O2 --use-preload-plugins --preload-file game/assets/
 rule appEx
@@ -43,6 +43,6 @@ subninja game${sep}build.ninja
 subninja examples${sep}app_001${sep}build.ninja
 subninja examples${sep}app_002_gl${sep}build.ninja
 subninja examples${sep}app_003_mixer${sep}build.ninja
+subninja examples${sep}app_004_gl_texture${sep}build.ninja
 subninja examples${sep}game_001${sep}build.ninja
 subninja examples${sep}game_002${sep}build.ninja
-subninja examples${sep}app_004_gl_texture${sep}build.ninja
