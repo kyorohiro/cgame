@@ -1,5 +1,6 @@
 #include "cimage.h"
 #include <stdio.h>
+#include <SDL_opengl.h>
 
 CImageMgr* newCImageMgr(CMemory* mem);
 CImageMgr* initCImageMgr(CImageMgr* obj);
@@ -65,4 +66,52 @@ CImage* initCImage(CImage* obj, char* path){
   SDL_Surface* value = IMG_Load( path );
   obj->value = value;
   return obj;
+}
+
+int cimage_getWidth(CImage* obj) {
+  return obj->value->w;
+}
+
+int cimage_getHeight(CImage* obj) {
+  return obj->value->h;
+}
+
+void* cimage_getPixels(CImage* obj) {
+  return obj->value->pixels;
+}
+
+int cimage_getColorFormat(CImage* obj) {
+  int nOfColors = obj->value->format->BytesPerPixel;
+  int rmask = obj->value->format->Rmask;
+  if (nOfColors == 4) {
+    if (rmask == 0x000000ff) {
+      return CIMAGE_COLOR_FROMAT_RGBA;
+    } else {
+      return CIMAGE_COLOR_FROMAT_BGRA;
+    }
+  } else if (nOfColors == 3) {
+    if (rmask == 0x000000ff){
+      return CIMAGE_COLOR_FROMAT_RGB;
+    } else {
+      return CIMAGE_COLOR_FROMAT_BGR;
+    }
+  } else {
+    return CIMAGE_COLOR_FROMAT_NONE;
+  }
+}
+
+int cimage_getColorFormatGL(CImage* obj, int def) {
+  int v = cimage_getColorFormat(obj);
+  switch (v) {
+    case CIMAGE_COLOR_FROMAT_RGBA:
+      return GL_RGBA;
+    case CIMAGE_COLOR_FROMAT_BGRA:
+      return GL_BGRA;
+    case CIMAGE_COLOR_FROMAT_RGB:
+      return GL_RGB;
+    case CIMAGE_COLOR_FROMAT_BGR:
+      return GL_BGR;
+    default:
+      return def;
+  }
 }
