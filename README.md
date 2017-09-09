@@ -8,6 +8,11 @@ to use emscripten.
 - ./examples/assets/se_maoudamashii_element_thunder05.ogg
   http://maoudamashii.jokersounds.com/music_rule.html
 
+
+- ./examples/assets/se_maoudamashii_element_wind01.ogg
+  http://maoudamashii.jokersounds.com/music_rule.html
+
+
 - Other
 <p xmlns:dct="http://purl.org/dc/terms/">
   <a rel="license"

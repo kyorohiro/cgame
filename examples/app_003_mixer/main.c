@@ -23,6 +23,11 @@ int main(int argc, char** argv) {
   CString *context = initCString(newCString(getCMemory()), "dummy");
   capp_addDisplayEventListener(appObj, (CObject*)context, _testOnDisplay);
   CMixer* mixer = initCMixer(newCMixer(getCMemory()));
+  CMixerMusic* music1 = cmixer_createMusic(mixer, "examples/assets/se_maoudamashii_element_thunder05.ogg");
+  CMixerMusic* music2 = cmixer_createMusic(mixer, "examples/assets/se_maoudamashii_element_wind01.ogg");
+
+  cmixer_playMusic(mixer, music2, -1);
+  cmixer_playMusic(mixer, music1, -1);
 
   capp_run(appObj);
   return 0;

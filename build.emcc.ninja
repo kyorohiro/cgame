@@ -42,6 +42,6 @@ subninja game${sep}build.ninja
 # example
 subninja examples${sep}app_001${sep}build.ninja
 subninja examples${sep}app_002_gl${sep}build.ninja
-#subninja examples${sep}app_003_mixer${sep}build.ninja
+subninja examples${sep}app_003_mixer${sep}build.ninja
 subninja examples${sep}game_001${sep}build.ninja
 subninja examples${sep}game_002${sep}build.ninja
