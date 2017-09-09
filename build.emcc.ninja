@@ -21,11 +21,11 @@ rule test
 rule lib
   command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion}
 rule exe
-  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} -O2
+  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} -O2 --use-preload-plugins 
 rule app
-  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} -O2 --preload-file game/assets/
+  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} -O2 --use-preload-plugins --preload-file game/assets/
 rule appEx
-  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} -O2 --preload-file game/assets/ --preload-file examples/assets/
+  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} -O2 --use-preload-plugins --preload-file game/assets/ --preload-file examples/assets/
 
 #
 # core
