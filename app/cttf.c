@@ -5,7 +5,7 @@
 CTtfMgr* newCTtfMgr(CMemory* mem);
 CTtfMgr* initCTtfMgr(CTtfMgr* obj);
 CTtf* newCTtf(CMemory* mem);
-CTtf* initCTtf(CTtf* obj, char* path);
+CTtf* initCTtf(CTtf* obj, char* path, int size);
 
 CTtfMgr* defaultCTtfMgr = NULL;
 CTtfMgr* getCTtfMgr(CMemory* mem) {
@@ -33,4 +33,34 @@ CTtfMgr* initCTtfMgr(CTtfMgr* obj) {
   initCObject((CObject*)obj, CTTF_MGR_NAME);
   TTF_Init();
   return obj;
+}
+
+
+void _freeCTtf(void* obj) {
+  CObject *objObj = (CObject*)obj;
+  CTtf *ttfObj = (CTtf*)obj;
+  if(ttfObj->value == NULL) {
+    TTF_CloseFont(ttfObj->value);
+  }
+  freeCObject(obj);
+}
+
+CTtf* newCTtf(CMemory* cmemory) {
+  CTtf* ret = (CTtf*)cmemory_calloc(cmemory, 1, sizeof(CTtf));
+  ret->parent.cmemory = cmemory;
+  ret->parent.funcFree = _freeCTtf;
+  return ret;
+}
+
+CTtf* initCTtf(CTtf* obj, char* path, int size) {
+  initCObject((CObject*)obj, CTTF_NAME);
+  TTF_Font *font = TTF_OpenFont(path, size);
+  obj->value = font;
+  return obj;
+}
+
+
+CTtf* createTtf(CTtfMgr* obj, char* path, int size) {
+  CMemory* mem = cobject_getCMemory((CObject*)obj);
+  return initCTtf(newCTtf(mem), path, size);
 }

@@ -14,8 +14,10 @@ typedef struct {
 
 typedef struct {
   CObject parent;
+  TTF_Font *value;
 } CTtf;
 
 CTtfMgr* getCTtfMgr(CMemory* mem);
+CTtf* createTtf(CTtfMgr*, char* path, int size);
 
 #endif
