@@ -5,6 +5,7 @@
 
 #include "core/cobject.h"
 
+#define CIMAGE_MGR_NAME "cig"
 #define CIMAGE_NAME "cim"
 
 typedef struct {
@@ -12,9 +13,12 @@ typedef struct {
   SDL_Surface* value;
 } CImage;
 
+typedef struct {
+  CObject parent;
+} CImageMgr;
 
-CImage* newCImage(CMemory* mem);
-CImage* initCImage(CImage* obj, char* path);
+CImageMgr* getCImageMgr(CMemory* mem);
+CImage* cimageMgr_createImage(CImageMgr* obj, char* path);
 
 
 #endif
