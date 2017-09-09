@@ -5,13 +5,15 @@ Generated executable file is moved on browser
 to use emscripten.
 
 ## LICENSE
-- ./examples/assets/se_maoudamashii_element_thunder05.ogg
+- ./examples/assets/se_maoudamashii_element_thunder05.ogg  
   http://maoudamashii.jokersounds.com/music_rule.html
 
 
-- ./examples/assets/se_maoudamashii_element_wind01.ogg
+- ./examples/assets/se_maoudamashii_element_wind01.ogg  
   http://maoudamashii.jokersounds.com/music_rule.html
 
+- ./examples/assets/Roboto-Bold.ttf  
+  https://fonts.google.com/specimen/Roboto?selection.family=Roboto
 
 - Other
 <p xmlns:dct="http://purl.org/dc/terms/">
