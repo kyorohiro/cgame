@@ -52,4 +52,8 @@ void cprimitive3d_setCImage(CPrimitive3D* obj, CImage* img);
 CImage* cprimitive3d_getCImage(CPrimitive3D* obj);
 char* cprimitive3d_getTextCoordBinary(CPrimitive3D*);
 int cprimitive3d_getTextCoordLength(CPrimitive3D*);
+
+//
+CPrimitive3D* cprimitive3d_setTexCoordAsSquare(CPrimitive3D* obj, CMatrixVertexType x0, CMatrixVertexType y0, CMatrixVertexType x1, CMatrixVertexType y1, CMatrixVertexType x2, CMatrixVertexType y2, CMatrixVertexType x3, CMatrixVertexType y3);
+
 #endif
