@@ -1,0 +1,3 @@
+baseP = examples${sep}game_003
+build ${baseP}${sep}main.${objExt}: obj ${baseP}${sep}main.c
+build ${baseP}${sep}main.${exaExt}: app ${baseP}${sep}main.${objExt} app${sep}libapp.${objLib} game${sep}libgame.${objLib} core${sep}libcore.${objLib} matrix${sep}libmatrix.${objLib}
