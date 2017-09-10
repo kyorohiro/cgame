@@ -24,14 +24,15 @@ typedef struct {
 
 CImageMgr* getCImageMgr();
 CImage* cimageMgr_createImage(CImageMgr* obj, char* path);
-CImage* initCImageFromSDLSurface(CImage* obj, SDL_Surface* value);
+
 CImage* newCImage(CMemory* mem);
+CImage* initCImageFromSDLSurface(CImage* obj, SDL_Surface* value);
 CImage* initCImage(CImage* obj, char* path);
 CImage* initEmptyRPGACImage(CImage* obj, int w, int h);
 CImage* createEmptyRPGACImage(int w, int h);
 
-void cimage_update(CImage *srcs, int sx, int sy, int sw, int sh,
-                    CImage *dst, int dx, int dy, int dw, int dh);
+void cimage_update(CImage *dst, int dx, int dy, int dw, int dh,
+                    CImage *src, int sx, int sy, int sw, int sh);
 int cimage_getWidth(CImage* obj);
 int cimage_getHeight(CImage* obj);
 void* cimage_getPixels(CImage* obj);

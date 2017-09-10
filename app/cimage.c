@@ -86,11 +86,11 @@ CImage* createEmptyRPGACImage(int w, int h) {
   return initEmptyRPGACImage(newCImage(getCMemory()), w, h);
 }
 
-void cimage_update(CImage *srcs, int sx, int sy, int sw, int sh,
-                    CImage *dst, int dx, int dy, int dw, int dh) {
+void cimage_update(CImage *dst, int dx, int dy, int dw, int dh,
+                    CImage *src, int sx, int sy, int sw, int sh) {
   SDL_Rect s = {.x=sx,.y=sy, .w=sw, .h=sh};
   SDL_Rect d = {.x=dx,.y=dy, .w=dw, .h=dh};
-  SDL_BlitSurface(dst->value, &s, srcs->value, &d);
+  SDL_BlitSurface(src->value, &s, dst->value, &d);
 }
 
 CImage* initCImageFromSDLSurface(CImage* obj, SDL_Surface* value) {

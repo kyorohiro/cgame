@@ -45,6 +45,10 @@ CPrimitive3D* cprimitive3d_setColor(CPrimitive3D* obj, double a, double r, doubl
   return obj;
 }
 
+
+//
+//
+//
 char* cprimitive3d_getIndexBinary(CPrimitive3D* obj) {
   if(obj->indexes == NULL) {
     return 0;
@@ -95,5 +99,26 @@ int cprimitive3d_getColorBinaryLength(CPrimitive3D* obj) {
     return 0;
   } else {
     return obj->colors->length;
+  }
+}
+
+//
+CImage* cprimitive3d_getCImage(CPrimitive3D* obj) {
+  return obj->image;
+}
+
+void cprimitive3d_setCImage(CPrimitive3D* obj, CImage* img) {
+  obj->image = img;
+}
+
+char* cprimitive3d_getTextCoordBinary(CPrimitive3D* obj) {
+  return obj->texCoords->value;
+}
+
+int cprimitive3d_getTextCoordBinaryLength(CPrimitive3D* obj) {
+  if(obj->texCoords == NULL) {
+    return 0;
+  } else {
+    return obj->texCoords->length;
   }
 }

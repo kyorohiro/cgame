@@ -8,17 +8,29 @@
 #include "matrix/cmatrix_proj.h"
 
 #include "app/capp.h"
+#include "app/cimage.h"
 #include "core/cobject.h"
 
 int main(int argc, char** argv) {
   printf("call main");
 
   CGame* gameObj = getCGame();
-  CObject3D *root = cgame_getRoot(gameObj);
-  CObject3D *cube1 = (CObject3D*)initCPrimitive3DAsTriangle(newCPrimitive3D(getCMemory()));
+
+  //
+  CImageMgr* mgr = getCImageMgr();
+  CImage* img = createEmptyRPGACImage(1024, 1024);
+  CImage* src = cimageMgr_createImage(mgr, "./examples/assets/icon.png");
+  int imgW = cimage_getWidth(src);
+  int imgH = cimage_getHeight(src);
+  cimage_update(img, 0, 0, imgW, imgH, src, 0, 0, imgW, imgH);
+
+  //
   CObject3D *square1 = (CObject3D*)initCPrimitive3DAsSquare(newCPrimitive3D(getCMemory()));
-  cmatrix4_setTranslation(cobject3d_getCMatrix4((CObject3D*)cube1), 0.0, 0.0, 0.0);
-//  cobject3d_addNode(root, cube1);
+  cmatrix4_setTranslation(cobject3d_getCMatrix4((CObject3D*)square1), 0.0, 0.0, 0.0);
+
+
+
+  CObject3D *root = cgame_getRoot(gameObj);
   cobject3d_addNode(root, square1);
   ccamera3d_update(cgame_getCamera(gameObj),
       0.0, 0.0, 5.0,
