@@ -9,7 +9,7 @@
 CPrimitive3D* initCPrimitive3DAsSquare(CPrimitive3D* obj) {
   initCPrimitive3D(obj);
   CMatrixVertexType vertices[] = {
-   -0.5, 0.5, 0.5, -0.5, -0.5, 0.5,  0.5, -0.5, 0.5,  0.5, 0.5, 0.5, // A 0-3
+   0.5, 0.5, 0.0,  0.5, -0.5, 0.0,  -0.5, -0.5, 0.0,  -0.5, 0.5, 0.0, // A 0-3
   };
 
   CMatrixVertexType normals[] = {
@@ -21,11 +21,11 @@ CPrimitive3D* initCPrimitive3DAsSquare(CPrimitive3D* obj) {
   };
 
   CMatrixIndexType indexes[] = {
-    0, 1, 2, 0, 2, 3, // A1 A2
+    0, 3, 1, 2, 1, 3, // A1 A2
   };
 
   CMatrixVertexType texCoords[] = {
-   0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, // A 0-3
+   1.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0, // A 0-3
   };
   obj->indexes = initCBytes(newCBytes(obj->parent.parent.cmemory), (char*)indexes, sizeof(indexes));
   obj->vertexes = initCBytes(newCBytes(obj->parent.parent.cmemory), (char*)vertices, sizeof(vertices));
