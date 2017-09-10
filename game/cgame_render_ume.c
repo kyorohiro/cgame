@@ -4,7 +4,7 @@
 #include "core/cstring.h"
 #include "core/cbytesBuilder.h"
 
-#include "cglutil.h"
+#include "app/cglu.h"
 #include "cprimitive3d.h"
 #include "croot3d.h"
 #include "app/capp.h"
