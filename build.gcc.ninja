@@ -39,11 +39,11 @@ rule test
 rule lib
   command=${cmd} ${ar} rcs $out $in
 rule exe
-  command=${cmd} ${cc} $in -o $out -DPLATFORM_OSX -O2 -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_image -L${libSDL2} -L${libSDL2Image} -L${libSDL2TTF} -L${libSDL2Mixer} -framework OpenGL
+  command=${cmd} ${cc} $in -o $out -DPLATFORM_OSX -O2 -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_ttf -lSDL2_image -L${libSDL2} -L${libSDL2Image} -L${libSDL2TTF} -L${libSDL2Mixer} -framework OpenGL
 rule app
-  command=${cmd} ${cc} $in -o $out -DPLATFORM_OSX -O2 -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_image -L${libSDL2} -L${libSDL2Image} -L${libSDL2TTF} -L${libSDL2Mixer} -framework OpenGL
+  command=${cmd} ${cc} $in -o $out -DPLATFORM_OSX -O2 -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_ttf -lSDL2_image -L${libSDL2} -L${libSDL2Image} -L${libSDL2TTF} -L${libSDL2Mixer} -framework OpenGL
 rule appEx
-  command=${cmd} ${cc} $in -o $out -DPLATFORM_OSX -O2 -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_image -L${libSDL2} -L${libSDL2Image} -L${libSDL2TTF} -L${libSDL2Mixer} -framework OpenGL
+  command=${cmd} ${cc} $in -o $out -DPLATFORM_OSX -O2 -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_ttf -lSDL2_image -L${libSDL2} -L${libSDL2Image} -L${libSDL2TTF} -L${libSDL2Mixer} -framework OpenGL
 
 
 
@@ -64,4 +64,5 @@ subninja examples${sep}app_001${sep}build.ninja
 subninja examples${sep}app_002_gl${sep}build.ninja
 subninja examples${sep}app_003_mixer${sep}build.ninja
 subninja examples${sep}app_004_gl_texture${sep}build.ninja
+subninja examples${sep}app_005_gl_ttf${sep}build.ninja
 subninja examples${sep}game_001${sep}build.ninja
