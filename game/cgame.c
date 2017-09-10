@@ -165,6 +165,10 @@ void cgame_init(CObject *context, CObject *args) {
   glViewport(0, 0, appObj->width, appObj->height);
   glScissor(0, 0, appObj->width, appObj->height);
   //
+  glEnable(GL_DEPTH_TEST);
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+  //
   glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
   glEnable(GL_DEPTH_TEST);
   glClearColor(0.9f, 0.5f, 0.5f, 1.0f);

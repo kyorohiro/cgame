@@ -45,6 +45,7 @@ void cgame_draw_matu(CObject *context, CObject *args) {
  GLshort *ind = (GLshort *)game->indexes->value;
  int pointer = 0;
  int pointerI = 0;
+ CImage *texture = NULL;
 
  for(int i=0;i<clinkedList_getLength(nodes);i++) {
    CObject3D *node = (CObject3D*)clinkedList_get(nodes, i);
@@ -54,8 +55,10 @@ void cgame_draw_matu(CObject *context, CObject *args) {
    GLfloat *vVertices = (GLfloat *)cprimitive3d_getVertexBinary((CPrimitive3D *)node);
    GLfloat *vColors = (GLfloat *)cprimitive3d_getColorBinary((CPrimitive3D *)node);
    GLfloat *vNormals = (GLfloat *)cprimitive3d_getNormalBinary((CPrimitive3D *)node);
-   CMatrix4RawRef mat4 = cobject3d_getCMatrix4((CObject3D *)node)->value;
+   CImage *image = texture = cprimitive3d_getCImage((CPrimitive3D *)node);
+   GLfloat *texCoords = (GLfloat*)cprimitive3d_getTextCoordBinary((CPrimitive3D*)node);
 
+   CMatrix4RawRef mat4 = cobject3d_getCMatrix4((CObject3D *)node)->value;
    int len = cprimitive3d_getVertexBinaryLength((CPrimitive3D *)node) / sizeof(CMatrixVertexType);
    CMatrix4RawRef m = cobject3d_getCMatrix4((CObject3D *)node)->value;
 
@@ -85,6 +88,16 @@ void cgame_draw_matu(CObject *context, CObject *args) {
      ver[pointer++] =  out[2];
 
      //
+     if(image == NULL) {
+       ver[pointer++] =  -1.0;
+       ver[pointer++] =  -1.0;
+     } else {
+//       ver[pointer++] =  -1.0;
+//       ver[pointer++] =  -1.0;
+       ver[pointer++] =  texCoords[j*2+0];
+       ver[pointer++] =  texCoords[j*2+1];
+     }
+
    }
   // printf("\r\n\r\n ##");
    //
@@ -96,28 +109,50 @@ void cgame_draw_matu(CObject *context, CObject *args) {
    }
    //break;
  }
+
+
  //
  //
  //
  // create Buffer
  GLuint vertexBuffer;
  GLuint indexBuffer;
+ GLuint textureBuffer;
  glGenBuffers(1, &vertexBuffer);
  glGenBuffers(2, &indexBuffer);
+ glGenTextures(1,&textureBuffer);
+
+ //
+  GLenum data_fmt = cimage_getColorFormatGL(texture, GL_RGB);
+  void* pixels = cimage_getPixels(texture);
+  int imageW = cimage_getWidth(texture);
+  int imageH = cimage_getHeight(texture);
+  glBindTexture(GL_TEXTURE_2D, textureBuffer);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+  glTexImage2D(GL_TEXTURE_2D, 0, data_fmt,//GL_RGBA,//data_fmt,
+     imageW, imageH, 0, data_fmt, GL_UNSIGNED_BYTE, pixels);
+  glGenerateMipmap(GL_TEXTURE_2D);
+
+ //
+ //
  glUseProgram(game->program);
-
-
  int vPositionLoc = glGetAttribLocation(game->program, "position");
  int vColorLoc    = glGetAttribLocation(game->program, "color");
  int vNormalLoc    = glGetAttribLocation(game->program, "normal");
  int vCameraLoc = glGetUniformLocation(game->program, "camera");
  int vModelLoc = glGetUniformLocation(game->program, "model");
+ int vTexCoordLoc = glGetAttribLocation(game->program, "texCoord");
+
  glEnableVertexAttribArray(vPositionLoc);
  glEnableVertexAttribArray(vColorLoc);
  glEnableVertexAttribArray(vNormalLoc);
+ glEnableVertexAttribArray(vTexCoordLoc);
 
-
- int buffeSize = 10* sizeof(CMatrixVertexType);
+ int buffeSize = (10+2)* sizeof(CMatrixVertexType);
 
  glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
  glBufferData(GL_ARRAY_BUFFER, sizeof(CMatrixVertexType)*pointer, ver, GL_STATIC_DRAW);
@@ -126,18 +161,19 @@ void cgame_draw_matu(CObject *context, CObject *args) {
  glVertexAttribPointer(vPositionLoc, 3, GL_FLOAT, GL_FALSE, buffeSize, (void*)0);
  glVertexAttribPointer(vColorLoc, 4, GL_FLOAT, GL_FALSE, buffeSize, (void*)(3*sizeof(CMatrixVertexType)));
  glVertexAttribPointer(vNormalLoc, 3, GL_FLOAT, GL_FALSE, buffeSize, (void*)(7*sizeof(CMatrixVertexType)));
+ glVertexAttribPointer(vTexCoordLoc, 2, GL_FLOAT, GL_FALSE, buffeSize, (void*)(10*sizeof(CMatrixVertexType)));
 
  glUniformMatrix4fv(vModelLoc, 1, GL_FALSE, (GLfloat*)modelMat);
  glUniformMatrix4fv(vCameraLoc, 1, GL_FALSE, (GLfloat*)game->camera->mat->value);
 
-
  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
  glBufferData(GL_ELEMENT_ARRAY_BUFFER, pointerI*sizeof(GLshort), ind, GL_STATIC_DRAW);
+
  glDrawElements(GL_TRIANGLES, pointerI, GL_UNSIGNED_SHORT, 0);
 // printf("%d %d\r\n", pointerI,pointer);
 
  glDeleteBuffers(1, &vertexBuffer);
  glDeleteBuffers(2, &indexBuffer);
-
+ glDeleteTextures(1, &textureBuffer);
  capp_flushBuffers(game->app);
 }
