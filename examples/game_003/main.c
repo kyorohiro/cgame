@@ -27,6 +27,7 @@ int main(int argc, char** argv) {
   //
   CObject3D *square1 = (CObject3D*)initCPrimitive3DAsSquare(newCPrimitive3D(getCMemory()));
   cmatrix4_setTranslation(cobject3d_getCMatrix4((CObject3D*)square1), 0.0, 0.0, 0.0);
+  cprimitive3d_setCImage((CPrimitive3D*)square1, img);
 
 
 
