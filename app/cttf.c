@@ -9,7 +9,7 @@ CTtf* newCTtf(CMemory* mem);
 CTtf* initCTtf(CTtf* obj, char* path, int size);
 
 CTtfMgr* defaultCTtfMgr = NULL;
-CTtfMgr* getCTtfMgr(CMemory* mem) {
+CTtfMgr* getCTtfMgr() {
   if(defaultCTtfMgr == NULL) {
     defaultCTtfMgr = initCTtfMgr(newCTtfMgr(getCMemory()));
   }
@@ -67,12 +67,14 @@ CTtf* cttfMgr_createTtf(CTtfMgr* obj, char* path, int size) {
 }
 
 CImage* cttf_createCImageAtSolid(CTtf* obj, char *text, double r, double g, double b, double a) {
+  /*
   SDL_Color fg;fg.r=255*r;fg.g=255*g;fg.b=255*b;
 #ifdef USE_SDL_2
 fg.a =255*a;
 #else
 fg.unused =255*a;
-#endif
+#endif*/
+  SDL_Color fg= {0xff,0xff,0xff,0xff};
   SDL_Surface* surface = TTF_RenderUTF8_Solid(obj->value, text, fg);
   CMemory* mem = cobject_getCMemory((CObject*)obj);
   return initCImageFromSDLSurface(newCImage(mem), surface);

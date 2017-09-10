@@ -18,7 +18,7 @@ typedef struct {
   TTF_Font *value;
 } CTtf;
 
-CTtfMgr* getCTtfMgr(CMemory* mem);
+CTtfMgr* getCTtfMgr();
 CTtf* cttfMgr_createTtf(CTtfMgr*, char* path, int size);
 CImage* cttf_createCImageAtSolid(CTtf*, char *text, double r, double g, double b, double a);
 CImage* cttf_createCImageAtShaded(CTtf*, char *text, double r, double g, double b, double a);

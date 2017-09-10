@@ -2,6 +2,8 @@
 #include "app/capp.h"
 #include "core/ccore.h"
 #include "app/cimage.h"
+#include "app/cttf.h"
+
 int fps;
 CApp* appObj;
 int frgShader;
@@ -18,7 +20,7 @@ GLfloat vertexBufferData[] = {
 GLshort indexData[] = {
   0,3,1, 2,1,3
 };
-
+CImage* img;
 void _onInit(CObject* context, CObject* args) {
   printf("## onInit\r\n");
   glEnable(GL_DEPTH_TEST);
@@ -38,7 +40,7 @@ void _onInit(CObject* context, CObject* args) {
       "uniform sampler2D texture;\n"
       "varying vec2 textureCoord;\n"
       "void main() {\n"
-      "  gl_FragColor = texture2D(texture, textureCoord)* vec4(1.0,1.0,1.0,1.0);\n"
+      "  gl_FragColor = texture2D(texture, textureCoord)* vec4(0.8,0.8,0.8,0.8) + vec4(0.2,0.2,0.2,0.2);\n"
   //    "  gl_FragColor = vec4(1.0,1.0,1.0,1.0);\n"
       "}\n");
     verShader = cglu_loadShader(GL_VERTEX_SHADER,
@@ -58,15 +60,30 @@ void _onInit(CObject* context, CObject* args) {
   glAttachShader(program, frgShader);
   glAttachShader(program, verShader);
   glLinkProgram(program);
-
+  printf("## onInit a\r\n");
+  CTtfMgr* mgr = getCTtfMgr();
+  printf("## onInit b\r\n");
+  CTtf* font = cttfMgr_createTtf(mgr, "./examples/assets/Roboto-Bold.ttf", 20);
+  printf("## onInit c\r\n");
+  img = cttf_createCImageAtSolid(font, "Hello World!!", 1.0, 0.5, 0.5, 1.0);
+  GLenum data_fmt = cimage_getColorFormat(img);
+  void* pixels = cimage_getPixels(img);
+  int imageW = cimage_getWidth(img);
+  int imageH = cimage_getHeight(img);
+  printf("## onInit %d %d %d d\r\n", imageW, imageH, data_fmt);
+  char* v = pixels;
+  for(int i=0;i<imageH*imageW*4;i++) {
+    if(v[i] != 0) {
+      printf(" %d,", v[i]);
+    }
+  }
+  printf("\r\n");
 }
 
 void _onDisplay(CObject* context, CObject* args) {
   //
   //
   int texture;
-  CImageMgr* mgr = getCImageMgr();
-  CImage* img = cimageMgr_createImage(mgr, "./examples/assets/icon.png");
   GLenum data_fmt = cimage_getColorFormatGL(img, GL_RGB);
   void* pixels = cimage_getPixels(img);
   int imageW = cimage_getWidth(img);
@@ -92,7 +109,10 @@ void _onDisplay(CObject* context, CObject* args) {
       imageW, imageH, 0, data_fmt, GL_UNSIGNED_BYTE, pixels);
   glGenerateMipmap(GL_TEXTURE_2D);
 
-  releaseCObject((CObject*)img);
+  //
+  //
+  //releaseCObject((CObject*)img);
+  //
 
   //
   // shader
