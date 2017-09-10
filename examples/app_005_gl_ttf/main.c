@@ -20,7 +20,9 @@ GLfloat vertexBufferData[] = {
 GLshort indexData[] = {
   0,3,1, 2,1,3
 };
+
 CImage* img;
+CImage* tex;
 void _onInit(CObject* context, CObject* args) {
   printf("## onInit\r\n");
   glEnable(GL_DEPTH_TEST);
@@ -40,8 +42,7 @@ void _onInit(CObject* context, CObject* args) {
       "uniform sampler2D texture;\n"
       "varying vec2 textureCoord;\n"
       "void main() {\n"
-      "  gl_FragColor = texture2D(texture, textureCoord)* vec4(0.8,0.8,0.8,0.8) + vec4(0.2,0.2,0.2,0.2);\n"
-  //    "  gl_FragColor = vec4(1.0,1.0,1.0,1.0);\n"
+      "  gl_FragColor = texture2D(texture, textureCoord)* vec4(0.9, 0.9, 0.9, 0.9) + vec4(0.1,0.1,0.1,0.1);\n"
       "}\n");
     verShader = cglu_loadShader(GL_VERTEX_SHADER,
       "attribute vec4 position;\n"
@@ -60,23 +61,23 @@ void _onInit(CObject* context, CObject* args) {
   glAttachShader(program, frgShader);
   glAttachShader(program, verShader);
   glLinkProgram(program);
-  printf("## onInit a\r\n");
+
+  //
   CTtfMgr* mgr = getCTtfMgr();
-  printf("## onInit b\r\n");
-  CTtf* font = cttfMgr_createTtf(mgr, "./examples/assets/Roboto-Bold.ttf", 20);
-  printf("## onInit c\r\n");
-  img = cttf_createCImageAtSolid(font, "Hello World!!", 1.0, 0.5, 0.5, 1.0);
-  GLenum data_fmt = cimage_getColorFormat(img);
-  void* pixels = cimage_getPixels(img);
+  CTtf* font = cttfMgr_createTtf(mgr, "./examples/assets/Roboto-Bold.ttf", 60);
+
+  tex = createEmptyRPGACImage(512, 512);
+  char* buff = cimage_getPixels(tex);
+  for(int i=0;i<512*512;i++) {
+    buff[4*i+0] = 0x00;
+    buff[4*i+1] = 0x00;
+    buff[4*i+2] = 0x00;
+    buff[4*i+3] = 0x00;
+  }
+  img = cttf_createCImageAtSolid(font, "Hello World!!", 0.0, 0.0, 0.0, 1.0);
   int imageW = cimage_getWidth(img);
   int imageH = cimage_getHeight(img);
-  printf("## onInit %d %d %d d\r\n", imageW, imageH, data_fmt);
-  char* v = pixels;
-  for(int i=0;i<imageH*imageW*4;i++) {
-    if(v[i] != 0) {
-      printf(" %d,", v[i]);
-    }
-  }
+  cimage_update(tex, 0, 0, imageW, imageH, img, 0, 0, imageW, imageH);
   printf("\r\n");
 }
 
@@ -84,10 +85,10 @@ void _onDisplay(CObject* context, CObject* args) {
   //
   //
   int texture;
-  GLenum data_fmt = cimage_getColorFormatGL(img, GL_RGB);
-  void* pixels = cimage_getPixels(img);
-  int imageW = cimage_getWidth(img);
-  int imageH = cimage_getHeight(img);
+  GLenum data_fmt = cimage_getColorFormatGL(tex, GL_RGB);
+  void* pixels = cimage_getPixels(tex);
+  int imageW = cimage_getWidth(tex);
+  int imageH = cimage_getHeight(tex);
 
   glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
@@ -147,7 +148,7 @@ void _onDisplay(CObject* context, CObject* args) {
 int main(int argc, char** argv) {
   printf("capp sample\r\n");
   //appObj = getCApp();//
-  appObj = initCApp(newCApp(getCMemory()), 300, 300);
+  appObj = initCApp(newCApp(getCMemory()), 512, 512);
   CString *context = initCString(newCString(getCMemory()), "dummy");
   capp_addDisplayEventListener(appObj, (CObject*)context, _onDisplay);
   capp_addInitEventListener(appObj,  (CObject*)context, _onInit);

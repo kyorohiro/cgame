@@ -4,7 +4,7 @@
 
 CImageMgr* newCImageMgr(CMemory* mem);
 CImageMgr* initCImageMgr(CImageMgr* obj);
-CImage* initCImage(CImage* obj, char* path);
+CImage* initCImageFromPath(CImage* obj, char* path);
 
 
 CImageMgr* defaultCImageMgr = NULL;
@@ -17,7 +17,7 @@ CImageMgr* getCImageMgr() {
 
 CImage* cimageMgr_createImage(CImageMgr* obj, char* path) {
   CMemory* cmemory = cobject_getCMemory((CObject*)obj);
-  CImage* ret = initCImage(newCImage(cmemory), path);
+  CImage* ret = initCImageFromPath(newCImage(cmemory), path);
   return ret;
 }
 
@@ -61,11 +61,36 @@ CImage* newCImage(CMemory* cmemory) {
   return ret;
 }
 
-CImage* initCImage(CImage* obj, char* path){
+CImage* initCImageFromPath(CImage* obj, char* path){
   initCObject((CObject*)obj, CIMAGE_NAME);
   SDL_Surface* value = IMG_Load( path );
   obj->value = value;
   return obj;
+}
+
+CImage* initEmptyRPGACImage(CImage* obj, int w, int h) {
+  initCObject((CObject*)obj, CIMAGE_NAME);
+  SDL_Surface* value = SDL_CreateRGBSurface(
+    SDL_SWSURFACE, w, h, 32,
+#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+     0xFF000000, 0x00FF0000, 0x0000FF00, 0x000000FF
+#else
+     0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000
+#endif
+   );
+  obj->value = value;
+  return obj;
+}
+
+CImage* createEmptyRPGACImage(int w, int h) {
+  return initEmptyRPGACImage(newCImage(getCMemory()), w, h);
+}
+
+void cimage_update(CImage *srcs, int sx, int sy, int sw, int sh,
+                    CImage *dst, int dx, int dy, int dw, int dh) {
+  SDL_Rect s = {.x=sx,.y=sy, .w=sw, .h=sh};
+  SDL_Rect d = {.x=dx,.y=dy, .w=dw, .h=dh};
+  SDL_BlitSurface(dst->value, &s, srcs->value, &d);
 }
 
 CImage* initCImageFromSDLSurface(CImage* obj, SDL_Surface* value) {
