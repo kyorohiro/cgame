@@ -28,6 +28,6 @@ typedef struct {
 } CDynaBlock;
 
 CDynaBlock* newCDynaBlock(CMemory*);
-CDynaBlock* initCDynaBlock(CDynaBlock* obj, int w, int h, int maxOfSpace);
+CDynaBlock* initCDynaBlock(CDynaBlock* obj, int w, int h);
 
 #endif
