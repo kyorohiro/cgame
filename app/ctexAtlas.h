@@ -15,11 +15,13 @@ typedef struct {
   int y;
   int w;
   int h;
-} TextAtlasBlockRaw;
+} TexAtlasBlockRaw;
 
 #define CTEX_ATLAS_NAME "cta"
 CTexAtlas* newCTexAtlas(CMemory*);
 CTexAtlas* initCTexAtlas(CTexAtlas*, int w, int h);
 CTexAtlas* createCTexAtlas(int w, int h);
 
+TexAtlasBlockRaw ctexAtlas_updateImage(CTexAtlas* obj, int dx, int dy, int dw, int dh,
+                    CImage *src, int sx, int sy, int sw, int sh);
 #endif
