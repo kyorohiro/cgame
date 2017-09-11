@@ -31,6 +31,7 @@ rule appEx
 # core
 subninja core${sep}build.ninja
 subninja matrix${sep}build.ninja
+subninja utils${sep}build.ninja
 
 #
 # game
