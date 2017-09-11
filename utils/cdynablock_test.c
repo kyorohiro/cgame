@@ -13,7 +13,6 @@ int main(int argc, char** argv) {
     passed = 0;
   }
 
-
   freeCMemory(mem);
   if(passed) {
     printf("  OK : \r\n");
