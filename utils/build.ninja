@@ -1,0 +1,4 @@
+baseP = utils
+build ${baseP}${sep}ctexAtlas.${objExt}: obj ${baseP}${sep}ctexAtlas.c
+
+build ${baseP}${sep}libUtils.${objLib}: lib ${baseP}${sep}ctexAtlas.${objExt}
