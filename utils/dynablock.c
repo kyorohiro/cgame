@@ -62,7 +62,7 @@ void updateIndex(int x, int y, int w, int opt) {
       }
       if(spaces[i].x <= x) {
         if(x+w <(spaces[i].x+spaces[i].w)) {
-          //printf("s1\r\n");
+          printf("s1 %d\r\n",i);
           //   aa
           //  bbbb   -> d  b
           spaces[i].x = x+w;
@@ -75,22 +75,27 @@ void updateIndex(int x, int y, int w, int opt) {
             numOfSpace++;
           }
         } else {
-          //printf("s2\r\n");
+          printf("s2 %d\r\n",i);
           //   aa
           //  bb    ->  b
           spaces[i].w = x-spaces[i].x;
         }
       } else {
         if((spaces[i].x+spaces[i].w)< (x+w)) {
-          //printf("s3\r\n");
+          printf("s3 %d\r\n",i);
           //  aaaa
           //   bb     ->  0
           spaces[i].x = spaces[i].y = spaces[i].w = spaces[i].h = 0;
         } else {
-          //printf("s4\r\n");
-          //  aa
-          //   bb   --> b
-          spaces[i].x = x+w;
+          printf("s4 %d %d\r\n",i, x+w);
+          if((spaces[i].x) > x+w ) {
+            //  aa
+            //   bb   --> b
+            spaces[i].x = x+w;
+          } else {
+            //  aa
+            //     bb   -->
+          }
         }
       }
     } else {
