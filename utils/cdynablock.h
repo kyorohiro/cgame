@@ -29,5 +29,5 @@ typedef struct {
 
 CDynaBlock* newCDynaBlock(CMemory*);
 CDynaBlock* initCDynaBlock(CDynaBlock* obj, int w, int h);
-
+CDynaBlock* createCDynaBlock(int w, int h);
 #endif

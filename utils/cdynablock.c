@@ -29,3 +29,7 @@ CDynaBlock* initCDynaBlock(CDynaBlock* obj, int w, int h) {
   obj->MIN = 1;
   return obj;
 }
+
+CDynaBlock* createCDynaBlock(int w, int h) {
+  return initCDynaBlock(newCDynaBlock(getCMemory()), w, h);
+}
