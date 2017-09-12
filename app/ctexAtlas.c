@@ -3,6 +3,13 @@
 void _freeCTexAtlas(void* obj) {
   CObject *objObj = (CObject*)obj;
   CTexAtlas *texObj = (CTexAtlas*)obj;
+  if(texObj->image != NULL) {
+    releaseCObject((CObject*)texObj->image);
+  }
+  if(texObj->block != NULL) {
+    releaseCObject((CObject*)texObj->block);
+  }
+
   freeCObject(obj);
 }
 
@@ -17,6 +24,7 @@ CTexAtlas* initCTexAtlas(CTexAtlas* obj, int w, int h) {
   CMemory* mem = cobject_getCMemory((CObject*)obj);
   initCObject((CObject*)obj, CTEX_ATLAS_NAME);
   obj->image = initEmptyRPGACImage(newCImage(mem), w, h);
+  obj->block = initCDynaBlock(newCDynaBlock(mem), w, h);
   return obj;
 }
 
@@ -26,6 +34,6 @@ CTexAtlas* createCTexAtlas(int w, int h) {
 
 TexAtlasBlockRaw ctexAtlas_updateImage(CTexAtlas* obj, int dx, int dy, int dw, int dh, CImage *src, int sx, int sy, int sw, int sh) {
   TexAtlasBlockRaw ret;
-  
+
   return ret;
 }

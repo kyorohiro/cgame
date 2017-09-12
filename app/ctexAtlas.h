@@ -4,12 +4,13 @@
 #include "core/cobject.h"
 #include "core/cmemory.h"
 
+#include "utils/cdynablock.h"
 #include "cimage.h"
 
 typedef struct {
   CObject parent;
   CImage* image;
-
+  CDynaBlock* block;
 } CTexAtlas;
 
 typedef struct {
