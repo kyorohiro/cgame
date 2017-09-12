@@ -41,6 +41,19 @@ void dynaBlock_test_b() {
     passed = 0;
   }
 
+  ret = cdynaBlock_findSpace(objBlock, 40, 40, &out);
+  cdynaBlock_updateIndex(objBlock, &out);
+  if(ret != 1 || out.w != 40 || out.h != 40 || out.x != 40 || out.y != 40) {
+    printf("  NG d: %d : %d %d %d %d\r\n", ret, out.x, out.y, out.w, out.h);
+    passed = 0;
+  }
+
+  ret = cdynaBlock_findSpace(objBlock, 40, 40, &out);
+
+  if(ret != 0) {
+    printf("  NG e: %d \r\n", ret);
+    passed = 0;
+  }
   //
   //
   releaseCObject((CObject*)objBlock);
