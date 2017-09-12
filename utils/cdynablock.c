@@ -93,6 +93,9 @@ void cdynaBlock_updateIndexInner(CDynaBlock* obj, int x, int y, int w, int opt) 
           obj->spaces[i].w = sw-(x+w-sx);
           if(x-sx > obj->MIN){
             //printf("s1 b %d\r\n",i);
+            if(obj->numOfSpace+2 >= obj->maxOfSpace) {
+              cdynaBlock_expandIndexCache(obj);
+            }
             obj->spaces[obj->numOfSpace].x = sx;
             obj->spaces[obj->numOfSpace].y = sy;
             obj->spaces[obj->numOfSpace].w = x-sx;
@@ -138,6 +141,9 @@ void cdynaBlock_updateIndexInner(CDynaBlock* obj, int x, int y, int w, int opt) 
   }
   if(isU == 0) {
     //printf("u1\r\n");
+    if(obj->numOfSpace+2 >= obj->maxOfSpace) {
+      cdynaBlock_expandIndexCache(obj);
+    }
     obj->spaces[obj->numOfSpace].x = 0;
     obj->spaces[obj->numOfSpace].y = y;
     obj->spaces[obj->numOfSpace].w = obj->width;
