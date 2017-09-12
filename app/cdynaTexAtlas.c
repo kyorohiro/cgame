@@ -32,8 +32,15 @@ CDynaTexAtlas* createCDynaTexAtlas(int w, int h) {
   return initCDynaTexAtlas(newCDynaTexAtlas(getCMemory()), w, h);
 }
 
-TexAtlasBlockRaw ctexAtlas_updateImage(CDynaTexAtlas* obj, int dx, int dy, int dw, int dh, CImage *src, int sx, int sy, int sw, int sh) {
-  TexAtlasBlockRaw ret;
-
-  return ret;
+int ctexAtlas_appendImage(CDynaTexAtlas* obj, CImage *src, int sx, int sy, int sw, int sh, CDynaBlockSpace* out) {
+  int ret = cdynaBlock_findSpace(obj->block, sw, sh, out);
+  if(ret == 0) {
+    return ret;
+  }
+  //
+  cdynaBlock_updateIndex(obj->block, out);
+  cimage_update(obj->image, out->x, out->y, out->w, out->h,
+      src, sx, sy, sw, sh);
+  //
+  return 1;
 }
