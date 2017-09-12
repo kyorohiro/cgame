@@ -64,10 +64,10 @@ int cdynaBlock_findSpace(CDynaBlock* obj, int w, int h, CDynaBlockSpace *out) {
   }
 }
 
-void cdynaBlock_updateIndex(CDynaBlock* obj, int x, int y, int w, int opt);
-void cdynaBlock_updateIndex(CDynaBlockSpace *block){
-  cdynaBlock_updateIndexInner(block->x, block->y         , block->w, 0);
-  cdynaBlock_updateIndexInner(block->x, block->y+block->h, block->w, 1);
+void cdynaBlock_updateIndexInner(CDynaBlock* obj, int x, int y, int w, int opt);
+void cdynaBlock_updateIndex(CDynaBlock* obj, CDynaBlockSpace *block){
+  cdynaBlock_updateIndexInner(obj, block->x, block->y         , block->w, 0);
+  cdynaBlock_updateIndexInner(obj, block->x, block->y+block->h, block->w, 1);
 }
 
 void cdynaBlock_updateIndexInner(CDynaBlock* obj, int x, int y, int w, int opt) {

@@ -1,8 +1,63 @@
 #include <stdio.h>
 #include "utils/cdynablock.h"
 
+
+void dynaBlock_test_a();
+void dynaBlock_test_b();
+
 int main(int argc, char** argv) {
-  printf("Hello, World!!");
+  dynaBlock_test_a();
+  dynaBlock_test_b();
+}
+
+void dynaBlock_test_b() {
+  printf("# dynaBlock_test_b\n");
+  int passed = 1;
+  CMemory *mem = initCMemory(newCMemory());
+  CDynaBlock *objBlock = initCDynaBlock(newCDynaBlock(mem), 100, 100);
+
+  CDynaBlockSpace out;
+  int ret;
+  ret = cdynaBlock_findSpace(objBlock, 40, 40, &out);
+  cdynaBlock_updateIndex(objBlock, &out);
+  if(ret != 1 || out.w != 40 || out.h != 40 || out.x != 0 || out.y != 0) {
+    printf("  NG a: %d : %d %d %d %d\r\n", ret, out.x, out.y, out.w, out.h);
+    passed = 0;
+  }
+
+
+  ret = cdynaBlock_findSpace(objBlock, 40, 40, &out);
+  cdynaBlock_updateIndex(objBlock, &out);
+  if(ret != 1 || out.w != 40 || out.h != 40 || out.x != 40 || out.y != 0) {
+    printf("  NG b: %d : %d %d %d %d\r\n", ret, out.x, out.y, out.w, out.h);
+    passed = 0;
+  }
+
+
+  ret = cdynaBlock_findSpace(objBlock, 40, 40, &out);
+  cdynaBlock_updateIndex(objBlock, &out);
+  if(ret != 1 || out.w != 40 || out.h != 40 || out.x != 0 || out.y != 40) {
+    printf("  NG c: %d : %d %d %d %d\r\n", ret, out.x, out.y, out.w, out.h);
+    passed = 0;
+  }
+
+  //
+  //
+  releaseCObject((CObject*)objBlock);
+  if(mem->callocCounter != mem->freeCounter) {
+    printf("  NG : %d == %d\r\n", mem->callocCounter, mem->freeCounter);
+    passed = 0;
+  }
+
+  freeCMemory(mem);
+  if(passed) {
+    printf("  OK : \r\n");
+  }
+  return;
+}
+
+void dynaBlock_test_a() {
+  printf("# dynaBlock_test_a\n");
   int passed = 1;
   CMemory *mem = initCMemory(newCMemory());
   CDynaBlock *objBlock = initCDynaBlock(newCDynaBlock(mem), 100, 100);
@@ -17,5 +72,5 @@ int main(int argc, char** argv) {
   if(passed) {
     printf("  OK : \r\n");
   }
-  return 0;
+  return;
 }
