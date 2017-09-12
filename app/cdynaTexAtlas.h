@@ -25,6 +25,7 @@ CDynaTexAtlas* newCDynaTexAtlas(CMemory*);
 CDynaTexAtlas* initCDynaTexAtlas(CDynaTexAtlas*, int w, int h);
 CDynaTexAtlas* createCDynaTexAtlas(int w, int h);
 
-int ctexAtlas_appendImage(CDynaTexAtlas* obj, CImage *src, int sx, int sy, int sw, int sh, CDynaBlockSpace* out);
+int ctexAtlas_addImage(CDynaTexAtlas* obj, CImage *src, int sx, int sy, int sw, int sh, CDynaBlockSpace* out);
+int ctexAtlas_addImageManually(CDynaTexAtlas* obj, int dx, int dy, int dw, int dh, CImage *src, int sx, int sy, int sw, int sh);
 
 #endif
