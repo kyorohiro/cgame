@@ -33,4 +33,5 @@ CDynaBlock* createCDynaBlock(int w, int h);
 
 int cdynaBlock_findSpace(CDynaBlock* obj, int w, int h, CDynaBlockSpace *out);
 void cdynaBlock_updateIndex(CDynaBlock* obj, CDynaBlockSpace *block);
+void cdynaBlock_show(CDynaBlock* obj);
 #endif
