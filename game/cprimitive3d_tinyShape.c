@@ -5,37 +5,42 @@
 
 CPrimitive3D* initCPrimitive3DAsTinyShape(CPrimitive3D* obj, CMatrixVertexType* src, int length) {
   initCPrimitive3D(obj);
+  int vertexNum = length/2;
+  obj->vertexes  = initCBytes(newCBytes(obj->parent.parent.cmemory), NULL, sizeof(CMatrixVertexType) * vertexNum * 3);
+  obj->normals   = initCBytes(newCBytes(obj->parent.parent.cmemory), NULL, sizeof(CMatrixVertexType) * vertexNum * 3);
+  obj->colors    = initCBytes(newCBytes(obj->parent.parent.cmemory), NULL, sizeof(CMatrixVertexType) * vertexNum * 4);
+  obj->texCoords = initCBytes(newCBytes(obj->parent.parent.cmemory), NULL, sizeof(CMatrixVertexType) * vertexNum * 2);
+  obj->indexes   = initCBytes(newCBytes(obj->parent.parent.cmemory), NULL, sizeof(CMatrixVertexType) * vertexNum * (vertexNum-2)*3);
 
-  obj->vertexes  = initCBytes(newCBytes(obj->parent.parent.cmemory), NULL, sizeof(CMatrixVertexType) * length / 2 * 3);
-  obj->normals   = initCBytes(newCBytes(obj->parent.parent.cmemory), NULL, sizeof(CMatrixVertexType) * length / 2 * 3);
-  obj->colors    = initCBytes(newCBytes(obj->parent.parent.cmemory), NULL, sizeof(CMatrixVertexType) * length / 2 * 4);
-  obj->texCoords = initCBytes(newCBytes(obj->parent.parent.cmemory), NULL, sizeof(CMatrixVertexType) * length / 2 * 2);
+  CMatrixVertexType* vertexes  = (CMatrixVertexType*)obj->vertexes->value;
+  CMatrixVertexType* texCoords = (CMatrixVertexType*)obj->texCoords->value;
+  CMatrixVertexType* normals   = (CMatrixVertexType*)obj->normals->value;
+  CMatrixVertexType* colors    = (CMatrixVertexType*)obj->colors->value;
+  CMatrixIndexType* indexes    = (CMatrixIndexType*)obj->indexes;
 
-  for(int i=0;i<length/2;i++) {
-      obj->vertexes->value[i*3+0] = src[i*2+0];
-      obj->vertexes->value[i*3+1] = src[i*2+1];
-      obj->vertexes->value[i*3+2] = 0.0;
+  for(int i=0;i<vertexNum;i++) {
+      vertexes[i*3+0] = src[i*2+0];
+      vertexes[i*3+1] = src[i*2+1];
+      vertexes[i*3+2] = 0.0;
 
-      obj->texCoords->value[i*2+0] = src[i*2+0];
-      obj->texCoords->value[i*2+1] = src[i*2+1];
+      texCoords[i*2+0] = src[i*2+0];
+      texCoords[i*2+1] = src[i*2+1];
 
-      obj->normals->value[i*3+0] = 0.0;
-      obj->normals->value[i*3+1] = 0.0;
-      obj->normals->value[i*3+2] = 1.0;
+      normals[i*3+0] = 0.0;
+      normals[i*3+1] = 0.0;
+      normals[i*3+2] = 1.0;
 
-      obj->colors->value[i*3+0] = 1.0;
-      obj->colors->value[i*3+1] = 1.0;
-      obj->colors->value[i*3+2] = 1.0;
-      obj->colors->value[i*3+3] = 1.0;
+      colors[i*3+0] = 1.0;
+      colors[i*3+1] = 1.0;
+      colors[i*3+2] = 1.0;
+      colors[i*3+3] = 1.0;
   }
 
-
-  CMatrixIndexType indexes[] = {
-    0, 3, 1, 2, 1, 3, // A1 A2
-  };
-
-  obj->indexes = initCBytes(newCBytes(obj->parent.parent.cmemory), (char*)indexes, sizeof(indexes));
-
+  for(int i=0;(i+2)<vertexNum;i++) {
+    indexes[i*3+0] = 0;
+    indexes[i*3+1] = i+1;
+    indexes[i*3+1] = i+2;
+  }
 
 
   return obj;
