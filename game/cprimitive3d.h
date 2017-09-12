@@ -23,12 +23,15 @@ typedef struct {
   CBytes *texCoords;
 } CPrimitive3D;
 
+
+
 CPrimitive3D* newCPrimitive3D(CMemory* mem);
 CPrimitive3D* initCPrimitive3D(CPrimitive3D*);
 CPrimitive3D* initCPrimitive3DAsCube(CPrimitive3D*);
 CPrimitive3D* initCPrimitive3DAsTriangle(CPrimitive3D* obj);
 CPrimitive3D* initCPrimitive3DAsSquare(CPrimitive3D* obj);
-
+// src  x,y,x,y,x,y......
+CPrimitive3D* initCPrimitive3DAsTinyShape(CPrimitive3D* obj, CMatrixValueType* src);
 void freeCPrimitive3D(void* obj);
 CPrimitive3D* cprimitive3d_setColor(CPrimitive3D*, double a, double r, double g, double b);
 

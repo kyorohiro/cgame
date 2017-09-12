@@ -10,12 +10,14 @@ build ${baseP}${sep}cprimitive3d.${objExt}: obj ${baseP}${sep}cprimitive3d.c
 build ${baseP}${sep}cprimitive3d_cube.${objExt}: obj ${baseP}${sep}cprimitive3d_cube.c
 build ${baseP}${sep}cprimitive3d_triangle.${objExt}: obj ${baseP}${sep}cprimitive3d_triangle.c
 build ${baseP}${sep}cprimitive3d_square.${objExt}: obj ${baseP}${sep}cprimitive3d_square.c
+build ${baseP}${sep}cprimitive3d_tinyShape.${objExt}: obj ${baseP}${sep}cprimitive3d_tinyShape.c
+
 
 build ${baseP}${sep}ccamera3d.${objExt}: obj ${baseP}${sep}ccamera3d.c
 build ${baseP}${sep}clight3d.${objExt}: obj ${baseP}${sep}clight3d.c
 build ${baseP}${sep}croot3d.${objExt}: obj ${baseP}${sep}croot3d.c
 
-build ${baseP}${sep}libgame.${objLib}: lib ${baseP}${sep}cgame.${objExt} ${baseP}${sep}cobject3d.${objExt} ${baseP}${sep}cprimitive3d.${objExt} ${baseP}${sep}ccamera3d.${objExt} ${baseP}${sep}clight3d.${objExt} ${baseP}${sep}croot3d.${objExt} ${baseP}${sep}cprimitive3d_cube.${objExt} ${baseP}${sep}cprimitive3d_triangle.${objExt} ${baseP}${sep}cgame_render_ume.${objExt} ${baseP}${sep}cgame_render_matu.${objExt} ${baseP}${sep}cprimitive3d_square.${objExt}
+build ${baseP}${sep}libgame.${objLib}: lib ${baseP}${sep}cgame.${objExt} ${baseP}${sep}cobject3d.${objExt} ${baseP}${sep}cprimitive3d.${objExt} ${baseP}${sep}ccamera3d.${objExt} ${baseP}${sep}clight3d.${objExt} ${baseP}${sep}croot3d.${objExt} ${baseP}${sep}cprimitive3d_cube.${objExt} ${baseP}${sep}cprimitive3d_triangle.${objExt} ${baseP}${sep}cgame_render_ume.${objExt} ${baseP}${sep}cgame_render_matu.${objExt} ${baseP}${sep}cprimitive3d_square.${objExt} ${baseP}${sep}cprimitive3d_tinyShape.${objExt}
 
 #
 # TEST
