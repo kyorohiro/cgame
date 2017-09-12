@@ -76,14 +76,14 @@ void cdynaBlock_updateIndexInner(CDynaBlock* obj, int x, int y, int w, int opt) 
     if(obj->spaces[i].y >= y) {
       isU = 1;
     }
-    if(obj->spaces[i].w < w ) {
-      continue;
-    }
+    //if(obj->spaces[i].w < w ) {
+    //  continue;
+    //}
     if(obj->spaces[i].y <= y-opt) {
 
       if(obj->spaces[i].x <= x) {
         if(x+w <(obj->spaces[i].x+obj->spaces[i].w)) {
-          //printf("s1 a %d\r\n",i);
+          printf("s1 a %d\r\n",i);
           //   aa
           //  bbbb   -> d  b
           int sx = obj->spaces[i].x;
@@ -91,8 +91,8 @@ void cdynaBlock_updateIndexInner(CDynaBlock* obj, int x, int y, int w, int opt) 
           int sw = obj->spaces[i].w;
           obj->spaces[i].x = x+w;
           obj->spaces[i].w = sw-(x+w-sx);
-          if(x-obj->spaces[i].x > obj->MIN){
-            //printf("s1 b %d\r\n",i);
+          if(x-sx > obj->MIN){
+            printf("s1 b %d\r\n",i);
             obj->spaces[obj->numOfSpace].x = sx;
             obj->spaces[obj->numOfSpace].y = sy;
             obj->spaces[obj->numOfSpace].w = x-sx;
@@ -100,29 +100,35 @@ void cdynaBlock_updateIndexInner(CDynaBlock* obj, int x, int y, int w, int opt) 
             obj->numOfSpace++;
           }
         } else {
-          //printf("s2 %d\r\n",i);
           if((obj->spaces[i].x+obj->spaces[i].w) > x ) {
+            printf("s2 a %d\r\n",i);
             //   aa
             //  bb    ->  b
             obj->spaces[i].w = x-obj->spaces[i].x;
           } else {
+            printf("s2 b %d\r\n",i);
             //     aa
             //  bb
           }
         }
       } else {
         if((obj->spaces[i].x+obj->spaces[i].w)< (x+w)) {
-          // printf("s3 %d\r\n",i);
+          printf("s3 a %d\r\n",i);
           //  aaaa
           //   bb     ->  0
           obj->spaces[i].x = obj->spaces[i].y = obj->spaces[i].w = obj->spaces[i].h = 0;
         } else {
-          if((obj->spaces[i].x) > x+w ) {
-            // printf("s4 %d %d\r\n",i, x+w);
+          if((obj->spaces[i].x) < x+w ) {
+            printf("s3 b %d\r\n",i);
             //  aa
             //   bb   --> b
+            int tmpX = obj->spaces[i].x;
+            int tmpW = obj->spaces[i].w;
             obj->spaces[i].x = x+w;
+            obj->spaces[i].w = (tmpX+tmpW) - (x+w) ;
+
           } else {
+            printf("s3  %d\r\n",i);
             //  aa
             //     bb   -->
           }
