@@ -54,6 +54,42 @@ int ctexAtlas_addImageManually(CDynaTexAtlas* obj, int dx, int dy, int dw, int d
   return 1;
 }
 
+int ctexAtlas_addImageFromSDLSurface(CDynaTexAtlas* obj, SDL_Surface* value, CDynaBlockSpace* out) {
+  int sw = value->w;
+  int sh = value->h;
+  int ret = cdynaBlock_findSpace(obj->block, sw, sh, out);
+  if(ret == 0) {
+    return ret;
+  }
+
+  //
+  cdynaBlock_updateIndex(obj->block, out);
+  cimage_updateFromSDLSurface(obj->image, out->x, out->y, out->w, out->h,
+      value, 0, 0, sw, sh);
+  //
+  return 1;
+}
+
+int ctexAtlas_addImageFromCTtf(CDynaTexAtlas* obj, CTtf* ttf, char *text, double r, double g, double b, double a, CDynaBlockSpace* out) {
+  SDL_Surface* value = cttf_createSDLSurfaceAtSolid(ttf, text, r, g, b, a);
+  if(value == NULL) {
+    return 0;
+  }
+  int ret = ctexAtlas_addImageFromSDLSurface(obj, value, out);
+  SDL_FreeSurface(value);
+  return ret;
+}
+
+int ctexAtlas_addImageFromPath(CDynaTexAtlas* obj, char* path, CDynaBlockSpace* out) {
+  SDL_Surface* value = IMG_Load( path );
+  if(value == NULL) {
+    return 0;
+  }
+  int ret = ctexAtlas_addImageFromSDLSurface(obj, value, out);
+  SDL_FreeSurface(value);
+  return ret;
+}
+
 CImage* ctexAtlas_getImage(CDynaTexAtlas* obj) {
   return obj->image;
 }

@@ -95,6 +95,13 @@ void cimage_update(CImage *dst, int dx, int dy, int dw, int dh,
   SDL_BlitSurface(src->value, &s, dst->value, &d);
 }
 
+void cimage_updateFromSDLSurface(CImage *dst, int dx, int dy, int dw, int dh,
+                    SDL_Surface* src, int sx, int sy, int sw, int sh) {
+    SDL_Rect s = {.x=sx,.y=sy, .w=sw, .h=sh};
+    SDL_Rect d = {.x=dx,.y=dy, .w=dw, .h=dh};
+    SDL_BlitSurface(src, &s, dst->value, &d);
+}
+
 CImage* initCImageFromSDLSurface(CImage* obj, SDL_Surface* value) {
   initCObject((CObject*)obj, CIMAGE_NAME);
   obj->value = value;

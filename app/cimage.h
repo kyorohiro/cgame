@@ -33,6 +33,9 @@ CImage* createEmptyRPGACImage(int w, int h);
 
 void cimage_update(CImage *dst, int dx, int dy, int dw, int dh,
                     CImage *src, int sx, int sy, int sw, int sh);
+void cimage_updateFromSDLSurface(CImage *dst, int dx, int dy, int dw, int dh,
+                    SDL_Surface*, int sx, int sy, int sw, int sh);
+
 int cimage_getWidth(CImage* obj);
 int cimage_getHeight(CImage* obj);
 void* cimage_getPixels(CImage* obj);

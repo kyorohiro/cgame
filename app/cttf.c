@@ -67,17 +67,21 @@ CTtf* cttfMgr_createTtf(CTtfMgr* obj, char* path, int size) {
 }
 
 CImage* cttf_createCImageAtSolid(CTtf* obj, char *text, double r, double g, double b, double a) {
-    SDL_Color fg;fg.r=255*r;fg.g=255*g;fg.b=255*b;
-#ifdef USE_SDL_2
-fg.a =255*a;
-#else
-fg.unused =255*a;
-#endif
-  SDL_Surface* surface = TTF_RenderUTF8_Solid(obj->value, text, fg);
+  SDL_Surface* surface = cttf_createSDLSurfaceAtSolid(obj, text, r,g,b,a);
   CMemory* mem = cobject_getCMemory((CObject*)obj);
   return initCImageFromSDLSurface(newCImage(mem), surface);
 }
 
+SDL_Surface* cttf_createSDLSurfaceAtSolid(CTtf* obj, char *text, double r, double g, double b, double a) {
+  SDL_Color fg;fg.r=255*r;fg.g=255*g;fg.b=255*b;
+#ifdef USE_SDL_2
+  fg.a =255*a;
+#else
+  fg.unused =255*a;
+#endif
+  SDL_Surface* surface = TTF_RenderUTF8_Solid(obj->value, text, fg);
+  return surface;
+}
 CImage*  cttf_createCImageAtShaded(CTtf* obj, char *text, double r, double g, double b, double a) {
   SDL_Color fg;fg.r=255*r;fg.g=255*g;fg.b=255*b;
 #ifdef USE_SDL_2
