@@ -53,3 +53,7 @@ int ctexAtlas_addImageManually(CDynaTexAtlas* obj, int dx, int dy, int dw, int d
       src, sx, sy, sw, sh);
   return 1;
 }
+
+CImage* ctexAtlas_getImage(CDynaTexAtlas* obj) {
+  return obj->image;
+}
