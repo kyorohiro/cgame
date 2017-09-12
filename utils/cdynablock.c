@@ -148,7 +148,7 @@ void cdynaBlock_updateIndexInner(CDynaBlock* obj, int x, int y, int w, int opt) 
 
 void cdynaBlock_show(CDynaBlock* obj) {
   for(int i=0;i<obj->numOfSpace;i++) {
-    printf(" %d %d %d %d\r\n",
+    printf(" - %d %d %d %d\r\n",
       obj->spaces[i].x,
       obj->spaces[i].y,
       obj->spaces[i].w,
