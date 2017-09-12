@@ -43,7 +43,7 @@ rule exe
 rule app
   command=${cmd} ${cc} $in -o $out -DPLATFORM_OSX -O2 -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_ttf -lSDL2_image -L${libSDL2} -L${libSDL2Image} -L${libSDL2TTF} -L${libSDL2Mixer} -framework OpenGL
 rule appEx
-  command=${cmd} ${cc} $in -o $out -DPLATFORM_OSX -O2 -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_ttf -lSDL2_image -L${libSDL2} -L${libSDL2Image} -L${libSDL2TTF} -L${libSDL2Mixer} -framework OpenGL
+  command=${cmd} ${cc} $in -o $out -DPLATFORM_OSX -O2 -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_ttf -lSDL2_image -L${libSDL2} -L${libSDL2Image} -L${libSDL2TTF} -L${libSDL2Mixer} -framework OpenGL -DRENDER_MODE=1
 
 
 
