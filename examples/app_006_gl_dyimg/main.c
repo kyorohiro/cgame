@@ -69,24 +69,9 @@ void _onInit(CObject* context, CObject* args) {
   CTtf* font = cttfMgr_createTtf(mgr, "./examples/assets/Roboto-Bold.ttf", 60);
 
   atlas = createCDynaTexAtlas(512, 512);
-  //
-  {
-    CImage* img = cttf_createCImageAtSolid(font, "Hello World!!", 0.0, 0.0, 0.0, 1.0);
-    int imageW = cimage_getWidth(img);
-    int imageH = cimage_getHeight(img);
-    ctexAtlas_addImage(atlas, img, 0, 0, imageW, imageH, &out);
-    releaseCObject((CObject*)img);
-    printf("%d %d : %d %d %d %d\r\n", imageW, imageH,out.x, out.y, out.w, out.h);
-  }
-  //
-  {
-    CImage* img = cttf_createCImageAtSolid(font, "Hello World!!", 0.0, 0.0, 0.0, 1.0);
-    int imageW = cimage_getWidth(img);
-    int imageH = cimage_getHeight(img);
-    ctexAtlas_addImage(atlas, img, 0, 0, imageW, imageH, &out);
-    releaseCObject((CObject*)img);
-    printf("%d %d : %d %d %d %d\r\n", imageW, imageH,out.x, out.y, out.w, out.h);
-  }
+  ctexAtlas_addImageFromCTtf(atlas, font, "Hello World!!", 0.0, 0.0, 0.0, 1.0, &out);
+  ctexAtlas_addImageFromCTtf(atlas, font, "Hello World!!", 1.0, 1.0, 0.0, 1.0, &out);
+
 
 }
 
