@@ -156,3 +156,30 @@ void cdynaBlock_show(CDynaBlock* obj) {
   }
   printf("\r\n");
 }
+
+void cdynaBlock_resetIndex(CDynaBlock* obj) {
+  obj->numOfSpace = 0;
+}
+
+void cdynaBlock_clearIndexCache(CDynaBlock* obj) {
+  int j=0;
+  for(int i=0;i<obj->numOfSpace;i++) {
+    if(obj->spaces[i].x == 0 && obj->spaces[i].y == 0 && obj->spaces[i].w <= obj->MIN && obj->spaces[i].h <= obj->MIN) {
+    } else {
+      obj->spaces[j++] = obj->spaces[i];
+    }
+  }
+  obj->numOfSpace = j;
+}
+
+void cdynaBlock_expandIndexCache(CDynaBlock* obj) {
+  CMemory* cmemory = cobject_getCMemory((CObject*)obj);
+  CDynaBlockSpace* next = (CDynaBlockSpace*)cmemory_calloc(cmemory, 1, sizeof(CDynaBlockSpace)*obj->maxOfSpace*2);
+  for(int i=0;i<obj->numOfSpace;i++) {
+      next[i] = obj->spaces[i];
+  }
+  obj->maxOfSpace *= 2;
+  CDynaBlockSpace* tmp = obj->spaces;
+  obj->spaces = next;
+  cmemory_free(cmemory, tmp);
+}

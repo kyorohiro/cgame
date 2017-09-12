@@ -24,4 +24,5 @@ CTexAtlas* createCTexAtlas(int w, int h);
 
 TexAtlasBlockRaw ctexAtlas_updateImage(CTexAtlas* obj, int dx, int dy, int dw, int dh,
                     CImage *src, int sx, int sy, int sw, int sh);
+
 #endif
