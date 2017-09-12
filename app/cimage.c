@@ -80,12 +80,7 @@ CImage* initEmptyRPGACImage(CImage* obj, int w, int h) {
    );
   obj->value = value;
   char* buff = obj->value->pixels;
-  for(int i=0;i<512*512;i++) {
-    buff[4*i+0] = 0xFF;
-    buff[4*i+1] = 0x00;
-    buff[4*i+2] = 0x00;
-    buff[4*i+3] = 0x00;
-  }
+
   return obj;
 }
 
