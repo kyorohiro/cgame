@@ -3,11 +3,13 @@
 
 #include "core/cobject.h"
 #include "core/cmemory.h"
+
 #include "cimage.h"
 
 typedef struct {
   CObject parent;
   CImage* image;
+
 } CTexAtlas;
 
 typedef struct {
