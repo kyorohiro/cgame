@@ -13,8 +13,9 @@
 
 
 #define CGAME_NAME "cga"
-#define RENDER_MODE 1
-
+#ifndef RENDER_MODE
+#define RENDER_MODE 0
+#endif
 typedef void (*CGameFuncDraw)(CObject* obj);
 typedef struct {
   CObject parent;
