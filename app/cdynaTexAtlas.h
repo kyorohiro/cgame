@@ -11,7 +11,7 @@ typedef struct {
   CObject parent;
   CImage* image;
   CDynaBlock* block;
-} CTexAtlas;
+} CDynaTexAtlas;
 
 typedef struct {
   int x;
@@ -21,11 +21,11 @@ typedef struct {
 } TexAtlasBlockRaw;
 
 #define CTEX_ATLAS_NAME "cta"
-CTexAtlas* newCTexAtlas(CMemory*);
-CTexAtlas* initCTexAtlas(CTexAtlas*, int w, int h);
-CTexAtlas* createCTexAtlas(int w, int h);
+CDynaTexAtlas* newCDynaTexAtlas(CMemory*);
+CDynaTexAtlas* initCDynaTexAtlas(CDynaTexAtlas*, int w, int h);
+CDynaTexAtlas* createCDynaTexAtlas(int w, int h);
 
-TexAtlasBlockRaw ctexAtlas_updateImage(CTexAtlas* obj, int dx, int dy, int dw, int dh,
+TexAtlasBlockRaw ctexAtlas_updateImage(CDynaTexAtlas* obj, int dx, int dy, int dw, int dh,
                     CImage *src, int sx, int sy, int sw, int sh);
 
 #endif
