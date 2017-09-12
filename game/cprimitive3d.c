@@ -112,7 +112,11 @@ void cprimitive3d_setCImage(CPrimitive3D* obj, CImage* img) {
 }
 
 char* cprimitive3d_getTextCoordBinary(CPrimitive3D* obj) {
-  return obj->texCoords->value;
+  if(obj->texCoords == NULL) {
+    return NULL;
+  } else {
+    return obj->texCoords->value;
+  }
 }
 
 int cprimitive3d_getTextCoordBinaryLength(CPrimitive3D* obj) {

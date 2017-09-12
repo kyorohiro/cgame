@@ -120,9 +120,12 @@ void cgame_draw_matu(CObject *context, CObject *args) {
  GLuint textureBuffer;
  glGenBuffers(1, &vertexBuffer);
  glGenBuffers(2, &indexBuffer);
- glGenTextures(1,&textureBuffer);
+ if(texture != NULL) {
+   glGenTextures(1,&textureBuffer);
+ }
 
  //
+ if(texture != NULL) {
   GLenum data_fmt = cimage_getColorFormatGL(texture, GL_RGB);
   void* pixels = cimage_getPixels(texture);
   int imageW = cimage_getWidth(texture);
@@ -136,7 +139,7 @@ void cgame_draw_matu(CObject *context, CObject *args) {
   glTexImage2D(GL_TEXTURE_2D, 0, data_fmt,//GL_RGBA,//data_fmt,
      imageW, imageH, 0, data_fmt, GL_UNSIGNED_BYTE, pixels);
   glGenerateMipmap(GL_TEXTURE_2D);
-
+}
  //
  //
  glUseProgram(game->program);
@@ -146,7 +149,6 @@ void cgame_draw_matu(CObject *context, CObject *args) {
  int vCameraLoc = glGetUniformLocation(game->program, "camera");
  int vModelLoc = glGetUniformLocation(game->program, "model");
  int vTexCoordLoc = glGetAttribLocation(game->program, "texCoord");
-
  glEnableVertexAttribArray(vPositionLoc);
  glEnableVertexAttribArray(vColorLoc);
  glEnableVertexAttribArray(vNormalLoc);
@@ -174,6 +176,8 @@ void cgame_draw_matu(CObject *context, CObject *args) {
 
  glDeleteBuffers(1, &vertexBuffer);
  glDeleteBuffers(2, &indexBuffer);
- glDeleteTextures(1, &textureBuffer);
+ if(texture != NULL) {
+  glDeleteTextures(1, &textureBuffer);
+ }
  capp_flushBuffers(game->app);
 }
