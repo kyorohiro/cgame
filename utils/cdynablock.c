@@ -83,7 +83,7 @@ void cdynaBlock_updateIndexInner(CDynaBlock* obj, int x, int y, int w, int opt) 
 
       if(obj->spaces[i].x <= x) {
         if(x+w <(obj->spaces[i].x+obj->spaces[i].w)) {
-          printf("s1 a %d\r\n",i);
+          //printf("s1 a %d\r\n",i);
           //   aa
           //  bbbb   -> d  b
           int sx = obj->spaces[i].x;
@@ -92,7 +92,7 @@ void cdynaBlock_updateIndexInner(CDynaBlock* obj, int x, int y, int w, int opt) 
           obj->spaces[i].x = x+w;
           obj->spaces[i].w = sw-(x+w-sx);
           if(x-sx > obj->MIN){
-            printf("s1 b %d\r\n",i);
+            //printf("s1 b %d\r\n",i);
             obj->spaces[obj->numOfSpace].x = sx;
             obj->spaces[obj->numOfSpace].y = sy;
             obj->spaces[obj->numOfSpace].w = x-sx;
@@ -101,25 +101,25 @@ void cdynaBlock_updateIndexInner(CDynaBlock* obj, int x, int y, int w, int opt) 
           }
         } else {
           if((obj->spaces[i].x+obj->spaces[i].w) > x ) {
-            printf("s2 a %d\r\n",i);
+            //printf("s2 a %d\r\n",i);
             //   aa
             //  bb    ->  b
             obj->spaces[i].w = x-obj->spaces[i].x;
           } else {
-            printf("s2 b %d\r\n",i);
+            //printf("s2 b %d\r\n",i);
             //     aa
             //  bb
           }
         }
       } else {
         if((obj->spaces[i].x+obj->spaces[i].w)< (x+w)) {
-          printf("s3 a %d\r\n",i);
+          //printf("s3 a %d\r\n",i);
           //  aaaa
           //   bb     ->  0
           obj->spaces[i].x = obj->spaces[i].y = obj->spaces[i].w = obj->spaces[i].h = 0;
         } else {
           if((obj->spaces[i].x) < x+w ) {
-            printf("s3 b %d\r\n",i);
+            //printf("s3 b %d\r\n",i);
             //  aa
             //   bb   --> b
             int tmpX = obj->spaces[i].x;
@@ -128,7 +128,7 @@ void cdynaBlock_updateIndexInner(CDynaBlock* obj, int x, int y, int w, int opt) 
             obj->spaces[i].w = (tmpX+tmpW) - (x+w) ;
 
           } else {
-            printf("s3  %d\r\n",i);
+            //printf("s3  %d\r\n",i);
             //  aa
             //     bb   -->
           }
@@ -148,7 +148,7 @@ void cdynaBlock_updateIndexInner(CDynaBlock* obj, int x, int y, int w, int opt) 
 
 void cdynaBlock_show(CDynaBlock* obj) {
   for(int i=0;i<obj->numOfSpace;i++) {
-    printf(">> %d %d %d %d\r\n",
+    printf(" %d %d %d %d\r\n",
       obj->spaces[i].x,
       obj->spaces[i].y,
       obj->spaces[i].w,
