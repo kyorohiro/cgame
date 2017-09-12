@@ -74,6 +74,9 @@ CGame* initCGame(CGame* obj, CApp* appObj) {
   //
   obj->mouseRay = initCRay(newCRay(memory), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 
+  //
+ obj->dynaTexList = initCArrayList(newCArrayList(memory), 16);
+
   return obj;
 }
 
@@ -149,9 +152,19 @@ CGame* cgame_start(CGame* obj) {
 
 void cgame_init(CObject *context, CObject *args) {
   printf("#1# cgame_init\n");
-
   CGame* gameObj = (CGame*)context;
   CApp* appObj = gameObj->app;
+  CMemory* memory = cobject_getCMemory(context);
+
+  GLint m_maxTextureSize = 0;
+  glGetIntegerv(GL_MAX_TEXTURE_SIZE, &m_maxTextureSize);
+  //printf("maxTexSize : %d\r\n", m_maxTextureSize);
+  //
+  if(m_maxTextureSize >= 2048) {
+    carrayList_addLast(gameObj->dynaTexList, (CObject*)initCDynaBlock(newCDynaBlock(memory), 2048, 2048));
+  } else {
+    carrayList_addLast(gameObj->dynaTexList, (CObject*)initCDynaBlock(newCDynaBlock(memory), 1024, 1024));
+  }
 
   gameObj->fShaderLocation = cglu_loadShader(GL_FRAGMENT_SHADER, cstring_getBytes(gameObj->fShaderSrc));
   gameObj->vShaderLocation = cglu_loadShader(GL_VERTEX_SHADER, cstring_getBytes(gameObj->vShaderSrc));
