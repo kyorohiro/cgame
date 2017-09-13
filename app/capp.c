@@ -45,7 +45,7 @@ CApp* getCApp() {
   return defaultCApp;
 }
 
-CApp* createCApp(CApp* obj, int width, int height) {
+CApp* createCApp(int width, int height) {
   CApp* ret = initCApp(newCApp(getCMemory()), width, height);
   if(defaultCApp == NULL) {
     defaultCApp = ret;
