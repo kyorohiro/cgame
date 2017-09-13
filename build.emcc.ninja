@@ -14,6 +14,11 @@ exaExt = html
 objLib = bc
 sdlVersion = 1
 
+#
+# imageOpt
+# -s STB_IMAGE=${sdlVersion}
+# --use-preload-plugins
+#
 rule obj
   command=${cmd} emcc -c $in -o $out -I.. -I. -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} -DPLATFORM_EMCC -DUSE_SDL_${sdlVersion}
 rule test
