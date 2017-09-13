@@ -20,8 +20,12 @@ GLshort indexData[] = {
   0,3,1, 2,1,3
 };
 
-void _onInit(CObject* context, CObject* args) {
+void onInit(CObject* context, CObject* args) {
   printf("## onInit\r\n");
+  CApp* appObj = (CApp*)context;
+
+  //
+  // initializs
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -30,7 +34,7 @@ void _onInit(CObject* context, CObject* args) {
   glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
   //
-
+  // create shader
   CTry {
     frgShader = cglu_loadShader(GL_FRAGMENT_SHADER,
       "#ifdef GL_ES\n"
@@ -62,9 +66,11 @@ void _onInit(CObject* context, CObject* args) {
 
 }
 
-void _onDisplay(CObject* context, CObject* args) {
+void onDisplay(CObject* context, CObject* args) {
+  CApp* appObj = (CApp*)context;
+
   //
-  //
+  // create image
   int texture;
   CImageMgr* mgr = getCImageMgr();
   CImage* img = cimageMgr_createImage(mgr, "./examples/assets/icon.png");
@@ -73,9 +79,9 @@ void _onDisplay(CObject* context, CObject* args) {
   int imageW = cimage_getWidth(img);
   int imageH = cimage_getHeight(img);
 
+  //
+  // clear buffer
   glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-
-  // buffer
   GLuint vertexBuffer;
   GLuint indexBuffer;
   GLuint textureBuffer;
@@ -83,6 +89,8 @@ void _onDisplay(CObject* context, CObject* args) {
   glGenBuffers(1, &indexBuffer);
   glGenTextures(1,&textureBuffer);
 
+  //
+  // connect texture
   glBindTexture(GL_TEXTURE_2D, textureBuffer);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
@@ -96,7 +104,7 @@ void _onDisplay(CObject* context, CObject* args) {
   releaseCObject((CObject*)img);
 
   //
-  // shader
+  // connect shader
   glUseProgram(program);
   int positionLoc = glGetAttribLocation(program, "position");
   int texCoordLoc = glGetAttribLocation(program, "texCoord");
@@ -105,6 +113,7 @@ void _onDisplay(CObject* context, CObject* args) {
 
 
   //
+  // connect buffer
   glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
   glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*5*4, vertexBufferData, GL_STATIC_DRAW);
 
@@ -113,8 +122,13 @@ void _onDisplay(CObject* context, CObject* args) {
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLshort)*6, indexData, GL_STATIC_DRAW);
+
+  //
+  // draw buffer
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, 0);
 
+  //
+  // release buffer
   glDeleteBuffers(1, &vertexBuffer);
   glDeleteBuffers(1, &indexBuffer);
 
@@ -130,11 +144,9 @@ void _onDisplay(CObject* context, CObject* args) {
 
 int main(int argc, char** argv) {
   printf("capp sample\r\n");
-  //appObj = getCApp();//
-  appObj = initCApp(newCApp(getCMemory()), 300, 300);
-  CString *context = initCString(newCString(getCMemory()), "dummy");
-  capp_addDisplayEventListener(appObj, (CObject*)context, _onDisplay);
-  capp_addInitEventListener(appObj,  (CObject*)context, _onInit);
+  CApp* appObj = createCApp(300, 300);
+  capp_addDisplayEventListener(appObj, (CObject*)appObj, onDisplay);
+  capp_addInitEventListener(appObj,  (CObject*)appObj, onInit);
   capp_run(appObj);
   return 0;
 }
