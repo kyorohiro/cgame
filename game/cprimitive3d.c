@@ -33,6 +33,18 @@ CPrimitive3D* initCPrimitive3D(CPrimitive3D* obj) {
   return obj;
 }
 
+CPrimitive3D* createCPrimitive3DAsCube() {
+  return initCPrimitive3DAsCube(newCPrimitive3D(getCMemory()));
+}
+
+CPrimitive3D* createCPrimitive3DAsTriangle() {
+  return initCPrimitive3DAsTriangle(newCPrimitive3D(getCMemory()));
+}
+
+CPrimitive3D* createPrimitive3DAsSquare() {
+  return initCPrimitive3DAsSquare(newCPrimitive3D(getCMemory()));
+}
+
 CPrimitive3D* cprimitive3d_setColor(CPrimitive3D* obj, double a, double r, double g, double b) {
   int colorLen = cbytes_getLength((CBytes*)obj->colors)/sizeof(CMatrixVertexType);
   CMatrixVertexType* colors = (CMatrixVertexType*)obj->colors->value;

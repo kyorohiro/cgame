@@ -30,6 +30,11 @@ CPrimitive3D* initCPrimitive3D(CPrimitive3D*);
 CPrimitive3D* initCPrimitive3DAsCube(CPrimitive3D*);
 CPrimitive3D* initCPrimitive3DAsTriangle(CPrimitive3D* obj);
 CPrimitive3D* initCPrimitive3DAsSquare(CPrimitive3D* obj);
+
+CPrimitive3D* createCPrimitive3DAsCube();
+CPrimitive3D* createCPrimitive3DAsTriangle();
+CPrimitive3D* createPrimitive3DAsSquare();
+
 // src  x,y,x,y,x,y......
 CPrimitive3D* initCPrimitive3DAsTinyShape(CPrimitive3D* obj, CMatrixVertexType* src, int length);
 void freeCPrimitive3D(void* obj);

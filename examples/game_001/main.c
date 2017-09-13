@@ -48,12 +48,10 @@ int main(int argc, char** argv) {
   CGame* gameObj = createCGame(400, 300);
 
   CObject3D *root = cgame_getRoot(gameObj);
-  CObject3D *cube1 = (CObject3D*)initCPrimitive3DAsCube(newCPrimitive3D(getCMemory()));
-  CObject3D *cube2 = (CObject3D*)initCPrimitive3DAsTriangle(newCPrimitive3D(getCMemory()));
-
+  CObject3D *cube1 = (CObject3D*)createCPrimitive3DAsCube();
   cube1->onEnterFrameFunc =_onEnterFrame;
 
-  cobject3d_addNode(root, cube2);
+  cobject3d_addNode(root, (CObject3D*)createCPrimitive3DAsTriangle());
   cobject3d_addNode(root, cube1);
 
   ccamera3d_update(cgame_getCamera(gameObj),
