@@ -29,7 +29,8 @@ CDynaTexAtlas* createCDynaTexAtlas(int w, int h);
 int ctexAtlas_addImage(CDynaTexAtlas* obj, CImage *src, int sx, int sy, int sw, int sh, CDynaBlockSpace* out);
 int ctexAtlas_addImageManually(CDynaTexAtlas* obj, int dx, int dy, int dw, int dh, CImage *src, int sx, int sy, int sw, int sh);
 CImage* ctexAtlas_getImage(CDynaTexAtlas* obj);
-
+int ctexAtlas_getWidth(CDynaTexAtlas* obj);
+int ctexAtlas_getHeight(CDynaTexAtlas* obj);
 int ctexAtlas_addImageFromPath(CDynaTexAtlas* obj, char* path, CDynaBlockSpace* out);
 int ctexAtlas_addImageFromCTtf(CDynaTexAtlas* obj, CTtf*, char *text, double r, double g, double b, double a, CDynaBlockSpace* out);
 int ctexAtlas_addImageFromSDLSurface(CDynaTexAtlas* obj, SDL_Surface* value, CDynaBlockSpace* out);

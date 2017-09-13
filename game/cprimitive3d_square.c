@@ -3,9 +3,15 @@
 #include <stdio.h>
 
 //
-//     B
-//   D A E F
-//     C
+// tex
+// (0.0 0.0) - (1.0 0.0)
+//     texture
+// (0.0 1.0) - (1.1 1.1)
+//
+// primitbve
+//  4 - 1
+//  3 - 2
+//
 CPrimitive3D* initCPrimitive3DAsSquare(CPrimitive3D* obj) {
   initCPrimitive3D(obj);
   CMatrixVertexType vertices[] = {
@@ -47,5 +53,32 @@ CPrimitive3D* cprimitive3d_setTexCoordAsSquare(CPrimitive3D* obj, CMatrixVertexT
   v[5] = y2;
   v[6] = x3;
   v[7] = y3;
+  return obj;
+}
+
+//
+// tex
+// (0.0 0.0) - (1.0 0.0)
+//     texture
+// (0.0 1.0) - (1.1 1.1)
+//
+// primitbve
+//  4 - 1
+//  3 - 2
+//
+CPrimitive3D* cprimitive3d_setTexCoordAsSquareFromBlock(CPrimitive3D* obj, int x, int y, int w, int h, int imgW, int imgH) {
+  double _x = 1.0*x/imgW;
+  double _y = 1.0*y/imgH;
+  double _w = 1.0*w/imgW;
+  double _h = 1.0*h/imgH;
+  CMatrixVertexType* v = (CMatrixVertexType*)obj->texCoords->value;
+  v[0] = _x+_w; //1.0
+  v[1] = _y;    //0.0
+  v[2] = _x+_w; //1.0;
+  v[3] = _y+_h; //1.0;
+  v[4] = _x;    //0.0;
+  v[5] = _y+_h; //1.0;
+  v[6] = _x;    //0.0;
+  v[7] = _y;    //0.0;
   return obj;
 }

@@ -93,3 +93,10 @@ int ctexAtlas_addImageFromPath(CDynaTexAtlas* obj, char* path, CDynaBlockSpace* 
 CImage* ctexAtlas_getImage(CDynaTexAtlas* obj) {
   return obj->image;
 }
+
+int ctexAtlas_getWidth(CDynaTexAtlas* obj) {
+  return cimage_getWidth(obj->image);
+}
+int ctexAtlas_getHeight(CDynaTexAtlas* obj) {
+  return cimage_getHeight(obj->image);
+}

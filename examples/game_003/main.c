@@ -16,16 +16,16 @@ int main(int argc, char** argv) {
   CGame* gameObj = createCGame(400, 300);
 
   //
-  CImageMgr* mgr = getCImageMgr();
   CDynaTexAtlas* atlas = cgame_getCDynaTexAtlas(gameObj, 0);
   CDynaBlockSpace out;
   ctexAtlas_addImageFromPath(atlas, "./examples/assets/icon.png", &out);
 
   //
-  CObject3D *square1 = (CObject3D*)initCPrimitive3DAsSquare(newCPrimitive3D(getCMemory()));
+  CObject3D *square1 = (CObject3D*)createPrimitive3DAsSquare();
   cmatrix4_setTranslation(cobject3d_getCMatrix4((CObject3D*)square1), 0.0, 0.0, 0.0);
   cprimitive3d_setCImage((CPrimitive3D*)square1, ctexAtlas_getImage(atlas));
-
+  cprimitive3d_setTexCoordAsSquareFromBlock((CPrimitive3D*)square1, out.x, out.y, out.w, out.h,
+  ctexAtlas_getWidth(atlas), ctexAtlas_getHeight(atlas));
 
   CObject3D *root = cgame_getRoot(gameObj);
   cobject3d_addNode(root, square1);
