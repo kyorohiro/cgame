@@ -99,6 +99,16 @@ CGame* getCGame() {
   return defaultCGame;
 }
 
+CGame* createCGame(int window, int height) {
+  CApp* app = createCApp(window, height);
+  CGame* ret  = initCGame(newCGame(getCMemory()), app);
+  if(defaultCGame == NULL) {
+    defaultCGame = ret;
+  }
+  cgame_init(defaultCGame);
+  return ret;
+}
+
 void cgame_draw(CObject *context, CObject *args) {
   //
   // mouse ray

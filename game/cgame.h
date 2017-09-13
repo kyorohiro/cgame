@@ -58,7 +58,7 @@ typedef struct {
 //
 CGame* newCGame(CMemory* mem);
 CGame* initCGame(CGame*, CApp*);
-
+CGame* createCGame(int window, int height);
 //
 CGame* getCGame();
 CGame* cgame_run(CGame*);

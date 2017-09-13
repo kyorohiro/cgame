@@ -45,8 +45,7 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
 
 int main(int argc, char** argv) {
   printf("call main\r\n");
-
-  CGame* gameObj = getCGame();
+  CGame* gameObj = createCGame(400, 300);
 
   CObject3D *root = cgame_getRoot(gameObj);
   CObject3D *cube1 = (CObject3D*)initCPrimitive3DAsCube(newCPrimitive3D(getCMemory()));
