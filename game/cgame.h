@@ -39,19 +39,18 @@ typedef struct {
   // basic primitive
   CObject3D *root;
   CObject3D *camera;
-
-  //
   CRay* mouseRay;
 
   //
-  //
-  CArrayList *dynaTexList;
-
-
-  //
   // draw cache
+  CArrayList *dynaTexList;
   CBytes* vertexes;
   CBytes* indexes;
+
+  //
+  // status
+  int callInited;
+  int callInnerInited;
 } CGame;
 
 //
@@ -64,7 +63,6 @@ CGame* initCGame(CGame*, CApp*);
 CGame* getCGame();
 CGame* cgame_run(CGame*);
 CGame* cgame_init(CGame*);
-CGame* cgame_loop(CGame*);
 
 CObject3D* cgame_getRoot(CGame*);
 CCamera3D* cgame_getCamera(CGame*);

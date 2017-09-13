@@ -14,7 +14,6 @@
 int main(int argc, char** argv) {
   printf("call main");
   CGame* gameObj = getCGame();
-  cgame_init(gameObj);
 
   //
   CImageMgr* mgr = getCImageMgr();
@@ -35,6 +34,6 @@ int main(int argc, char** argv) {
       0.0, 0.0, 0.0,
       3.14*45.0*0.5/180.0, 400.0/300.0, 0.5, 100.0);
 
-  cgame_loop(gameObj);
+  cgame_run(gameObj);
   return 0;
 }

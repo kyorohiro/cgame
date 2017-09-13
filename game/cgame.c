@@ -94,6 +94,7 @@ CGame* getCGame() {
     defaultCGame = initCGame(
       newCGame(getCMemory()),getCApp()
     );
+    cgame_init(defaultCGame);
   }
   return defaultCGame;
 }
@@ -140,22 +141,23 @@ void cgame_draw(CObject *context, CObject *args) {
 CGame* cgame_run(CGame* obj) {
   printf("## cgame_run %d \r\n", RENDER_MODE);
   CApp* appObj = getCApp();
-  capp_run(appObj);
+  if(obj->callInited !=1) {
+    capp_init(appObj);
+  }
+  capp_loop(appObj);
   return obj;
 }
 
 CGame* cgame_init(CGame* obj) {
   printf("## cgame_run %d \r\n", RENDER_MODE);
   CApp* appObj = getCApp();
-  capp_init(appObj);
+  if(obj->callInited != 1) {
+    capp_init(appObj);
+    obj->callInited = 1;
+  }
   return obj;
 }
 
-CGame* cgame_loop(CGame* obj) {
-  CApp* appObj = getCApp();
-  capp_loop(appObj);
-  return obj;
-}
 
 void cgame_init_inner(CObject *context, CObject *args) {
   printf("#1# cgame_init\n");
@@ -197,6 +199,7 @@ void cgame_init_inner(CObject *context, CObject *args) {
   glClearColor(0.9f, 0.5f, 0.5f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
   //
+  gameObj->callInnerInited = 1;
 }
 
 CRay* cgame_getMouseRay(CGame* obj) {
