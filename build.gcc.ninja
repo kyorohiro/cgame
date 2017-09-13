@@ -12,38 +12,48 @@ exaExt = exe
 objLib = a
 cc = cc
 ar = ar
+
+
+
+#
+#
 sdlVersion = 2
+incSDL = /usr/local/Cellar/sdl2/2.0.5/include/SDL2/
+incSDLImage = /usr/local/Cellar/sdl2_image/2.0.1_3/include/SDL2/
+incSDLTTF = /usr/local/Cellar/sdl2_ttf/2.0.14/include/SDL2/
+incSDLMixer = /usr/local/Cellar/sdl2_mixer/2.0.1_1/include/SDL2/
+libSDL = /usr/local/Cellar/sdl2/2.0.5/lib/
+libSDLImage = /usr/local/Cellar/sdl2_image/2.0.1_3/lib/
+libSDLTTF = /usr/local/Cellar/sdl2_ttf/2.0.14/lib
+libSDLMixer = /usr/local/Cellar/sdl2_mixer/2.0.1_1/lib
+linkSDK = -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_ttf -lSDL2_image -framework OpenGL
 
-incSDL2 = /usr/local/Cellar/sdl2/2.0.5/include/SDL2/
-incSDL2Image = /usr/local/Cellar/sdl2_image/2.0.1_3/include/SDL2/
-incSDL2TTF = /usr/local/Cellar/sdl2_ttf/2.0.14/include/SDL2/
-incSDL2Mixer = /usr/local/Cellar/sdl2_mixer/2.0.1_1/include/SDL2/
-libSDL2 = /usr/local/Cellar/sdl2/2.0.5/lib/
-libSDL2Image = /usr/local/Cellar/sdl2_image/2.0.1_3/lib/
-libSDL2TTF = /usr/local/Cellar/sdl2_ttf/2.0.14/lib
-libSDL2Mixer = /usr/local/Cellar/sdl2_mixer/2.0.1_1/lib
+#
+#sdlVersion = 1
+#incSDL = /usr/local/Cellar/sdl/1.2.15/include/SDL/
+#incSDLImage = /usr/local/Cellar/sdl_image/1.2.12_7/include/SDL/
+#incSDLTTF = /usr/local/Cellar/sdl_ttf/2.0.11_1/include/SDL/
+#incSDLMixer = /usr/local/Cellar/sdl_mixer/1.2.12_2/include/SDL/
+#libSDL = /usr/local/Cellar/sdl/1.2.15/lib
+#libSDLImage = /usr/local/Cellar/sdl_image/1.2.12_7/lib/
+#libSDLTTF = /usr/local/Cellar/sdl_ttf/2.0.11_1/lib/
+#libSDLMixer = /usr/local/Cellar/sdl_mixer/1.2.12_2/lib/
+#linkSDK = -lSDLmain -lSDL -lSDL_mixer -lSDL_ttf -lSDL_image -framework OpenGL -framework Cocoa
+#
 
-incSDL = /usr/local/Cellar/sdl/1.2.15/include/SDL/
-incSDLImage = /usr/local/Cellar/sdl_image/1.2.12_7/include/SDL/
-incSDLTTF = /usr/local/Cellar/sdl_ttf/2.0.11_1/include/SDL/
-incSDLMixer = /usr/local/Cellar/sdl_mixer/1.2.12_2/include/SDL/
-libSDL = /usr/local/Cellar/sdl/1.2.15/lib
-libSDLImage = /usr/local/Cellar/sdl_image/1.2.12_7/lib/
-libSDLTTF = /usr/local/Cellar/sdl_ttf/2.0.11_1/lib/
-libSDLMixer = /usr/local/Cellar/sdl_mixer/1.2.12_2/lib/
 
 rule obj
-  command=${cmd} ${cc} -c $in -o $out -I.. -I. -O2 -I${incSDL2} -I${incSDL2Image} -I${incSDL2TTF} -I${incSDL2Mixer}  -DPLATFORM_OSX -DUSE_SDL_${sdlVersion}
+  command=${cmd} ${cc} -c $in -o $out -I.. -I. -O2 -I${incSDL} -I${incSDLImage} -I${incSDLTTF} -I${incSDLMixer}  -DPLATFORM_OSX -DUSE_SDL_${sdlVersion} -Wmacro-redefined
 rule test
   command=${cmd} ${cc} $in -o $out -DPLATFORM_OSX -DUSE_SDL_${sdlVersion}
 rule lib
   command=${cmd} ${ar} rcs $out $in
 rule exe
-  command=${cmd} ${cc} $in -o $out -DPLATFORM_OSX -O2 -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_ttf -lSDL2_image -L${libSDL2} -L${libSDL2Image} -L${libSDL2TTF} -L${libSDL2Mixer} -framework OpenGL
+  command=${cmd} ${cc} $in -o $out -DPLATFORM_OSX -O2 ${linkSDK} -L${libSDL} -L${libSDLImage} -L${libSDLTTF} -L${libSDLMixer}
 rule app
-  command=${cmd} ${cc} $in -o $out -DPLATFORM_OSX -O2 -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_ttf -lSDL2_image -L${libSDL2} -L${libSDL2Image} -L${libSDL2TTF} -L${libSDL2Mixer} -framework OpenGL
+  command=${cmd} ${cc} $in -o $out -DPLATFORM_OSX -O2 ${linkSDK} -L${libSDL} -L${libSDLImage} -L${libSDLTTF} -L${libSDLMixer}
 rule appEx
-  command=${cmd} ${cc} $in -o $out -DPLATFORM_OSX -O2 -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_ttf -lSDL2_image -L${libSDL2} -L${libSDL2Image} -L${libSDL2TTF} -L${libSDL2Mixer} -framework OpenGL
+  command=${cmd} ${cc} $in -o $out -DPLATFORM_OSX -O2 ${linkSDK} -L${libSDL} -L${libSDLImage} -L${libSDLTTF} -L${libSDLMixer}
 
 
 

@@ -94,9 +94,17 @@ void main_loop(void*args) {
         app->mouseEvent->state = 0;
         app->fpsCount = 100;
         break;
+#ifdef PLATFORM_EMCC
+#define USE_SDL_MOUSEWHEEL
+#endif
+#ifdef USE_SDL_2
+#define USE_SDL_MOUSEWHEEL
+#endif
+#ifdef USE_SDL_MOUSEWHEEL
       case SDL_MOUSEWHEEL:
         app->fpsCount = 100;
         break;
+#endif
       case SDL_QUIT:
         app->isQuit = 1;
     }

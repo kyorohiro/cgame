@@ -19,18 +19,20 @@ sdlVersion = 1
 # -s STB_IMAGE=${sdlVersion}
 # --use-preload-plugins
 #
+optOffScreenBLIT = -DOPT_OFFSCREEN_BLIT
+
 rule obj
-  command=${cmd} emcc -c $in -o $out -I.. -I. -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} -DPLATFORM_EMCC -DUSE_SDL_${sdlVersion}
+  command=${cmd} emcc -c $in -o $out -I.. -I. -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} -DPLATFORM_EMCC -DUSE_SDL_${sdlVersion} ${optOffScreenBLIT}
 rule test
-  command=${cmd} emcc $in -o $out --embed-file core/assets/test.dat  -s USE_SDL=${sdlVersion}  -s USE_SDL_IMAGE=${sdlVersion} -DPLATFORM_EMCC -DUSE_SDL_${sdlVersion}
+  command=${cmd} emcc $in -o $out --embed-file core/assets/test.dat  -s USE_SDL=${sdlVersion}  -s USE_SDL_IMAGE=${sdlVersion} -DPLATFORM_EMCC -DUSE_SDL_${sdlVersion} ${optOffScreenBLIT}
 rule lib
-  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion}
+  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} ${optOffScreenBLIT}
 rule exe
-  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} -O2 --use-preload-plugins
+  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} -O2 --use-preload-plugins ${optOffScreenBLIT}
 rule app
-  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} -O2 --use-preload-plugins --preload-file game/assets/
+  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} -O2 --use-preload-plugins --preload-file game/assets/ ${optOffScreenBLIT}
 rule appEx
-  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} -O2 --use-preload-plugins --preload-file game/assets/ --preload-file examples/assets/
+  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} -O2 --use-preload-plugins --preload-file game/assets/ --preload-file examples/assets/ ${optOffScreenBLIT}
 
 #
 # core
