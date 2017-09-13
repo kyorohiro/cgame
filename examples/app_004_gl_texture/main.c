@@ -2,6 +2,9 @@
 #include "app/capp.h"
 #include "core/ccore.h"
 #include "app/cimage.h"
+
+
+
 int fps;
 CApp* appObj;
 int frgShader;
