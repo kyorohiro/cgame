@@ -13,22 +13,19 @@
 
 int main(int argc, char** argv) {
   printf("call main");
-
   CGame* gameObj = getCGame();
+  cgame_init(gameObj);
 
   //
   CImageMgr* mgr = getCImageMgr();
-  CImage* img = createEmptyRPGACImage(1024, 1024);
-  CImage* src = cimageMgr_createImage(mgr, "./examples/assets/icon.png");
-  int imgW = cimage_getWidth(src);
-  int imgH = cimage_getHeight(src);
-  cimage_update(img, 0, 0, imgW, imgH, src, 0, 0, imgW, imgH);
+  CDynaTexAtlas* atlas = cgame_getCDynaTexAtlas(gameObj, 0);
+  CDynaBlockSpace out;
+  ctexAtlas_addImageFromPath(atlas, "./examples/assets/icon.png", &out);
 
   //
   CObject3D *square1 = (CObject3D*)initCPrimitive3DAsSquare(newCPrimitive3D(getCMemory()));
   cmatrix4_setTranslation(cobject3d_getCMatrix4((CObject3D*)square1), 0.0, 0.0, 0.0);
-  cprimitive3d_setCImage((CPrimitive3D*)square1, img);
-
+  cprimitive3d_setCImage((CPrimitive3D*)square1, ctexAtlas_getImage(atlas));
 
 
   CObject3D *root = cgame_getRoot(gameObj);
@@ -38,7 +35,6 @@ int main(int argc, char** argv) {
       0.0, 0.0, 0.0,
       3.14*45.0*0.5/180.0, 400.0/300.0, 0.5, 100.0);
 
-  cgame_start(gameObj);
-
+  cgame_loop(gameObj);
   return 0;
 }

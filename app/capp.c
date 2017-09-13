@@ -109,14 +109,10 @@ void main_loop(void*args) {
   #endif
 }
 
-CApp* capp_run(CApp* obj) {
+CApp* capp_init(CApp* obj) {
   printf("main 0\n");
   //
   SDL_Init(SDL_INIT_EVERYTHING);
-//  SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-//  SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-//  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 1);
-//  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
 #ifdef USE_SDL_2
   obj->window = SDL_CreateWindow("test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, obj->width, obj->height, SDL_WINDOW_OPENGL);
   if (!obj->window) {
@@ -131,15 +127,12 @@ CApp* capp_run(CApp* obj) {
     return obj;
   }
 #endif
-  //SDL_GLContext glContext;
-  //glContext = SDL_GL_CreateContext(window);
-  //if (!glContext) {
-  //  printf("failed to create glContext\n");
-  //  return obj;
-  //}
 
   ceventDispatcher_dispatch(obj->init, (CObject*)obj);
+  return obj;
+}
 
+CApp* capp_loop(CApp* obj) {
   #ifdef PLATFORM_EMCC
     emscripten_set_main_loop_arg(main_loop, obj, 60, 1);
   #else
@@ -162,7 +155,6 @@ CApp* capp_run(CApp* obj) {
       }
       if((currentTime-prevTime) < interval) {
         SDL_Delay(interval-(currentTime-prevTime));
-        //printf("%d\r\n", (interval-(currentTime-prevTime)));
       } else {
         SDL_Delay(1);
       }
@@ -172,6 +164,10 @@ CApp* capp_run(CApp* obj) {
   #endif
 
   return obj;
+}
+
+CApp* capp_run(CApp* obj) {
+  return capp_loop(capp_init(obj));
 }
 
 //

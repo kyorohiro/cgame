@@ -12,7 +12,7 @@
 
 //
 void cgame_draw(CObject *context, CObject *args);
-void cgame_init(CObject *context, CObject *args);
+void cgame_init_inner(CObject *context, CObject *args);
 void _freeCGame(void* obj);
 void cgame_draw_matu(CObject *context, CObject *args);
 void cgame_draw_ume(CObject *context, CObject *args);
@@ -68,7 +68,7 @@ CGame* initCGame(CGame* obj, CApp* appObj) {
   //
   // event
   capp_addDisplayEventListener(appObj, (CObject*)obj, cgame_draw);
-  capp_addInitEventListener(appObj, (CObject*)obj, cgame_init);
+  capp_addInitEventListener(appObj, (CObject*)obj, cgame_init_inner);
 
   //
   //
@@ -137,20 +137,27 @@ void cgame_draw(CObject *context, CObject *args) {
 #endif
 }
 
-CGame* cgame_start(CGame* obj) {
-  printf("## cgame_start \r\n");
-  #if RENDER_MODE == 0
-  printf("## ume\n");
-  #else
-  printf("## matu\n");
-  #endif
+CGame* cgame_run(CGame* obj) {
+  printf("## cgame_run %d \r\n", RENDER_MODE);
   CApp* appObj = getCApp();
-
   capp_run(appObj);
   return obj;
 }
 
-void cgame_init(CObject *context, CObject *args) {
+CGame* cgame_init(CGame* obj) {
+  printf("## cgame_run %d \r\n", RENDER_MODE);
+  CApp* appObj = getCApp();
+  capp_init(appObj);
+  return obj;
+}
+
+CGame* cgame_loop(CGame* obj) {
+  CApp* appObj = getCApp();
+  capp_loop(appObj);
+  return obj;
+}
+
+void cgame_init_inner(CObject *context, CObject *args) {
   printf("#1# cgame_init\n");
   CGame* gameObj = (CGame*)context;
   CApp* appObj = gameObj->app;
@@ -164,9 +171,9 @@ void cgame_init(CObject *context, CObject *args) {
   printf("maxTexSize : %d %d\r\n", m_maxTextureSize, MaxUnitNum);
   //
   if(m_maxTextureSize >= 2048) {
-    carrayList_addLast(gameObj->dynaTexList, (CObject*)initCDynaBlock(newCDynaBlock(memory), 2048, 2048));
+    carrayList_addLast(gameObj->dynaTexList, (CObject*)initCDynaTexAtlas(newCDynaTexAtlas(memory), 2048, 2048));
   } else {
-    carrayList_addLast(gameObj->dynaTexList, (CObject*)initCDynaBlock(newCDynaBlock(memory), 1024, 1024));
+    carrayList_addLast(gameObj->dynaTexList, (CObject*)initCDynaTexAtlas(newCDynaTexAtlas(memory), 1024, 1024));
   }
 
   gameObj->fShaderLocation = cglu_loadShader(GL_FRAGMENT_SHADER, cstring_getBytes(gameObj->fShaderSrc));
@@ -203,4 +210,8 @@ CAppMouseEvent* cgame_getCurrentMouseEvent(CGame* obj) {
 CGame* cgame_postRedisplay(CGame* obj) {
   capp_postRedisplay(obj->app);
   return obj;
+}
+
+CDynaTexAtlas* cgame_getCDynaTexAtlas(CGame* obj, int index) {
+  return (CDynaTexAtlas*)carrayList_get(obj->dynaTexList, index);
 }

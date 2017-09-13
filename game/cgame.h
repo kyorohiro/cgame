@@ -62,11 +62,14 @@ CGame* initCGame(CGame*, CApp*);
 
 //
 CGame* getCGame();
-CGame* cgame_start(CGame*);
+CGame* cgame_run(CGame*);
+CGame* cgame_init(CGame*);
+CGame* cgame_loop(CGame*);
 
 CObject3D* cgame_getRoot(CGame*);
 CCamera3D* cgame_getCamera(CGame*);
 CAppMouseEvent* cgame_getCurrentMouseEvent(CGame*);
 CGame* cgame_postRedisplay(CGame*);
 CRay* cgame_getMouseRay(CGame*);
+CDynaTexAtlas* cgame_getCDynaTexAtlas(CGame* obj, int index);
 #endif

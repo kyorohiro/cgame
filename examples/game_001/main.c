@@ -62,6 +62,6 @@ int main(int argc, char** argv) {
       0.0, 0.0, 0.0,
       3.14*45.0/180.0, 400.0/300.0, 0.5, 1000.0);
 
-  cgame_start(gameObj);
+  cgame_run(gameObj);
   return 0;
 }

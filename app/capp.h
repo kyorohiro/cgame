@@ -66,6 +66,8 @@ CApp* newCApp(CMemory* mem);
 CApp* initCApp(CApp* obj, int width, int height);
 CApp* getCApp();
 CApp* capp_run(CApp*);
+CApp* capp_init(CApp* obj);
+CApp* capp_loop(CApp* obj);
 
 CApp* capp_addMouseEventListener(CApp*, CObject* context, CEventFuncOnEvent func);
 CApp* capp_addDisplayEventListener(CApp*, CObject* context, CEventFuncOnEvent func);
