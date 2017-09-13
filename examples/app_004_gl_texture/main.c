@@ -6,7 +6,6 @@
 
 
 int fps;
-CApp* appObj;
 int frgShader;
 int verShader;
 int program;

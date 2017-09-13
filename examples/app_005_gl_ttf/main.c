@@ -5,7 +5,6 @@
 #include "app/cttf.h"
 
 int fps;
-CApp* appObj;
 int frgShader;
 int verShader;
 int program;
@@ -24,6 +23,7 @@ GLshort indexData[] = {
 CImage* img;
 CImage* tex;
 void _onInit(CObject* context, CObject* args) {
+  CApp* appObj = (CApp*)context;
   printf("## onInit\r\n");
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_BLEND);
@@ -82,6 +82,7 @@ void _onInit(CObject* context, CObject* args) {
 }
 
 void _onDisplay(CObject* context, CObject* args) {
+  CApp* appObj = (CApp*)context;
   //
   //
   int texture;
@@ -147,11 +148,9 @@ void _onDisplay(CObject* context, CObject* args) {
 
 int main(int argc, char** argv) {
   printf("capp sample\r\n");
-  //appObj = getCApp();//
-  appObj = initCApp(newCApp(getCMemory()), 512, 512);
-  CString *context = initCString(newCString(getCMemory()), "dummy");
-  capp_addDisplayEventListener(appObj, (CObject*)context, _onDisplay);
-  capp_addInitEventListener(appObj,  (CObject*)context, _onInit);
+  CApp* appObj = createCApp(300, 300);
+  capp_addDisplayEventListener(appObj, (CObject*)appObj, _onDisplay);
+  capp_addInitEventListener(appObj,  (CObject*)appObj, _onInit);
   capp_run(appObj);
   return 0;
 }
