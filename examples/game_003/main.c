@@ -33,7 +33,7 @@ int main(int argc, char** argv) {
   CObject3D *square1 = (CObject3D*)createPrimitive3DAsSquare();
   cmatrix4_setTranslation(cobject3d_getCMatrix4((CObject3D*)square1), 0.0, 0.0, 0.0);
   cprimitive3d_setCImage((CPrimitive3D*)square1, ctexAtlas_getImage(atlas));
-  //cprimitive3d_setTexCoordAsSquareFromBlock((CPrimitive3D*)square1, out.x, out.y, out.w, out.h, ctexAtlas_getWidth(atlas), ctexAtlas_getHeight(atlas));
+  cprimitive3d_setTexCoordAsSquareFromBlock((CPrimitive3D*)square1, out.x, out.y, out.w, out.h, ctexAtlas_getWidth(atlas), ctexAtlas_getHeight(atlas));
 
   printf("%d %d %d %d\r\n", out.x, out.y, out.w, out.h);
 
