@@ -75,7 +75,11 @@ CImage* cttf_createCImageAtSolid(CTtf* obj, char *text, double r, double g, doub
 SDL_Surface* cttf_createSDLSurfaceAtSolid(CTtf* obj, char *text, double r, double g, double b, double a) {
   SDL_Color fg;fg.r=255*r;fg.g=255*g;fg.b=255*b;
 #ifdef USE_SDL_2
+#ifdef SDL2xEMCC_TTF
+  fg.unused =255*a;
+#else
   fg.a =255*a;
+#endif
 #else
   fg.unused =255*a;
 #endif
@@ -85,9 +89,13 @@ SDL_Surface* cttf_createSDLSurfaceAtSolid(CTtf* obj, char *text, double r, doubl
 CImage*  cttf_createCImageAtShaded(CTtf* obj, char *text, double r, double g, double b, double a) {
   SDL_Color fg;fg.r=255*r;fg.g=255*g;fg.b=255*b;
 #ifdef USE_SDL_2
-fg.a =255*a;
+#ifdef SDL2xEMCC_TTF
+  fg.unused =255*a;
 #else
-fg.unused =255*a;
+  fg.a =255*a;
+#endif
+#else
+  fg.unused =255*a;
 #endif
 
   SDL_Color bg = {0xff,0xff,0xff,0xff};
@@ -99,9 +107,13 @@ fg.unused =255*a;
 CImage* cttf_createCImageAtBlended(CTtf* obj, char *text, double r, double g, double b, double a) {
   SDL_Color fg;fg.r=255*r;fg.g=255*g;fg.b=255*b;
 #ifdef USE_SDL_2
-fg.a =255*a;
+#ifdef SDL2xEMCC_TTF
+  fg.unused =255*a;
 #else
-fg.unused =255*a;
+  fg.a =255*a;
+#endif
+#else
+  fg.unused =255*a;
 #endif
   SDL_Surface* surface = TTF_RenderUTF8_Blended(obj->value, text, fg);
   CMemory* mem = cobject_getCMemory((CObject*)obj);

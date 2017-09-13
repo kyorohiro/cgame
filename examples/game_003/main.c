@@ -9,23 +9,33 @@
 
 #include "app/capp.h"
 #include "app/cimage.h"
+#include "app/cttf.h"
 #include "core/cobject.h"
 
 int main(int argc, char** argv) {
-  printf("call main\r\n");
+  printf("call main 1\r\n");
   CGame* gameObj = createCGame(400, 300);
-
+  CImageMgr* mgr = getCImageMgr();
   //
+  printf("call main 2\r\n");
   CDynaTexAtlas* atlas = cgame_getCDynaTexAtlas(gameObj, 0);
   CDynaBlockSpace out;
-  ctexAtlas_addImageFromPath(atlas, "./examples/assets/icon.png", &out);
+  //
+  //CTtfMgr* mgrTtf = getCTtfMgr();
+  //CTtf* font = cttfMgr_createTtf(mgrTtf, "./examples/assets/Roboto-Bold.ttf", 60);
+  //int ret = ctexAtlas_addImageFromCTtf(atlas, font, "test", 1.0, 1.0, 1.0, 1.0, &out);
+  ctexAtlas_addImageFromPath(atlas, "examples/assets/icon.png", &out);
+
+  printf("%d %d %d %d\r\n", out.x, out.y, out.w, out.h);
+  printf("call main 3\r\n");
 
   //
   CObject3D *square1 = (CObject3D*)createPrimitive3DAsSquare();
   cmatrix4_setTranslation(cobject3d_getCMatrix4((CObject3D*)square1), 0.0, 0.0, 0.0);
   cprimitive3d_setCImage((CPrimitive3D*)square1, ctexAtlas_getImage(atlas));
-  cprimitive3d_setTexCoordAsSquareFromBlock((CPrimitive3D*)square1, out.x, out.y, out.w, out.h,
-  ctexAtlas_getWidth(atlas), ctexAtlas_getHeight(atlas));
+  //cprimitive3d_setTexCoordAsSquareFromBlock((CPrimitive3D*)square1, out.x, out.y, out.w, out.h, ctexAtlas_getWidth(atlas), ctexAtlas_getHeight(atlas));
+
+  printf("%d %d %d %d\r\n", out.x, out.y, out.w, out.h);
 
   CObject3D *root = cgame_getRoot(gameObj);
   cobject3d_addNode(root, square1);

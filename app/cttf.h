@@ -1,8 +1,16 @@
 #ifndef _H_CTTF
 #define _H_CTTF
 
+#if PLATFORM_EMCC
+#ifdef USE_SDL_2
+#include <SDL/SDL_ttf.h>
+#define SDL2xEMCC_TTF
+#else
 #include <SDL_ttf.h>
-
+#endif
+#else
+#include <SDL_ttf.h>
+#endif
 #include "core/cobject.h"
 #include "cimage.h"
 

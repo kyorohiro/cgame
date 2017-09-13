@@ -183,10 +183,11 @@ void cgame_init_inner(CObject *context, CObject *args) {
   printf("maxTexSize : %d %d\r\n", m_maxTextureSize, MaxUnitNum);
   //
   if(m_maxTextureSize >= 2048) {
-    carrayList_addLast(gameObj->dynaTexList, (CObject*)initCDynaTexAtlas(newCDynaTexAtlas(memory), 2048, 2048));
+    carrayList_addLast(gameObj->dynaTexList, (CObject*)initCDynaTexAtlas(newCDynaTexAtlas(memory), 1024, 1024));
   } else {
     carrayList_addLast(gameObj->dynaTexList, (CObject*)initCDynaTexAtlas(newCDynaTexAtlas(memory), 1024, 1024));
   }
+//  carrayList_addLast(gameObj->dynaTexList, (CObject*)initCDynaTexAtlas(newCDynaTexAtlas(memory), 512, 512));
 
   gameObj->fShaderLocation = cglu_loadShader(GL_FRAGMENT_SHADER, cstring_getBytes(gameObj->fShaderSrc));
   gameObj->vShaderLocation = cglu_loadShader(GL_VERTEX_SHADER, cstring_getBytes(gameObj->vShaderSrc));

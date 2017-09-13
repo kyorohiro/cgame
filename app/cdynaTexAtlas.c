@@ -1,4 +1,5 @@
 #include "cdynaTexAtlas.h"
+#include <stdio.h>
 
 void _freeCDynaTexAtlas(void* obj) {
   CObject *objObj = (CObject*)obj;
@@ -59,8 +60,10 @@ int ctexAtlas_addImageFromSDLSurface(CDynaTexAtlas* obj, SDL_Surface* value, CDy
   int sh = value->h;
   int ret = cdynaBlock_findSpace(obj->block, sw, sh, out);
   if(ret == 0) {
+    printf("failed to find space %d %d %d %d\r\n", out->x, out->y, out->w, out->h);
     return ret;
   }
+  printf("passed to find space %d %d %d %d: %d %d\r\n", out->x, out->y, out->w, out->h, cimage_getWidth(obj->image), cimage_getHeight(obj->image));
 
   //
   cdynaBlock_updateIndex(obj->block, out);
@@ -83,9 +86,12 @@ int ctexAtlas_addImageFromCTtf(CDynaTexAtlas* obj, CTtf* ttf, char *text, double
 int ctexAtlas_addImageFromPath(CDynaTexAtlas* obj, char* path, CDynaBlockSpace* out) {
   SDL_Surface* value = IMG_Load( path );
   if(value == NULL) {
+    printf("failed to load image %s\r\n", path);
     return 0;
   }
+  printf("passed to load image %s\r\n", path);
   int ret = ctexAtlas_addImageFromSDLSurface(obj, value, out);
+  printf("passed to load image %d %d %d %d\r\n", out->x, out->y, out->w, out->h);
   SDL_FreeSurface(value);
   return ret;
 }
