@@ -12,8 +12,8 @@
 #include "core/cobject.h"
 
 int main(int argc, char** argv) {
-  printf("call main");
-  CGame* gameObj = getCGame();
+  printf("call main\r\n");
+  CGame* gameObj = createCGame(400, 300);
 
   //
   CImageMgr* mgr = getCImageMgr();
