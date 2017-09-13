@@ -30,8 +30,8 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
 
   cmatrix4raw_mul(rotYMat, mat->value, mat->value);
   cmatrix4raw_mul(mat->value, rotXMat, mat->value);
-//  cmatrix4raw_mul(mat->value, rotYMat, mat->value);
-//  cmatrix4raw_mul(mat->value, rotZMat, mat->value);
+  cmatrix4raw_mul(mat->value, rotYMat, mat->value);
+  cmatrix4raw_mul(mat->value, rotZMat, mat->value);
 
   if(fps != appObj->fps) {
     fps = appObj->fps;
