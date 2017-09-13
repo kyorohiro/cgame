@@ -34,6 +34,9 @@ typedef struct {
 CObject3D* newCObject3D(CMemory* mem);
 CObject3D* initCObject3D(CObject3D*);
 void freeCObject3D(void* obj);
+CObject3D* cobject3d_setOnEnterFrameFunc(CObject3D* obj, CObject3DFuncOnEnterFrame func);
+
+
 CObject3D* cobject3d_addNode(CObject3D*, CObject3D* node);
 CMatrix4* cobject3d_getCMatrix4(CObject3D*);
 CLinkedList* cobject3d_getNodes(CObject3D*);

@@ -48,11 +48,9 @@ int main(int argc, char** argv) {
   CGame* gameObj = createCGame(400, 300);
 
   CObject3D *root = cgame_getRoot(gameObj);
-  CObject3D *cube1 = (CObject3D*)createCPrimitive3DAsCube();
-  cube1->onEnterFrameFunc =_onEnterFrame;
-
   cobject3d_addNode(root, (CObject3D*)createCPrimitive3DAsTriangle());
-  cobject3d_addNode(root, cube1);
+  CObject3D *cube = cobject3d_setOnEnterFrameFunc((CObject3D*)createCPrimitive3DAsCube(), _onEnterFrame);
+  cobject3d_addNode(root, cube);
 
   ccamera3d_update(cgame_getCamera(gameObj),
       0.0, 0.0, 5.0,
@@ -60,5 +58,6 @@ int main(int argc, char** argv) {
       3.14*45.0/180.0, 400.0/300.0, 0.5, 1000.0);
 
   cgame_run(gameObj);
+
   return 0;
 }

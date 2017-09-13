@@ -21,6 +21,11 @@ CObject3D* initCObject3D(CObject3D* obj) {
   return obj;
 }
 
+CObject3D* cobject3d_setOnEnterFrameFunc(CObject3D* obj, CObject3DFuncOnEnterFrame func) {
+    obj->onEnterFrameFunc = func;
+    return obj;
+}
+
 CMatrix4* cobject3d_getCMatrix4(CObject3D* obj) {
   return obj->mat;
 }
