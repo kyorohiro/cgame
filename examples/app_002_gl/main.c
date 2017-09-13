@@ -4,7 +4,6 @@
 
 
 int fps;
-CApp* appObj;
 int frgShader;
 int verShader;
 int program;
@@ -21,6 +20,7 @@ GLshort indexData[] = {
 
 void _onInit(CObject* context, CObject* args) {
   printf("## onInit\r\n");
+  CApp* appObj = (CApp*)context;
 
   glEnable(GL_DEPTH_TEST);
   glViewport(0, 0, appObj->width, appObj->height);
@@ -51,10 +51,13 @@ void _onInit(CObject* context, CObject* args) {
 }
 
 void _onDisplay(CObject* context, CObject* args) {
+  CApp* appObj = (CApp*)context;
 
-  glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+  //
+  // setup buffer
   GLuint vertexBuffer;
   GLuint indexBuffer;
+  glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
   glGenBuffers(1, &vertexBuffer);
   glGenBuffers(1, &indexBuffer);
 
@@ -62,18 +65,22 @@ void _onDisplay(CObject* context, CObject* args) {
   int positionLoc = glGetAttribLocation(program, "position");
 
   //
+  // connect buffer
   glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
   glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*3*3, vertexBufferData, GL_STATIC_DRAW);
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLshort)*3, indexData, GL_STATIC_DRAW);
 
-
   glEnableVertexAttribArray(positionLoc);
   glVertexAttribPointer(positionLoc, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)0);
 
+  //
+  // draw
   glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_SHORT, 0);
 
+  //
+  // release buffer
   glDeleteBuffers(1, &vertexBuffer);
   glDeleteBuffers(1, &indexBuffer);
 
@@ -88,11 +95,9 @@ void _onDisplay(CObject* context, CObject* args) {
 
 int main(int argc, char** argv) {
   printf("capp sample\r\n");
-  //appObj = getCApp();//
-  appObj = initCApp(newCApp(getCMemory()), 400, 300);
-  CString *context = initCString(newCString(getCMemory()), "dummy");
-  capp_addDisplayEventListener(appObj, (CObject*)context, _onDisplay);
-  capp_addInitEventListener(appObj,  (CObject*)context, _onInit);
+  CApp* appObj = createCApp(300, 300);
+  capp_addDisplayEventListener(appObj, (CObject*)appObj, _onDisplay);
+  capp_addInitEventListener(appObj,  (CObject*)appObj, _onInit);
   capp_run(appObj);
   return 0;
 }
