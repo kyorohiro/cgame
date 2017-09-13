@@ -6,7 +6,6 @@
 #include "app/cdynaTexAtlas.h"
 
 int fps;
-CApp* appObj;
 int frgShader;
 int verShader;
 int program;
@@ -27,6 +26,8 @@ CDynaTexAtlas* atlas;
 CDynaBlockSpace out;
 void _onInit(CObject* context, CObject* args) {
   printf("## onInit\r\n");
+  CApp* appObj = (CApp*)context;
+
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -76,6 +77,7 @@ void _onInit(CObject* context, CObject* args) {
 }
 
 void _onDisplay(CObject* context, CObject* args) {
+  CApp* appObj = (CApp*)context;
   //
   //
   int texture;
@@ -141,11 +143,9 @@ void _onDisplay(CObject* context, CObject* args) {
 
 int main(int argc, char** argv) {
   printf("capp sample\r\n");
-  //appObj = getCApp();//
-  appObj = initCApp(newCApp(getCMemory()), 512, 512);
-  CString *context = initCString(newCString(getCMemory()), "dummy");
-  capp_addDisplayEventListener(appObj, (CObject*)context, _onDisplay);
-  capp_addInitEventListener(appObj,  (CObject*)context, _onInit);
+  CApp* appObj = createCApp(512, 512);
+  capp_addDisplayEventListener(appObj, (CObject*)appObj, _onDisplay);
+  capp_addInitEventListener(appObj,  (CObject*)appObj, _onInit);
   capp_run(appObj);
   return 0;
 }

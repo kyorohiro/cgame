@@ -109,11 +109,6 @@ void _onDisplay(CObject* context, CObject* args) {
   glGenerateMipmap(GL_TEXTURE_2D);
 
   //
-  //
-  //releaseCObject((CObject*)img);
-  //
-
-  //
   // shader
   glUseProgram(program);
   int positionLoc = glGetAttribLocation(program, "position");
