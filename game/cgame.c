@@ -158,7 +158,10 @@ void cgame_init(CObject *context, CObject *args) {
 
   GLint m_maxTextureSize = 0;
   glGetIntegerv(GL_MAX_TEXTURE_SIZE, &m_maxTextureSize);
-  //printf("maxTexSize : %d\r\n", m_maxTextureSize);
+
+  int MaxUnitNum;
+	glGetIntegerv(GL_MAX_TEXTURE_UNITS,&MaxUnitNum);
+  printf("maxTexSize : %d %d\r\n", m_maxTextureSize, MaxUnitNum);
   //
   if(m_maxTextureSize >= 2048) {
     carrayList_addLast(gameObj->dynaTexList, (CObject*)initCDynaBlock(newCDynaBlock(memory), 2048, 2048));
