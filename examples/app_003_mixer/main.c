@@ -5,30 +5,39 @@
 #include "app/cmixer.h"
 
 int fps;
-void _testOnDisplay(CObject* context, CObject* args) {
+void onDisplay(CObject* context, CObject* args) {
+  CApp* appObj = (CApp*)context;
+  //
+  // clear screen
   glClearColor(1.0, 0.7, 0.7, 1.0);//rgba
   glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-  CApp* appObj = getCApp();
+
+  //
+  // redisplay and update screen buffer
   capp_postRedisplay(appObj);
+  capp_flushBuffers(appObj);
+
+  //
+  // fps check
   if(fps != appObj->fps) {
     fps = appObj->fps;
     printf("fps:%d;\r\n",fps);
   }
-  //capp_flushBuffers(appObj);
 }
 
 int main(int argc, char** argv) {
-  printf("capp 003 mixer sample");
-  CApp* appObj = getCApp();
-  CString *context = initCString(newCString(getCMemory()), "dummy");
-  capp_addDisplayEventListener(appObj, (CObject*)context, _testOnDisplay);
+  printf("call main \r\n");
+  //
+  // call mixer
+  // mixer is singlton
   CMixer* mixer = getCMixer();
   CMixerMusic* music1 = cmixer_createMusic(mixer, "examples/assets/se_maoudamashii_element_thunder05.ogg");
-//  CMixerMusic* music2 = cmixer_createMusic(mixer, "examples/assets/se_maoudamashii_element_wind01.ogg");
-
-//  cmixer_playMusic(mixer, music2, -1);
   cmixer_playMusic(mixer, music1, -1);
 
+  //
+  // create app
+  CApp* appObj = createCApp(300, 300);
+  capp_addDisplayEventListener(appObj, (CObject*)appObj , onDisplay);
   capp_run(appObj);
   return 0;
 }
