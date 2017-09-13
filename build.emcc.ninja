@@ -48,7 +48,7 @@ subninja examples${sep}app_004_gl_texture${sep}build.ninja
 subninja examples${sep}app_005_gl_ttf${sep}build.ninja
 subninja examples${sep}app_006_gl_dyimg${sep}build.ninja
 subninja examples${sep}game_001${sep}build.ninja
-subninja examples${sep}game_002${sep}build.ninja
+subninja examples${sep}game_002_ray${sep}build.ninja
 subninja examples${sep}game_003${sep}build.ninja
 
 
