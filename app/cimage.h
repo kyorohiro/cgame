@@ -5,6 +5,16 @@
 
 #include "core/cobject.h"
 
+#ifdef USE_SDL_1
+#ifdef PLATFORM_EMCC
+#define CIMAGE_UNUSE_SCREEN_LOCK
+#define CIMAGE_USE_MANUALL_COPY
+#else
+#define CIMAGE_USE_DISPLAY_FORMAT
+#endif
+#endif
+
+
 #define CIMAGE_MGR_NAME "cig"
 #define CIMAGE_NAME "cim"
 #define CIMAGE_COLOR_FROMAT_RGBA 9
@@ -41,4 +51,8 @@ int cimage_getHeight(CImage* obj);
 void* cimage_getPixels(CImage* obj);
 int cimage_getColorFormat(CImage* obj);
 int cimage_getColorFormatGL(CImage* obj, int def);
+int cimage_getColorFormatFromSDLSurface(SDL_Surface* value);
+
+
+SDL_Surface* cimageUtil_loadFromPath(char *path);
 #endif

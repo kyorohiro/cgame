@@ -84,7 +84,7 @@ int ctexAtlas_addImageFromCTtf(CDynaTexAtlas* obj, CTtf* ttf, char *text, double
 }
 
 int ctexAtlas_addImageFromPath(CDynaTexAtlas* obj, char* path, CDynaBlockSpace* out) {
-  SDL_Surface* value = IMG_Load( path );
+  SDL_Surface* value = cimageUtil_loadFromPath( path );
   if(value == NULL) {
     printf("failed to load image %s\r\n", path);
     return 0;

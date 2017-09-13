@@ -61,10 +61,17 @@ CImage* newCImage(CMemory* cmemory) {
   return ret;
 }
 
+SDL_Surface* cimageUtil_loadFromPath(char *path) {
+  SDL_Surface* value = IMG_Load( path );
+#ifdef CIMAGE_USE_DISPLAY_FORMAT
+  value = SDL_DisplayFormat(value);
+#endif
+  return value;
+}
+
 CImage* initCImageFromPath(CImage* obj, char* path){
   initCObject((CObject*)obj, CIMAGE_NAME);
-  SDL_Surface* value = IMG_Load( path );
-  obj->value = value;
+  obj->value = cimageUtil_loadFromPath( path );
   return obj;
 }
 
@@ -99,7 +106,49 @@ void cimage_updateFromSDLSurface(CImage *dst, int dx, int dy, int dw, int dh,
                     SDL_Surface* src, int sx, int sy, int sw, int sh) {
     SDL_Rect s = {.x=sx,.y=sy, .w=sw, .h=sh};
     SDL_Rect d = {.x=dx,.y=dy, .w=dw, .h=dh};
+
+#ifdef CIMAGE_USE_MANUALL_COPY
+#ifndef CIMAGE_UNUSE_SCREEN_LOCK
+    SDL_LockSurface(src);
+#endif
+#endif
+
+#ifdef CIMAGE_USE_MANUALL_COPY
+    unsigned char *x = dst->value->pixels;
+    unsigned char *y = src->pixels;
+    printf("srcx %d %d : %d %d %d: %d %d %d %d \r\n", src->w,src->h, src->pitch,
+        src->format->BitsPerPixel,
+        dst->value->format->BytesPerPixel,
+        dst->value->format->Rmask,
+        dst->value->format->Gmask,
+        dst->value->format->Bmask,
+        dst->value->format->Amask
+      );
+    printf("dstx %d %d : %d %d %d: %d %d %d %d :\r\n", dst->value->w, dst->value->h, dst->value->pitch,
+        dst->value->format->BitsPerPixel,
+        dst->value->format->BytesPerPixel,
+        dst->value->format->Rmask,
+        dst->value->format->Gmask,
+        dst->value->format->Bmask,
+        dst->value->format->Amask
+      );
+    for(int i=0;i<src->w;i++) {
+      for(int j=0;j<src->h;j++) {
+        x[4 * (j * dst->value->w + i)+0] = y[4 * (j * src->w + i)+0];
+        x[4 * (j * dst->value->w + i)+1] = y[4 * (j * src->w + i)+1];
+        x[4 * (j * dst->value->w + i)+2] = 0.9*y[4 * (j * src->w + i)+2];
+        x[4 * (j * dst->value->w + i)+3] = 255;//y[4 * (j * src->w + i)+3];
+      }
+    }
+#else
     SDL_BlitSurface(src, &s, dst->value, &d);
+#endif
+#ifdef CIMAGE_USE_MANUALL_COPY
+#ifndef CIMAGE_UNUSE_SCREEN_LOCK
+    SDL_UnlockSurface(src);
+#endif
+#endif
+
 }
 
 CImage* initCImageFromSDLSurface(CImage* obj, SDL_Surface* value) {
@@ -123,6 +172,26 @@ void* cimage_getPixels(CImage* obj) {
 int cimage_getColorFormat(CImage* obj) {
   int nOfColors = obj->value->format->BytesPerPixel;
   int rmask = obj->value->format->Rmask;
+  if (nOfColors == 4) {
+    if (rmask == 0x000000ff) {
+      return CIMAGE_COLOR_FROMAT_RGBA;
+    } else {
+      return CIMAGE_COLOR_FROMAT_BGRA;
+    }
+  } else if (nOfColors == 3) {
+    if (rmask == 0x000000ff){
+      return CIMAGE_COLOR_FROMAT_RGB;
+    } else {
+      return CIMAGE_COLOR_FROMAT_BGR;
+    }
+  } else {
+    return CIMAGE_COLOR_FROMAT_NONE;
+  }
+}
+
+int cimage_getColorFormatFromSDLSurface(SDL_Surface* value) {
+  int nOfColors = value->format->BytesPerPixel;
+  int rmask = value->format->Rmask;
   if (nOfColors == 4) {
     if (rmask == 0x000000ff) {
       return CIMAGE_COLOR_FROMAT_RGBA;

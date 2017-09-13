@@ -24,7 +24,7 @@ int main(int argc, char** argv) {
   //CTtfMgr* mgrTtf = getCTtfMgr();
   //CTtf* font = cttfMgr_createTtf(mgrTtf, "./examples/assets/Roboto-Bold.ttf", 60);
   //int ret = ctexAtlas_addImageFromCTtf(atlas, font, "test", 1.0, 1.0, 1.0, 1.0, &out);
-  ctexAtlas_addImageFromPath(atlas, "examples/assets/icon.png", &out);
+  ctexAtlas_addImageFromPath(atlas, "examples/assets/icon2.png", &out);
 
   printf("%d %d %d %d\r\n", out.x, out.y, out.w, out.h);
   printf("call main 3\r\n");

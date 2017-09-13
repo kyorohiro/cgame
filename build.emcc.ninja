@@ -19,20 +19,19 @@ sdlVersion = 1
 # -s STB_IMAGE=${sdlVersion}
 # --use-preload-plugins
 #
-optOffScreenBLIT = -DOPT_OFFSCREEN_BLIT
 
 rule obj
-  command=${cmd} emcc -c $in -o $out -I.. -I. -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} -DPLATFORM_EMCC -DUSE_SDL_${sdlVersion} ${optOffScreenBLIT}
+  command=${cmd} emcc -c $in -o $out -I.. -I. -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} -DPLATFORM_EMCC -DUSE_SDL_${sdlVersion}
 rule test
-  command=${cmd} emcc $in -o $out --embed-file core/assets/test.dat  -s USE_SDL=${sdlVersion}  -s USE_SDL_IMAGE=${sdlVersion} -DPLATFORM_EMCC -DUSE_SDL_${sdlVersion} ${optOffScreenBLIT}
+  command=${cmd} emcc $in -o $out --embed-file core/assets/test.dat  -s USE_SDL=${sdlVersion}  -s USE_SDL_IMAGE=${sdlVersion} -DPLATFORM_EMCC -DUSE_SDL_${sdlVersion}
 rule lib
-  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} ${optOffScreenBLIT}
+  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion}
 rule exe
-  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} -O2 --use-preload-plugins ${optOffScreenBLIT}
+  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} -O2 --use-preload-plugins
 rule app
-  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} -O2 --use-preload-plugins --preload-file game/assets/ ${optOffScreenBLIT}
+  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} -O2 --use-preload-plugins --preload-file game/assets/
 rule appEx
-  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} -O2 --use-preload-plugins --preload-file game/assets/ --preload-file examples/assets/ ${optOffScreenBLIT}
+  command=${cmd} emcc  -static  -fno-common -DPIC $in -o $out -s USE_SDL=${sdlVersion} -s USE_SDL_IMAGE=${sdlVersion} -O2 --use-preload-plugins --preload-file game/assets/ --preload-file examples/assets/
 
 #
 # core
