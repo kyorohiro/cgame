@@ -64,6 +64,7 @@ typedef struct {
 //
 CApp* newCApp(CMemory* mem);
 CApp* initCApp(CApp* obj, int width, int height);
+CApp* createCApp(CApp* obj, int width, int height);
 CApp* getCApp();
 CApp* capp_run(CApp*);
 CApp* capp_init(CApp* obj);

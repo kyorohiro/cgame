@@ -45,6 +45,16 @@ CApp* getCApp() {
   return defaultCApp;
 }
 
+CApp* createCApp(CApp* obj, int width, int height) {
+  CApp* ret = initCApp(newCApp(getCMemory()), width, height);
+  if(defaultCApp == NULL) {
+    defaultCApp = ret;
+  }
+  return ret;
+}
+
+
+
 void capp_draw(CApp* obj) {
 //  glClear(GL_COLOR_BUFFER_BIT);
   CApp* appObj = obj;
