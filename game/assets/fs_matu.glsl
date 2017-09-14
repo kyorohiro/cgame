@@ -27,13 +27,8 @@ void main() {
   vec3 result = (ambient + diffuse) * objectColor;
 
   if(vTexCoord.x < 0.0 && vTexCoord.y < 0.0) {
-    gl_FragColor = vec4(ambient*result, vColor[3]);
+    gl_FragColor = vec4(result, vColor[3]);
   } else {
-    gl_FragColor = texture2D(texture, vTexCoord) * vec4(ambient*result, vColor[3]);
-//    gl_FragColor = texture2D(texture, vTexCoord) * vec4(1.0,1.0,1.0,1.0);
+    gl_FragColor = texture2D(texture, vTexCoord) * vec4(result, vColor[3]);
   }
-//  gl_FragColor = vec4(ambient*result, vColor[3]);//vColor;
-//  gl_FragColor = texture2D(texture, textureCoord) * vec4(ambient*result, vColor[3]);//vColor;
-
-//  gl_FragColor = vec4(NNormal,1);
 }
