@@ -64,7 +64,7 @@ CImage* newCImage(CMemory* cmemory) {
 SDL_Surface* cimageUtil_loadFromPath(char *path) {
   SDL_Surface* value = IMG_Load( path );
 #ifdef CIMAGE_USE_DISPLAY_FORMAT
-  value = SDL_DisplayFormat(value);
+  //value = SDL_DisplayFormat(value);
 #endif
   return value;
 }
