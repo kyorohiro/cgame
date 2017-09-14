@@ -114,32 +114,32 @@ void cimage_updateFromSDLSurface(CImage *dst, int dx, int dy, int dw, int dh,
 #endif
 
 #ifdef CIMAGE_USE_MANUALL_COPY
-    unsigned char *x = dst->value->pixels;
-    unsigned char *y = src->pixels;
-    printf("srcx %d %d : %d %d %d: %d %d %d %d \r\n", src->w,src->h, src->pitch,
-        src->format->BitsPerPixel,
-        dst->value->format->BytesPerPixel,
-        dst->value->format->Rmask,
-        dst->value->format->Gmask,
-        dst->value->format->Bmask,
-        dst->value->format->Amask
-      );
-    printf("dstx %d %d : %d %d %d: %d %d %d %d :\r\n", dst->value->w, dst->value->h, dst->value->pitch,
-        dst->value->format->BitsPerPixel,
-        dst->value->format->BytesPerPixel,
-        dst->value->format->Rmask,
-        dst->value->format->Gmask,
-        dst->value->format->Bmask,
-        dst->value->format->Amask
-      );
-    for(int i=0;i<src->w;i++) {
-      for(int j=0;j<src->h;j++) {
-        x[4 * (j * dst->value->w + i)+0] = y[4 * (j * src->w + i)+0];
-        x[4 * (j * dst->value->w + i)+1] = y[4 * (j * src->w + i)+1];
-        x[4 * (j * dst->value->w + i)+2] = 0.9*y[4 * (j * src->w + i)+2];
-        x[4 * (j * dst->value->w + i)+3] = 255;//y[4 * (j * src->w + i)+3];
+    unsigned char *m = dst->value->pixels;
+    unsigned char *n = src->pixels;
+    int srcFormat = cimage_getColorFormatFromSDLSurface(src);
+
+    double altW = sw/dw;
+    double altH = sh/dh;
+    int max = 4*((sh+sy)*src->w + (sw+sx));
+    for(int i=0;i<dw;i++) {
+      for(int j=0;j<dh;j++) {
+        int mt = 4*((j+dy)*dst->value->w + (i+dx));
+        int nt = 4*((j+sy)*altH*src->w   + (i+sx)*altW);
+        if(nt+3 < max)
+         {
+          m[mt+0] = n[nt+0];
+          m[mt+1] = n[nt+1];
+          m[mt+2] = n[nt+2];
+          m[mt+3] = n[nt+3];
+        } else {
+          m[4*(mt+0)] = 0.0;
+          m[4*(mt+1)] = 0.0;
+          m[4*(mt+2)] = 0.0;
+          m[4*(mt+3)] = 0.0;
+        }
       }
     }
+
 #else
     SDL_BlitSurface(src, &s, dst->value, &d);
 #endif
