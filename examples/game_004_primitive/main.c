@@ -19,13 +19,27 @@ int main(int argc, char** argv) {
 
   //
   //
-  CObject3D *square1 = (CObject3D*)createPrimitive3DAsSquare();
-  cmatrix4_setTranslation(cobject3d_getCMatrix4((CObject3D*)square1), 0.0, 0.0, 0.0);
+  CObject3D *square = (CObject3D*)createCPrimitive3DAsTriangle();
+  CMatrixVertexType shapeSrc[] = {
+    -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5
+    //    -0.5, -0.5, -0.5, 0.5, 0.5, 0.5//, 0.5, -0.5,
+  };
+  int vertexNum = 4;
+  CObject3D* shape = (CObject3D*)createCPrimitive3DAsTinyShape(shapeSrc, vertexNum*2);
 
+  printf("#square\r\n");
+  cprimitive3d_show((CPrimitive3D*)square);
+  printf("#shape\r\n");
+  cprimitive3d_show((CPrimitive3D*)shape);
+
+  cmatrix4_setTranslation(cobject3d_getCMatrix4(square), 0.5, 0.5, 0.0);
+  cmatrix4_setTranslation(cobject3d_getCMatrix4(shape), 0.0, 0.0, 0.0);
   //
   //
   CObject3D *root = cgame_getRoot(gameObj);
-  cobject3d_addNode(root, square1);
+  cobject3d_addNode(root, square);
+  cobject3d_addNode(root, shape);
+
   ccamera3d_update(cgame_getCamera(gameObj),
       0.0, 0.0, 5.0,
       0.0, 0.0, 0.0,

@@ -13,7 +13,7 @@ void freeCPrimitive3D(void* obj) {
   if(objTmp->colors != NULL) {
     releaseCObject((CObject*)objTmp->colors);
   }
-  if(objTmp->colors != NULL) {
+  if(objTmp->normals != NULL) {
     releaseCObject((CObject*)objTmp->normals);
   }
 
@@ -43,6 +43,10 @@ CPrimitive3D* createCPrimitive3DAsTriangle() {
 
 CPrimitive3D* createPrimitive3DAsSquare() {
   return initCPrimitive3DAsSquare(newCPrimitive3D(getCMemory()));
+}
+
+CPrimitive3D* createCPrimitive3DAsTinyShape(CMatrixVertexType* src, int length) {
+  return initCPrimitive3DAsTinyShape(newCPrimitive3D(getCMemory()), src, length);
 }
 
 CPrimitive3D* cprimitive3d_setColor(CPrimitive3D* obj, double a, double r, double g, double b) {
@@ -137,4 +141,45 @@ int cprimitive3d_getTextCoordBinaryLength(CPrimitive3D* obj) {
   } else {
     return obj->texCoords->length;
   }
+}
+
+void cprimitive3d_show(CPrimitive3D* shapeP) {
+  CMatrixVertexType* vertexes  = (CMatrixVertexType*)shapeP->vertexes->value;
+  CMatrixVertexType* normals   = (CMatrixVertexType*)shapeP->normals->value;
+  CMatrixVertexType* colors    = (CMatrixVertexType*)shapeP->colors->value;
+  CMatrixIndexType* indexes    = (CMatrixIndexType*)shapeP->indexes->value;
+
+  printf("[vertex]\r\n");
+  for(int i=0;i<shapeP->vertexes->length/3/sizeof(CMatrixVertexType);i++) {
+    printf("(%f %f %f)", vertexes[i*3+0], vertexes[i*3+1], vertexes[i*3+2]);
+  }
+  printf("\r\n");
+  printf("\r\n");
+  printf("[normals]\r\n");
+  for(int i=0;i<shapeP->normals->length/3/sizeof(CMatrixVertexType);i++) {
+    printf("(%f %f %f)", normals[i*3+0], normals[i*3+1], normals[i*3+2]);
+  }
+  printf("\r\n");
+  printf("\r\n");
+  printf("[colors]\r\n");
+  for(int i=0;i<shapeP->colors->length/4/sizeof(CMatrixVertexType);i++) {
+    printf("(%f %f %f %f)", colors[i*4+0], colors[i*4+1], colors[i*4+2], colors[i*4+3]);
+  }
+  printf("\r\n");
+  printf("\r\n");
+  printf("[tex]\r\n");
+  if(shapeP->texCoords != NULL) {
+    CMatrixVertexType* texCoords = (CMatrixVertexType*)shapeP->texCoords->value;
+
+    for(int i=0;i<shapeP->normals->length/2/sizeof(CMatrixVertexType);i++) {
+      printf("(%f %f)", texCoords[i*2+0], texCoords[i*2+1]);
+    }
+    printf("\r\n");
+  }
+  printf("\r\n");
+  printf("[indexes] %d\r\n", shapeP->indexes->length);
+  for(int i=0;i<shapeP->indexes->length/sizeof(CMatrixIndexType);i++) {
+    printf("%d ,", (int)indexes[i]);
+  }
+  printf("\r\n");
 }

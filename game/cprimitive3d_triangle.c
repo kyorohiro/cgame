@@ -6,9 +6,9 @@
 CPrimitive3D* initCPrimitive3DAsTriangle(CPrimitive3D* obj) {
   initCPrimitive3D(obj);
   CMatrixVertexType vertices[] = {
+    -0.5f, -0.5f, 0.0f,
+    0.5f, -0.5f, 0.0f,
     0.0f, 0.5f, 0.0f,
-   -0.5f, -0.5f, 0.0f,
-   0.5f, -0.5f, 0.0f,
   };
   CMatrixVertexType normals[] = {
     0.0, 0.0, 1.0,
