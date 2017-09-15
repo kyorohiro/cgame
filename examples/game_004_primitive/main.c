@@ -11,6 +11,7 @@
 #include "app/cimage.h"
 #include "app/cttf.h"
 #include "core/cobject.h"
+#include <math.h>
 
 int main(int argc, char** argv) {
   printf("call main 1\r\n");
@@ -20,11 +21,12 @@ int main(int argc, char** argv) {
   //
   //
   CObject3D *square = (CObject3D*)createCPrimitive3DAsTriangle();
-  CMatrixVertexType shapeSrc[] = {
-    -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5
-    //    -0.5, -0.5, -0.5, 0.5, 0.5, 0.5//, 0.5, -0.5,
-  };
-  int vertexNum = 4;
+  int vertexNum = 12;
+  CMatrixVertexType shapeSrc[vertexNum*2];
+  for(int i=0;i<vertexNum;i++) {
+      shapeSrc[2*i + 0] = 0.5*cos(M_PI/180*(360.0/vertexNum)*-i);
+      shapeSrc[2*i + 1] = 0.5*sin(M_PI/180*(360.0/vertexNum)*-i);
+  }
   CObject3D* shape = (CObject3D*)createCPrimitive3DAsTinyShape(shapeSrc, vertexNum*2);
 
   printf("#square\r\n");
