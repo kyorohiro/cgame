@@ -171,7 +171,7 @@ void cprimitive3d_show(CPrimitive3D* shapeP) {
   if(shapeP->texCoords != NULL) {
     CMatrixVertexType* texCoords = (CMatrixVertexType*)shapeP->texCoords->value;
 
-    for(int i=0;i<shapeP->normals->length/2/sizeof(CMatrixVertexType);i++) {
+    for(int i=0;i<shapeP->texCoords->length/2/sizeof(CMatrixVertexType);i++) {
       printf("(%f %f)", texCoords[i*2+0], texCoords[i*2+1]);
     }
     printf("\r\n");

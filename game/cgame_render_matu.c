@@ -46,7 +46,7 @@ void cgame_draw_matu(CObject *context, CObject *args) {
  int pointer = 0;
  int pointerI = 0;
  CImage *texture = NULL;
-
+   int pBase = 0;
  for(int i=0;i<clinkedList_getLength(nodes);i++) {
    CObject3D *node = (CObject3D*)clinkedList_get(nodes, i);
    if(node->type != CObject3DTypePrimitive) {
@@ -66,6 +66,7 @@ void cgame_draw_matu(CObject *context, CObject *args) {
    CMatrixValueType outDeterminant;
    cmatrix4raw_transpose(m, n);
    cmatrix4raw_inverse(n, n, &outDeterminant);
+
 
 
    CVector4Raw out;
@@ -103,14 +104,27 @@ void cgame_draw_matu(CObject *context, CObject *args) {
    //
    GLshort *indices = (GLshort *)cprimitive3d_getIndexBinary((CPrimitive3D*)node);
    len = cprimitive3d_getIndexBinaryLength((CPrimitive3D*)node)  / sizeof(CMatrixIndexType);
-   int pBase = pointerI;
+
+   //printf(">> %d\r\n", pBase);
    for(int j=0;j<len;j++) {
      ind[pointerI++] =  indices[j]+pBase;
    }
+   pBase = pointer/12;
    //break;
  }
+ /*
+ printf("\r\n");
+ for(int i=0;i<pointer/12;i++) {
+   printf("(%f,%f,%f) ", ver[i*12+0], ver[i*12+1], ver[i*12+2]);
+ }
+ printf("\r\n");
+ printf("\r\n");
+ for(int i=0;i<pointerI;i++) {
+   printf("%d ,", (int)ind[i]);
+ }
+ printf("\r\n");*/
 
-
+ //printf("%d, %d \r\n",pointer, pointerI);
  //
  //
  //
