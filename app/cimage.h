@@ -52,7 +52,7 @@ void* cimage_getPixels(CImage* obj);
 int cimage_getColorFormat(CImage* obj);
 int cimage_getColorFormatGL(CImage* obj, int def);
 int cimage_getColorFormatFromSDLSurface(SDL_Surface* value);
-
+int cimage_getBytesPerPixel(SDL_Surface* value);
 
 SDL_Surface* cimageUtil_loadFromPath(char *path);
 #endif

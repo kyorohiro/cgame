@@ -104,6 +104,53 @@ void cimage_update(CImage *dst, int dx, int dy, int dw, int dh,
   SDL_BlitSurface(src->value, &s, dst->value, &d);
 }
 
+void cimage_rgba(SDL_Surface* src, int* mR, int* mG, int* mB, int* mA, int* mPixelByte) {
+  *mPixelByte = cimage_getBytesPerPixel(src);
+  int nFormat = cimage_getColorFormatFromSDLSurface(src);
+  switch(nFormat) {
+    case CIMAGE_COLOR_FROMAT_RGBA:
+    case CIMAGE_COLOR_FROMAT_RGB:
+    #if SDL_BYTEORDER == SDL_BIG_ENDIAN
+      *mR = 0;
+      *mG = 1;
+      *mB = 2;
+      *mA = 3;
+    #else
+      *mR = 3;
+      *mG = 2;
+      *mB = 1;
+      *mA = 0;
+    #endif
+        break;
+    case CIMAGE_COLOR_FROMAT_BGRA:
+    case CIMAGE_COLOR_FROMAT_BGR:
+    #if SDL_BYTEORDER == SDL_BIG_ENDIAN
+      *mR = 2;
+      *mG = 1;
+      *mB = 0;
+      *mA = 3;
+    #else
+      *mR = 3;
+      *mG = 0;
+      *mB = 1;
+      *mA = 2;
+    #endif
+         break;
+    default:
+    #if SDL_BYTEORDER == SDL_BIG_ENDIAN
+      *mR = 0;
+      *mG = 1;
+      *mB = 2;
+      *mA = 3;
+    #else
+      *mR = 3;
+      *mG = 2;
+      *mB = 1;
+      *mA = 0;
+    #endif
+  }
+}
+
 void cimage_updateFromSDLSurface(CImage *dst, int dx, int dy, int dw, int dh,
                     SDL_Surface* src, int sx, int sy, int sw, int sh) {
     SDL_Rect s = {.x=sx,.y=sy, .w=sw, .h=sh};
@@ -118,26 +165,47 @@ void cimage_updateFromSDLSurface(CImage *dst, int dx, int dy, int dw, int dh,
 #ifdef CIMAGE_USE_MANUALL_COPY
     unsigned char *m = dst->value->pixels;
     unsigned char *n = src->pixels;
-    int srcFormat = cimage_getColorFormatFromSDLSurface(src);
+    int mPixelByte;
+    int nPixelByte;
+    int mR,mG,mB,mA;
+    int nR,nG,nB,nA;
+    cimage_rgba(dst->value, &mR, &mG, &mB, &mA, &mPixelByte);
+    cimage_rgba(src, &nR, &nG, &nB, &nA, &nPixelByte);
 
     double altW = sw/dw;
     double altH = sh/dh;
-    int max = 4*((sh+sy)*src->w + (sw+sx));
+
+    int mMax = mPixelByte*((dh+dy)*src->w + (dw+dx));
+    int nMax = nPixelByte*((sh+sy)*dst->value->w + (sw+sx));
+
     for(int i=0;i<dw;i++) {
       for(int j=0;j<dh;j++) {
-        int mt = 4*((j+dy)*dst->value->w + (i+dx));
-        int nt = 4*((j+sy)*altH*src->w   + (i+sx)*altW);
-        if(nt+3 < max)
-         {
-          m[mt+0] = n[nt+0];
-          m[mt+1] = n[nt+1];
-          m[mt+2] = n[nt+2];
-          m[mt+3] = n[nt+3];
+        int mt = mPixelByte*((j+dy)*dst->value->w + (i+dx));
+        int nt = nPixelByte*((j+sy)*altH*src->w   + (i+sx)*altW);
+/*        if((mt+mPixelByte) >= mMax) {
+          continue;
+        }*/
+        if(nt+nPixelByte >= nMax){
+          continue;
+        }
+        if(mPixelByte >= 4 && mPixelByte >= 4) {
+          m[mt+mA] = n[nt+nA];
+          m[mt+mR] = n[nt+nR];
+          m[mt+mG] = n[nt+nG];
+          m[mt+mB] = n[nt+nB];
+        } else if(mPixelByte >= 4 && mPixelByte <= 3) {
+          m[mt+mA] = 255;
+          m[mt+mR] = n[nt+nR];
+          m[mt+mG] = n[nt+nG];
+          m[mt+mB] = n[nt+nB];
+        } else if(mPixelByte <= 3 && mPixelByte >= 4) {
+          m[mt+mR] = n[nt+nR] * n[nt+nA];
+          m[mt+mG] = n[nt+nG] * n[nt+nA];
+          m[mt+mB] = n[nt+nB] * n[nt+nA];
         } else {
-          m[4*(mt+0)] = 0.0;
-          m[4*(mt+1)] = 0.0;
-          m[4*(mt+2)] = 0.0;
-          m[4*(mt+3)] = 0.0;
+          m[mt+mR] = n[nt+nR];
+          m[mt+mG] = n[nt+nG];
+          m[mt+mB] = n[nt+nB];
         }
       }
     }
@@ -190,6 +258,10 @@ int cimage_getColorFormat(CImage* obj) {
   } else {
     return CIMAGE_COLOR_FROMAT_NONE;
   }
+}
+
+int cimage_getBytesPerPixel(SDL_Surface* value) {
+  return value->format->BytesPerPixel;
 }
 
 int cimage_getColorFormatFromSDLSurface(SDL_Surface* value) {
