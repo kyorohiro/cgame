@@ -64,7 +64,9 @@ CImage* newCImage(CMemory* cmemory) {
 SDL_Surface* cimageUtil_loadFromPath(char *path) {
   SDL_Surface* value = IMG_Load( path );
 #ifdef CIMAGE_USE_DISPLAY_FORMAT
+  SDL_SetAlpha(value, 0, SDL_ALPHA_TRANSPARENT);
   //value = SDL_DisplayFormat(value);
+  //SDL_DisplayFormatAlpha
 #endif
   return value;
 }
@@ -139,15 +141,16 @@ void cimage_updateFromSDLSurface(CImage *dst, int dx, int dy, int dw, int dh,
         }
       }
     }
-
-#else
-    SDL_BlitSurface(src, &s, dst->value, &d);
-#endif
 #ifdef CIMAGE_USE_MANUALL_COPY
 #ifndef CIMAGE_UNUSE_SCREEN_LOCK
     SDL_UnlockSurface(src);
 #endif
 #endif
+
+#else
+    SDL_BlitSurface(src, &s, dst->value, &d);
+#endif
+
 
 }
 
