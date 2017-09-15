@@ -49,7 +49,7 @@ CPrimitive3D* createCPrimitive3DAsTinyShape(CMatrixVertexType* src, int length) 
   return initCPrimitive3DAsTinyShape(newCPrimitive3D(getCMemory()), src, length);
 }
 
-CPrimitive3D* cprimitive3d_setColor(CPrimitive3D* obj, double a, double r, double g, double b) {
+CPrimitive3D* cprimitive3d_setColor(CPrimitive3D* obj, double r, double g, double b, double a) {
   int colorLen = cbytes_getLength((CBytes*)obj->colors)/sizeof(CMatrixVertexType);
   CMatrixVertexType* colors = (CMatrixVertexType*)obj->colors->value;
   for(int i=0; i<colorLen;i+=4) {
