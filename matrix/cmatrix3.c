@@ -15,6 +15,7 @@ CMatrix3* newCMatrix3(CMemory* cmemory) {
 
 CMatrix3* initCMatrix3(CMatrix3* obj) {
   initCObject((CObject*)obj, KMATRIX_NAME);
+  cmatrix3_setIdentity(obj);
   return obj;
 }
 
