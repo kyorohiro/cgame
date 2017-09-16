@@ -107,18 +107,19 @@ CMatrix4* cmatrix4_setLookAt2(CMatrix4* obj,
   double rx, double ry, double rz,
   double sx, double sy, double sz
 ) {
-  CMatrix4 rotX;
-  CMatrix4 rotY;
-  CMatrix4 rotZ;
-  CMatrix4 tran;
-  CMatrix4 scal;
-  CMatrix4 mat;
-  cmatrix4_setIdentity(initCMatrix4(&mat));
-  cmatrix4_mul(&mat, cmatrix4_setScale(initCMatrix4(&scal), sx, sy, sz), &mat);
-  cmatrix4_mul(&mat, cmatrix4_setRotationX(initCMatrix4(&rotX), -rx), &mat);
-  cmatrix4_mul(&mat, cmatrix4_setRotationY(initCMatrix4(&rotY), -ry), &mat);
-  cmatrix4_mul(&mat, cmatrix4_setRotationZ(initCMatrix4(&rotZ), -rz), &mat);
-  cmatrix4_mul(&mat, cmatrix4_setTranslation(initCMatrix4(&tran),  -x, -y, -z), obj);
+  CMatrix4Raw rotX;
+  CMatrix4Raw rotY;
+  CMatrix4Raw rotZ;
+  CMatrix4Raw tran;
+  CMatrix4Raw scal;
+  CMatrix4Raw mat;
+
+  cmatrix4raw_setIdentity(mat);
+  cmatrix4raw_mul(mat, cmatrix4raw_setScale(scal, sx, sy, sz), mat);
+  cmatrix4raw_mul(mat, cmatrix4raw_setRotationX(rotX, -rx), mat);
+  cmatrix4raw_mul(mat, cmatrix4raw_setRotationY(rotY, -ry), mat);
+  cmatrix4raw_mul(mat, cmatrix4raw_setRotationZ(rotZ, -rz), mat);
+  cmatrix4raw_mul(mat, cmatrix4raw_setTranslation(tran,  -x, -y, -z), obj->value);
 
   return obj;
 }

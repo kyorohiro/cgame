@@ -41,5 +41,36 @@ CCamera3D* ccamera3d_updateAtPerspective(CCamera3D* obj,
   cmatrix4_setLookAt2(obj->view, x, y, z, rx, ry, rz, 1.0, 1.0, 1.0);
   cmatrix4_mul(obj->projection, obj->view, mat);
 
+  printf("#proj %f %f %f : %f %f %f\r\n", x, y, z, rx, ry, rz);
+  cmatrix4_show(obj->projection);
+  printf("\r\n");
+  printf("#view\r\n");
+  cmatrix4_show(obj->view);
+  printf("\r\n");
   return obj;
+}
+
+CCamera3D* ccamera3d_update_setFrustumProjection(CCamera3D* obj,
+    CMatrixVertexType x, CMatrixVertexType y, CMatrixVertexType z,
+    CMatrixVertexType rx, CMatrixVertexType ry, CMatrixVertexType rz,
+    CMatrixVertexType left, CMatrixVertexType right, CMatrixVertexType bottom, CMatrixVertexType top,
+    CMatrixVertexType near, CMatrixVertexType far) {
+      CObject3D* cobj = (CObject3D*)obj;
+      CMatrix4* mat = cobj->mat;
+      cmatrix4_setIdentity(mat);
+      //
+
+      cmatrix4_setFrustumProjection(obj->projection, left, right, bottom, top, near, far);
+      cmatrix4_setLookAt2(obj->view, x, y, z, rx, ry, rz, 1.0, 1.0, 1.0);
+      cmatrix4_mul(obj->projection, obj->view, mat);
+
+      printf("#proj %f %f %f : %f %f %f\r\n", x, y, z, rx, ry, rz);
+
+      cmatrix4_show(obj->projection);
+      printf("\r\n");
+      printf("#view\r\n");
+      cmatrix4_show(obj->view);
+      printf("\r\n");
+
+      return obj;
 }
