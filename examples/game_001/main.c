@@ -52,7 +52,7 @@ int main(int argc, char** argv) {
   CObject3D *cube = cobject3d_setOnEnterFrameFunc((CObject3D*)createCPrimitive3DAsCube(), _onEnterFrame);
   cobject3d_addNode(root, cube);
 
-  ccamera3d_update(cgame_getCamera(gameObj),
+  ccamera3d_updateAtPerspective(cgame_getCamera(gameObj),
       0.0, 0.0, 5.0,
       0.0, 0.0, 0.0,
       3.14*45.0/180.0, 400.0/300.0, 0.5, 1000.0);

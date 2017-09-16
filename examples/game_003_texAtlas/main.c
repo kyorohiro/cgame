@@ -40,7 +40,7 @@ int main(int argc, char** argv) {
 
   CObject3D *root = cgame_getRoot(gameObj);
   cobject3d_addNode(root, square1);
-  ccamera3d_update(cgame_getCamera(gameObj),
+  ccamera3d_updateAtPerspective(cgame_getCamera(gameObj),
       0.0, 0.0, 5.0,
       0.0, 0.0, 0.0,
       3.14*45.0*0.5/180.0, 400.0/300.0, 0.5, 100.0);

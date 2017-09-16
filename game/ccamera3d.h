@@ -22,7 +22,7 @@ typedef struct {
 
 CCamera3D* newCCamera3D(CMemory* mem);
 CCamera3D* initCCamera3D(CCamera3D*);
-CCamera3D* ccamera3d_update(CCamera3D* obj,
+CCamera3D* ccamera3d_updateAtPerspective(CCamera3D* obj,
   CMatrixVertexType x, CMatrixVertexType y, CMatrixVertexType z,
   CMatrixVertexType rx, CMatrixVertexType ry, CMatrixVertexType rz,
   CMatrixVertexType fovYRadians, CMatrixVertexType aspect,
