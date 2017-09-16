@@ -15,9 +15,17 @@ CObject3D* newCObject3D(CMemory* mem) {
 //char* title, int width, int height
 CObject3D* initCObject3D(CObject3D* obj) {
   initCObject((CObject*)obj, OBJECT3D_NAME);
-//  obj->parent.funcFree = freeCObject3D;
   obj->mat = cmatrix4_setIdentity(initCMatrix4(newCMatrix4(obj->parent.cmemory)));
   obj->arg = cmatrix4_setIdentity(initCMatrix4(newCMatrix4(obj->parent.cmemory)));
+
+  //
+  //
+  obj->centerX = 0.0;
+  obj->centerY = 0.0;
+  obj->centerZ = 0.0;
+  obj->width = 0.0; // x
+  obj->height = 0.0; // y
+  obj->length = 0.0; // z
   return obj;
 }
 

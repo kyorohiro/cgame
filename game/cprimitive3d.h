@@ -66,6 +66,6 @@ int cprimitive3d_getTextCoordLength(CPrimitive3D*);
 //
 CPrimitive3D* cprimitive3d_setTexCoordAsSquare(CPrimitive3D* obj, CMatrixVertexType x0, CMatrixVertexType y0, CMatrixVertexType x1, CMatrixVertexType y1, CMatrixVertexType x2, CMatrixVertexType y2, CMatrixVertexType x3, CMatrixVertexType y3);
 CPrimitive3D* cprimitive3d_setTexCoordAsSquareFromBlock(CPrimitive3D* obj, int x, int y, int w, int h, int imgW, int imgH);
-
+CPrimitive3D* cprimitive3d_setTexCoordAsTinyShapeFromBlock(CPrimitive3D* obj, int x, int y, int w, int h, int imgW, int imgH);
 void cprimitive3d_show(CPrimitive3D* obj);
 #endif

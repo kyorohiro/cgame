@@ -17,6 +17,7 @@ typedef struct {
   CObject3D parent;
   CMatrix4 *view;
   CMatrix4 *projection;
+
 } CCamera3D;
 
 CCamera3D* newCCamera3D(CMemory* mem);

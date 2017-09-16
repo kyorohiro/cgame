@@ -28,6 +28,14 @@ typedef struct {
   int isLeaf;
   int type;
   //
+  //
+  // todo
+  CMatrixValueType centerX;
+  CMatrixValueType centerY;
+  CMatrixValueType centerZ;
+  CMatrixValueType width; // x
+  CMatrixValueType height; // y
+  CMatrixValueType length; // z
 } CObject3D;
 
 
