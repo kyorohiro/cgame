@@ -53,7 +53,7 @@ CMatrix4* cmatrix4_setPerspectiveProjection(CMatrix4* obj,
   obj->value[15] = 0.0;
   return obj;
 }
-CMatrix4* cmatrix4_setFrustumMatrix(CMatrix4* obj,
+CMatrix4* cmatrix4_setFrustumProjection(CMatrix4* obj,
     double left, double right, double bottom, double top,
     double near, double far){
       obj->value[0] = (2.0*near)/(right-left);

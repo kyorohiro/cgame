@@ -194,7 +194,7 @@ void cmatrix4_test_unproject() {
   double t = 10.0;
 
   CMatrix4* frustum = initCMatrix4(newCMatrix4(getCMemory()));
-  cmatrix4_setFrustumMatrix(frustum, l, r, b, t, n, f);
+  cmatrix4_setFrustumProjection(frustum, l, r, b, t, n, f);
   CMatrix4* C = cmatrix4_mul(frustum, lookat, NULL);
   CVector3* re =  initCVector3(newCVector3(getCMemory()), 0.0, 0.0, 0.0);
   CVector3* out = initCVector3(newCVector3(getCMemory()), 0.0, 0.0, 0.0);
