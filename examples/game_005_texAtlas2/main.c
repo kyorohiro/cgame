@@ -41,13 +41,10 @@ int main(int argc, char** argv) {
       shapeSrc[2*i + 1] = 0.45*sin(M_PI/180*(360.0/vertexNum)*-i+0);
   }
 
-
-//
-//
   CObject3D *square1 = (CObject3D*)createCPrimitive3DAsTinyShape(shapeSrc, vertexNum*2);
   CObject3D *square2 = (CObject3D*)createCPrimitive3DAsTinyShape(shapeSrc, vertexNum*2);
 
-{
+  //
   cmatrix4_setTranslation(cobject3d_getCMatrix4((CObject3D*)square1), 0.0, 0.0, 0.0);
   cprimitive3d_setCImage((CPrimitive3D*)square1, ctexAtlas_getImage(atlas));
   cprimitive3d_setColor((CPrimitive3D*)square1, 0.5,0.5,1.0,1.0);
@@ -55,16 +52,16 @@ int main(int argc, char** argv) {
 
   cprimitive3d_setTexCoordAsTinyShapeFromBlock((CPrimitive3D*)square1, out1.x, out1.y, out1.w, out1.h,
     ctexAtlas_getWidth(atlas), ctexAtlas_getHeight(atlas));
-}
 
-{
+
+  //
   cmatrix4_setTranslation(cobject3d_getCMatrix4((CObject3D*)square2), 0.0, 0.0, 0.0);
   cprimitive3d_setCImage((CPrimitive3D*)square2, ctexAtlas_getImage(atlas));
   cprimitive3d_setColor((CPrimitive3D*)square2, 0.5,0.5,1.0,1.0);
   cmatrix4_setTranslation(cobject3d_getCMatrix4((CObject3D*)square2), 0.5, -0.5, -1.5);
   cprimitive3d_setTexCoordAsTinyShapeFromBlock((CPrimitive3D*)square2, out2.x, out2.y, out2.w, out2.h,
     ctexAtlas_getWidth(atlas), ctexAtlas_getHeight(atlas));
-}
+
 
   cprimitive3d_show((CPrimitive3D*)square1);
   CObject3D *root = cgame_getRoot(gameObj);
