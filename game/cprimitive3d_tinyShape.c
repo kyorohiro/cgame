@@ -44,8 +44,8 @@ CPrimitive3D* initCPrimitive3DAsTinyShape(CPrimitive3D* obj, CMatrixVertexType* 
       vertexes[i*3+1] = src[i*2+1];
       vertexes[i*3+2] = 0.0;
 
-      texCoords[i*2+0] = (1.0*(src[i*2+0]-left))/(1.0*(right-left));
-      texCoords[i*2+1] = (1.0*(-1*src[i*2+1]-bottom))/(1.0*(top-bottom));
+      texCoords[i*2+0] = (src[i*2+0]-left) / (right-left);
+      texCoords[i*2+1] = (-1.0*src[i*2+1]-bottom) / (top-bottom);
 
       normals[i*3+0] = 0.0;
       normals[i*3+1] = 0.0;
@@ -110,7 +110,7 @@ CPrimitive3D* cprimitive3d_setTexCoordAsTinyShapeFromBlock(CPrimitive3D* obj, in
 
   for(int i=0;i<vertexNum;i++) {
     texCoords[i*2+0] = (vertexes[i*3+0]-left) / (right-left);
-    texCoords[i*2+0] = texCoords[i*2+0]*(w/imgW) +1.0*x/1.0*imgW;
+    texCoords[i*2+0] = texCoords[i*2+0]*(w/imgW) + x/imgW;
 
     texCoords[i*2+1] = (-1*vertexes[i*3+1]-bottom) / (top-bottom);
     texCoords[i*2+1] = texCoords[i*2+1]*(h/imgH) + y/imgH;
