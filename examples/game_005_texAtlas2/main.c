@@ -16,16 +16,13 @@
 int main(int argc, char** argv) {
   printf("call main 1\r\n");
   CGame* gameObj = createCGame(400, 300);
-  CImageMgr* mgr = getCImageMgr();
-  //
-  printf("call main 2\r\n");
-  CDynaTexAtlas* atlas = cgame_getCDynaTexAtlas(gameObj, 0);
-  CDynaBlockSpace out1;
-  CDynaBlockSpace out2;
 
   //
   // create image
   //
+  CDynaBlockSpace out1;
+  CDynaBlockSpace out2;
+  CDynaTexAtlas* atlas = cgame_getCDynaTexAtlas(gameObj, 0);
   CTtf* font = cttfMgr_createTtf(getCTtfMgr(), "./examples/assets/Roboto-Bold.ttf", 60);
   int ret = ctexAtlas_addImageFromCTtf(atlas, font, "test", 1.0, 1.0, 1.0, 1.0, &out1);
   ctexAtlas_addImageFromPath(atlas, "examples/assets/icon.png", &out2);
