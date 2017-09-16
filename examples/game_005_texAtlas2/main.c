@@ -20,41 +20,57 @@ int main(int argc, char** argv) {
   //
   printf("call main 2\r\n");
   CDynaTexAtlas* atlas = cgame_getCDynaTexAtlas(gameObj, 0);
-  CDynaBlockSpace out;
+  CDynaBlockSpace out1;
+  CDynaBlockSpace out2;
   //
   //
-//  CTtf* font = cttfMgr_createTtf(getCTtfMgr(), "./examples/assets/Roboto-Bold.ttf", 60);
-//  int ret = ctexAtlas_addImageFromCTtf(atlas, font, "test", 1.0, 1.0, 1.0, 1.0, &out);
-  ctexAtlas_addImageFromPath(atlas, "examples/assets/icon.png", &out);
+  CTtf* font = cttfMgr_createTtf(getCTtfMgr(), "./examples/assets/Roboto-Bold.ttf", 60);
+  int ret = ctexAtlas_addImageFromCTtf(atlas, font, "test", 1.0, 1.0, 1.0, 1.0, &out1);
+  ctexAtlas_addImageFromPath(atlas, "examples/assets/icon.png", &out2);
 
 
-  printf("## %d %d %d %d\r\n", out.x, out.y, out.w, out.h);
+  printf("## %d %d %d %d\r\n", out1.x, out1.y, out1.w, out1.h);
+  printf("## %d %d %d %d\r\n", out2.x, out2.y, out2.w, out2.h);
   printf("call main 3\r\n");
 
   //
   int vertexNum = 6;
   CMatrixVertexType shapeSrc[vertexNum*2];
   for(int i=0;i<vertexNum;i++) {
-      shapeSrc[2*i + 0] = 0.5*cos(M_PI/180*(360.0/vertexNum)*-i+0);
-      shapeSrc[2*i + 1] = 0.5*sin(M_PI/180*(360.0/vertexNum)*-i+0);
+      shapeSrc[2*i + 0] = 0.45*cos(M_PI/180*(360.0/vertexNum)*-i+0);
+      shapeSrc[2*i + 1] = 0.45*sin(M_PI/180*(360.0/vertexNum)*-i+0);
   }
 
-  CObject3D *square1 = (CObject3D*)createCPrimitive3DAsTinyShape(shapeSrc, vertexNum*2);
 
+//
+//
+  CObject3D *square1 = (CObject3D*)createCPrimitive3DAsTinyShape(shapeSrc, vertexNum*2);
+  CObject3D *square2 = (CObject3D*)createCPrimitive3DAsTinyShape(shapeSrc, vertexNum*2);
+
+{
   cmatrix4_setTranslation(cobject3d_getCMatrix4((CObject3D*)square1), 0.0, 0.0, 0.0);
-  CImageMgr* mgrI = getCImageMgr();
-  CImage* img = cimageMgr_createImage(mgrI, "./examples/assets/icon.png");
-//  cprimitive3d_setCImage((CPrimitive3D*)square1, img);//ctexAtlas_getImage(atlas));
   cprimitive3d_setCImage((CPrimitive3D*)square1, ctexAtlas_getImage(atlas));
   cprimitive3d_setColor((CPrimitive3D*)square1, 0.5,0.5,1.0,1.0);
-  cprimitive3d_setTexCoordAsTinyShapeFromBlock((CPrimitive3D*)square1, out.x, out.y, out.w, out.h,
+  cmatrix4_setTranslation(cobject3d_getCMatrix4((CObject3D*)square1), -0.5, 0.5, -1.5);
+
+  cprimitive3d_setTexCoordAsTinyShapeFromBlock((CPrimitive3D*)square1, out1.x, out1.y, out1.w, out1.h,
     ctexAtlas_getWidth(atlas), ctexAtlas_getHeight(atlas));
+}
 
-
+{
+  cmatrix4_setTranslation(cobject3d_getCMatrix4((CObject3D*)square2), 0.0, 0.0, 0.0);
+  cprimitive3d_setCImage((CPrimitive3D*)square2, ctexAtlas_getImage(atlas));
+  cprimitive3d_setColor((CPrimitive3D*)square2, 0.5,0.5,1.0,1.0);
+  cmatrix4_setTranslation(cobject3d_getCMatrix4((CObject3D*)square2), 0.5, -0.5, -1.5);
+  cprimitive3d_setTexCoordAsTinyShapeFromBlock((CPrimitive3D*)square2, out2.x, out2.y, out2.w, out2.h,
+    ctexAtlas_getWidth(atlas), ctexAtlas_getHeight(atlas));
+}
 
   cprimitive3d_show((CPrimitive3D*)square1);
   CObject3D *root = cgame_getRoot(gameObj);
   cobject3d_addNode(root, square1);
+  cobject3d_addNode(root, square2);
+
   ccamera3d_update(cgame_getCamera(gameObj),
       0.0, 0.0, 5.0,
       0.0, 0.0, 0.0,
