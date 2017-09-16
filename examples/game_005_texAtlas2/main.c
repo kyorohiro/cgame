@@ -22,6 +22,9 @@ int main(int argc, char** argv) {
   CDynaTexAtlas* atlas = cgame_getCDynaTexAtlas(gameObj, 0);
   CDynaBlockSpace out;
   //
+  //
+//  CTtf* font = cttfMgr_createTtf(getCTtfMgr(), "./examples/assets/Roboto-Bold.ttf", 60);
+//  int ret = ctexAtlas_addImageFromCTtf(atlas, font, "test", 1.0, 1.0, 1.0, 1.0, &out);
   ctexAtlas_addImageFromPath(atlas, "examples/assets/icon.png", &out);
 
 
@@ -41,12 +44,12 @@ int main(int argc, char** argv) {
   cmatrix4_setTranslation(cobject3d_getCMatrix4((CObject3D*)square1), 0.0, 0.0, 0.0);
   CImageMgr* mgrI = getCImageMgr();
   CImage* img = cimageMgr_createImage(mgrI, "./examples/assets/icon.png");
-  cprimitive3d_setCImage((CPrimitive3D*)square1, img);//ctexAtlas_getImage(atlas));
-//  cprimitive3d_setCImage((CPrimitive3D*)square1, ctexAtlas_getImage(atlas));
+//  cprimitive3d_setCImage((CPrimitive3D*)square1, img);//ctexAtlas_getImage(atlas));
+  cprimitive3d_setCImage((CPrimitive3D*)square1, ctexAtlas_getImage(atlas));
   cprimitive3d_setColor((CPrimitive3D*)square1, 0.5,0.5,1.0,1.0);
-/*  cprimitive3d_setTexCoordAsTinyShapeFromBlock((CPrimitive3D*)square1, out.x, out.y, out.w, out.h,
+  cprimitive3d_setTexCoordAsTinyShapeFromBlock((CPrimitive3D*)square1, out.x, out.y, out.w, out.h,
     ctexAtlas_getWidth(atlas), ctexAtlas_getHeight(atlas));
-*/
+
 
 
   cprimitive3d_show((CPrimitive3D*)square1);

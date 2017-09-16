@@ -68,7 +68,14 @@ CPrimitive3D* initCPrimitive3DAsTinyShape(CPrimitive3D* obj, CMatrixVertexType* 
   return obj;
 }
 
-CPrimitive3D* cprimitive3d_setTexCoordAsTinyShapeFromBlock(CPrimitive3D* obj, int x, int y, int w, int h, int imgW, int imgH) {
+CPrimitive3D* cprimitive3d_setTexCoordAsTinyShapeFromBlock(CPrimitive3D* obj, int _x, int _y, int _w, int _h, int _imgW, int _imgH) {
+  CMatrixValueType x = (CMatrixValueType)_x;
+  CMatrixValueType y = (CMatrixValueType)_y;
+  CMatrixValueType w = (CMatrixValueType)_w;
+  CMatrixValueType h = (CMatrixValueType)_h;
+  CMatrixValueType imgW = (CMatrixValueType)_imgW;
+  CMatrixValueType imgH = (CMatrixValueType)_imgH;
+
   int vertexNum = obj->vertexes->length/sizeof(CMatrixVertexType)/3;
   CMatrixVertexType* vertexes  = (CMatrixVertexType*)obj->vertexes->value;
   CMatrixVertexType* texCoords = (CMatrixVertexType*)obj->texCoords->value;
@@ -97,15 +104,16 @@ CPrimitive3D* cprimitive3d_setTexCoordAsTinyShapeFromBlock(CPrimitive3D* obj, in
 
   //left = left+x/imgW;
   //printf("?? %d %d\r\n",h,imgH);
+
+  printf("?? %f %f %f\r\n",w, imgW, (double)w/(double)imgW);
+
+
   for(int i=0;i<vertexNum;i++) {
-    texCoords[i*2+0] = (1.0*(vertexes[i*3+0]-left))/(1.0*(right-left));
-    texCoords[i*2+0] = 1.0*texCoords[i*2+0]*(1.0*w/1.0*imgW) +1.0*x/1.0*imgW;
-//    texCoords[i*2+0] *=0.8;
+    texCoords[i*2+0] = (vertexes[i*3+0]-left) / (right-left);
+    texCoords[i*2+0] = texCoords[i*2+0]*(w/imgW) +1.0*x/1.0*imgW;
 
-    texCoords[i*2+1] = (1.0*(-1*vertexes[i*3+1]-bottom))/(1.0*(top-bottom));
-    texCoords[i*2+1] = 1.0*texCoords[i*2+1]*(1.0*h/1.0*imgH) +1.0*y/1.0*imgH;
-//    texCoords[i*2+1] *=0.8;
-
+    texCoords[i*2+1] = (-1*vertexes[i*3+1]-bottom) / (top-bottom);
+    texCoords[i*2+1] = texCoords[i*2+1]*(h/imgH) + y/imgH;
   }
   return obj;
 }
