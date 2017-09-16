@@ -27,9 +27,8 @@ int main(int argc, char** argv) {
       shapeSrc[2*i + 0] = 0.5*cos(M_PI/180*(360.0/vertexNum)*-i);
       shapeSrc[2*i + 1] = 0.5*sin(M_PI/180*(360.0/vertexNum)*-i);
   }
-
-  //CObject3D* shape = (CObject3D*)createPrimitive3DAsSquare();//
   CObject3D* shape = (CObject3D*)createCPrimitive3DAsTinyShape(shapeSrc, vertexNum*2);
+  
   cprimitive3d_setColor((CPrimitive3D*)shape, 1.0, 1.0, 0.5, 1.0);
   cmatrix4_setTranslation(cobject3d_getCMatrix4(shape), -0.25, 0.5, -0.5);
   cprimitive3d_show((CPrimitive3D*)shape);

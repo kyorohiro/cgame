@@ -57,7 +57,7 @@ subninja examples${sep}game_001${sep}build.ninja
 subninja examples${sep}game_002_ray${sep}build.ninja
 subninja examples${sep}game_003_texAtlas${sep}build.ninja
 subninja examples${sep}game_004_primitive${sep}build.ninja
-
+subninja examples${sep}game_005_texAtlas2${sep}build.ninja
 
 
 
