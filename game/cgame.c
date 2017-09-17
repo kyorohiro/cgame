@@ -234,3 +234,18 @@ CGame* cgame_postRedisplay(CGame* obj) {
 CDynaTexAtlas* cgame_getCDynaTexAtlas(CGame* obj, int index) {
   return (CDynaTexAtlas*)carrayList_get(obj->dynaTexList, index);
 }
+
+CDynaTexAtlas* cgame_getAndBakeCDynaTexAtlas(CGame* obj, int index) {
+
+  while(carrayList_getLength(obj->dynaTexList) > index) {
+    carrayList_addLast(obj->dynaTexList, NULL);
+  }
+
+  CObject* item = carrayList_get(obj->dynaTexList, index);
+  if(item == NULL) {
+    CMemory* memory = cobject_getCMemory((CObject*)obj);
+    item = (CObject*)initCDynaTexAtlas(newCDynaTexAtlas(memory), 1024, 1024);
+    carrayList_set(obj->dynaTexList, index, item);
+  }
+  return (CDynaTexAtlas*)item;
+}

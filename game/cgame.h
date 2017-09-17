@@ -71,7 +71,7 @@ CCamera3D* cgame_getCamera(CGame*);
 CAppMouseEvent* cgame_getCurrentMouseEvent(CGame*);
 CRay* cgame_getMouseRay(CGame*);
 CDynaTexAtlas* cgame_getCDynaTexAtlas(CGame* obj, int index);
-
+CDynaTexAtlas* cgame_getAndBakeCDynaTexAtlas(CGame* obj, int index);
 //
 CGame* cgame_setOnEnterFrameFunc(CGame* obj, CObject3DFuncOnEnterFrame func);
 
