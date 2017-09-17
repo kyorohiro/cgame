@@ -12,7 +12,7 @@ int i =(180+2)%360;
 int j =(30+2)%360;
 int fps;
 void _onEnterFrame(CObject*  obj, CObject* cgame) {
-  i =(180+2+i)%360;
+  i =(i+10)%360;
   CApp* appObj = getCApp();
   CGame* gameObj = getCGame();
   CSprite2D* sprite = (CSprite2D*)obj;
