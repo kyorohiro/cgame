@@ -14,7 +14,7 @@
 
 #include "cobject3d.h"
 #include "ccamera3d.h"
-
+#define CGAME_SETTING_NAME "cgas"
 #define CGAME_NAME "cga"
 
 #ifndef RENDER_MODE
@@ -22,10 +22,24 @@
 #endif
 
 typedef void (*CGameFuncDraw)(CObject* obj);
+
+//
+typedef struct {
+  CObject parent;
+  int textureSize;
+  int textureNum;
+  int width;
+  int height;
+} CGameSetting;
+
 typedef struct {
   CObject parent;
   CApp* app;
   CGameFuncDraw funcFraw;
+  //
+  //
+  int textureSize;
+  int textureNum;
 
   //
   // shader
@@ -54,13 +68,23 @@ typedef struct {
 } CGame;
 
 //
+//
+//
+CGameSetting* newCGameSetting(CMemory* mem);
+CGameSetting* initCGameSetting(CGameSetting*, int width, int height);
+CGameSetting* createCGameSetting(int window, int height);
+CGameSetting* cgameSetting_setTextureInfo(CGameSetting*, int textureSize, int textureNum);
+
+
+//
 // unused CGame is singleton
 //
 CGame* getCGame();
 CGame* newCGame(CMemory* mem);
-CGame* initCGame(CGame*, CApp*);
-CGame* createCGame(int window, int height);
+CGame* initCGame(CGame*, CApp*, int textureSize, int textureNum);
 
+CGame* createCGame(int window, int height);
+CGame* createCGameFromSetting(CGameSetting* setting);
 CGame* cgame_init(CGame*);
 CGame* cgame_run(CGame*);
 CGame* cgame_postRedisplay(CGame*);

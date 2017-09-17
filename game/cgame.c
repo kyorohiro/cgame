@@ -11,6 +11,34 @@
 #include "matrix/cray.h"
 
 //
+//
+CGameSetting* newCGameSetting(CMemory* mem) {
+  CGameSetting* obj = cmemory_calloc(mem, 1, sizeof(CGameSetting));
+  obj->parent.cmemory = mem;
+  obj->parent.funcFree = freeCObject;
+  return obj;
+}
+
+CGameSetting* initCGameSetting(CGameSetting* obj, int width, int height) {
+  initCObject((CObject*)obj, CGAME_SETTING_NAME);
+  obj->width = width;
+  obj->height = height;
+  obj->textureNum = 1;
+  obj->textureSize = 1024;
+  return obj;
+}
+
+CGameSetting* createCGameSetting(int width, int height) {
+  return initCGameSetting(newCGameSetting(getCMemory()), width, height);
+}
+
+CGameSetting* cgameSetting_setTextureInfo(CGameSetting* obj, int textureSize, int textureNum) {
+  obj->textureNum = textureNum;
+  obj->textureSize = textureSize;
+  return obj;
+}
+
+//
 void cgame_draw(CObject *context, CObject *args);
 void cgame_init_inner(CObject *context, CObject *args);
 void _freeCGame(void* obj);
@@ -31,12 +59,13 @@ void _freeCGame(void* obj) {
   freeCObject(obj);
 }
 
-CGame* initCGame(CGame* obj, CApp* appObj) {
+CGame* initCGame(CGame* obj, CApp* appObj, int textureSize, int textureNum) {
   printf("initCGame\r\n");
   CMemory *memory = (CMemory*)cobject_getCMemory((CObject*)obj);
-
   initCObject((CObject*)obj, CGAME_NAME);
   obj->app = appObj;
+  obj->textureNum = textureNum;
+  obj->textureSize = textureSize;
 
   //
   // shader
@@ -91,9 +120,7 @@ CCamera3D* cgame_getCamera(CGame* obj) {
 CGame* defaultCGame = NULL;
 CGame* getCGame() {
   if(defaultCGame == NULL) {
-    defaultCGame = initCGame(
-      newCGame(getCMemory()),getCApp()
-    );
+    defaultCGame = initCGame(newCGame(getCMemory()), getCApp(), 1024, 1);
     cgame_init(defaultCGame);
   }
   return defaultCGame;
@@ -101,7 +128,17 @@ CGame* getCGame() {
 
 CGame* createCGame(int window, int height) {
   CApp* app = createCApp(window, height);
-  CGame* ret  = initCGame(newCGame(getCMemory()), app);
+  CGame* ret  = initCGame(newCGame(getCMemory()), app, 1024, 1);
+  if(defaultCGame == NULL) {
+    defaultCGame = ret;
+  }
+  cgame_init(defaultCGame);
+  return ret;
+}
+
+CGame* createCGameFromSetting(CGameSetting* setting) {
+  CApp* app = createCApp(setting->width, setting->height);
+  CGame* ret  = initCGame(newCGame(getCMemory()), app, setting->textureSize, setting->textureNum);
   if(defaultCGame == NULL) {
     defaultCGame = ret;
   }
@@ -175,7 +212,7 @@ CGame* cgame_init(CGame* obj) {
 
 
 void cgame_init_inner(CObject *context, CObject *args) {
-  printf("#1# cgame_init\n");
+  printf("#1# cgame_init_inner\n");
   CGame* gameObj = (CGame*)context;
   CApp* appObj = gameObj->app;
   CMemory* memory = cobject_getCMemory(context);
@@ -185,12 +222,15 @@ void cgame_init_inner(CObject *context, CObject *args) {
 
   int MaxUnitNum;
 	glGetIntegerv(GL_MAX_TEXTURE_UNITS,&MaxUnitNum);
-  printf("maxTexSize : %d %d\r\n", m_maxTextureSize, MaxUnitNum);
+  printf("maxTexSize : %d %d %d %d\r\n", m_maxTextureSize, MaxUnitNum,
+   gameObj->textureNum, gameObj->textureSize);
   //
-  if(m_maxTextureSize >= 2048) {
-    carrayList_addLast(gameObj->dynaTexList, (CObject*)initCDynaTexAtlas(newCDynaTexAtlas(memory), 1024, 1024));
-  } else {
-    carrayList_addLast(gameObj->dynaTexList, (CObject*)initCDynaTexAtlas(newCDynaTexAtlas(memory), 1024, 1024));
+  for(int i=0;i<gameObj->textureNum;i++) {
+    if(m_maxTextureSize >= gameObj->textureNum) {
+      carrayList_addLast(gameObj->dynaTexList, (CObject*)initCDynaTexAtlas(newCDynaTexAtlas(memory), gameObj->textureSize, gameObj->textureSize));
+    } else {
+      printf("Failed to create texture\r\n");
+    }
   }
 //  carrayList_addLast(gameObj->dynaTexList, (CObject*)initCDynaTexAtlas(newCDynaTexAtlas(memory), 512, 512));
 
