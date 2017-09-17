@@ -16,24 +16,6 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
   CApp* appObj = getCApp();
   CGame* gameObj = getCGame();
 
-  i = (i+2)%360;
-  CMatrix4Raw rotYMat;
-  CMatrix4Raw rotZMat;
-  CMatrix4Raw rotXMat;
-
-  cmatrix4raw_setRotationX(rotXMat, 3.14*i/180.0);
-  cmatrix4raw_setRotationY(rotYMat, 3.14*i/180.0);
-  cmatrix4raw_setRotationZ(rotZMat, 3.14*i/180.0);
-
-  CMatrix4 *mat = cobject3d_getCMatrix4((CObject3D*)obj);
-
-  cmatrix4_setTranslation(initCMatrix4(mat), 0.0, 0.0, -2.0);
-
-  cmatrix4raw_mul(rotYMat, mat->value, mat->value);
-  cmatrix4raw_mul(mat->value, rotXMat, mat->value);
-  cmatrix4raw_mul(mat->value, rotYMat, mat->value);
-  cmatrix4raw_mul(mat->value, rotZMat, mat->value);
-
   if(fps != appObj->fps) {
     fps = appObj->fps;
     printf("fps:%d;\r\n",fps);
