@@ -14,17 +14,17 @@ int fps;
 CObject3D* sprite;
 void _onEnterFrame(CObject*  obj, CObject* cgame) {
   i =(i+10)%360;
-  CApp* appObj = getCApp();
-  CGame* gameObj = getCGame();
-  //CSprite2D* sprite = (CSprite2D*)obj;
+
   csprite2d_setRXYZ((CSprite2D*)sprite, 0.0, 0.0, 3.14*i/360.0);
   csprite2d_update((CSprite2D*)sprite);
 
+  CApp* appObj = getCApp();
   if(fps != appObj->fps) {
     fps = appObj->fps;
     printf("#fps:%d;\r\n",fps);
   }
 
+  CGame* gameObj = getCGame();
   cgame_postRedisplay(gameObj);
 }
 
