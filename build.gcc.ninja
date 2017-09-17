@@ -69,6 +69,7 @@ subninja utils${sep}build.ninja
 # game
 subninja app${sep}build.ninja
 subninja game${sep}build.ninja
+subninja sprite2d${sep}build.ninja
 
 #
 # example

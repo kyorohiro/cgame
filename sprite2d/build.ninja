@@ -1,0 +1,7 @@
+baseP = sprite2d
+#
+# LIB
+build ${baseP}${sep}csprite2d.${objExt}: obj ${baseP}${sep}csprite2d.c
+
+
+build ${baseP}${sep}libsprite2d.${objLib}: lib ${baseP}${sep}csprite2d.${objExt}

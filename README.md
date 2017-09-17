@@ -1,7 +1,7 @@
 # CGame
 
 todo Game library for C language.
-Generated executable file is moved on browser
+Generated executable file is executable on browser
 to use emscripten.
 
 ## LICENSE
@@ -27,3 +27,8 @@ to use emscripten.
   with this work has waived all copyright and related or neighboring
   rights to this work.
 </p>
+
+
+## REF
+- Test Code about SDL and SDL2 on Emscripten and Desktop
+https://github.com/kyorohiro/doc_sdl2
