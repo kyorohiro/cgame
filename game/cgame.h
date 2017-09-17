@@ -56,23 +56,23 @@ typedef struct {
 //
 // unused CGame is singleton
 //
+CGame* getCGame();
 CGame* newCGame(CMemory* mem);
 CGame* initCGame(CGame*, CApp*);
 CGame* createCGame(int window, int height);
-//
-CGame* getCGame();
-CGame* cgame_run(CGame*);
-CGame* cgame_init(CGame*);
 
+CGame* cgame_init(CGame*);
+CGame* cgame_run(CGame*);
+CGame* cgame_postRedisplay(CGame*);
+
+//
 CObject3D* cgame_getRoot(CGame*);
 CCamera3D* cgame_getCamera(CGame*);
 CAppMouseEvent* cgame_getCurrentMouseEvent(CGame*);
-CGame* cgame_postRedisplay(CGame*);
 CRay* cgame_getMouseRay(CGame*);
 CDynaTexAtlas* cgame_getCDynaTexAtlas(CGame* obj, int index);
 
 //
-//CObject3D* cobject3d_setOnEnterFrameFunc(CObject3D* obj, CObject3DFuncOnEnterFrame func);
 CGame* cgame_setOnEnterFrameFunc(CGame* obj, CObject3DFuncOnEnterFrame func);
 
 
