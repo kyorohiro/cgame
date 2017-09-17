@@ -24,12 +24,12 @@ CPrimitive3D* newCPrimitive3D(CMemory* mem) {
   CPrimitive3D * ret = cmemory_calloc(mem, 1, sizeof(CPrimitive3D));
   ret->parent.parent.cmemory = mem;
   ret->parent.parent.funcFree = freeCPrimitive3D;
-  ret->parent.type = CObject3DTypePrimitive;
   return ret;
 }
 
 CPrimitive3D* initCPrimitive3D(CPrimitive3D* obj) {
   initCObject3D((CObject3D*)obj);
+  obj->parent.type = CObject3DTypePrimitive;
   return obj;
 }
 

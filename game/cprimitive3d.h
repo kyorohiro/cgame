@@ -24,7 +24,7 @@ typedef struct {
 } CPrimitive3D;
 
 
-
+void freeCPrimitive3D(void* obj);
 CPrimitive3D* newCPrimitive3D(CMemory* mem);
 CPrimitive3D* initCPrimitive3D(CPrimitive3D*);
 CPrimitive3D* initCPrimitive3DAsCube(CPrimitive3D*);
@@ -39,7 +39,7 @@ CPrimitive3D* createCPrimitive3DAsTinyShape(CMatrixVertexType* src, int length);
 
 // src  x,y,x,y,x,y......
 CPrimitive3D* initCPrimitive3DAsTinyShape(CPrimitive3D* obj, CMatrixVertexType* src, int length);
-void freeCPrimitive3D(void* obj);
+
 CPrimitive3D* cprimitive3d_setColor(CPrimitive3D*, double r, double g, double b, double a);
 
 

@@ -3,7 +3,7 @@
 
 #include "matrix/cmatrix.h"
 #include "game/cobject3d.h"
-
+#include "game/cprimitive3d.h"
 #define CSPRITE2D_NAME "spr"
 
 //
