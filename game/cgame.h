@@ -70,4 +70,10 @@ CAppMouseEvent* cgame_getCurrentMouseEvent(CGame*);
 CGame* cgame_postRedisplay(CGame*);
 CRay* cgame_getMouseRay(CGame*);
 CDynaTexAtlas* cgame_getCDynaTexAtlas(CGame* obj, int index);
+
+//
+//CObject3D* cobject3d_setOnEnterFrameFunc(CObject3D* obj, CObject3DFuncOnEnterFrame func);
+CGame* cgame_setOnEnterFrameFunc(CGame* obj, CObject3DFuncOnEnterFrame func);
+
+
 #endif

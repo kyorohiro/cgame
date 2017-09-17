@@ -109,6 +109,11 @@ CGame* createCGame(int window, int height) {
   return ret;
 }
 
+CGame* cgame_setOnEnterFrameFunc(CGame* obj, CObject3DFuncOnEnterFrame func) {
+  cobject3d_setOnEnterFrameFunc(obj->root, func);
+  return obj;
+}
+
 void cgame_draw(CObject *context, CObject *args) {
   //
   // mouse ray
