@@ -30,5 +30,5 @@ to use emscripten.
 
 
 ## REF
-- Test Code about SDL and SDL2 on Emscripten and Desktop
+- Test Code about SDL and SDL2 on Emscripten and Desktop  
 https://github.com/kyorohiro/doc_sdl2
