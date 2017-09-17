@@ -8,13 +8,13 @@ void freeCSprite2D(void* obj) {
 
 CSprite2D* newCSprite2D(CMemory* mem) {
   CSprite2D* ret = cmemory_calloc(mem, 1, sizeof(CSprite2D));
-  ret->parent.parent.cmemory = mem;
-  ret->parent.parent.funcFree = freeCSprite2D;
+  ((CObject*)ret)->cmemory = mem;
+  ((CObject*)ret)->funcFree = freeCSprite2D;
   return ret;
 }
 
 CSprite2D* initCSprite2D(CSprite2D* obj, int width, int height) {
-  initCPrimitive3D((CPrimitive3D*)obj);
+  initCPrimitive3DAsSquare((CPrimitive3D*)obj);
   return obj;
 }
 
@@ -47,16 +47,18 @@ CSprite2D* csprite2d_update(CSprite2D* obj) {
   CMatrix4Raw rotateZ;
   cmatrix4raw_setTranslation(center, obj3d->centerX, obj3d->centerY, obj3d->centerZ);
   cmatrix4raw_setRotationX(rotateX, obj->rx);
-  cmatrix4raw_setRotationY(rotateX, obj->ry);
-  cmatrix4raw_setRotationZ(rotateX, obj->rz);
+  cmatrix4raw_setRotationY(rotateY, obj->ry);
+  cmatrix4raw_setRotationZ(rotateZ, obj->rz);
   cmatrix4raw_setTranslation(centerB, obj3d->centerX, obj3d->centerY, obj3d->centerZ);
   cmatrix4raw_setTranslation(move, obj->x, obj->y, obj->z);
 
   CMatrix4* mat = obj3d->mat;
+  cmatrix4_setIdentity(mat);
   cmatrix4raw_mul(center, mat->value, mat->value);
   cmatrix4raw_mul(rotateX, mat->value, mat->value);
   cmatrix4raw_mul(rotateY, mat->value, mat->value);
   cmatrix4raw_mul(rotateZ, mat->value, mat->value);
+
   cmatrix4raw_mul(centerB, mat->value, mat->value);
   cmatrix4raw_mul(move, mat->value, mat->value);
 

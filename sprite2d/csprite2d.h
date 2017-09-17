@@ -9,7 +9,7 @@
 //
 //
 typedef struct {
-  CObject3D parent;
+  CPrimitive3D parent;
   CMatrixVertexType x;
   CMatrixVertexType y;
   CMatrixVertexType z;
