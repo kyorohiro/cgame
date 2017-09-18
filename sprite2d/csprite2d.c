@@ -14,7 +14,9 @@ CSprite2D* newCSprite2D(CMemory* mem) {
 }
 
 CSprite2D* initCSprite2D(CSprite2D* obj, int width, int height) {
+  CMemory* mem = cobject_getCMemory((CObject*)obj);
   initCPrimitive3DAsSquare((CPrimitive3D*)obj);
+  obj->texMat = cmatrix4_setIdentity(initCMatrix4(newCMatrix4(mem)));
   return obj;
 }
 
@@ -61,6 +63,22 @@ CSprite2D* csprite2d_setImage(CSprite2D* obj, CImage* img, CDynaBlockSpace* bloc
     w = block->w;
     h = block->h;
   }
+
+  obj->texX = 0.0;
+  obj->texY = 0.0;
+  obj->texZ = 0.0;
+  obj->texRx = 0.0;
+  obj->texRy = 0.0;
+  obj->texRz = 0.0;
+  obj->texCx = x + (w-x)/2.0;
+  obj->texCy = y + (h-y)/2.0;
+  obj->texCz = 0.0;
+
+  obj->texBlockX = x;
+  obj->texBlockY = y;
+  obj->texBlockW = w;
+  obj->texBlockH = h;
+
   cprimitive3d_setCImage((CPrimitive3D*)obj, img);
   cprimitive3d_setTexCoordAsTinyShapeFromBlock((CPrimitive3D*)obj, x, y, w, h, iw, ih);
     return obj;
@@ -77,5 +95,24 @@ CSprite2D* csprite2d_setTexRXYZ(CSprite2D* obj, CMatrixVertexType rx, CMatrixVer
   obj->texRx = rx;
   obj->texRy = ry;
   obj->texRz = rz;
+  return obj;
+}
+
+CSprite2D* csprite2d_updateTex(CSprite2D* obj) {
+  CObject3D* obj3d = (CObject3D*)obj;
+  cmatrix4_setXyxRXyzSXyz(obj->texMat,
+                obj->texCx, obj->texCy, obj->texCz,
+                obj->texX, obj->texY, obj->texZ,
+                obj->texRx, obj->texRy, obj->texRz,
+                1.0, 1.0, 1.0);
+  //
+  //CVector4Raw xyzA; xyzA[0] = x; xyzA[1] = y; xyzA[2] = 1.0; xyzA[3] = 1.0;
+  //CVector4Raw xyzB; xyzB[0] = x+w; xyzB[1] = y; xyzB[2] = 1.0; xyzB[3] = 1.0;
+  //CVector4Raw xyzC; xyzC[0] = x+w; xyzC[1] = y; xyzC[2] = 1.0; xyzC[3] = 1.0;
+  //CVector4Raw xyzD;
+
+  cprimitive3d_setTexCoordAsTinyShapeFromBlockWithTrans((CPrimitive3D*)obj, obj->texMat, obj->texBlockX,
+      obj->texBlockY, obj->texBlockW, obj->texBlockH,
+      obj->imageW, obj->imageH);
   return obj;
 }
