@@ -51,5 +51,8 @@ CSprite2D* csprite2d_update(CSprite2D*);
 
 //
 CSprite2D* csprite2d_setImage(CSprite2D*, CImage* img, CDynaBlockSpace* block);
+//
 
+CSprite2D* csprite2d_setTexXYZ(CSprite2D*, CMatrixVertexType x, CMatrixVertexType y, CMatrixVertexType z);
+CSprite2D* csprite2d_setTexRXYZ(CSprite2D*, CMatrixVertexType rx, CMatrixVertexType ry, CMatrixVertexType rz);
 #endif

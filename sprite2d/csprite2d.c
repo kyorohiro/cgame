@@ -84,3 +84,17 @@ CSprite2D* csprite2d_setImage(CSprite2D* obj, CImage* img, CDynaBlockSpace* bloc
   cprimitive3d_setTexCoordAsTinyShapeFromBlock((CPrimitive3D*)obj, x, y, w, h, iw, ih);
     return obj;
 }
+
+CSprite2D* csprite2d_setTexXYZ(CSprite2D* obj, CMatrixVertexType x, CMatrixVertexType y, CMatrixVertexType z) {
+  obj->texX = x;
+  obj->texY = y;
+  obj->texZ = z;
+  return obj;
+}
+
+CSprite2D* csprite2d_setTexRXYZ(CSprite2D* obj, CMatrixVertexType rx, CMatrixVertexType ry, CMatrixVertexType rz) {
+  obj->texRx = rx;
+  obj->texRy = ry;
+  obj->texRz = rz;
+  return obj;
+}
