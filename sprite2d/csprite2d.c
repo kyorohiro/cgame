@@ -64,3 +64,23 @@ CSprite2D* csprite2d_update(CSprite2D* obj) {
 
   return obj;
 }
+
+CSprite2D* csprite2d_setImage(CSprite2D* obj, CImage* img, CDynaBlockSpace* block) {
+  CMatrixValueType x,y,w,h;
+  CMatrixValueType iw = cimage_getWidth(img);
+  CMatrixValueType ih = cimage_getHeight(img);
+  if(block == NULL) {
+    x = 0;
+    y = 0;
+    w = iw;
+    h = ih;
+  } else {
+    x = block->x;
+    y = block->y;
+    w = block->w;
+    h = block->h;
+  }
+  cprimitive3d_setCImage((CPrimitive3D*)obj, img);
+  cprimitive3d_setTexCoordAsTinyShapeFromBlock((CPrimitive3D*)obj, x, y, w, h, iw, ih);
+    return obj;
+}

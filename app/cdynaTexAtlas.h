@@ -13,14 +13,14 @@ typedef struct {
   CImage* image;
   CDynaBlock* block;
 } CDynaTexAtlas;
-
+/*
 typedef struct {
   int x;
   int y;
   int w;
   int h;
-} TexAtlasBlockRaw;
-
+} STexAtlasBlock;
+*/
 #define CTEX_ATLAS_NAME "cta"
 CDynaTexAtlas* newCDynaTexAtlas(CMemory*);
 CDynaTexAtlas* initCDynaTexAtlas(CDynaTexAtlas*, int w, int h);
