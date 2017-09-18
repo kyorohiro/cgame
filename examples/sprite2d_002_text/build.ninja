@@ -1,0 +1,3 @@
+baseP = examples${sep}sprite2d_002_text
+build ${baseP}${sep}main.${objExt}: obj ${baseP}${sep}main.c
+build ${baseP}${sep}main.${exaExt}: appEx ${baseP}${sep}main.${objExt} sprite2d${sep}libsprite2d.${objLib} app${sep}libapp.${objLib} game${sep}libgame.${objLib} core${sep}libcore.${objLib} matrix${sep}libmatrix.${objLib} utils/libUtils.${objLib}

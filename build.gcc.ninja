@@ -86,3 +86,4 @@ subninja examples${sep}game_004_primitive${sep}build.ninja
 subninja examples${sep}game_005_texAtlas2${sep}build.ninja
 
 subninja examples${sep}sprite2d_001${sep}build.ninja
+subninja examples${sep}sprite2d_002_text${sep}build.ninja
