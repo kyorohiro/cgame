@@ -110,7 +110,8 @@ CSprite2D* csprite2d_updateTex(CSprite2D* obj) {
 
 //  printf("center = %f %f %f\r\n",obj->texCx, obj->texCy, obj->texCz);
   cprimitive3d_setTexCoordAsTinyShapeFromBlockWithTrans((CPrimitive3D*)obj,
-      obj->texMat, obj->texBlockX, obj->texBlockY, obj->texBlockW, obj->texBlockH,
+      obj->texMat,
+      obj->texBlockX, obj->texBlockY, obj->texBlockW, obj->texBlockH,
       obj->imageW, obj->imageH);
   return obj;
 }
