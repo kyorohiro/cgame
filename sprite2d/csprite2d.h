@@ -11,12 +11,32 @@
 //
 typedef struct {
   CPrimitive3D parent;
+  //
+  // cache
   CMatrixVertexType x;
   CMatrixVertexType y;
   CMatrixVertexType z;
   CMatrixVertexType rx;
   CMatrixVertexType ry;
   CMatrixVertexType rz;
+
+  //
+  //
+  CMatrixVertexType texX;
+  CMatrixVertexType texY;
+  CMatrixVertexType texZ;
+  CMatrixVertexType texRx;
+  CMatrixVertexType texRy;
+  CMatrixVertexType texRz;
+
+  //
+  //
+  CMatrixVertexType texBlockX;
+  CMatrixVertexType texBlockY;
+  CMatrixVertexType texBlockW;
+  CMatrixVertexType texBlockH;
+  CMatrixVertexType imageW;
+  CMatrixVertexType imageH;
 } CSprite2D;
 
 CSprite2D* newCSprite2D(CMemory* mem);
