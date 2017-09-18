@@ -13,7 +13,11 @@ CMatrix4* cmatrix4_setRotationY(CMatrix4* obj, double radians);
 CMatrix4* cmatrix4_setRotationZ(CMatrix4* obj, double radians);
 CMatrix4* cmatrix4_setTranslation(CMatrix4* obj, double x, double y, double z);
 CMatrix4* cmatrix4_setScale(CMatrix4* obj, double x, double y, double z);
-
+CMatrix4* cmatrix4_setXyxRXyzSXyz(CMatrix4* obj,
+              CMatrixValueType centerX, CMatrixValueType centerY, CMatrixValueType centerZ,
+              CMatrixValueType x, CMatrixValueType y, CMatrixValueType z,
+              CMatrixValueType rx, CMatrixValueType ry, CMatrixValueType rz,
+              CMatrixValueType sx, CMatrixValueType sy, CMatrixValueType sz);
 
 CMatrix3* cmatrix3_setRotationX(CMatrix3* obj, double radians);
 CMatrix3* cmatrix3_setRotationY(CMatrix3* obj, double radians);

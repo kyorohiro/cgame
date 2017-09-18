@@ -24,8 +24,7 @@ CMatrix4* cmatrix4_setValues(CMatrix4* obj,
               CMatrixValueType a11, CMatrixValueType a12, CMatrixValueType a13, CMatrixValueType a14,
               CMatrixValueType a21, CMatrixValueType a22, CMatrixValueType a23, CMatrixValueType a24,
               CMatrixValueType a31, CMatrixValueType a32, CMatrixValueType a33, CMatrixValueType a34,
-              CMatrixValueType a41, CMatrixValueType a42, CMatrixValueType a43, CMatrixValueType a44
-            );
+              CMatrixValueType a41, CMatrixValueType a42, CMatrixValueType a43, CMatrixValueType a44);
 
 CMatrix4* cmatrix4_add(CMatrix4* obj, CMatrix4* arg, CMatrix4* out);
 CMatrix4* cmatrix4_sub(CMatrix4* obj, CMatrix4* arg, CMatrix4* out);

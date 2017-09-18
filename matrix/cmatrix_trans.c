@@ -250,3 +250,38 @@ CMatrix4RawRef cmatrix3raw_setScale(CMatrix3RawRef obj, double x, double y, doub
 
   return obj;
 }
+
+
+//
+//
+//
+CMatrix4* cmatrix4_setXyxRXyzSXyz(CMatrix4* mat,
+              CMatrixValueType centerX, CMatrixValueType centerY, CMatrixValueType centerZ,
+              CMatrixValueType x, CMatrixValueType y, CMatrixValueType z,
+              CMatrixValueType rx, CMatrixValueType ry, CMatrixValueType rz,
+              CMatrixValueType sx, CMatrixValueType sy, CMatrixValueType sz) {
+    CMatrix4Raw center;
+    CMatrix4Raw centerB;
+    CMatrix4Raw move;
+    CMatrix4Raw rotateX;
+    CMatrix4Raw rotateY;
+    CMatrix4Raw rotateZ;
+    CMatrix4Raw scale;
+    cmatrix4raw_setTranslation(center, centerX, centerY, centerZ);
+    cmatrix4raw_setRotationX(rotateX, rx);
+    cmatrix4raw_setRotationY(rotateY, ry);
+    cmatrix4raw_setRotationZ(rotateZ, rz);
+    cmatrix4raw_setTranslation(centerB, -centerX, -centerY, -centerZ);
+    cmatrix4raw_setTranslation(move, x, y, z);
+    cmatrix4raw_setScale(scale, sx, sy, sz);
+
+    cmatrix4_setIdentity(mat);
+    cmatrix4raw_mul(center,  mat->value, mat->value);
+    cmatrix4raw_mul(scale,   mat->value, mat->value);
+    cmatrix4raw_mul(rotateX, mat->value, mat->value);
+    cmatrix4raw_mul(rotateY, mat->value, mat->value);
+    cmatrix4raw_mul(rotateZ, mat->value, mat->value);
+    cmatrix4raw_mul(centerB, mat->value, mat->value);
+    cmatrix4raw_mul(move, mat->value, mat->value);
+    return mat;
+}

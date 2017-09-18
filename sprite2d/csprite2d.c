@@ -38,30 +38,11 @@ CSprite2D* csprite2d_setRXYZ(CSprite2D* obj, CMatrixVertexType rx, CMatrixVertex
 
 CSprite2D* csprite2d_update(CSprite2D* obj) {
   CObject3D* obj3d = (CObject3D*)obj;
-  CMatrix4Raw center;
-  CMatrix4Raw centerB;
-  CMatrix4Raw move;
-
-  CMatrix4Raw rotateX;
-  CMatrix4Raw rotateY;
-  CMatrix4Raw rotateZ;
-  cmatrix4raw_setTranslation(center, obj3d->centerX, obj3d->centerY, obj3d->centerZ);
-  cmatrix4raw_setRotationX(rotateX, obj->rx);
-  cmatrix4raw_setRotationY(rotateY, obj->ry);
-  cmatrix4raw_setRotationZ(rotateZ, obj->rz);
-  cmatrix4raw_setTranslation(centerB, obj3d->centerX, obj3d->centerY, obj3d->centerZ);
-  cmatrix4raw_setTranslation(move, obj->x, obj->y, obj->z);
-
-  CMatrix4* mat = obj3d->mat;
-  cmatrix4_setIdentity(mat);
-  cmatrix4raw_mul(center, mat->value, mat->value);
-  cmatrix4raw_mul(rotateX, mat->value, mat->value);
-  cmatrix4raw_mul(rotateY, mat->value, mat->value);
-  cmatrix4raw_mul(rotateZ, mat->value, mat->value);
-
-  cmatrix4raw_mul(centerB, mat->value, mat->value);
-  cmatrix4raw_mul(move, mat->value, mat->value);
-
+  cmatrix4_setXyxRXyzSXyz(cobject3d_getCMatrix4(obj3d),
+                obj3d->centerX, obj3d->centerY, obj3d->centerZ,
+                obj->x, obj->y, obj->z,
+                obj->rx, obj->ry, obj->rz,
+                1.0, 1.0, 1.0);
   return obj;
 }
 
