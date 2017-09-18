@@ -16,11 +16,13 @@ CObject3D* sprite002;
 void _onEnterFrame(CObject*  obj, CObject* cgame) {
   i =(i+10)%360;
 
+  csprite2d_setXYZ((CSprite2D*)sprite001, -1.0, -1.0, 0.0);
   csprite2d_setRXYZ((CSprite2D*)sprite001, 0.0, 0.0, 2*3.14*i/360.0);
   csprite2d_update((CSprite2D*)sprite001);
 
   csprite2d_setXYZ((CSprite2D*)sprite002, 1.0, 1.0, 0.0);
-  csprite2d_setTexRXYZ((CSprite2D*)sprite002, 1.0, 1.0, 2*3.14*i/360.0);
+  csprite2d_setTexRXYZ((CSprite2D*)sprite002, 0.0, 0.0, 2*3.14*i/360.0);
+  csprite2d_updateTex((CSprite2D*)sprite002);
   csprite2d_update((CSprite2D*)sprite002);
 
   CApp* appObj = getCApp();

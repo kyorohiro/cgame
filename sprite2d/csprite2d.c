@@ -70,14 +70,16 @@ CSprite2D* csprite2d_setImage(CSprite2D* obj, CImage* img, CDynaBlockSpace* bloc
   obj->texRx = 0.0;
   obj->texRy = 0.0;
   obj->texRz = 0.0;
-  obj->texCx = x + (w-x)/2.0;
-  obj->texCy = y + (h-y)/2.0;
+  obj->texCx = (x + w/2.0)/iw;
+  obj->texCy = (y + h/2.0)/ih;
   obj->texCz = 0.0;
 
   obj->texBlockX = x;
   obj->texBlockY = y;
   obj->texBlockW = w;
   obj->texBlockH = h;
+  obj->imageW = iw;
+  obj->imageH = ih;
 
   cprimitive3d_setCImage((CPrimitive3D*)obj, img);
   cprimitive3d_setTexCoordAsTinyShapeFromBlock((CPrimitive3D*)obj, x, y, w, h, iw, ih);
@@ -101,18 +103,14 @@ CSprite2D* csprite2d_setTexRXYZ(CSprite2D* obj, CMatrixVertexType rx, CMatrixVer
 CSprite2D* csprite2d_updateTex(CSprite2D* obj) {
   CObject3D* obj3d = (CObject3D*)obj;
   cmatrix4_setXyxRXyzSXyz(obj->texMat,
-                obj->texCx, obj->texCy, obj->texCz,
+                -obj->texCx, -obj->texCy, -obj->texCz,
                 obj->texX, obj->texY, obj->texZ,
                 obj->texRx, obj->texRy, obj->texRz,
                 1.0, 1.0, 1.0);
-  //
-  //CVector4Raw xyzA; xyzA[0] = x; xyzA[1] = y; xyzA[2] = 1.0; xyzA[3] = 1.0;
-  //CVector4Raw xyzB; xyzB[0] = x+w; xyzB[1] = y; xyzB[2] = 1.0; xyzB[3] = 1.0;
-  //CVector4Raw xyzC; xyzC[0] = x+w; xyzC[1] = y; xyzC[2] = 1.0; xyzC[3] = 1.0;
-  //CVector4Raw xyzD;
 
-  cprimitive3d_setTexCoordAsTinyShapeFromBlockWithTrans((CPrimitive3D*)obj, obj->texMat, obj->texBlockX,
-      obj->texBlockY, obj->texBlockW, obj->texBlockH,
+  printf("center = %f %f %f\r\n",obj->texCx, obj->texCy, obj->texCz);
+  cprimitive3d_setTexCoordAsTinyShapeFromBlockWithTrans((CPrimitive3D*)obj,
+      obj->texMat, obj->texBlockX, obj->texBlockY, obj->texBlockW, obj->texBlockH,
       obj->imageW, obj->imageH);
   return obj;
 }

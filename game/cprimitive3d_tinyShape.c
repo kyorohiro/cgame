@@ -101,16 +101,8 @@ CPrimitive3D* cprimitive3d_setTexCoordAsTinyShapeFromBlockWithTrans(CPrimitive3D
       top = vertexes[i*3+1];
     }
   }
-  // for(int i=0;i<vertexNum;i++) {
-  //      texCoords[i*2+0] = (src[i*2+0]-left)/((right-left));
-  //      texCoords[i*2+1] = (-1*src[i*2+1]-bottom)/((top-bottom));
-  // }
 
-  //left = left+x/imgW;
-  //printf("?? %d %d\r\n",h,imgH);
-
-  printf("?? %f %f %f\r\n",w, imgW, (double)w/(double)imgW);
-
+  CVector4Raw tmp;
 
   for(int i=0;i<vertexNum;i++) {
     texCoords[i*2+0] = (vertexes[i*3+0]-left) / (right-left);
@@ -118,6 +110,15 @@ CPrimitive3D* cprimitive3d_setTexCoordAsTinyShapeFromBlockWithTrans(CPrimitive3D
 
     texCoords[i*2+1] = (-1*vertexes[i*3+1]-bottom) / (top-bottom);
     texCoords[i*2+1] = texCoords[i*2+1]*(h/imgH) + y/imgH;
+    if(_trans != NULL) {
+      tmp[0] = texCoords[i*2+0];
+      tmp[1] = texCoords[i*2+1];
+      tmp[2] = 1.0;
+      tmp[3] = 1.0;
+      cmatrix4raw_mulVector4Raw(_trans->value, tmp, tmp);
+      texCoords[i*2+0] = tmp[0];
+      texCoords[i*2+1] = tmp[1];
+    }
   }
   return obj;
 }
