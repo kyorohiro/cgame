@@ -126,7 +126,7 @@ CMatrix4RawRef cmatrix4raw_setIdentity(CMatrix4RawRef obj) {
   obj[2] = 0.0;
   obj[6] = 0.0;
   obj[10] = 1.0;
-  obj[13] = 0.0;
+  obj[14] = 0.0;
 
   obj[3] = 0.0;
   obj[7] = 0.0;
@@ -210,7 +210,7 @@ CMatrix4RawRef cmatrix4raw_sub(CMatrix4RawRef obj, CMatrix4RawRef arg, CMatrix4R
 }
 
 CMatrix4RawRef cmatrix4raw_mul(CMatrix4RawRef obj, CMatrix4RawRef arg, CMatrix4RawRef out) {
-  double o[16];
+  CMatrixValueType o[16];
   for(int i=0;i<4;i++) {
     for(int j=0;j<4;j++) {
       o[i+4*j]  = obj[i+0] * arg[4*j];

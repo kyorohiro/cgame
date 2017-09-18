@@ -37,15 +37,17 @@ CCamera3D* ccamera3d_updateAtPerspective(CCamera3D* obj,
   cmatrix4_setIdentity(mat);
   //
 
+  printf("#proj %f %f %f : %f %f %f\r\n", x, y, z, rx, ry, rz);
   cmatrix4_setPerspectiveProjection(obj->projection, fovYRadians, aspectRatio, far, near);
+  cmatrix4_show(obj->projection);
+
+  printf("#view\r\n");
   cmatrix4_setLookAt2(obj->view, x, y, z, rx, ry, rz, 1.0, 1.0, 1.0);
+  cmatrix4_show(obj->view);
+  printf("\r\n");
+
   cmatrix4_mul(obj->projection, obj->view, mat);
 
-  printf("#proj %f %f %f : %f %f %f\r\n", x, y, z, rx, ry, rz);
-  cmatrix4_show(obj->projection);
-  printf("\r\n");
-  printf("#view\r\n");
-  cmatrix4_show(obj->view);
   printf("\r\n");
   return obj;
 }

@@ -20,6 +20,7 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
   csprite2d_update((CSprite2D*)sprite001);
 
   csprite2d_setXYZ((CSprite2D*)sprite002, 1.0, 1.0, 0.0);
+  csprite2d_setTexRXYZ((CSprite2D*)sprite002, 1.0, 1.0, 2*3.14*i/360.0);
   csprite2d_update((CSprite2D*)sprite002);
 
   CApp* appObj = getCApp();

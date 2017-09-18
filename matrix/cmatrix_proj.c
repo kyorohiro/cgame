@@ -113,7 +113,6 @@ CMatrix4* cmatrix4_setLookAt2(CMatrix4* obj,
   CMatrix4Raw tran;
   CMatrix4Raw scal;
   CMatrix4Raw mat;
-
   cmatrix4raw_setIdentity(mat);
   cmatrix4raw_mul(mat, cmatrix4raw_setScale(scal, sx, sy, sz), mat);
   cmatrix4raw_mul(mat, cmatrix4raw_setRotationX(rotX, -rx), mat);
