@@ -2,6 +2,6 @@ baseP = sprite2d
 #
 # LIB
 build ${baseP}${sep}csprite2d.${objExt}: obj ${baseP}${sep}csprite2d.c
+build ${baseP}${sep}ctext2d.${objExt}: obj ${baseP}${sep}ctext2d.c
 
-
-build ${baseP}${sep}libsprite2d.${objLib}: lib ${baseP}${sep}csprite2d.${objExt}
+build ${baseP}${sep}libsprite2d.${objLib}: lib ${baseP}${sep}csprite2d.${objExt} ${baseP}${sep}ctext2d.${objExt}

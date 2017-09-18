@@ -44,6 +44,7 @@ typedef struct {
   CMatrixVertexType imageH;
 } CSprite2D;
 
+void freeCSprite2D(void* obj);
 CSprite2D* newCSprite2D(CMemory* mem);
 CSprite2D* initCSprite2D(CSprite2D*, int width, int height);
 CSprite2D* createCSprite2D(int width, int height);
