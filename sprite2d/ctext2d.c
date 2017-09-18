@@ -17,7 +17,7 @@ CText2D* newCText2D(CMemory* mem) {
   return ret;
 }
 
-CText2D* initCText2D(CText2D* obj, int width, int height, CDynaTexAtlas* atlas, char *text) {
+CText2D* initCText2D(CText2D* obj, CMatrixVertexType width, CMatrixVertexType height, CDynaTexAtlas* atlas, char *text) {
   CMemory* mem = cobject_getCMemory((CObject*)obj);
   initCSprite2D((CSprite2D*)obj, width, height);
   obj->text = initCString(newCString(mem), text);
@@ -25,6 +25,6 @@ CText2D* initCText2D(CText2D* obj, int width, int height, CDynaTexAtlas* atlas, 
   return obj;
 }
 
-CText2D* createCText2D(int width, int height, CDynaTexAtlas* atlas, char *text) {
+CText2D* createCText2D(CMatrixVertexType width, CMatrixVertexType height, CDynaTexAtlas* atlas, char *text) {
   return initCText2D(newCText2D(getCMemory()), width, height, atlas, text);
 }

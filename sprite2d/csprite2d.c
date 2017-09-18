@@ -13,14 +13,18 @@ CSprite2D* newCSprite2D(CMemory* mem) {
   return ret;
 }
 
-CSprite2D* initCSprite2D(CSprite2D* obj, int width, int height) {
+CSprite2D* initCSprite2D(CSprite2D* obj, CMatrixVertexType w, CMatrixVertexType h) {
   CMemory* mem = cobject_getCMemory((CObject*)obj);
-  initCPrimitive3DAsSquare((CPrimitive3D*)obj);
+  CMatrixVertexType src[] = {
+//    -1.0, 1.0, 1.0, 1.0, 1.0, -1.0, -1.0, -1.0,  // A 0-3
+   -1.0*w, 1.0*h, 1.0*w, 1.0*h, 1.0*w, -1.0*h, -1.0*w, -1.0*h,  // A 0-3
+  };
+  initCPrimitive3DAsTinyShape((CPrimitive3D*)obj, src, 8);
   obj->texMat = cmatrix4_setIdentity(initCMatrix4(newCMatrix4(mem)));
   return obj;
 }
 
-CSprite2D* createCSprite2D(int width, int height) {
+CSprite2D* createCSprite2D(CMatrixVertexType width, CMatrixVertexType height) {
   return initCSprite2D(newCSprite2D(getCMemory()), width, height);
 }
 

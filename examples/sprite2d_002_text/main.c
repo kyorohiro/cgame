@@ -38,9 +38,9 @@ int main(int argc, char** argv) {
 
   CTtf* ttf = cttfMgr_createTtf(getCTtfMgr(), "examples/assets/Roboto-Bold.ttf", 12);
   CDynaTexAtlas* atlas = cgame_getCDynaTexAtlas(gameObj, 0);
-  CDynaBlockSpace out;
-  ctexAtlas_addImageFromCTtf(atlas, ttf, "testtest", 1.0, 0.5, 0.5, 1.0, &out);
-  sprite001 = (CObject3D*)createCText2D(50, 100, atlas, "testtest");
+//  CDynaBlockSpace out;
+//  ctexAtlas_addImageFromCTtf(atlas, ttf, "testtest", 1.0, 0.5, 0.5, 1.0, &out);
+  sprite001 = (CObject3D*)createCText2D(1.0, 0.5, atlas, "testtest");
 
   printf("call main A\r\n");
   //

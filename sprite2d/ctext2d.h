@@ -22,7 +22,7 @@ typedef struct {
 } CText2D;
 
 CText2D* newCText2D(CMemory* mem);
-CText2D* initCText2D(CText2D*, int width, int height, CDynaTexAtlas* atlas, char *text);
-CText2D* createCText2D(int width, int height, CDynaTexAtlas* atlas, char *text);
+CText2D* initCText2D(CText2D*, CMatrixVertexType width, CMatrixVertexType height, CDynaTexAtlas* atlas, char *text);
+CText2D* createCText2D(CMatrixVertexType width, CMatrixVertexType height, CDynaTexAtlas* atlas, char *text);
 
 #endif

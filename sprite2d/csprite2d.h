@@ -46,8 +46,8 @@ typedef struct {
 
 void freeCSprite2D(void* obj);
 CSprite2D* newCSprite2D(CMemory* mem);
-CSprite2D* initCSprite2D(CSprite2D*, int width, int height);
-CSprite2D* createCSprite2D(int width, int height);
+CSprite2D* initCSprite2D(CSprite2D*, CMatrixVertexType width, CMatrixVertexType height);
+CSprite2D* createCSprite2D(CMatrixVertexType width, CMatrixVertexType height);
 
 //
 // matrix
