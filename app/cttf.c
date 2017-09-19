@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <SDL_opengl.h>
 #include "cimage.h"
+#include "core/cexception.h"
 
 CTtfMgr* newCTtfMgr(CMemory* mem);
 CTtfMgr* initCTtfMgr(CTtfMgr* obj);
@@ -118,4 +119,11 @@ CImage* cttf_createCImageAtBlended(CTtf* obj, char *text, double r, double g, do
   SDL_Surface* surface = TTF_RenderUTF8_Blended(obj->value, text, fg);
   CMemory* mem = cobject_getCMemory((CObject*)obj);
   return initCImageFromSDLSurface(newCImage(mem), surface);
+}
+
+void cttf_sizeText(CTtf* obj, char *text, int *w, int *h) {
+  int ret = TTF_SizeUTF8(obj->value, text, w, h);
+  if(-1 == ret) {
+    cexception_throw(getCException(), NULL);
+  }
 }

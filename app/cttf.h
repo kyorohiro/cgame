@@ -32,4 +32,5 @@ CImage* cttf_createCImageAtSolid(CTtf*, char *text, double r, double g, double b
 CImage* cttf_createCImageAtShaded(CTtf*, char *text, double r, double g, double b, double a);
 CImage* cttf_createCImageAtBlended(CTtf*, char *text, double r, double g, double b, double a);
 SDL_Surface* cttf_createSDLSurfaceAtSolid(CTtf*, char *text, double r, double g, double b, double a);
+void cttf_sizeText(CTtf*, char *text, int *w, int *h);
 #endif
