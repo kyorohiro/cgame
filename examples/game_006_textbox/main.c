@@ -1,3 +1,6 @@
+//
+// todo test
+//
 #include <stdio.h>
 #include "game/cgame.h"
 #include "game/cobject3d.h"
