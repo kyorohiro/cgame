@@ -25,6 +25,7 @@ typedef struct {
 CDynaTexAtlas* newCDynaTexAtlas(CMemory*);
 CDynaTexAtlas* initCDynaTexAtlas(CDynaTexAtlas*, int w, int h);
 CDynaTexAtlas* createCDynaTexAtlas(int w, int h);
+CDynaTexAtlas* ctexAtlas_clear(CDynaTexAtlas*);
 
 int ctexAtlas_addImage(CDynaTexAtlas* obj, CImage *src, int sx, int sy, int sw, int sh, CDynaBlockSpace* out);
 int ctexAtlas_addImageManually(CDynaTexAtlas* obj, int dx, int dy, int dw, int dh, CImage *src, int sx, int sy, int sw, int sh);

@@ -71,9 +71,17 @@ void _onInit(CObject* context, CObject* args) {
 
   atlas = createCDynaTexAtlas(512, 512);
   ctexAtlas_addImageFromCTtf(atlas, font, "Hello World!!", 0.0, 0.0, 0.0, 1.0, &out);
+  printf("%d %d %d %d\r\n", out.x, out.y, out.w, out.h);
+
   ctexAtlas_addImageFromCTtf(atlas, font, "Hello World!!", 1.0, 1.0, 0.0, 1.0, &out);
-
-
+  printf("%d %d %d %d\r\n", out.x, out.y, out.w, out.h);
+/*
+  CImage* img = cttf_createCImageAtSolid(font, "Hello World!!", 0.0, 0.0, 0.0, 1.0);
+  int imageW = cimage_getWidth(img);
+  int imageH = cimage_getHeight(img);
+  ctexAtlas_addImageFromSDLSurface(atlas, img->value, &out);
+  printf("%d %d %d %d\r\n", out.x, out.y, out.w, out.h);
+*/
 }
 
 void _onDisplay(CObject* context, CObject* args) {

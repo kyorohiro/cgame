@@ -33,6 +33,12 @@ CDynaTexAtlas* createCDynaTexAtlas(int w, int h) {
   return initCDynaTexAtlas(newCDynaTexAtlas(getCMemory()), w, h);
 }
 
+CDynaTexAtlas* ctexAtlas_clear(CDynaTexAtlas* obj) {
+  cimage_clear(obj->image);
+  cdynaBlock_clearIndexCache(obj->block);
+  return obj;
+}
+
 int ctexAtlas_addImage(CDynaTexAtlas* obj, CImage *src, int sx, int sy, int sw, int sh, CDynaBlockSpace* out) {
   int ret = cdynaBlock_findSpace(obj->block, sw, sh, out);
   if(ret == 0) {
@@ -55,7 +61,13 @@ int ctexAtlas_addImageManually(CDynaTexAtlas* obj, int dx, int dy, int dw, int d
   return 1;
 }
 
+int _ctexAtlas_addImageFromSDLSurface(CDynaTexAtlas* obj, SDL_Surface* value, CDynaBlockSpace* out, int isTtf);
+
 int ctexAtlas_addImageFromSDLSurface(CDynaTexAtlas* obj, SDL_Surface* value, CDynaBlockSpace* out) {
+  return _ctexAtlas_addImageFromSDLSurface(obj, value, out, 0);
+}
+
+int _ctexAtlas_addImageFromSDLSurface(CDynaTexAtlas* obj, SDL_Surface* value, CDynaBlockSpace* out, int isTtf){
   int sw = value->w;
   int sh = value->h;
   int ret = cdynaBlock_findSpace(obj->block, sw, sh, out);
@@ -67,8 +79,13 @@ int ctexAtlas_addImageFromSDLSurface(CDynaTexAtlas* obj, SDL_Surface* value, CDy
 
   //
   cdynaBlock_updateIndex(obj->block, out);
-  cimage_updateFromSDLSurface(obj->image, out->x, out->y, out->w, out->h,
-      value, 0, 0, sw, sh);
+  if(isTtf == 0) {
+    cimage_updateFromSDLSurface(obj->image, out->x, out->y, out->w, out->h,
+        value, 0, 0, sw, sh);
+  } else {
+    cimage_updateFromSDLSurface2(obj->image, out->x, out->y, out->w, out->h,
+        value, 0, 0, sw, sh);
+  }
   //
   return 1;
 }
@@ -78,7 +95,12 @@ int ctexAtlas_addImageFromCTtf(CDynaTexAtlas* obj, CTtf* ttf, char *text, double
   if(value == NULL) {
     return 0;
   }
-  int ret = ctexAtlas_addImageFromSDLSurface(obj, value, out);
+#ifdef CIMAGE_USE_DISPLAY_FORMAT
+  SDL_SetAlpha(value, 0, SDL_ALPHA_TRANSPARENT);
+  //value = SDL_DisplayFormat(value);
+  //SDL_DisplayFormatAlpha
+#endif
+  int ret = _ctexAtlas_addImageFromSDLSurface(obj, value, out, 1);
   SDL_FreeSurface(value);
   return ret;
 }

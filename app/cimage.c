@@ -1,6 +1,7 @@
 #include "cimage.h"
 #include <stdio.h>
 #include <SDL_opengl.h>
+#include <string.h>
 
 CImageMgr* newCImageMgr(CMemory* mem);
 CImageMgr* initCImageMgr(CImageMgr* obj);
@@ -61,6 +62,10 @@ CImage* newCImage(CMemory* cmemory) {
   return ret;
 }
 
+void cimage_clear(CImage* obj) {
+  memset(obj->value, 0,4*cimage_getWidth(obj)*cimage_getHeight(obj));
+}
+
 SDL_Surface* cimageUtil_loadFromPath(char *path) {
   SDL_Surface* value = IMG_Load( path );
 #ifdef CIMAGE_USE_DISPLAY_FORMAT
@@ -80,7 +85,9 @@ CImage* initCImageFromPath(CImage* obj, char* path){
 CImage* initEmptyRPGACImage(CImage* obj, int w, int h) {
   initCObject((CObject*)obj, CIMAGE_NAME);
   SDL_Surface* value = SDL_CreateRGBSurface(
-    SDL_SWSURFACE, w, h, 32,
+    //SDL_SRCALPHA,
+    SDL_SWSURFACE,
+     w, h, 32,
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
      0xFF000000, 0x00FF0000, 0x0000FF00, 0x000000FF
 #else
@@ -103,6 +110,14 @@ void cimage_update(CImage *dst, int dx, int dy, int dw, int dh,
   SDL_Rect d = {.x=dx,.y=dy, .w=dw, .h=dh};
   SDL_BlitSurface(src->value, &s, dst->value, &d);
 }
+
+void cimage_updateFromSDLSurface2(CImage *dst, int dx, int dy, int dw, int dh,
+                    SDL_Surface* src, int sx, int sy, int sw, int sh) {
+  SDL_Rect s = {.x=sx,.y=sy, .w=sw, .h=sh};
+  SDL_Rect d = {.x=dx,.y=dy, .w=dw, .h=dh};
+  SDL_BlitSurface(src, &s, dst->value, &d);
+}
+
 
 void cimage_rgba(SDL_Surface* src, int* mR, int* mG, int* mB, int* mA, int* mPixelByte) {
   *mPixelByte = cimage_getBytesPerPixel(src);
@@ -209,7 +224,7 @@ void cimage_updateFromSDLSurface(CImage *dst, int dx, int dy, int dw, int dh,
         }
       }
     }
-#ifdef CIMAGE_USE_MANUALL_COPY
+#ifdef CIMAGE_USE_MANUALL_COPY_A
 #ifndef CIMAGE_UNUSE_SCREEN_LOCK
     SDL_UnlockSurface(src);
 #endif

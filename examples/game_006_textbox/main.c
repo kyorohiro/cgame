@@ -13,11 +13,14 @@ int j =(30+2)%360;
 int fps;
 CObject3D* sprite001;
 CTtf* ttf;
+CDynaBlockSpace out1;
 
 void _onEnterFrame(CObject*  obj, CObject* cgame) {
   i =(i+10)%360;
 
-  csprite2d_setXYZ((CSprite2D*)sprite001, -1.0, -1.0, 0.0);
+  CDynaTexAtlas* atlas = cgame_getCDynaTexAtlas(getCGame(), 0);
+  csprite2d_setImage((CSprite2D*)sprite001, ctexAtlas_getImage(atlas), &out1);
+//  csprite2d_setXYZ((CSprite2D*)sprite001, -1.0, -1.0, 0.0);
   csprite2d_update((CSprite2D*)sprite001);
 
 
@@ -40,8 +43,8 @@ int main(int argc, char** argv) {
   //
   CDynaTexAtlas* atlas = cgame_getCDynaTexAtlas(gameObj, 0);
   ttf = cttfMgr_createTtf(getCTtfMgr(), "examples/assets/Roboto-Bold.ttf", 12);
-
-  sprite001 = (CObject3D*)createCSprite2D(50, 50);
+  int ret = ctexAtlas_addImageFromCTtf(atlas, ttf, " test ", 1.0, 1.0, 1.0, 1.0, &out1);
+  sprite001 = (CObject3D*)createCSprite2D(1.0, 0.5);
 
   //
   CObject3D* root = cgame_getRoot(gameObj);
