@@ -63,7 +63,12 @@ CImage* newCImage(CMemory* cmemory) {
 }
 
 void cimage_clear(CImage* obj) {
-  memset(obj->value, 0,4*cimage_getWidth(obj)*cimage_getHeight(obj));
+  memset(obj->value->pixels, 0, 4*cimage_getWidth(obj)*cimage_getHeight(obj));
+  /*int len = 4*cimage_getWidth(obj)*cimage_getHeight(obj);
+  char* buffer = obj->value->pixels;
+  for(int i=0;i<len;i++) {
+    buffer[i] = 0;
+  }*/
 }
 
 SDL_Surface* cimageUtil_loadFromPath(char *path) {

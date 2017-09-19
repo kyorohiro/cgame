@@ -35,7 +35,7 @@ CDynaTexAtlas* createCDynaTexAtlas(int w, int h) {
 
 CDynaTexAtlas* ctexAtlas_clear(CDynaTexAtlas* obj) {
   cimage_clear(obj->image);
-  cdynaBlock_clearIndexCache(obj->block);
+  cdynaBlock_resetIndex(obj->block);
   return obj;
 }
 

@@ -165,6 +165,11 @@ void cdynaBlock_show(CDynaBlock* obj) {
 
 void cdynaBlock_resetIndex(CDynaBlock* obj) {
   obj->numOfSpace = 0;
+  obj->spaces[0].x = 0;
+  obj->spaces[0].y = 0;
+  obj->spaces[0].w = obj->width;
+  obj->spaces[0].h = obj->height;
+  obj->numOfSpace = 1;
 }
 
 void cdynaBlock_clearIndexCache(CDynaBlock* obj) {
