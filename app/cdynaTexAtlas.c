@@ -75,7 +75,7 @@ int _ctexAtlas_addImageFromSDLSurface(CDynaTexAtlas* obj, SDL_Surface* value, CD
     printf("failed to find space %d %d %d %d\r\n", out->x, out->y, out->w, out->h);
     return ret;
   }
-  printf("passed to find space %d %d %d %d: %d %d\r\n", out->x, out->y, out->w, out->h, cimage_getWidth(obj->image), cimage_getHeight(obj->image));
+  //printf("passed to find space %d %d %d %d: %d %d\r\n", out->x, out->y, out->w, out->h, cimage_getWidth(obj->image), cimage_getHeight(obj->image));
 
   //
   cdynaBlock_updateIndex(obj->block, out);

@@ -21,13 +21,13 @@ char src[]= " Hello, World!! Test Test Test Test";
 int w,h;
 
 void _onEnterFrame(CObject*  obj, CObject* cgame) {
-  i =(i+5)%360;
+  i =(i+1)%360;
   double currentTime =  capp_currentMilliSecound(getCApp());
-  int intervalTime = (int)((currentTime - startTime)/1000*10.0);
+  int intervalTime = (int)((currentTime - startTime)/1000*15.0);
   CDynaTexAtlas* atlas = cgame_getCDynaTexAtlas(getCGame(), 0);
   if(intervalTime <32) {
     if(z != intervalTime) {
-      printf("%d %d\r\n", intervalTime, (int)sizeof(src));
+      //printf("%d %d\r\n", intervalTime, (int)sizeof(src));
       z = intervalTime;
       ctexAtlas_clear(atlas);
 
@@ -37,7 +37,7 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
       }
       t[n]= '\0';
       //strncpy( t, (char*)src, intervalTime );
-      ctexAtlas_addImageFromCTtf(atlas, ttf, t, 1.0, 1.0, 1.0, 1.0, &out1);
+      ctexAtlas_addImageFromCTtf(atlas, ttf, t, 0.3, 0.3, 0.3, 1.0, &out1);
       out1.w = w;
       out1.h = h;
       csprite2d_setImage((CSprite2D*)sprite001, ctexAtlas_getImage(atlas), &out1);
@@ -64,13 +64,13 @@ void _onEnterFrame(CObject*  obj, CObject* cgame) {
 int main(int argc, char** argv) {
   printf("call main\r\n");
   //
-  CGame* gameObj = createCGame(400, 300);
+  CGame* gameObj = createCGame(800, 600);
   cgame_setOnEnterFrameFunc(gameObj, _onEnterFrame);
   startTime =  capp_currentMilliSecound(getCApp());
   //
   CDynaTexAtlas* atlas = cgame_getCDynaTexAtlas(gameObj, 0);
-  ttf = cttfMgr_createTtf(getCTtfMgr(), "examples/assets/Roboto-Bold.ttf", 40);
-  int ret = ctexAtlas_addImageFromCTtf(atlas, ttf, "", 1.0, 1.0, 1.0, 1.0, &out1);
+  ttf = cttfMgr_createTtf(getCTtfMgr(), "examples/assets/Roboto-Bold.ttf", 30);
+  int ret = ctexAtlas_addImageFromCTtf(atlas, ttf, "", 0.3, 0.3, 0.3, 1.0, &out1);
   cttf_sizeText(ttf, src, &w,&h);
   sprite001 = (CObject3D*)createCSprite2D(2.0, 2.0*h/w);
   csprite2d_setImage((CSprite2D*)sprite001, ctexAtlas_getImage(atlas), &out1);
