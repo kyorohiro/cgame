@@ -4,6 +4,11 @@ todo Game library for C language.
 Generated executable file is executable on browser
 to use emscripten.
 
+## Rel
+- https://github.com/kyorohiro/ccore
+- https://github.com/kyorohiro/cvectorMath
+- https://github.com/kyorohiro/cgame
+
 ## LICENSE
 - ./examples/assets/se_maoudamashii_element_thunder05.ogg  
   http://maoudamashii.jokersounds.com/music_rule.html
