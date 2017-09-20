@@ -14,9 +14,13 @@ CMatrix2* newCMatrix2(CMemory* cmemory) {
 }
 
 CMatrix2* initCMatrix2(CMatrix2* obj) {
-  initCObject((CObject*)obj, KMATRIX_NAME);
+  initCObject((CObject*)obj, KMATRIX2_NAME);
   cmatrix2_setIdentity(obj);
   return obj;
+}
+
+CMatrix2* createCMatrix2() {
+  return initCMatrix2(newCMatrix2(getCMemory()));
 }
 
 void _freeMatrix2(void* tmp) {
@@ -27,7 +31,8 @@ void _freeMatrix2(void* tmp) {
 CMatrix2* cmatrix2_add(CMatrix2* obj, CMatrix2* arg, CMatrix2* out) {
   int i=0;
   if(out ==NULL) {
-    out = initCMatrix2(newCMatrix2(obj->parent.cmemory));
+    CMemory* memory = cobject_getCMemory((CObject*)obj);
+    out = initCMatrix2(newCMatrix2(memory));
   }
   cmatrix2raw_add(obj->value, arg->value, out->value);
   return out;
@@ -36,7 +41,8 @@ CMatrix2* cmatrix2_add(CMatrix2* obj, CMatrix2* arg, CMatrix2* out) {
 CMatrix2* cmatrix2_sub(CMatrix2* obj, CMatrix2* arg, CMatrix2* out) {
   int i=0;
   if(out ==NULL) {
-    out = initCMatrix2(newCMatrix2(obj->parent.cmemory));
+    CMemory* memory = cobject_getCMemory((CObject*)obj);
+    out = initCMatrix2(newCMatrix2(memory));
   }
   cmatrix2raw_sub(obj->value, arg->value, out->value);
   return out;
@@ -44,7 +50,8 @@ CMatrix2* cmatrix2_sub(CMatrix2* obj, CMatrix2* arg, CMatrix2* out) {
 
 CMatrix2* cmatrix2_mul(CMatrix2* obj, CMatrix2* arg, CMatrix2* out) {
   if(out ==NULL) {
-    out = initCMatrix2(newCMatrix2(obj->parent.cmemory));
+    CMemory* memory = cobject_getCMemory((CObject*)obj);
+    out = initCMatrix2(newCMatrix2(memory));
   }
 
   cmatrix2raw_mul(obj->value, arg->value, out->value);
@@ -54,7 +61,8 @@ CMatrix2* cmatrix2_mul(CMatrix2* obj, CMatrix2* arg, CMatrix2* out) {
 
 CVector2* cmatrix2_mulCVector2(CMatrix2* obj, CVector2* arg, CVector2* out) {
   if(out == NULL) {
-    out = initCVector2(newCVector2(obj->parent.cmemory), 0.0, 0.0);
+    CMemory* memory = cobject_getCMemory((CObject*)obj);
+    out = initCVector2(newCVector2(memory), 0.0, 0.0);
   }
   cmatrix2raw_mulVector2Raw(obj->value, arg->value, out->value);
   return out;
@@ -82,7 +90,8 @@ CMatrixValueType cmatrix2_determinant(CMatrix2* obj) {
 //http://mathworld.wolfram.com/MatrixInverse.html
 CMatrix2* cmatrix2_inverse(CMatrix2* obj, CMatrix2* outInverse, CMatrixValueType *outDeterminant) {
   if(outInverse ==NULL) {
-    outInverse = initCMatrix2(newCMatrix2(obj->parent.cmemory));
+    CMemory* memory = cobject_getCMemory((CObject*)obj);
+    outInverse = initCMatrix2(newCMatrix2(memory));
   }
   cmatrix2raw_inverse(obj->value, outInverse->value, outDeterminant);
   return outInverse;
@@ -90,7 +99,8 @@ CMatrix2* cmatrix2_inverse(CMatrix2* obj, CMatrix2* outInverse, CMatrixValueType
 
 CMatrix2* cmatrix2_transpose(CMatrix2* obj, CMatrix2* out) {
   if(out == NULL) {
-    out = initCMatrix2(newCMatrix2(obj->parent.cmemory));
+    CMemory* memory = cobject_getCMemory((CObject*)obj);
+    out = initCMatrix2(newCMatrix2(memory));
   }
   cmatrix2raw_transpose(obj->value, out->value);
   return out;

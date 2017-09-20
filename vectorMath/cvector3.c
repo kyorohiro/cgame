@@ -24,9 +24,14 @@ CVector3* initCVector3(CVector3* obj, CMatrixValueType v0, CMatrixValueType v1, 
   return obj;
 }
 
+CVector3* createCVector3(CMatrixValueType v0, CMatrixValueType v1, CMatrixValueType v2) {
+  return initCVector3(newCVector3(getCMemory()), v0, v1, v2);
+}
+
 CVector3* cvector3_crossProduct(CVector3* obj, CVector3* arg, CVector3* out) {
   if(out == NULL) {
-    out = initCVector3(newCVector3(obj->parent.cmemory), 0.0, 0.0, 0.0);
+    CMemory* memory = cobject_getCMemory((CObject*)obj);
+    out = initCVector3(newCVector3(memory), 0.0, 0.0, 0.0);
   }
   cvector3raw_crossProduct(obj->value, arg->value, out->value);
   return out;
@@ -39,7 +44,8 @@ CMatrixValueType cvector3_dotProduct(CVector3* obj, CVector3* arg) {
 
 CVector3* cvector3_normalize(CVector3* obj, CVector3* out) {
   if(out == NULL) {
-    out = initCVector3(newCVector3(obj->parent.cmemory), 0.0, 0.0, 0.0);
+    CMemory* memory = cobject_getCMemory((CObject*)obj);
+    out = initCVector3(newCVector3(memory), 0.0, 0.0, 0.0);
   }
   cvector3raw_normalize(obj->value, out->value);
   return out;
@@ -48,7 +54,8 @@ CVector3* cvector3_normalize(CVector3* obj, CVector3* out) {
 
 CVector3* cvector3_add(CVector3* obj, CVector3* arg, CVector3* out) {
   if(out == NULL) {
-    out = initCVector3(newCVector3(obj->parent.cmemory), 0.0, 0.0, 0.0);
+    CMemory* memory = cobject_getCMemory((CObject*)obj);
+    out = initCVector3(newCVector3(memory), 0.0, 0.0, 0.0);
   }
   cvector3raw_add(obj->value, arg->value, out->value);
   return out;
@@ -56,7 +63,8 @@ CVector3* cvector3_add(CVector3* obj, CVector3* arg, CVector3* out) {
 
 CVector3* cvector3_sub(CVector3* obj, CVector3* arg, CVector3* out) {
   if(out == NULL) {
-    out = initCVector3(newCVector3(obj->parent.cmemory), 0.0, 0.0, 0.0);
+    CMemory* memory = cobject_getCMemory((CObject*)obj);
+    out = initCVector3(newCVector3(memory), 0.0, 0.0, 0.0);
   }
   cvector3raw_sub(obj->value, arg->value, out->value);
   return out;
@@ -68,7 +76,8 @@ void cvector3_show(CVector3* obj) {
 
 CVector3* cvector3_mulScalar(CVector3* obj, CMatrixValueType v, CVector3* out) {
   if(out == NULL) {
-    out = initCVector3(newCVector3(obj->parent.cmemory), 0.0, 0.0, 0.0);
+    CMemory* memory = cobject_getCMemory((CObject*)obj);
+    out = initCVector3(newCVector3(memory), 0.0, 0.0, 0.0);
   }
   cvector3raw_mulScalar(obj->value, v, out->value);
   return out;
@@ -76,7 +85,8 @@ CVector3* cvector3_mulScalar(CVector3* obj, CMatrixValueType v, CVector3* out) {
 
 CVector3* cvector3_divScalar(CVector3* obj, CMatrixValueType v, CVector3* out) {
   if(out == NULL) {
-    out = initCVector3(newCVector3(obj->parent.cmemory), 0.0, 0.0, 0.0);
+    CMemory* memory = cobject_getCMemory((CObject*)obj);
+    out = initCVector3(newCVector3(memory), 0.0, 0.0, 0.0);
   }
   cvector3raw_divScalar(obj->value, v, out->value);
   return out;

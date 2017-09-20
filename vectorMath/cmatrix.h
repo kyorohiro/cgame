@@ -1,6 +1,5 @@
-
-#ifndef __H_MATRIX_R_
-#define __H_MATRIX_R_
+#ifndef __H_vectorMath
+#define __H_vectorMath
 
 
 #include "vectorMath/cmatrix_proj.h"

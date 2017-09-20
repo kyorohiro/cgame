@@ -1,13 +1,13 @@
 
-#ifndef __H_GL_MATRIX4_
-#define __H_GL_MATRIX4_
+#ifndef __H_CMatrix4
+#define __H_CMatrix4
+
 
 #include "core/cobject.h"
 #include "core/cmemory.h"
-#include "cvector4.h"
 #include "cmatrix_inner.h"
+#include "cvector4.h"
 
-#define KMATRIX_NAME "kma"
 
 typedef CMatrixValueType CMatrix4Raw[16];
 typedef CMatrixValueType *CMatrix4RawRef;
@@ -19,6 +19,7 @@ typedef struct {
 
 CMatrix4* newCMatrix4(CMemory*);
 CMatrix4* initCMatrix4(CMatrix4*);
+CMatrix4* createCMatrix4();
 CMatrix4* cmatrix4_setIdentity(CMatrix4* obj);
 CMatrix4* cmatrix4_setValues(CMatrix4* obj,
               CMatrixValueType a11, CMatrixValueType a12, CMatrixValueType a13, CMatrixValueType a14,

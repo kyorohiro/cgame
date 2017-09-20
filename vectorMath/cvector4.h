@@ -1,10 +1,9 @@
-#ifndef __H_GL_VECTOR4_
-#define __H_GL_VECTOR4_
+#ifndef __H_CVector4
+#define __H_CVector4
 
 #include "core/cobject.h"
 #include "core/cmemory.h"
 #include "cmatrix_inner.h"
-#define KVECTOR4_NAME "ve4"
 
 typedef CMatrixValueType CVector4Raw[4];
 typedef CMatrixValueType *CVector4RawRef;
@@ -15,7 +14,8 @@ typedef struct {
 } CVector4;
 
 CVector4* newCVector4(CMemory*);
-CVector4* initCVector4(CVector4*, CMatrixVertexType v0, CMatrixVertexType v1, CMatrixVertexType v2, CMatrixVertexType v3);
+CVector4* initCVector4(CVector4*, CMatrixValueType v0, CMatrixValueType v1, CMatrixValueType v2, CMatrixValueType v3);
+CVector4* createCVector4(CMatrixValueType v0, CMatrixValueType v1, CMatrixValueType v2, CMatrixValueType v3);
 
 CVector4* cvector4_add(CVector4* obj, CVector4* arg, CVector4* out);
 CVector4* cvector4_sub(CVector4* obj, CVector4* arg, CVector4* out);

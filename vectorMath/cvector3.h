@@ -1,10 +1,10 @@
-#ifndef __H_GL_VECTOR3_
-#define __H_GL_VECTOR3_
+#ifndef __H_CVector3
+#define __H_CVector3
 
 #include "core/cobject.h"
 #include "core/cmemory.h"
 #include "cmatrix_inner.h"
-#define KVECTOR3_NAME "ve4"
+
 
 typedef CMatrixValueType CVector3Raw[3];
 typedef CMatrixValueType *CVector3RawRef;
@@ -16,6 +16,7 @@ typedef struct {
 
 CVector3* newCVector3(CMemory*);
 CVector3* initCVector3(CVector3*, CMatrixValueType v0, CMatrixValueType v1, CMatrixValueType v2);
+CVector3* createCVector3(CMatrixValueType v0, CMatrixValueType v1, CMatrixValueType v2);
 
 CVector3* cvector3_crossProduct(CVector3* obj, CVector3* arg, CVector3* out);
 CMatrixValueType cvector3_dotProduct(CVector3* obj, CVector3* arg);

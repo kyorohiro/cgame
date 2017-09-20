@@ -1,10 +1,10 @@
-#ifndef __H_GL_VECTOR2_
-#define __H_GL_VECTOR2_
+#ifndef __H_CVector2
+#define __H_CVector2
 
 #include "core/cobject.h"
 #include "core/cmemory.h"
 #include "cmatrix_inner.h"
-#define KVECTOR2_NAME "ve2"
+
 
 typedef CMatrixValueType CVector2Raw[2];
 typedef CMatrixValueType *CVector2RawRef;
@@ -16,6 +16,7 @@ typedef struct {
 
 CVector2* newCVector2(CMemory*);
 CVector2* initCVector2(CVector2*, CMatrixValueType v0, CMatrixValueType v1);
+CVector2* createCVector2(CMatrixValueType v0, CMatrixValueType v1);
 
 CMatrixValueType cvector2_crossProduct(CVector2* obj, CVector2* arg);
 CMatrixValueType cvector2_dotProduct(CVector2* obj, CVector2* arg);

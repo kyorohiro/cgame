@@ -21,8 +21,8 @@ CRay* newCRay(CMemory* cmemory) {
 }
 
 CRay* initCRay(CRay* obj,
-  CMatrixVertexType originX, CMatrixVertexType originY, CMatrixVertexType originZ,
-  CMatrixVertexType directionX, CMatrixVertexType directionY, CMatrixVertexType directionZ) {
+  CMatrixValueType originX, CMatrixValueType originY, CMatrixValueType originZ,
+  CMatrixValueType directionX, CMatrixValueType directionY, CMatrixValueType directionZ) {
     initCObject((CObject*)obj, KRAY_NAME);
     CMemory *cmemory = cobject_getCMemory((CObject*)obj);
     obj->origin = initCVector3(newCVector3(cmemory), originX, originY, originZ);
@@ -30,7 +30,14 @@ CRay* initCRay(CRay* obj,
     return obj;
 }
 
-CMatrixVertexType cray_intersectsWithTriangle(CRay* obj, CVector3 *p0, CVector3 *p1, CVector3 *p2) {
+CRay* createCRay(
+  CMatrixValueType originX, CMatrixValueType originY, CMatrixValueType originZ,
+  CMatrixValueType directionX, CMatrixValueType directionY, CMatrixValueType directionZ) {
+    return initCRay(newCRay(getCMemory()),
+    originX, originY, originZ, directionX, directionY, directionZ);
+}
+
+CMatrixValueType cray_intersectsWithTriangle(CRay* obj, CVector3 *p0, CVector3 *p1, CVector3 *p2) {
   return crayraw_intersectsWithTriangle(obj->origin->value, obj->direction->value, p0->value, p1->value, p2->value);
 }
 
@@ -38,7 +45,7 @@ void cray_show(CRay* obj) {
   cvector3_show(obj->origin);
   cvector3_show(obj->direction);
 }
-CMatrixVertexType crayraw_intersectsWithTriangle(CVector3Raw origin, CVector3Raw direction, CVector3Raw p0, CVector3Raw p1, CVector3Raw p2) {
+CMatrixValueType crayraw_intersectsWithTriangle(CVector3Raw origin, CVector3Raw direction, CVector3Raw p0, CVector3Raw p1, CVector3Raw p2) {
 
     CVector3Raw e1;
     CVector3Raw e2;
@@ -156,7 +163,7 @@ CMatrixVertexType crayraw_intersectsWithTriangle(CVector3Raw origin, CVector3Raw
 
     return t;
 }
-CMatrixVertexType crayraw_intersectsWithTriangle2(CRay* obj, CVector3Raw p0, CVector3Raw p1, CVector3Raw p2) {
+CMatrixValueType crayraw_intersectsWithTriangle2(CRay* obj, CVector3Raw p0, CVector3Raw p1, CVector3Raw p2) {
 
   CVector3Raw triV1;
   CVector3Raw triV2;

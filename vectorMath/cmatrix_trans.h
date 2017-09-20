@@ -1,5 +1,5 @@
-#ifndef __H_GL_MATRIX_TRANS_
-#define __H_GL_MATRIX_TRANS_
+#ifndef __H_CMatrix4_Trans
+#define __H_CMatrix4_Trans
 
 #include "core/cobject.h"
 #include "core/cmemory.h"

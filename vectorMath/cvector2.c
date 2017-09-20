@@ -23,6 +23,10 @@ CVector2* initCVector2(CVector2* obj, CMatrixValueType v0, CMatrixValueType v1) 
   return obj;
 }
 
+CVector2* createCVector2(CMatrixValueType v0, CMatrixValueType v1) {
+  return initCVector2(newCVector2(getCMemory()), v0, v1);
+}
+
 CMatrixValueType cvector2_crossProduct(CVector2* obj, CVector2* arg) {
   return cvector2raw_crossProduct(obj->value, arg->value);
 }
@@ -34,7 +38,8 @@ CMatrixValueType cvector2_dotProduct(CVector2* obj, CVector2* arg) {
 
 CVector2* cvector2_normalize(CVector2* obj, CVector2* out) {
   if(out == NULL) {
-    out = initCVector2(newCVector2(obj->parent.cmemory), 0.0, 0.0);
+    CMemory* memory = cobject_getCMemory((CObject*)obj);
+    out = initCVector2(newCVector2(memory), 0.0, 0.0);
   }
   cvector2raw_normalize(obj->value, out->value);
   return out;
@@ -43,7 +48,8 @@ CVector2* cvector2_normalize(CVector2* obj, CVector2* out) {
 
 CVector2* cvector2_add(CVector2* obj, CVector2* arg, CVector2* out) {
   if(out == NULL) {
-    out = initCVector2(newCVector2(obj->parent.cmemory), 0.0, 0.0);
+    CMemory* memory = cobject_getCMemory((CObject*)obj);
+    out = initCVector2(newCVector2(memory), 0.0, 0.0);
   }
   cvector2raw_add(obj->value, arg->value, out->value);
   return out;
@@ -51,7 +57,8 @@ CVector2* cvector2_add(CVector2* obj, CVector2* arg, CVector2* out) {
 
 CVector2* cvector2_sub(CVector2* obj, CVector2* arg, CVector2* out) {
   if(out == NULL) {
-    out = initCVector2(newCVector2(obj->parent.cmemory), 0.0, 0.0);
+    CMemory* memory = cobject_getCMemory((CObject*)obj);
+    out = initCVector2(newCVector2(memory), 0.0, 0.0);
   }
   cvector2raw_sub(obj->value, arg->value, out->value);
   return out;
@@ -63,7 +70,8 @@ void cvector2_show(CVector2* obj) {
 
 CVector2* cvector2_mulScalar(CVector2* obj, CMatrixValueType v, CVector2* out) {
   if(out == NULL) {
-    out = initCVector2(newCVector2(obj->parent.cmemory), 0.0, 0.0);
+    CMemory* memory = cobject_getCMemory((CObject*)obj);
+    out = initCVector2(newCVector2(memory), 0.0, 0.0);
   }
   cvector2raw_mulScalar(obj->value, v, out->value);
   return out;
@@ -71,7 +79,8 @@ CVector2* cvector2_mulScalar(CVector2* obj, CMatrixValueType v, CVector2* out) {
 
 CVector2* cvector2_divScalar(CVector2* obj, CMatrixValueType v, CVector2* out) {
   if(out == NULL) {
-    out = initCVector2(newCVector2(obj->parent.cmemory), 0.0, 0.0);
+    CMemory* memory = cobject_getCMemory((CObject*)obj);
+    out = initCVector2(newCVector2(memory), 0.0, 0.0);
   }
   cvector2raw_divScalar(obj->value, v, out->value);
   return out;

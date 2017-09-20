@@ -53,46 +53,24 @@ CMatrix4* cmatrix4_setPerspectiveProjection(CMatrix4* obj,
   obj->value[15] = 0.0;
   return obj;
 }
+
 CMatrix4* cmatrix4_setFrustumProjection(CMatrix4* obj,
     double left, double right, double bottom, double top,
     double near, double far){
-      obj->value[0] = (2.0*near)/(right-left);
-      obj->value[4] = 0.0;
-      obj->value[8] = (right+left)/(right-left);
-      obj->value[12] = 0.0;
-
-      obj->value[1] = 0.0;
-      obj->value[5] = (2.0*near)/(top-bottom);
-      obj->value[9] = (top + bottom) / (top-bottom);
-      obj->value[13] = 0.0;
-
-      obj->value[2] = 0.0;
-      obj->value[6] = 0.0;
-      obj->value[10] = -1*(far + near) / (far - near);
-      obj->value[14] = -1*(2.0 * near * far) / (far - near);
-
-      obj->value[3] = 0.0;
-      obj->value[7] = 0.0;
-      obj->value[11] = -1.0;
-      obj->value[15] = 0.0;
-      return obj;
-    }
-/*
-CMatrix4* cmatrix4_setPerspectiveProjection(CMatrix4* obj, double right, double left, double top, double bottom, double far, double near) {
-  obj->value[0] = 2.0*near/(right-left);
+  obj->value[0] = (2.0*near)/(right-left);
   obj->value[4] = 0.0;
   obj->value[8] = (right+left)/(right-left);
   obj->value[12] = 0.0;
 
   obj->value[1] = 0.0;
-  obj->value[5] = 2.0*near/(top-bottom);
-  obj->value[9] = (top+bottom)/(top-bottom);
+  obj->value[5] = (2.0*near)/(top-bottom);
+  obj->value[9] = (top + bottom) / (top-bottom);
   obj->value[13] = 0.0;
 
   obj->value[2] = 0.0;
   obj->value[6] = 0.0;
-  obj->value[10] = -1*(far+near)/(far-near);
-  obj->value[14] = -2*(far*near)/(far-near);
+  obj->value[10] = -1*(far + near) / (far - near);
+  obj->value[14] = -1*(2.0 * near * far) / (far - near);
 
   obj->value[3] = 0.0;
   obj->value[7] = 0.0;
@@ -100,7 +78,6 @@ CMatrix4* cmatrix4_setPerspectiveProjection(CMatrix4* obj, double right, double 
   obj->value[15] = 0.0;
   return obj;
 }
-*/
 
 CMatrix4* cmatrix4_setLookAt2(CMatrix4* obj,
   double x, double y, double z,
@@ -167,81 +144,49 @@ int cmatrix4_unproject(
     CMatrixValueType pickZ,
     CVector3* out) {
   if(out ==NULL) {
-    out = initCVector3(newCVector3(camera->parent.cmemory), 0.0, 0.0, 0.0);
+    CMemory* memory = cobject_getCMemory((CObject*)camera);
+    out = initCVector3(newCVector3(memory), 0.0, 0.0, 0.0);
   }
   return cmatrix4raw_unproject(camera->value, viewportX, viewportWidth, viewportY, viewportHeight,
      pickX, pickY, pickZ, out->value);
 }
 
 
-  int cmatrix4raw_unproject(
-        CMatrix4RawRef camera,
-        CMatrixValueType viewportX,
-        CMatrixValueType viewportWidth,
-        CMatrixValueType viewportY,
-        CMatrixValueType viewportHeight,
-        CMatrixValueType pickX,
-        CMatrixValueType pickY,
-        CMatrixValueType pickZ,
-        CVector3RawRef out) {
-          pickX = (pickX - viewportX);
-          pickY = (pickY - viewportY);
-          pickX = (2.0 * pickX / viewportWidth) - 1.0;
-          pickY = (2.0 * pickY / viewportHeight) - 1.0;
-          pickZ = (2.0 * pickZ) - 1.0;
+int cmatrix4raw_unproject(
+      CMatrix4RawRef camera,
+      CMatrixValueType viewportX,
+      CMatrixValueType viewportWidth,
+      CMatrixValueType viewportY,
+      CMatrixValueType viewportHeight,
+      CMatrixValueType pickX,
+      CMatrixValueType pickY,
+      CMatrixValueType pickZ,
+      CVector3RawRef out) {
+  pickX = (pickX - viewportX);
+  pickY = (pickY - viewportY);
+  pickX = (2.0 * pickX / viewportWidth) - 1.0;
+  pickY = (2.0 * pickY / viewportHeight) - 1.0;
+  pickZ = (2.0 * pickZ) - 1.0;
 
-          // Check if pick point is inside unit cube
-          if (!(-1.0 <= pickX  && pickX <= 1.0 &&
-              -1.0 <= pickY  && pickY <= 1.0 &&
-              -1.0 <= pickZ  && pickZ <= 1.0)){
-            return 0;
-          }
-          //printf(">> >> %f %f %f\r\n", pickX, pickY, pickZ);
-          CMatrix4Raw invCamera;
-          CMatrixValueType outDeterminant;
-          cmatrix4raw_inverse(camera, invCamera, &outDeterminant);
-          CMatrix4Raw tra;
-          CVector4Raw v; v[0]=pickX; v[1]=pickY; v[2]=pickZ; v[3] = 1.0;
-          cmatrix4raw_mulVector4Raw(invCamera, v, v);
-          if(v[3] == 0.0) {
-            return 0;
-          }
-          CMatrixValueType w = 1.0/v[3];
-          out[0] = v[0] * w;
-          out[1] = v[1] * w;
-          out[2] = v[2] * w;
-          return 1;
+  // Check if pick point is inside unit cube
+  if (!(-1.0 <= pickX  && pickX <= 1.0 &&
+      -1.0 <= pickY  && pickY <= 1.0 &&
+      -1.0 <= pickZ  && pickZ <= 1.0)){
+    return 0;
   }
-
-
-/*
-  CVector4* cglmatrix4_unProject(
-    double wx, double wy, double wz,
-    CMatrix4* model, CMatrix4 * projection,
-    double vx, double vy, double vw, double vh) {
-      CMatrix4 *transform;
-      if(model != NULL) {
-        transform = cmatrix4_mul(projection , model, NULL);
-      } else {
-        transform = cmatrix4_setIdentity(initCMatrix4(newCMatrix4(getCMemory())));
-        cmatrix4_mul(projection , model, transform);
-      }
-      CMatrixValueType out;
-      cmatrix4_inverse(transform, transform, &out);
-      CVector4 *inVector = initCVector4(newCVector4(getCMemory()),
-        (wx - vx) / vw * 2.0 - 1.0,
-        (wy - vy) / vh * 2.0 - 1.0,
-        2.0 * wz - 1.0,
-        1.0);
-      cmatrix4_mulCVector4(transform, inVector, inVector);
-      double v0 = inVector->value[0];
-      double v1 = inVector->value[1];
-      double v2 = inVector->value[2];
-      double v3 = inVector->value[3];
-      inVector->value[0] = v0 * v3;
-      inVector->value[1] = v1 * v3;
-      inVector->value[2] = v2 * v3;
-      inVector->value[3] = 1.0;
-      return inVector;
-    }
-    */
+  //printf(">> >> %f %f %f\r\n", pickX, pickY, pickZ);
+  CMatrix4Raw invCamera;
+  CMatrixValueType outDeterminant;
+  cmatrix4raw_inverse(camera, invCamera, &outDeterminant);
+  CMatrix4Raw tra;
+  CVector4Raw v; v[0]=pickX; v[1]=pickY; v[2]=pickZ; v[3] = 1.0;
+  cmatrix4raw_mulVector4Raw(invCamera, v, v);
+  if(v[3] == 0.0) {
+    return 0;
+  }
+  CMatrixValueType w = 1.0/v[3];
+  out[0] = v[0] * w;
+  out[1] = v[1] * w;
+  out[2] = v[2] * w;
+  return 1;
+}

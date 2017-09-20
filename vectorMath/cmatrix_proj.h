@@ -1,6 +1,5 @@
-
-#ifndef __H_GL_MATRIX_
-#define __H_GL_MATRIX_
+#ifndef __H_CMatrix4_Proj
+#define __H_CMatrix4_Proj
 
 #include "core/cobject.h"
 #include "core/cmemory.h"
@@ -58,11 +57,4 @@ int cmatrix4raw_unproject(
       CVector3RawRef out);
 
 
-
-      /*
-      CVector4* cglmatrix4_unProject(
-        double wx, double wy, double wz,
-        CMatrix4* model, CMatrix4 * projection,
-        double vx, double vy, double vw, double vh);
-      */
 #endif
