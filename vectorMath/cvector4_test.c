@@ -44,7 +44,7 @@ void cvector4_test_add() {
   // 5 6 7 8
   // 5 12 21 32
   // 17 53 ->70
-  CMatrixValueType x = cvector4_dotProduct(vec1, vec2);
+  CVMFloat x = cvector4_dotProduct(vec1, vec2);
   if(((int)x) != 70) {
     printf("  NG : failed to dotProduct %f \r\n", x);
     passed = 0;
@@ -58,7 +58,7 @@ void cvector4_test_add() {
   // 4*4*4 = 16*4 = 64
   // sqrt 64> 8
   //
-  CMatrixValueType y = cvector4_distance(vec1, vec2);
+  CVMFloat y = cvector4_distance(vec1, vec2);
   if(y != 8.0) {
     printf("  NG : failed to distance %f \r\n", y);
     passed = 0;
@@ -71,7 +71,7 @@ void cvector4_test_add() {
   // 5 25 > 30
   // sqrt 30
   //
-  CMatrixValueType z = cvector4_length(vec1);
+  CVMFloat z = cvector4_length(vec1);
   if((int)(1000*z) != 5477) {
     printf("  NG : failed to distance %f \r\n", z);
     passed = 0;

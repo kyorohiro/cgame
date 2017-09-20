@@ -56,7 +56,7 @@ void cvector3_test_add() {
 
   CVector3 *vec6 = initCVector3(newCVector3(mem), 1.0, 3.0, -5.0);
   CVector3 *vec7 = initCVector3(newCVector3(mem), 4.0, -2.0, -1.0);
-  CMatrixValueType x = cvector3_dotProduct(vec6, vec7);
+  CVMFloat x = cvector3_dotProduct(vec6, vec7);
   if(((int)x) != 3) {
     printf("  NG : failed to dotProduct %d \r\n", (int)x);
     passed = 0;
@@ -81,7 +81,7 @@ void cvector3_test_add() {
   // 5*5 3*3 1*1
   // sqrt 25+9+1 > 35
   //
-  CMatrixValueType d = cvector3_distance(vec1, vec2);
+  CVMFloat d = cvector3_distance(vec1, vec2);
   if((int)(d*1000) != 5916) {
     printf("  NG : failed to distance %f \r\n", d);
     passed = 0;
@@ -91,7 +91,7 @@ void cvector3_test_add() {
   //
   // 1 2 3 -> sqrt(1+4+9)
   //
-  CMatrixValueType e = cvector3_length(vec1);
+  CVMFloat e = cvector3_length(vec1);
   if((int)(e*1000) != 3741) {
     printf("  NG : failed to length %f \r\n", e);
     passed = 0;
@@ -141,7 +141,7 @@ void cvector3_test_normalize() {
     passed = 0;
   }
 
-  CMatrixVertexType v = cvector3_length(vec1);
+  CVMFloat v = cvector3_length(vec1);
   if(  floor(v*10000)/10000 != 9.1104 ) {
     printf("  NG : failed to length%f \r\n", floor(v*1000)/1000);
     passed = 0;
@@ -169,7 +169,7 @@ void cvector3_test_dotProduct() {
   CVector3 *vec2 = initCVector3(newCVector3(mem), 0.944787189721646, 0.490864092468080, 0.489252638400019);
 
 
-  CMatrixVertexType v = cvector3_dotProduct(vec1, vec2);
+  CVMFloat v = cvector3_dotProduct(vec1, vec2);
 
   if(  floor(v*1000)/1000 != 0.860 )
   {

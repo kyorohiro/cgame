@@ -32,13 +32,13 @@ CMatrix4* cmatrix4_setLookAt2(CMatrix4* obj,
 
 int cmatrix4_unproject(
     CMatrix4 *camera,
-    CMatrixValueType viewportX,
-    CMatrixValueType viewportWidth,
-    CMatrixValueType viewportY,
-    CMatrixValueType viewportHeight,
-    CMatrixValueType pickX,
-    CMatrixValueType pickY,
-    CMatrixValueType pickZ,
+    CVMFloat viewportX,
+    CVMFloat viewportWidth,
+    CVMFloat viewportY,
+    CVMFloat viewportHeight,
+    CVMFloat pickX,
+    CVMFloat pickY,
+    CVMFloat pickZ,
     CVector3* out);
 //
 //
@@ -47,13 +47,13 @@ CMatrix4RawRef cmatrix4raw_setLookAt(CMatrix4RawRef obj,
 
 int cmatrix4raw_unproject(
       CMatrix4Raw camera,
-      CMatrixValueType viewportX,
-      CMatrixValueType viewportWidth,
-      CMatrixValueType viewportY,
-      CMatrixValueType viewportHeight,
-      CMatrixValueType pickX,
-      CMatrixValueType pickY,
-      CMatrixValueType pickZ,
+      CVMFloat viewportX,
+      CVMFloat viewportWidth,
+      CVMFloat viewportY,
+      CVMFloat viewportHeight,
+      CVMFloat pickX,
+      CVMFloat pickY,
+      CVMFloat pickZ,
       CVector3RawRef out);
 
 

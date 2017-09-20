@@ -50,25 +50,25 @@ void cvector2_test_add() {
     passed = 0;
   }
 
-  CMatrixValueType v= cvector2_dotProduct(vec1, vec2);
+  CVMFloat v= cvector2_dotProduct(vec1, vec2);
   if(v != 11.0 ) {
     printf("  NG : failed to dotProduct %f  \r\n", v);
     passed = 0;
   }
 
-  CMatrixValueType w= cvector2_crossProduct(vec1, vec2);
+  CVMFloat w= cvector2_crossProduct(vec1, vec2);
   if(w != -2.0 ) {
     printf("  NG : failed to crossProduct %f  \r\n", w);
     passed = 0;
   }
 
-  CMatrixValueType x = cvector2_distance(vec1, vec2);
+  CVMFloat x = cvector2_distance(vec1, vec2);
   if(((int)(x*1000)) != 2828 ) {
     printf("  NG : failed to distance %f  \r\n", x);
     passed = 0;
   }
 
-  CMatrixValueType y = cvector2_length(vec1);
+  CVMFloat y = cvector2_length(vec1);
   if(((int)(y*1000)) != 2236 ) {
     printf("  NG : failed to length %f  \r\n", y);
     passed = 0;

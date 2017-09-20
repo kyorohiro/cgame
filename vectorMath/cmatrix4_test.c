@@ -89,14 +89,14 @@ void cmatrix4_test() {
   }
 
   //
-  CMatrixValueType v = cmatrix4_determinant(mat1);
+  CVMFloat v = cmatrix4_determinant(mat1);
   if(v!= 0) {
        printf("  NG : determinant %f\r\n", v);
        cmatrix4_show(out);
        passed = 0;
   }
 
-  CMatrixValueType outDeterminant;
+  CVMFloat outDeterminant;
   cmatrix4_inverse(mat3, out, &outDeterminant);
   if((int)(cmatrix4_getValue(out, 0, 0)*10) != 1 || (int)(cmatrix4_getValue(out, 0, 1)*10) != 0 ||
              (int)(cmatrix4_getValue(out, 0, 2)*10) != -5 || (int)(cmatrix4_getValue(out, 0, 3)*10) != 6 ||
@@ -219,7 +219,7 @@ void cmatrix4_test_inverse() {
   printf("# cmatrix4_test_inverse\n");
   int passed = 1;
   CMemory *mem = initCMemory(newCMemory());
-  CMatrixValueType out;
+  CVMFloat out;
   CMatrix4 *mat1 = cmatrix4_setValues(initCMatrix4(newCMatrix4(mem)),
      1, 2, 3, 4,
      2, 4, 5, 3,

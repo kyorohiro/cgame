@@ -73,12 +73,12 @@ CPrimitive3D* cprimitive3d_setTexCoordAsTinyShapeFromBlock(CPrimitive3D* obj, in
 }
 
 CPrimitive3D* cprimitive3d_setTexCoordAsTinyShapeFromBlockWithTrans(CPrimitive3D* obj, CMatrix4* _trans, int _x, int _y, int _w, int _h, int _imgW, int _imgH){
-  CMatrixValueType x = (CMatrixValueType)_x;
-  CMatrixValueType y = (CMatrixValueType)_y;
-  CMatrixValueType w = (CMatrixValueType)_w;
-  CMatrixValueType h = (CMatrixValueType)_h;
-  CMatrixValueType imgW = (CMatrixValueType)_imgW;
-  CMatrixValueType imgH = (CMatrixValueType)_imgH;
+  CVMFloat x = (CVMFloat)_x;
+  CVMFloat y = (CVMFloat)_y;
+  CVMFloat w = (CVMFloat)_w;
+  CVMFloat h = (CVMFloat)_h;
+  CVMFloat imgW = (CVMFloat)_imgW;
+  CVMFloat imgH = (CVMFloat)_imgH;
 
   int vertexNum = obj->vertexes->length/sizeof(CMatrixVertexType)/3;
   CMatrixVertexType* vertexes  = (CMatrixVertexType*)obj->vertexes->value;

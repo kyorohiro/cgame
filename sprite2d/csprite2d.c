@@ -53,9 +53,9 @@ CSprite2D* csprite2d_update(CSprite2D* obj) {
 }
 
 CSprite2D* csprite2d_setImage(CSprite2D* obj, CImage* img, CDynaBlockSpace* block) {
-  CMatrixValueType x,y,w,h;
-  CMatrixValueType iw = cimage_getWidth(img);
-  CMatrixValueType ih = cimage_getHeight(img);
+  CVMFloat x,y,w,h;
+  CVMFloat iw = cimage_getWidth(img);
+  CVMFloat ih = cimage_getHeight(img);
   if(block == NULL) {
     x = 0;
     y = 0;

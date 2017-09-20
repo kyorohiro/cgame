@@ -1,9 +1,8 @@
 #ifndef __H_CMatrix4_Inner
 #define __H_CMatrix4_Inner
 
-typedef float CMatrixValueType;
-typedef float CMatrixVertexType;
-typedef short CMatrixIndexType;
+typedef float CVMFloat;
+
 
 #define cmatrixAbs(x) fabsf(x)
 

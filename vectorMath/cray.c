@@ -21,8 +21,8 @@ CRay* newCRay(CMemory* cmemory) {
 }
 
 CRay* initCRay(CRay* obj,
-  CMatrixValueType originX, CMatrixValueType originY, CMatrixValueType originZ,
-  CMatrixValueType directionX, CMatrixValueType directionY, CMatrixValueType directionZ) {
+  CVMFloat originX, CVMFloat originY, CVMFloat originZ,
+  CVMFloat directionX, CVMFloat directionY, CVMFloat directionZ) {
     initCObject((CObject*)obj, KRAY_NAME);
     CMemory *cmemory = cobject_getCMemory((CObject*)obj);
     obj->origin = initCVector3(newCVector3(cmemory), originX, originY, originZ);
@@ -31,13 +31,13 @@ CRay* initCRay(CRay* obj,
 }
 
 CRay* createCRay(
-  CMatrixValueType originX, CMatrixValueType originY, CMatrixValueType originZ,
-  CMatrixValueType directionX, CMatrixValueType directionY, CMatrixValueType directionZ) {
+  CVMFloat originX, CVMFloat originY, CVMFloat originZ,
+  CVMFloat directionX, CVMFloat directionY, CVMFloat directionZ) {
     return initCRay(newCRay(getCMemory()),
     originX, originY, originZ, directionX, directionY, directionZ);
 }
 
-CMatrixValueType cray_intersectsWithTriangle(CRay* obj, CVector3 *p0, CVector3 *p1, CVector3 *p2) {
+CVMFloat cray_intersectsWithTriangle(CRay* obj, CVector3 *p0, CVector3 *p1, CVector3 *p2) {
   return crayraw_intersectsWithTriangle(obj->origin->value, obj->direction->value, p0->value, p1->value, p2->value);
 }
 
@@ -45,7 +45,7 @@ void cray_show(CRay* obj) {
   cvector3_show(obj->origin);
   cvector3_show(obj->direction);
 }
-CMatrixValueType crayraw_intersectsWithTriangle(CVector3Raw origin, CVector3Raw direction, CVector3Raw p0, CVector3Raw p1, CVector3Raw p2) {
+CVMFloat crayraw_intersectsWithTriangle(CVector3Raw origin, CVector3Raw direction, CVector3Raw p0, CVector3Raw p1, CVector3Raw p2) {
 
     CVector3Raw e1;
     CVector3Raw e2;
@@ -65,7 +65,7 @@ CMatrixValueType crayraw_intersectsWithTriangle(CVector3Raw origin, CVector3Raw 
     cvector3raw_show(p1);
     cvector3raw_show(p2);*/
 
-    CMatrixValueType dot = cvector3raw_dotProduct(n, direction);
+    CVMFloat dot = cvector3raw_dotProduct(n, direction);
     if(dot == 0.0){
       return 0.0;
     }
@@ -78,8 +78,8 @@ CMatrixValueType crayraw_intersectsWithTriangle(CVector3Raw origin, CVector3Raw 
 
     //
     //
-    CMatrixValueType d = cvector3raw_dotProduct(n, p0);
-    CMatrixValueType t = d - cvector3raw_dotProduct(n, origin);
+    CVMFloat d = cvector3raw_dotProduct(n, p0);
+    CVMFloat t = d - cvector3raw_dotProduct(n, origin);
     //printf("t %f\r\n", t);
     if(!(t<=0.0f)) {
       return 0.0f;
@@ -98,8 +98,8 @@ CMatrixValueType crayraw_intersectsWithTriangle(CVector3Raw origin, CVector3Raw 
     cvector3raw_mulScalar(direction, t, p);
     cvector3raw_add(p, origin, p);
 
-    CMatrixValueType u0, u1, u2;
-    CMatrixValueType v0, v1, v2;
+    CVMFloat u0, u1, u2;
+    CVMFloat v0, v1, v2;
   //  printf("%f %f\r\n",n[1], cmatrixAbs(n[1]));
     if(cmatrixAbs(n[0]) > cmatrixAbs(n[1])){
       if(cmatrixAbs(n[0]) > cmatrixAbs(n[2])){
@@ -135,7 +135,7 @@ CMatrixValueType crayraw_intersectsWithTriangle(CVector3Raw origin, CVector3Raw 
       }
     }
 
-    CMatrixValueType temp = u1*v2-v1*u2;
+    CVMFloat temp = u1*v2-v1*u2;
   //  printf("temp %f\r\n", temp);
     if(!(temp != 0.0f)){
       return 0.0f;
@@ -143,19 +143,19 @@ CMatrixValueType crayraw_intersectsWithTriangle(CVector3Raw origin, CVector3Raw 
     temp = 1.0f/temp;
 
 
-    CMatrixValueType alpha = (u0*v2-v0*u2)*temp;
+    CVMFloat alpha = (u0*v2-v0*u2)*temp;
   //  printf("alpha %f\r\n", alpha);
     if(!(alpha >= 0.0f)){
       return 0.0f;
     }
 
-    CMatrixValueType beta = (u1*v0-v1*u0)*temp;
+    CVMFloat beta = (u1*v0-v1*u0)*temp;
   //  printf("beta %f\r\n", beta);
     if(!(beta >= 0.0f)){
       return 0.0f;
     }
 
-    CMatrixValueType gamma = 1.0f-alpha -beta;
+    CVMFloat gamma = 1.0f-alpha -beta;
   //  printf("gamma %f\r\n", gamma);
     if(!(gamma >= 0.0f)){
       return 0.0f;
@@ -163,7 +163,7 @@ CMatrixValueType crayraw_intersectsWithTriangle(CVector3Raw origin, CVector3Raw 
 
     return t;
 }
-CMatrixValueType crayraw_intersectsWithTriangle2(CRay* obj, CVector3Raw p0, CVector3Raw p1, CVector3Raw p2) {
+CVMFloat crayraw_intersectsWithTriangle2(CRay* obj, CVector3Raw p0, CVector3Raw p1, CVector3Raw p2) {
 
   CVector3Raw triV1;
   CVector3Raw triV2;

@@ -100,7 +100,7 @@ void cmatrix3_test() {
   //
   // 1 2
   // 3 4 > 1*4 - 2*3 > -2
-  CMatrixValueType v = cmatrix3_determinant(mat1);
+  CVMFloat v = cmatrix3_determinant(mat1);
   if(v!= 0) {
        printf("  NG : determinant %f\r\n", v);
        cmatrix3_show(out);
@@ -111,7 +111,7 @@ void cmatrix3_test() {
   //         d -b   4  -2
   // -1/2 * -c  a > -3  1 / v
   //
-  CMatrixValueType outDeterminant;
+  CVMFloat outDeterminant;
   mat1->value[8] = 1.0;
   cmatrix3_inverse(mat1, out, &outDeterminant);
   if(

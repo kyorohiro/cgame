@@ -2,6 +2,9 @@
 #define _H_3DOBJECT
 //typedef int (*free)(int n);
 
+typedef float CMatrixVertexType;
+typedef short CMatrixIndexType;
+
 #include "core/cobject.h"
 #include "core/cmemory.h"
 #include "vectorMath/cmatrix4.h"
@@ -30,12 +33,12 @@ typedef struct {
   //
   //
   // todo
-  CMatrixValueType centerX;
-  CMatrixValueType centerY;
-  CMatrixValueType centerZ;
-  CMatrixValueType width; // x
-  CMatrixValueType height; // y
-  CMatrixValueType length; // z
+  CVMFloat centerX;
+  CVMFloat centerY;
+  CVMFloat centerZ;
+  CVMFloat width; // x
+  CVMFloat height; // y
+  CVMFloat length; // z
 } CObject3D;
 
 

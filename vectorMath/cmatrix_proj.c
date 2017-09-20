@@ -135,13 +135,13 @@ CMatrix4RawRef cmatrix4raw_setLookAt(CMatrix4RawRef obj,
 
 int cmatrix4_unproject(
     CMatrix4 *camera,
-    CMatrixValueType viewportX,
-    CMatrixValueType viewportWidth,
-    CMatrixValueType viewportY,
-    CMatrixValueType viewportHeight,
-    CMatrixValueType pickX,
-    CMatrixValueType pickY,
-    CMatrixValueType pickZ,
+    CVMFloat viewportX,
+    CVMFloat viewportWidth,
+    CVMFloat viewportY,
+    CVMFloat viewportHeight,
+    CVMFloat pickX,
+    CVMFloat pickY,
+    CVMFloat pickZ,
     CVector3* out) {
   if(out ==NULL) {
     CMemory* memory = cobject_getCMemory((CObject*)camera);
@@ -154,13 +154,13 @@ int cmatrix4_unproject(
 
 int cmatrix4raw_unproject(
       CMatrix4RawRef camera,
-      CMatrixValueType viewportX,
-      CMatrixValueType viewportWidth,
-      CMatrixValueType viewportY,
-      CMatrixValueType viewportHeight,
-      CMatrixValueType pickX,
-      CMatrixValueType pickY,
-      CMatrixValueType pickZ,
+      CVMFloat viewportX,
+      CVMFloat viewportWidth,
+      CVMFloat viewportY,
+      CVMFloat viewportHeight,
+      CVMFloat pickX,
+      CVMFloat pickY,
+      CVMFloat pickZ,
       CVector3RawRef out) {
   pickX = (pickX - viewportX);
   pickY = (pickY - viewportY);
@@ -176,7 +176,7 @@ int cmatrix4raw_unproject(
   }
   //printf(">> >> %f %f %f\r\n", pickX, pickY, pickZ);
   CMatrix4Raw invCamera;
-  CMatrixValueType outDeterminant;
+  CVMFloat outDeterminant;
   cmatrix4raw_inverse(camera, invCamera, &outDeterminant);
   CMatrix4Raw tra;
   CVector4Raw v; v[0]=pickX; v[1]=pickY; v[2]=pickZ; v[3] = 1.0;
@@ -184,7 +184,7 @@ int cmatrix4raw_unproject(
   if(v[3] == 0.0) {
     return 0;
   }
-  CMatrixValueType w = 1.0/v[3];
+  CVMFloat w = 1.0/v[3];
   out[0] = v[0] * w;
   out[1] = v[1] * w;
   out[2] = v[2] * w;

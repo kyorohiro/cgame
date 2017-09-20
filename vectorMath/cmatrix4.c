@@ -74,10 +74,10 @@ CMatrix4* cmatrix4_setIdentity(CMatrix4* obj) {
 }
 
 CMatrix4* cmatrix4_setValues(CMatrix4* obj,
-              CMatrixValueType a11, CMatrixValueType a12, CMatrixValueType a13, CMatrixValueType a14,
-              CMatrixValueType a21, CMatrixValueType a22, CMatrixValueType a23, CMatrixValueType a24,
-              CMatrixValueType a31, CMatrixValueType a32, CMatrixValueType a33, CMatrixValueType a34,
-              CMatrixValueType a41, CMatrixValueType a42, CMatrixValueType a43, CMatrixValueType a44
+              CVMFloat a11, CVMFloat a12, CVMFloat a13, CVMFloat a14,
+              CVMFloat a21, CVMFloat a22, CVMFloat a23, CVMFloat a24,
+              CVMFloat a31, CVMFloat a32, CVMFloat a33, CVMFloat a34,
+              CVMFloat a41, CVMFloat a42, CVMFloat a43, CVMFloat a44
             ) {
   cmatrix4raw_setValues(obj->value,
     a11, a12, a13, a14,
@@ -87,13 +87,13 @@ CMatrix4* cmatrix4_setValues(CMatrix4* obj,
   return obj;
 }
 
-CMatrixValueType cmatrix4_determinant(CMatrix4* obj) {
+CVMFloat cmatrix4_determinant(CMatrix4* obj) {
   return cmatrix4raw_determinant(obj->value);
 }
 
 //
 //http://mathworld.wolfram.com/MatrixInverse.html
-CMatrix4* cmatrix4_inverse(CMatrix4* obj, CMatrix4* outInverse, CMatrixValueType *outDeterminant) {
+CMatrix4* cmatrix4_inverse(CMatrix4* obj, CMatrix4* outInverse, CVMFloat *outDeterminant) {
   if(outInverse ==NULL) {
     CMemory* memory = cobject_getCMemory((CObject*)obj);
     outInverse = initCMatrix4(newCMatrix4(memory));
@@ -111,7 +111,7 @@ CMatrix4* cmatrix4_transpose(CMatrix4* obj, CMatrix4* out) {
   return out;
 }
 
-CMatrixValueType cmatrix4_getValue(CMatrix4* obj, int row, int col) {
+CVMFloat cmatrix4_getValue(CMatrix4* obj, int row, int col) {
   return cmatrix4raw_getValue(obj->value, row, col);
 }
 
@@ -146,10 +146,10 @@ CMatrix4RawRef cmatrix4raw_setIdentity(CMatrix4RawRef obj) {
 }
 
 CMatrix4RawRef cmatrix4raw_setValues(CMatrix4RawRef obj,
-              CMatrixValueType a11, CMatrixValueType a12, CMatrixValueType a13, CMatrixValueType a14,
-              CMatrixValueType a21, CMatrixValueType a22, CMatrixValueType a23, CMatrixValueType a24,
-              CMatrixValueType a31, CMatrixValueType a32, CMatrixValueType a33, CMatrixValueType a34,
-              CMatrixValueType a41, CMatrixValueType a42, CMatrixValueType a43, CMatrixValueType a44) {
+              CVMFloat a11, CVMFloat a12, CVMFloat a13, CVMFloat a14,
+              CVMFloat a21, CVMFloat a22, CVMFloat a23, CVMFloat a24,
+              CVMFloat a31, CVMFloat a32, CVMFloat a33, CVMFloat a34,
+              CVMFloat a41, CVMFloat a42, CVMFloat a43, CVMFloat a44) {
   obj[0] = a11;
   obj[4] = a12;
   obj[8] = a13;
@@ -220,7 +220,7 @@ CMatrix4RawRef cmatrix4raw_sub(CMatrix4RawRef obj, CMatrix4RawRef arg, CMatrix4R
 }
 
 CMatrix4RawRef cmatrix4raw_mul(CMatrix4RawRef obj, CMatrix4RawRef arg, CMatrix4RawRef out) {
-  CMatrixValueType o[16];
+  CVMFloat o[16];
   for(int i=0;i<4;i++) {
     for(int j=0;j<4;j++) {
       o[i+4*j]  = obj[i+0] * arg[4*j];
@@ -241,11 +241,11 @@ CVector4RawRef cmatrix4raw_mulVector4Raw(CMatrix4RawRef obj, CVector4RawRef arg,
   return cmatrix4raw_mulVector(obj, arg[0], arg[1], arg[2], arg[3], out);
 }
 
-CVector4RawRef cmatrix4raw_mulVector(CMatrix4RawRef obj, CMatrixValueType x,  CMatrixValueType y, CMatrixValueType z, CMatrixValueType w, CVector4RawRef out) {
-  CMatrixValueType v0 = obj[0]*x + obj[4]*y + obj[8]*z + obj[12]*w;
-  CMatrixValueType v1 = obj[1]*x + obj[5]*y + obj[9]*z + obj[13]*w;
-  CMatrixValueType v2 = obj[2]*x + obj[6]*y + obj[10]*z + obj[14]*w;
-  CMatrixValueType v3 = obj[3]*x + obj[7]*y + obj[11]*z + obj[15]*w;
+CVector4RawRef cmatrix4raw_mulVector(CMatrix4RawRef obj, CVMFloat x,  CVMFloat y, CVMFloat z, CVMFloat w, CVector4RawRef out) {
+  CVMFloat v0 = obj[0]*x + obj[4]*y + obj[8]*z + obj[12]*w;
+  CVMFloat v1 = obj[1]*x + obj[5]*y + obj[9]*z + obj[13]*w;
+  CVMFloat v2 = obj[2]*x + obj[6]*y + obj[10]*z + obj[14]*w;
+  CVMFloat v3 = obj[3]*x + obj[7]*y + obj[11]*z + obj[15]*w;
   out[0] = v0;
   out[1] = v1;
   out[2] = v2;
@@ -255,22 +255,22 @@ CVector4RawRef cmatrix4raw_mulVector(CMatrix4RawRef obj, CMatrixValueType x,  CM
 
 CMatrix4RawRef cmatrix4raw_transpose(CMatrix4RawRef obj, CMatrix4RawRef out) {
 
-  CMatrixValueType a11 = obj[0];
-  CMatrixValueType a12 = obj[1];
-  CMatrixValueType a13 = obj[2];
-  CMatrixValueType a14 = obj[3];
-  CMatrixValueType a21 = obj[4];
-  CMatrixValueType a22 = obj[5];
-  CMatrixValueType a23 = obj[6];
-  CMatrixValueType a24 = obj[7];
-  CMatrixValueType a31 = obj[8];
-  CMatrixValueType a32 = obj[9];
-  CMatrixValueType a33 = obj[10];
-  CMatrixValueType a34 = obj[11];
-  CMatrixValueType a41 = obj[12];
-  CMatrixValueType a42 = obj[13];
-  CMatrixValueType a43 = obj[14];
-  CMatrixValueType a44 = obj[15];
+  CVMFloat a11 = obj[0];
+  CVMFloat a12 = obj[1];
+  CVMFloat a13 = obj[2];
+  CVMFloat a14 = obj[3];
+  CVMFloat a21 = obj[4];
+  CVMFloat a22 = obj[5];
+  CVMFloat a23 = obj[6];
+  CVMFloat a24 = obj[7];
+  CVMFloat a31 = obj[8];
+  CVMFloat a32 = obj[9];
+  CVMFloat a33 = obj[10];
+  CVMFloat a34 = obj[11];
+  CVMFloat a41 = obj[12];
+  CVMFloat a42 = obj[13];
+  CVMFloat a43 = obj[14];
+  CVMFloat a44 = obj[15];
 
   out[0] = a11;
   out[4] = a12;
@@ -295,7 +295,7 @@ CMatrix4RawRef cmatrix4raw_transpose(CMatrix4RawRef obj, CMatrix4RawRef out) {
 }
 
 
-CMatrixValueType cmatrix4raw_determinant(CMatrix4RawRef raw) {
+CVMFloat cmatrix4raw_determinant(CMatrix4RawRef raw) {
   double detA1 = raw[0] * raw[5] - raw[1] * raw[4];
   double detA2 = raw[0] * raw[6] - raw[2] * raw[4];
   double detA3 = raw[0] * raw[7] - raw[3] * raw[4];
@@ -312,7 +312,7 @@ CMatrixValueType cmatrix4raw_determinant(CMatrix4RawRef raw) {
   return -detB123 * raw[12] + detB023 * raw[13] - detB013 * raw[14] + detB012 * raw[15];
 }
 
-CMatrix4RawRef cmatrix4raw_inverse(CMatrix4RawRef raw, CMatrix4RawRef outInverse, CMatrixValueType *outDeterminant) {
+CMatrix4RawRef cmatrix4raw_inverse(CMatrix4RawRef raw, CMatrix4RawRef outInverse, CVMFloat *outDeterminant) {
   double a00 = raw[0];
   double a01 = raw[1];
   double a02 = raw[2];
@@ -366,7 +366,7 @@ CMatrix4RawRef cmatrix4raw_inverse(CMatrix4RawRef raw, CMatrix4RawRef outInverse
     return outInverse;
   }
 
-  CMatrixValueType f = 1.0/det;
+  CVMFloat f = 1.0/det;
   outInverse[0] = (a11 * b11 - a12 * b10 + a13 * b09)  * f;
   outInverse[1] = (-a01 * b11 + a02 * b10 - a03 * b09) * f;
   outInverse[2] = (a31 * b05 - a32 * b04 + a33 * b03) * f;
@@ -388,7 +388,7 @@ CMatrix4RawRef cmatrix4raw_inverse(CMatrix4RawRef raw, CMatrix4RawRef outInverse
 }
 
 
-CMatrixValueType cmatrix4raw_getValue(CMatrix4RawRef obj, int row, int col) {
+CVMFloat cmatrix4raw_getValue(CMatrix4RawRef obj, int row, int col) {
   return obj[row+4*col];
 }
 

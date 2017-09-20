@@ -256,10 +256,10 @@ CMatrix4RawRef cmatrix3raw_setScale(CMatrix3RawRef obj, double x, double y, doub
 //
 //
 CMatrix4* cmatrix4_setXyxRXyzSXyz(CMatrix4* mat,
-              CMatrixValueType centerX, CMatrixValueType centerY, CMatrixValueType centerZ,
-              CMatrixValueType x, CMatrixValueType y, CMatrixValueType z,
-              CMatrixValueType rx, CMatrixValueType ry, CMatrixValueType rz,
-              CMatrixValueType sx, CMatrixValueType sy, CMatrixValueType sz) {
+              CVMFloat centerX, CVMFloat centerY, CVMFloat centerZ,
+              CVMFloat x, CVMFloat y, CVMFloat z,
+              CVMFloat rx, CVMFloat ry, CVMFloat rz,
+              CVMFloat sx, CVMFloat sy, CVMFloat sz) {
     CMatrix4Raw center;
     CMatrix4Raw centerB;
     CMatrix4Raw move;
