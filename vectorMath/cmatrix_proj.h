@@ -4,9 +4,9 @@
 
 #include "core/cobject.h"
 #include "core/cmemory.h"
-#include "matrix/cmatrix4.h"
-#include "matrix/cvector3.h"
-#include "matrix/cmatrix_trans.h"
+#include "vectorMath/cmatrix4.h"
+#include "vectorMath/cvector3.h"
+#include "vectorMath/cmatrix_trans.h"
 
 
 CMatrix4* cmatrix4_setOrthogonalProjection(CMatrix4* obj, double right, double left, double top, double bottom, double far, double near);

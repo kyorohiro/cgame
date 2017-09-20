@@ -4,10 +4,10 @@
 
 #include "core/cobject.h"
 #include "core/cmemory.h"
-#include "matrix/cmatrix4.h"
+#include "vectorMath/cmatrix4.h"
 #include "core/cbytes.h"
 #include "core/clinkedList.h"
-#include "matrix/cmatrix4.h"
+#include "vectorMath/cmatrix4.h"
 #include "cobject3d.h"
 #define CAMERA3D_NAME "ca3"
 

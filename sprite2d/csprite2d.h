@@ -1,7 +1,7 @@
 #ifndef _H_SPRITE2D_
 #define _H_SPRITE2D_
 
-#include "matrix/cmatrix.h"
+#include "vectorMath/cmatrix.h"
 #include "game/cobject3d.h"
 #include "game/cprimitive3d.h"
 #include "app/cdynaTexAtlas.h"

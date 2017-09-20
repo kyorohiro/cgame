@@ -2,9 +2,9 @@
 #  command=emcc -s FULL_ES2=1  $in -o $out --preload-file game/assets/vs.glsl  --preload-file game/assets/fs.glsl -s USE_SDL=2 -O2
 #
 #build examples${sep}game_001/main.${objExt}: obj examples${sep}game_001/main.c
-#build examples${sep}game_001/main.${exaExt}: app examples${sep}game_001/main.o core/libcore.bc matrix/libmatrix.bc app/libapp.bc game/libgame.bc
+#build examples${sep}game_001/main.${exaExt}: app examples${sep}game_001/main.o core/libcore.bc "vectorMath/libvectorMath.bc app/libapp.bc game/libgame.bc
 #
 #  command=emcc -s FULL_ES2=1  $in -o $out -s USE_SDL=2 -O2
 
 build examples${sep}game_001${sep}main.${objExt}: obj examples${sep}game_001${sep}main.c
-build examples${sep}game_001${sep}main.${exaExt}: app examples${sep}game_001${sep}main.${objExt} app${sep}libapp.${objLib} game${sep}libgame.${objLib} core${sep}libcore.${objLib} matrix${sep}libmatrix.${objLib} utils/libUtils.${objLib}
+build examples${sep}game_001${sep}main.${exaExt}: app examples${sep}game_001${sep}main.${objExt} app${sep}libapp.${objLib} game${sep}libgame.${objLib} core${sep}libcore.${objLib} vectorMath${sep}libvectorMath.${objLib} utils/libUtils.${objLib}

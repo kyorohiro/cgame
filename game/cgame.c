@@ -8,7 +8,7 @@
 #include "cprimitive3d.h"
 #include "croot3d.h"
 #include "app/capp.h"
-#include "matrix/cray.h"
+#include "vectorMath/cray.h"
 
 //
 //

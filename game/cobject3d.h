@@ -4,11 +4,11 @@
 
 #include "core/cobject.h"
 #include "core/cmemory.h"
-#include "matrix/cmatrix4.h"
+#include "vectorMath/cmatrix4.h"
 #include "core/cbytes.h"
 #include "core/clinkedList.h"
-#include "matrix/cmatrix4.h"
-#include "matrix/cmatrix_proj.h"
+#include "vectorMath/cmatrix4.h"
+#include "vectorMath/cmatrix_proj.h"
 #define OBJECT3D_NAME "ob3"
 
 #define CObject3DTypeObject 0

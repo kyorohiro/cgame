@@ -2,7 +2,7 @@
 #define _H_TEXT2D_
 
 #include "csprite2d.h"
-#include "matrix/cmatrix.h"
+#include "vectorMath/cmatrix.h"
 #include "game/cobject3d.h"
 #include "game/cprimitive3d.h"
 #include "app/cdynaTexAtlas.h"

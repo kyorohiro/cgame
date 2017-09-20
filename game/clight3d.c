@@ -1,6 +1,6 @@
 #include "clight3d.h"
 #include "cobject3d.h"
-#include "matrix/cmatrix4.h"
+#include "vectorMath/cmatrix4.h"
 #include <stdio.h>
 
 void freeCLight3D(void* obj) {

@@ -3,8 +3,8 @@
 #include "core/cbytes.h"
 #include "core/cmemory.h"
 #include "cmatrix4.h"
-#include "matrix/cmatrix_proj.h"
-#include "matrix/cvector3.h"
+#include "vectorMath/cmatrix_proj.h"
+#include "vectorMath/cvector3.h"
 
 
 void cmatrix4_test_ortho() {

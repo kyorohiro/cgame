@@ -3,9 +3,9 @@
 #include "game/cobject3d.h"
 #include "game/cprimitive3d.h"
 #include "game/ccamera3d.h"
-#include "matrix/cmatrix.h"
-#include "matrix/cmatrix4.h"
-#include "matrix/cmatrix_proj.h"
+#include "vectorMath/cmatrix.h"
+#include "vectorMath/cmatrix4.h"
+#include "vectorMath/cmatrix_proj.h"
 
 #include "app/capp.h"
 #include "app/cimage.h"

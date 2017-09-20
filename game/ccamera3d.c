@@ -1,7 +1,7 @@
 #include "ccamera3d.h"
 #include "cobject3d.h"
 #include "core/cobject.h"
-#include "matrix/cmatrix4.h"
+#include "vectorMath/cmatrix4.h"
 #include <stdio.h>
 
 void freeCCamera3D(void* obj) {

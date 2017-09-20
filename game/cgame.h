@@ -6,7 +6,7 @@
 #include "core/cstring.h"
 #include "core/carrayList.h"
 
-#include "matrix/cray.h"
+#include "vectorMath/cray.h"
 
 #include "app/capp.h"
 #include "app/cglu.h"
