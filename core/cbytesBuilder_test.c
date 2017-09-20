@@ -42,7 +42,7 @@ void cbytesBuilder_test2(){
   printf("# cbytesBuilder_test2\n");
   int passed = 1;
   CMemory *mem = initCMemory(newCMemory());
-  CBytesBuilder *bye = initCBytesBuilderFromPath(newCBytesBuilder(mem), "/core/assets/test.dat");
+  CBytesBuilder *bye = initCBytesBuilderFromPath(newCBytesBuilder(mem), "./core/assets/test.dat");
 
   CBytes *v = cbytesBuilder_newBytes(bye);
   if(

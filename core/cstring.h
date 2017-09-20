@@ -1,12 +1,10 @@
-#ifndef _H_CSTRING
-#define _H_CSTRING
-//typedef int (*free)(int n);
+#ifndef _H_CString
+#define _H_CString
 
+#include "ccore_inner.h"
 #include "cmemory.h"
 #include "cobject.h"
 
-
-#define CSTRING_NAME "str"
 
 // UTF8
 typedef struct {
@@ -19,6 +17,9 @@ typedef struct {
 CString* newCString(CMemory*);
 CString* initCString(CString* obj, char *value);
 CString* initCStringWithLength(CString* obj, char *value, int byteLength);
+CString* createCString(char *value);
+CString* createCStringWithLength(char *value, int byteLength);
+
 int cstring_getLength(CString* obj);
 int cstring_getByteLength(CString* obj);
 char* cstring_getBytes(CString* obj);

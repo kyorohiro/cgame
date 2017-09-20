@@ -1,13 +1,13 @@
-#ifndef _H_CEXCEPT
-#define _H_CEXCEPT
-//typedef int (*free)(int n);
+#ifndef _H_CException
+#define _H_CException
 
+#include "ccore_inner.h"
 #include "cmemory.h"
 #include "cobject.h"
 #include "clinkedList.h"
 #include <setjmp.h>
 
-#define CEXCEPT_NAME "cex"
+
 //
 #define CTry if(0 == setjmp(cexception_addLast(getCException())->value))
 #define CCatch else if(1 == cexception_rmLast(getCException()))

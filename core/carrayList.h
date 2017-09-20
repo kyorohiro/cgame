@@ -1,12 +1,8 @@
 #ifndef _H_CArrayList
 #define _H_CArrayList
+
+#include "ccore_inner.h"
 #include "cobject.h"
-
-#define CcarrayList_NAME "ali"
-
-//
-// CArrayList
-//
 
 typedef struct {
   CObject parent;
@@ -17,6 +13,8 @@ typedef struct {
 
 CArrayList* newCArrayList(CMemory* cmemory);
 CArrayList* initCArrayList(CArrayList *obj, int max);
+CArrayList* createCArrayList(int max);
+
 CArrayList* carrayList_openAll(CArrayList *obj);
 CArrayList* carrayList_addLast(CArrayList* obj, CObject *item);
 CArrayList* carrayList_removeLast(CArrayList* obj);

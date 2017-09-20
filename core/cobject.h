@@ -1,16 +1,15 @@
-#ifndef _H_OBJECT
-#define _H_OBJECT
-//typedef int (*free)(int n);
+#ifndef _H_CObject
+#define _H_CObject
 
+#include "ccore_inner.h"
 #include "cmemory.h"
-
-#define COBJECT_MODE_FREEABLE 0x01
-#define COBJECT_NAME "obj"
 
 typedef void (*CObjectFuncFree)(void *obj);
 typedef int (*CObjectFuncHashCode)(void *obj);
 typedef int (*CObjectFuncCompareTo)(void *obj, void *src);
 typedef int (*CObjectFuncEquals)(void *obj, void *src);
+
+#define COBJECT_MODE_FREEABLE 0x01
 
 typedef struct {
   char name[8];
@@ -27,6 +26,8 @@ typedef struct {
 CObject* newCObject(CMemory*);
 CObject* initCObject(CObject*obj, const char *name);
 CObject* initCObjectRock(CObject*obj, const char *name);
+CObject* createCObject();
+
 CObject* cobject_updateName(CObject*obj, const char *name);
 CObject* releaseCObject(CObject* obj);
 CObject* releaseForceCObject(CObject* obj);

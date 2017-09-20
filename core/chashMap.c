@@ -15,11 +15,15 @@ CHashMap* newCHashMap(CMemory* cmemory) {
 }
 
 CHashMap* initCHashMap(CHashMap *obj, int size) {
-  initCObject((CObject*)obj, CHASHMAP_NAME);
+  initCObject((CObject*)obj, CHashMap_NAME);
   obj->index = initCArrayList(newCArrayList(cobject_getCMemory((CObject*)obj)), size);
   carrayList_openAll(obj->index);
 //  obj->cache = initCLinkedList(newCLinkedList(cobject_getCMemory((CObject*)obj)));
   return obj;
+}
+
+CHashMap* createCHashMap(int size) {
+  return initCHashMap(newCHashMap(getCMemory()), size);
 }
 
 void freeCHashMap(void* obj) {
@@ -100,7 +104,7 @@ CHashMapItem* newCHashMapItem(CMemory* cmemory) {
 }
 
 CHashMapItem* initCHashMapItem(CHashMapItem *obj, CObject *key, CObject *value) {
-  initCObject((CObject*)obj, CHASHMAP_ITEM_NAME);
+  initCObject((CObject*)obj, CHashMapItem_NAME);
   obj->key = cobject_upCounter(key);
   obj->value = cobject_upCounter(value);
   return obj;

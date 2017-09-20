@@ -1,6 +1,5 @@
-#ifndef _H_MALLOC
-#define _H_MALLOC
-//typedef int (*free)(int n);
+#ifndef _H_CMemory
+#define _H_CMemory
 
 typedef void* (*FuncCalloc)(void* obj,int num, int size);
 typedef void (*FuncFree)(void* obj,void *ptr);
@@ -12,7 +11,6 @@ typedef struct {
   FuncCalloc calloc;
   FuncFree free;
 } CMemory;
-
 
 CMemory* newCMemory();
 CMemory* initCMemory(CMemory* obj);

@@ -3,10 +3,6 @@
 #include <stdio.h>
 
 
-// for util
-//#include "cbytes.h"
-//#include "cbytesBuilder.h"
-
 void _freeCString(void* obj);
 
 CString* newCString(CMemory* cmemory) {
@@ -14,6 +10,14 @@ CString* newCString(CMemory* cmemory) {
   ret->parent.cmemory = cmemory;
   ret->parent.funcFree = _freeCString;
   return ret;
+}
+
+CString* createCString(char *value) {
+  return initCString(newCString(getCMemory()), value);
+}
+
+CString* createCStringWithLength(char *value, int byteLength) {
+  return initCStringWithLength(newCString(getCMemory()), value, byteLength);
 }
 
 void _freeCString(void* obj) {
@@ -56,7 +60,7 @@ CString* calcLength(CString* obj, char *value, int byteLengthSrc) {
 }
 
 CString* initCString(CString* obj, char *value) {
-  initCObject((CObject *)obj, CSTRING_NAME);
+  initCObject((CObject *)obj, CString_NAME);
   calcLength(obj, value, -1);
   obj->value = (char*)cmemory_calloc(obj->parent.cmemory, 1, sizeof(char)*obj->byteLength+1);
 
@@ -67,7 +71,7 @@ CString* initCString(CString* obj, char *value) {
 }
 
 CString* initCStringWithLength(CString* obj, char *value, int byteLength) {
-  initCObject((CObject *)obj, CSTRING_NAME);
+  initCObject((CObject *)obj, CString_NAME);
   calcLength(obj, value, byteLength);
   obj->value = (char*)cmemory_calloc(obj->parent.cmemory, 1, sizeof(char)*obj->byteLength+1);
   obj->parent.funcFree = _freeCString;

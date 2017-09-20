@@ -41,7 +41,7 @@ CException* newCException(CMemory* cmemory) {
 }
 
 CException* initCException(CException* obj) {
-  initCObject((CObject *)obj, CEXCEPT_NAME);
+  initCObject((CObject *)obj, CException_NAME);
   CMemory* cmemory = cobject_getCMemory((CObject *)obj);
   obj->stack = initCLinkedList(newCLinkedList(cmemory));
   return obj;

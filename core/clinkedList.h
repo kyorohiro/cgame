@@ -1,9 +1,12 @@
-#ifndef _H_LINKEDLIST
-#define _H_LINKEDLIST
+#ifndef _H_CLinkedListItem
+#define _H_CLinkedListItem
+
+#include "ccore_inner.h"
+#include "cmemory.h"
 #include "cobject.h"
 #include "clinkedList.h"
 
-#define CLINKEDLIST_NAME "lli"
+
 //
 // LinkedList
 //
@@ -24,6 +27,7 @@ typedef struct {
 
 CLinkedList* newCLinkedList(CMemory* cmemory);
 CLinkedList* initCLinkedList(CLinkedList *obj);
+CLinkedList* createCLinkedList();
 
 CObject* clinkedList_get(CLinkedList* obj, int index);
 CLinkedListItem* clinkedList_getItem(CLinkedList* obj, int index);

@@ -16,10 +16,14 @@ CEventObserver* newCEventObserver(CMemory* cmemory) {
 }
 
 CEventObserver* initCEventObserver(CEventObserver* obj, CObject *context, CEventFuncOnEvent onEvent) {
-  initCObject((CObject *)obj, CEVENT_OBSERVER_NAME);
+  initCObject((CObject *)obj, CEventObserver_NAME);
   obj->context = cobject_upCounter(context);
   obj->onEvent = onEvent;
   return obj;
+}
+
+CEventObserver* createCEventObserver(CObject *context, CEventFuncOnEvent onEvent) {
+  return initCEventObserver(newCEventObserver(getCMemory()), context, onEvent);
 }
 
 void _freeCEventObserver(void* obj) {
@@ -40,16 +44,19 @@ CEventDispatcher* newCEventDispatcher(CMemory* cmemory) {
 }
 
 CEventDispatcher* initCEventDispatcher(CEventDispatcher* obj) {
-  initCObject((CObject *)obj, CEVENT_DISPATCHER_NAME);
+  initCObject((CObject *)obj, CEventDispatcher_NAME);
   CMemory* cmemory = cobject_getCMemory((CObject*)obj);
   obj->observers = initCLinkedList(newCLinkedList(cmemory));
   return obj;
 }
 
+CEventDispatcher* createCEventDispatcher(CEventDispatcher* obj) {
+  return initCEventDispatcher(newCEventDispatcher(getCMemory()));
+}
+
 void _freeCEventDispatcher(void* obj) {
   if(obj == NULL) {return;}
   CEventDispatcher* dispatchObj = obj;
-//  printf(">> %d \r\n", ((CObject*)dispatchObj->observers)->reference);
   releaseCObject((CObject*)dispatchObj->observers);
   freeCObject(obj);
 }

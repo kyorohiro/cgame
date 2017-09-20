@@ -11,7 +11,7 @@ CBytes* newCBytes(CMemory* cmemory) {
 }
 
 CBytes* initCBytes(CBytes* obj, char *value, int length) {
-  initCObject((CObject *)obj, CBYTE_NAME);
+  initCObject((CObject *)obj, CBytes_NAME);
   CMemory* memory = cobject_getCMemory((CObject *)obj);
   obj->length = length;
   obj->value = (char*)cmemory_calloc(memory, 1, sizeof(char)*obj->length);
@@ -20,6 +20,10 @@ CBytes* initCBytes(CBytes* obj, char *value, int length) {
     memcpy(obj->value, value, obj->length);
   }
   return obj;
+}
+
+CBytes* createCBytes(char *value, int length) {
+  return initCBytes(newCBytes(getCMemory()), value, length);
 }
 
 void _freeCBytes(void* obj) {

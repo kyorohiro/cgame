@@ -31,6 +31,10 @@ CObject* initCObject(CObject*obj, const char *name) {
   return obj;
 }
 
+CObject* createCObject() {
+  return initCObject(newCObject(getCMemory()), CObject_NAME);
+}
+
 void freeCObject(void* obj) {
   if(obj != NULL && ((CObject*)obj)->cmemory != NULL) {
     cmemory_free(((CObject*)obj)->cmemory, obj);

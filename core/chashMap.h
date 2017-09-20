@@ -1,12 +1,12 @@
 
-#ifndef _H_HASHMAP
-#define _H_HASHMAP
+#ifndef _H_CHashMap
+#define _H_CHashMap
+
+#include "ccore_inner.h"
+#include "cmemory.h"
 #include "cobject.h"
 #include "clinkedList.h"
 #include "carrayList.h"
-
-#define CHASHMAP_NAME "hma"
-#define CHASHMAP_ITEM_NAME "hmi"
 
 typedef struct {
   CObject parent;
@@ -22,6 +22,8 @@ typedef struct {
 
 CHashMap* newCHashMap(CMemory* cmemory);
 CHashMap* initCHashMap(CHashMap *obj, int size);
+CHashMap* createCHashMap(int size);
+
 CHashMapItem* newCHashMapItem(CMemory* cmemory);
 CHashMapItem* initCHashMapItem(CHashMapItem *obj, CObject *key, CObject *value);
 CHashMap* chashMap_put(CHashMap *obj, CObject *key, CObject *value);
