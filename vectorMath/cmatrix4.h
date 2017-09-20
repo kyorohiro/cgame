@@ -5,7 +5,7 @@
 
 #include "core/cobject.h"
 #include "core/cmemory.h"
-#include "cmatrix_inner.h"
+#include "cvectorMath_inner.h"
 #include "cvector4.h"
 
 

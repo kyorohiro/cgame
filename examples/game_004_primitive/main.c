@@ -3,7 +3,7 @@
 #include "game/cobject3d.h"
 #include "game/cprimitive3d.h"
 #include "game/ccamera3d.h"
-#include "vectorMath/cmatrix.h"
+#include "vectorMath/cvectorMath.h"
 #include "vectorMath/cmatrix4.h"
 #include "vectorMath/cmatrix_proj.h"
 

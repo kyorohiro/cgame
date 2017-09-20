@@ -3,7 +3,7 @@
 
 #include "core/cobject.h"
 #include "core/cmemory.h"
-#include "cmatrix_inner.h"
+#include "cvectorMath_inner.h"
 #include "cmatrix4.h"
 #include "cmatrix3.h"
 #include "cvector3.h"

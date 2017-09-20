@@ -5,7 +5,7 @@
 #include "core/cobject.h"
 #include "core/cmemory.h"
 #include "cvector3.h"
-#include "cmatrix_inner.h"
+#include "cvectorMath_inner.h"
 
 
 typedef struct {

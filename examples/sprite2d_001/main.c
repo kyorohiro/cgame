@@ -3,7 +3,7 @@
 #include "game/cobject3d.h"
 #include "game/cprimitive3d.h"
 #include "game/ccamera3d.h"
-#include "vectorMath/cmatrix.h"
+#include "vectorMath/cvectorMath.h"
 #include "app/capp.h"
 #include "core/cobject.h"
 #include "sprite2d/csprite2d.h"

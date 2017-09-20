@@ -3,7 +3,7 @@
 
 #include "core/cobject.h"
 #include "core/cmemory.h"
-#include "cmatrix_inner.h"
+#include "cvectorMath_inner.h"
 
 
 typedef CVMFloat CVector3Raw[3];
