@@ -48,11 +48,11 @@ rule obj
 rule lib
   command=${cmd} ${ar} rcs $out $in
 rule testCore
-  command=${cmd} ${cc} $in -o $out -L./core -lcore
+  command=${cmd} ${cc} $in -o $out
 rule testVectorMath
-  command=${cmd} ${cc} $in -o $out -L./core -lcore  -L./vectorMath -lvectorMath
+  command=${cmd} ${cc} $in -o $out
 rule testGame
-  command=${cmd} ${cc} $in -o $out -L./core -lcore  -L./vectorMath -lvectorMath
+  command=${cmd} ${cc} $in -o $out
 rule app
   command=${cmd} ${cc} $in -o $out -DPLATFORM_OSX -O2 ${linkSDK} -L${libSDL} -L${libSDLImage} -L${libSDLTTF} -L${libSDLMixer}
 rule appEx
