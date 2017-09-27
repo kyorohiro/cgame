@@ -1,6 +1,6 @@
 #include "cttf.h"
 #include <stdio.h>
-#include <SDL_opengl.h>
+#include "cglu.h"
 #include "cimage.h"
 #include "core/cexception.h"
 

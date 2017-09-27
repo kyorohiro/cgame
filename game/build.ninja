@@ -25,4 +25,4 @@ build ${baseP}${sep}test.${objExt}: obj ${baseP}${sep}test.c
 build ${baseP}${sep}cobject3d_test.${objExt}: obj ${baseP}${sep}cobject3d_test.c
 build ${baseP}${sep}croot3d_test.${objExt}: obj ${baseP}${sep}croot3d_test.c
 
-build ${baseP}${sep}test.${appExt}: test core/libcore.${objLib} vectorMath/libvectorMath.${objLib} ${baseP}${sep}/libgame.${objLib} ${baseP}${sep}test.${objExt} ${baseP}${sep}cobject3d_test.${objExt} ${baseP}${sep}croot3d_test.${objExt}
+build ${baseP}${sep}test.${appExt}: testGame core/libcore.${objLib} vectorMath/libvectorMath.${objLib} ${baseP}${sep}/libgame.${objLib} ${baseP}${sep}test.${objExt} ${baseP}${sep}cobject3d_test.${objExt} ${baseP}${sep}croot3d_test.${objExt}

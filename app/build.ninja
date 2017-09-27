@@ -5,5 +5,7 @@ build ${baseP}${sep}cmixer.${objExt}: obj ${baseP}${sep}cmixer.c
 build ${baseP}${sep}cimage.${objExt}: obj ${baseP}${sep}cimage.c
 build ${baseP}${sep}cttf.${objExt}: obj ${baseP}${sep}cttf.c
 build ${baseP}${sep}cdynaTexAtlas.${objExt}: obj ${baseP}${sep}cdynaTexAtlas.c
+build ${baseP}${sep}cdynablock.${objExt}: obj ${baseP}${sep}cdynablock.c
 
-build ${baseP}${sep}libapp.${objLib}: lib ${baseP}${sep}capp.${objExt} ${baseP}${sep}cglu.${objExt} ${baseP}${sep}cmixer.${objExt} ${baseP}${sep}cimage.${objExt} ${baseP}${sep}cttf.${objExt} ${baseP}${sep}cdynaTexAtlas.${objExt}
+
+build ${baseP}${sep}libapp.${objLib}: lib ${baseP}${sep}capp.${objExt} ${baseP}${sep}cglu.${objExt} ${baseP}${sep}cmixer.${objExt} ${baseP}${sep}cimage.${objExt} ${baseP}${sep}cttf.${objExt} ${baseP}${sep}cdynaTexAtlas.${objExt} ${baseP}${sep}cdynablock.${objExt}

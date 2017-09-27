@@ -1,6 +1,6 @@
 #include "cimage.h"
 #include <stdio.h>
-#include <SDL_opengl.h>
+#include "cglu.h"
 #include <string.h>
 
 CImageMgr* newCImageMgr(CMemory* mem);

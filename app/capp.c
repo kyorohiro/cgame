@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <SDL.h>
 #include <SDL_events.h>
-#include <SDL_opengl.h>
+
 //
 #ifdef PLATFORM_EMCC
 #include <emscripten.h>
@@ -137,7 +137,14 @@ CApp* capp_init(CApp* obj) {
     printf("failed to create window\n");
     return obj;
   }
-  obj->renderer = SDL_CreateRenderer(obj->window, -1, 0);
+  obj->glContext = SDL_GL_CreateContext(obj->window);
+#ifdef PLATFORM_MINGW
+  glewExperimental = GL_TRUE; 
+  GLenum glewError = glewInit();
+  if( glewError != GLEW_OK ) {
+      printf( "Failed at glewInit! %s\n", glewGetErrorString( glewError ) );
+  }
+#endif
 #else
   obj->screen = SDL_SetVideoMode( obj->width, obj->height, 0, SDL_HWSURFACE|SDL_OPENGL| SDL_DOUBLEBUF );
   if (obj->screen == NULL) {
@@ -234,7 +241,7 @@ CApp* capp_flushBuffers(CApp* obj) {
   // glutSwapBuffers();
   //SDL_GL_SwapWindow(obj->window);
 #ifdef USE_SDL_2
-  SDL_RenderPresent(obj->renderer);
+  SDL_GL_SwapWindow(obj->window);
 #else
   SDL_GL_SwapBuffers();
 #endif

@@ -45,15 +45,21 @@ linkSDK = -lSDL2main -lSDL2 -lSDL2_mixer -lSDL2_ttf -lSDL2_image -framework Open
 
 rule obj
   command=${cmd} ${cc} -c $in -o $out -I.. -I. -O2 -I${incSDL} -I${incSDLImage} -I${incSDLTTF} -I${incSDLMixer}  -DPLATFORM_OSX -DUSE_SDL_${sdlVersion} -Wmacro-redefined
-rule test
-  command=${cmd} ${cc} $in -o $out -DPLATFORM_OSX -DUSE_SDL_${sdlVersion}
 rule lib
   command=${cmd} ${ar} rcs $out $in
-rule exe
-  command=${cmd} ${cc} $in -o $out -DPLATFORM_OSX -O2 ${linkSDK} -L${libSDL} -L${libSDLImage} -L${libSDLTTF} -L${libSDLMixer}
+rule testCore
+  command=${cmd} ${cc} $in -o $out -L./core -lcore
+rule testVectorMath
+  command=${cmd} ${cc} $in -o $out -L./core -lcore  -L./vectorMath -lvectorMath
+rule testGame
+  command=${cmd} ${cc} $in -o $out -L./core -lcore  -L./vectorMath -lvectorMath
 rule app
   command=${cmd} ${cc} $in -o $out -DPLATFORM_OSX -O2 ${linkSDK} -L${libSDL} -L${libSDLImage} -L${libSDLTTF} -L${libSDLMixer}
 rule appEx
+  command=${cmd} ${cc} $in -o $out -DPLATFORM_OSX -O2 ${linkSDK} -L${libSDL} -L${libSDLImage} -L${libSDLTTF} -L${libSDLMixer}
+rule game
+  command=${cmd} ${cc} $in -o $out -DPLATFORM_OSX -O2 ${linkSDK} -L${libSDL} -L${libSDLImage} -L${libSDLTTF} -L${libSDLMixer}
+rule gameEx
   command=${cmd} ${cc} $in -o $out -DPLATFORM_OSX -O2 ${linkSDK} -L${libSDL} -L${libSDLImage} -L${libSDLTTF} -L${libSDLMixer}
 
 
@@ -63,7 +69,6 @@ rule appEx
 # core
 subninja core${sep}build.ninja
 subninja vectorMath${sep}build.ninja
-subninja utils${sep}build.ninja
 
 #
 # game

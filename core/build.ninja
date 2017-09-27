@@ -33,4 +33,4 @@ build core${sep}cexception_test.${objExt}: obj core${sep}cexception_test.c
 
 #
 # Test
-build core/test.${appExt}: test core/libcore.${objLib} core/test.${objExt} core/cbytes_test.${objExt} core/cstring_test.${objExt} core/clinkedList_test.${objExt} core/carrayList_test.${objExt} core/cbytesBuilder_test.${objExt} core${sep}chashMap_test.${objExt} core${sep}cevent_test.${objExt} core${sep}cexception_test.${objExt}
+build core/test.${appExt}: testCore core/libcore.${objLib} core/test.${objExt} core/cbytes_test.${objExt} core/cstring_test.${objExt} core/clinkedList_test.${objExt} core/carrayList_test.${objExt} core/cbytesBuilder_test.${objExt} core${sep}chashMap_test.${objExt} core${sep}cevent_test.${objExt} core${sep}cexception_test.${objExt}

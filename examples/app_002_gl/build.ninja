@@ -1,3 +1,3 @@
 baseP = examples${sep}app_002_gl
 build ${baseP}${sep}main.${objExt}: obj ${baseP}${sep}main.c
-build ${baseP}${sep}main.${exaExt}: exe ${baseP}${sep}main.${objExt} app${sep}libapp.${objLib} core${sep}libcore.${objLib} vectorMath${sep}libvectorMath.${objLib} utils/libUtils.${objLib}
+build ${baseP}${sep}main.${exaExt}: app ${baseP}${sep}main.${objExt} app${sep}libapp.${objLib} core${sep}libcore.${objLib} vectorMath${sep}libvectorMath.${objLib} 

@@ -4,7 +4,7 @@
 #include "core/cobject.h"
 #include "core/cmemory.h"
 
-#include "utils/cdynablock.h"
+#include "cdynablock.h"
 #include "cimage.h"
 #include "cttf.h"
 

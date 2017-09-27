@@ -1,4 +1,5 @@
 #include "cmixer.h"
+#include <stdio.h>
 
 CMixer* newCMixer(CMemory* mem);
 CMixer* initCMixer(CMixer* obj);

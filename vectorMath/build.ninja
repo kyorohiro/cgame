@@ -27,4 +27,4 @@ build vectorMath/cmatrix2_test.${objExt}: obj vectorMath/cmatrix2_test.c
 build vectorMath/cray_test.${objExt}: obj vectorMath/cray_test.c
 build vectorMath/test.${objExt}: obj vectorMath/test.c
 
-build vectorMath/test.${appExt}: test core/libcore.${objLib} vectorMath/libvectorMath.${objLib} vectorMath/test.${objExt} vectorMath/cmatrix4_test.${objExt} vectorMath/cvector4_test.${objExt} vectorMath/cvector3_test.${objExt} vectorMath/cmatrix_proj_test.${objExt} vectorMath/cray_test.${objExt}  vectorMath/cvector2_test.${objExt} vectorMath/cmatrix2_test.${objExt} vectorMath/cmatrix3_test.${objExt}
+build vectorMath/test.${appExt}: testVectorMath core/libcore.${objLib} vectorMath/libvectorMath.${objLib} vectorMath/test.${objExt} vectorMath/cmatrix4_test.${objExt} vectorMath/cvector4_test.${objExt} vectorMath/cvector3_test.${objExt} vectorMath/cmatrix_proj_test.${objExt} vectorMath/cray_test.${objExt}  vectorMath/cvector2_test.${objExt} vectorMath/cmatrix2_test.${objExt} vectorMath/cmatrix3_test.${objExt}
