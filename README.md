@@ -7,6 +7,7 @@ to use emscripten.
 ## Rel
 - https://github.com/kyorohiro/ccore
 - https://github.com/kyorohiro/cvectorMath
+- https://github.com/kyorohiro/capp
 - https://github.com/kyorohiro/cgame
 
 ## LICENSE
